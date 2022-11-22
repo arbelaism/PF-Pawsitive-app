@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         })
 
-        res.status(200).json({ message: "created" })
+        res.status(200).json({ message: "created " })
     } catch (error) {
         console.log(error)
         res.status(400).json({ message: "error" })
