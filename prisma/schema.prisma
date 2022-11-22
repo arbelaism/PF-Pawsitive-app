@@ -11,17 +11,17 @@ datasource db {
 }
 
 model User {
-  id                  String                @id @default(uuid())
-  email               String                @unique
-  name                String
-  lastName            String
-  age                 Int
-  photo               String?
-  role                Role                  @default(BASIC)
-  password            String
-  adoptionPost        AdoptionPost[]
+  id                   String                 @id @default(uuid())
+  email                String                 @unique
+  name                 String
+  lastName             String
+  age                  Int
+  photo                String?
+  role                 Role                   @default(BASIC)
+  password             String
+  adoptionPost         AdoptionPost[]
   professionalBusiness ProfessionalBusiness[]
-  item                Item[]
+  item                 Item[]
 }
 
 enum Role {
@@ -54,7 +54,7 @@ model ProfessionalBusiness {
   id              String  @id @default(uuid())
   businessName    String
   contact         String
-  address          String?
+  address         String?
   description     String
   photo           String
   dni             BigInt  @unique
@@ -62,7 +62,7 @@ model ProfessionalBusiness {
   qualification   Float
   ownerBusiness   User    @relation(fields: [ownerBusinessId], references: [id])
   ownerBusinessId String
-  item           Item[]
+  item            Item[]
 }
 
 enum Type {
@@ -73,13 +73,13 @@ enum Type {
 }
 
 model Item {
-  id                  String                @id @default(uuid())
-  name                String
-  price               String
-  description         String
-  amount              String
-  photo               String
-  active              Boolean
+  id                   String                 @id @default(uuid())
+  name                 String
+  price                Float                  @default(0)
+  description          String
+  amount               Int
+  photo                String
+  active               Boolean
   professionalBusiness ProfessionalBusiness[]
-  user                User[]
+  user                 User[]
 }
