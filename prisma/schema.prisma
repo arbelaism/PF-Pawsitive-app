@@ -9,3 +9,77 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                  String                @id @default(uuid())
+  email               String                @unique
+  name                String
+  lastName            String
+  age                 Int
+  photo               String?
+  role                Role                  @default(BASIC)
+  password            String
+  adoptionPost        AdoptionPost[]
+  professionalBusiness ProfessionalBusiness[]
+  item                Item[]
+}
+
+enum Role {
+  BASIC
+  PROFESIONAL
+  ADMIN
+  INACTIVE
+}
+
+model AdoptionPost {
+  id         String   @id @default(uuid())
+  name       String?
+  size       Size
+  age        String
+  breed      String
+  photo      String?
+  active     Boolean
+  createdAt  DateTime @default(now())
+  userAdop   User     @relation(fields: [userAdopId], references: [id])
+  userAdopId String
+}
+
+enum Size {
+  small
+  medium
+  big
+}
+
+model ProfessionalBusiness {
+  id              String  @id @default(uuid())
+  businessName    String
+  contact         String
+  address          String?
+  description     String
+  photo           String
+  dni             BigInt  @unique
+  type            Type
+  qualification   Float
+  ownerBusiness   User    @relation(fields: [ownerBusinessId], references: [id])
+  ownerBusinessId String
+  item           Item[]
+}
+
+enum Type {
+  VETERINARY
+  SELLER
+  BARBER
+  KEEPER
+}
+
+model Item {
+  id                  String                @id @default(uuid())
+  name                String
+  price               String
+  description         String
+  amount              String
+  photo               String
+  active              Boolean
+  professionalBusiness ProfessionalBusiness[]
+  user                User[]
+}
