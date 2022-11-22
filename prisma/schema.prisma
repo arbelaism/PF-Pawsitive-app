@@ -57,7 +57,7 @@ model ProfessionalBusiness {
   address         String?
   description     String
   photo           String
-  dni             BigInt  @unique
+  dni             String  @unique
   type            Type
   qualification   Float
   ownerBusiness   User    @relation(fields: [ownerBusinessId], references: [id])
