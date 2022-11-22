@@ -20,8 +20,8 @@ model User {
   role                Role                  @default(BASIC)
   password            String
   adoptionPost        AdoptionPost[]
-  profesionalBusiness ProfesionalBusiness[]
-  item                Items[]
+  professionalBusiness ProfessionalBusiness[]
+  item                Item[]
 }
 
 enum Role {
@@ -50,11 +50,11 @@ enum Size {
   big
 }
 
-model ProfesionalBusiness {
+model ProfessionalBusiness {
   id              String  @id @default(uuid())
   businessName    String
   contact         String
-  adress          String?
+  address          String?
   description     String
   photo           String
   dni             BigInt  @unique
@@ -62,7 +62,7 @@ model ProfesionalBusiness {
   qualification   Float
   ownerBusiness   User    @relation(fields: [ownerBusinessId], references: [id])
   ownerBusinessId String
-  items           Items[]
+  item           Item[]
 }
 
 enum Type {
@@ -72,7 +72,7 @@ enum Type {
   KEEPER
 }
 
-model Items {
+model Item {
   id                  String                @id @default(uuid())
   name                String
   price               String
@@ -80,6 +80,6 @@ model Items {
   amount              String
   photo               String
   active              Boolean
-  profesionalBusiness ProfesionalBusiness[]
+  professionalBusiness ProfessionalBusiness[]
   user                User[]
 }
