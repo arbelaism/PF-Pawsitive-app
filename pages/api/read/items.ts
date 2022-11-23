@@ -28,5 +28,4 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
         console.log(error)
         res.status(400).json({ message: "Error: " +error })
     }
-
 }
