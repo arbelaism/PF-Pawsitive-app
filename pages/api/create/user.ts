@@ -3,19 +3,24 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { name, lastName, email, age, role, password } = req.body;
+    const { email, name, lastName, age, photo, role, password } = req.body;
     try {
-        await prisma.user.create({
+        const newUser = await prisma.user.create({
             data: {
+                email,
                 name,
                 lastName,
-                email,
                 age,
+                photo,
                 role,
-                password
+                password,
             }
         })
-        res.status(200).json({ message: "created" })
+        newUser ?
+            res.status(200).json({ message: "created" })
+            :
+            res.status(400).json({ message: "could not create user" })
+
     } catch (error) {
         console.log(error)
         res.status(400).json({ message: "error" })
