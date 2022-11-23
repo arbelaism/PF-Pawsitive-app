@@ -4,9 +4,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { name, price, description, amount, photo, active, user } = req.body;
+    const { name, price, description, amount, photo, active, userId } = req.body;
     try {
-        if(!user){
+        if(!userId){
 
             await prisma.item.create({
                 data: {
@@ -20,6 +20,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             })
         }
         else{
+            const professional = await prisma.professionalBusiness.findFirst({
+                where : {
+                    ownerBusiness : {
+                        is : {
+                            id : userId
+                        }
+                    }
+                },
+                select : {
+                    id : true,
+                }
+            })
+
             await prisma.item.create({
                 data: {
                     name,
@@ -29,7 +42,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     photo,
                     active,
                     user: {
-                        connect: [{id: user}]
+                        connect: [{id: userId}]
+                    },
+                    professionalBusiness : {
+                        connect : [{id: professional?.id}]
                     }
                 }
             })

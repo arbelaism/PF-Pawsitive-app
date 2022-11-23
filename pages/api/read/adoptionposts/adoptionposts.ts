@@ -13,7 +13,14 @@ export default async function getPosts(req: NextApiRequest, res: NextApiResponse
                 size: true,
                 age: true,
                 breed: true,
-                photo: true                
+                photo: true,
+                userAdop :{
+                    select :{
+                        name : true,
+                        lastName : true,
+                        email : true,
+                    }
+                }           
             }
         })
         res.status(200).json(posts)
