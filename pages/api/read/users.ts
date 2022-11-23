@@ -6,7 +6,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     try {
         const users = await prisma.user.findMany({
             include: {
-                professionalBusiness: true,
+                profesionalBusiness: true,
             }
         })
         res.status(200).json(users)

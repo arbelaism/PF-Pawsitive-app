@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 
 export default async function getItems(req: NextApiRequest, res: NextApiResponse) {
-    //const { name, price, description, amount, photo, active, usuario } = req.body;
+    
     try {       
 
         const Items = await prisma.items.findMany({
@@ -27,7 +27,7 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
         res.status(200).json(Items)
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "error" })
+        res.status(400).json({ message: "Error: " +error })
     }
 
 }

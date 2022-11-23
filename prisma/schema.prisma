@@ -34,7 +34,7 @@ model AdoptionPost {
   id         String   @id @default(uuid())
   name       String?
   size       Size
-  age        String
+  age        Int
   breed      String
   photo      String?
   active     Boolean
