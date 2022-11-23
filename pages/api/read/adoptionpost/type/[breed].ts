@@ -7,8 +7,8 @@ export default async function handler(
 ) {
   const breed = req.query.breed;
   try {
-    if (breed) {
-      const post = await prisma.adoptionPost.findUnique({
+    if (breed) { 
+      const post = await prisma.adoptionPost.findMany({
         where: {
           breed: String(breed),
         },
