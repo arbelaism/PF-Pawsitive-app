@@ -5,6 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { businessName, contact, address, description, photo, dni, type, qualification, ownerBusinessId  } = req.body;
     try {
         await prisma.professionalBusiness.create({
+
             data: {
                 businessName,
                 contact,
@@ -17,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 ownerBusinessId,  
             }
         })
-
+ 
         res.status(200).json({ message: "created " })
     } catch (error) {
         console.log(error)
