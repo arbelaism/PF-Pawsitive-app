@@ -8,10 +8,8 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {
-    "@prisma/client": "^4.6.1",
-    "next": "12.3.3",
-    "next": "12.3.3",
+  "dependencies": {    
+    "next": "12.3.3",    
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },

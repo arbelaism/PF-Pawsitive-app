@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,18 +6,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id                  String                @id @default(uuid())
-  email               String                @unique
-  name                String
-  lastName            String
-  age                 Int
-  photo               String?
-  role                Role                  @default(BASIC)
-  password            String
-  adoptionPost        AdoptionPost[]
+  id                   String                 @id @default(uuid())
+  email                String                 @unique
+  name                 String
+  lastName             String
+  age                  Int
+  photo                String?
+  role                 Role                   @default(BASIC)
+  password             String
+  adoptionPost         AdoptionPost[]
   professionalBusiness ProfessionalBusiness[]
-  item                Items[]
+  item                 Item[]
 }
 
 enum Role {
@@ -34,7 +32,7 @@ model AdoptionPost {
   id         String   @id @default(uuid())
   name       String?
   size       Size
-  age        Int
+  age        String
   breed      String
   photo      String?
   active     Boolean
@@ -48,20 +46,20 @@ enum Size {
   medium
   big
 }
-
+ 
 model ProfessionalBusiness {
   id              String  @id @default(uuid())
   businessName    String
   contact         String
-  adress          String?
+  address         String?
   description     String
   photo           String
-  dni             BigInt  @unique
+  dni             String  @unique
   type            Type
   qualification   Float
   ownerBusiness   User    @relation(fields: [ownerBusinessId], references: [id])
   ownerBusinessId String
-  items           Items[]
+  item            Item[]
 }
 
 enum Type {
@@ -71,14 +69,14 @@ enum Type {
   KEEPER
 }
 
-model Items {
-  id                  String                @id @default(uuid())
-  name                String
-  price               Float                 @default(0)
-  description         String
-  amount              Int
-  photo               String
-  active              Boolean
+model Item {
+  id                   String                 @id @default(uuid())
+  name                 String
+  price                Float                  @default(0)
+  description          String
+  amount               Int
+  photo                String
+  active               Boolean
   professionalBusiness ProfessionalBusiness[]
-  user                User[]
+  user                 User[]
 }
