@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function disbleItem(req: NextApiRequest, res: NextApiResponse){
@@ -6,7 +6,7 @@ export default async function disbleItem(req: NextApiRequest, res: NextApiRespon
     const { id } = req.body
 
     try {
-        const item = await prisma.items.update({
+        const item = await prisma.item.update({
             where: {
               id: id,
             },

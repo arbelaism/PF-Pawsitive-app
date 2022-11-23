@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { name, size, age, breed, photo, active, user } = req.body;
+    const { name, size, age, breed, photo, active, userId } = req.body;
     try {
             const newPost = await prisma.adoptionPost.create({
                 data: {
@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     breed,
                     photo,
                     active,
-                    userAdopId: user
+                    userAdopId: userId
                 }
             })
         res.status(201).json(newPost)
