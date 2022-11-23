@@ -1,0 +1,73 @@
+.navContainer{
+    padding:0;
+    margin:0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    min-width: 700px;
+    color: rgb(18, 18, 18);
+    background-color: rgb(255, 255, 121);    
+}
+.logoContainer{
+    width: 15vw;
+    text-align: left;
+}
+.logoContainer span{
+    font-size: 25px;
+}
+
+/* "Paw" styles */
+.paw{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 100;
+}
+
+/* "sitive" styles */
+.sitive{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
+}
+
+/* Container Nav links */
+.linksContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50vw;
+    height: 22px;
+    justify-content: space-around;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;       
+}
+
+/*Nav links */
+.linksContainer div {
+    line-height: 17px;
+    width: max-content;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+/* These properties are gonna make bottom line effect */
+  .linksContainer div:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 0;
+    transition: width 0.3s ease, background-color 0.5s ease;
+  }
+  
+  .linksContainer div:hover:after {
+    width: 100%;
+    background: rgb(18, 18, 18);
+  }
+  
+  /* Sign up / Login */
+  .signUpContainer{
+    padding-right: 15px;
+  }
+  .signUpLink a{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+  }
