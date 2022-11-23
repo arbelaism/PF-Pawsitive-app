@@ -19,7 +19,7 @@ model User {
   role                Role                  @default(BASIC)
   password            String
   adoptionPost        AdoptionPost[]
-  profesionalBusiness ProfesionalBusiness[]
+  professionalBusiness ProfessionalBusiness[]
   item                Items[]
 }
 
@@ -49,7 +49,7 @@ enum Size {
   big
 }
 
-model ProfesionalBusiness {
+model ProfessionalBusiness {
   id              String  @id @default(uuid())
   businessName    String
   contact         String
@@ -71,26 +71,14 @@ enum Type {
   KEEPER
 }
 
-model Item {
-  id                   String                 @id @default(uuid())
-  name                 String
-  price                Float                  @default(0)
-  description          String
-  amount               Int
-  photo                String
-  active               Boolean
-  professionalBusiness ProfessionalBusiness[]
-  user                 User[]
-}
-
 model Items {
   id                  String                @id @default(uuid())
   name                String
-  price               Float
+  price               Float                 @default(0)
   description         String
   amount              Int
   photo               String
   active              Boolean
-  profesionalBusiness ProfesionalBusiness[]
+  professionalBusiness ProfessionalBusiness[]
   user                User[]
 }
