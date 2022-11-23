@@ -71,6 +71,18 @@ enum Type {
   KEEPER
 }
 
+model Item {
+  id                   String                 @id @default(uuid())
+  name                 String
+  price                Float                  @default(0)
+  description          String
+  amount               Int
+  photo                String
+  active               Boolean
+  professionalBusiness ProfessionalBusiness[]
+  user                 User[]
+}
+
 model Items {
   id                  String                @id @default(uuid())
   name                String
