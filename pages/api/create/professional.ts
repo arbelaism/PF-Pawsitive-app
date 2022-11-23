@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 dni,
                 type,
                 qualification,
-                ownerBusinessId,   //ownerBusinessId : user.id 
+                ownerBusinessId,  
             }
         })
 
