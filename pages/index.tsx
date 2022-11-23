@@ -1,14 +1,13 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
+import MainLayout from '../components/MainLayout'
 
 const Home: NextPage = () => {
     return (
-        <div>
-            <Head>
-                <title>Pawsitive - Home</title>
-            </Head>
-            <h1>Home component</h1>
-        </div>
+        <MainLayout title="Pawsitive - Home">
+            <div>
+                <h1>Home component</h1>
+            </div>
+        </MainLayout>
     )
 }
 
