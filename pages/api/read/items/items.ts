@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
@@ -7,7 +7,7 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
     
     try {       
 
-        const Items = await prisma.items.findMany({
+        const Items = await prisma.item.findMany({
             where:{
                 active:true
             },
@@ -15,7 +15,7 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
                 name: true,
                 price: true,
                 amount: true,
-                profesionalBusiness: {
+                professionalBusiness: {
                     select: {
                         businessName:true
                     }

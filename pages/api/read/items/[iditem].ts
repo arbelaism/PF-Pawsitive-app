@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function itemById(req: NextApiRequest, res: NextApiResponse){
@@ -7,12 +7,12 @@ export default async function itemById(req: NextApiRequest, res: NextApiResponse
     try {       
         if(iditem){
 
-            const item = await prisma.items.findUnique({
+            const item = await prisma.item.findUnique({
                 where:{
                    id: iditem.toString()
                 },
                 include:{                    
-                    profesionalBusiness: {
+                    professionalBusiness: {
                         select: {
                             businessName:true
                         }

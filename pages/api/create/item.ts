@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         if(!user){
 
-            await prisma.items.create({
+            await prisma.item.create({
                 data: {
                     name,
                     price,
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             })
         }
         else{
-            await prisma.items.create({
+            await prisma.item.create({
                 data: {
                     name,
                     price,
