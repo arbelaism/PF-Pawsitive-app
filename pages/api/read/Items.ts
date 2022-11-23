@@ -21,8 +21,7 @@ export default async function getItems(req: NextApiRequest, res: NextApiResponse
                     }
                 }
             }
-        })
-        
+        })        
         
         res.status(200).json(Items)
     } catch (error) {

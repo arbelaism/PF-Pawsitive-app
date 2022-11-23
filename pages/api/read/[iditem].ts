@@ -4,7 +4,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function itemById(req: NextApiRequest, res: NextApiResponse){
     
     const { iditem } = req.query
-
     try {       
         if(iditem){
 
