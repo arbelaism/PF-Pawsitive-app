@@ -20,7 +20,7 @@ const Footer: NextComponentType=()=>{
                     </ul>
                 </div> 
                 <div className={styles.footerCopyright}>
-                <p>@ Copyright 2022 Pawsitive App. Todos los derechos reservados.</p>
+                <p>@ Copyright 2022 Pawsitive App. Todos los derechos reservados</p>
                 </div>            
             </div>
 
