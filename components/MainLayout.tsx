@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Navbar, Footer } from './index'
+import { Navbar, Footer, AdoptionsScreen } from './index'
 
 type MainLayoutProps = {
     children: React.ReactNode
@@ -18,6 +18,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
+            <AdoptionsScreen/>
             <main>{children}</main>
             <Footer />
         </>
