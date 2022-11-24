@@ -26,7 +26,7 @@ model User {
 
 enum Role {
   BASIC
-  PROFESIONAL
+  PROFESSIONAL
   ADMIN
   INACTIVE
 }
