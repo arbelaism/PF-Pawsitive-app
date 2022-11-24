@@ -8,8 +8,12 @@ const Login: NextComponentType = () => {
             <p>Please log in to proceed.</p>
             <form className={styles.form}>
                 <img alt='logo'></img>
-                <input type='email' placeholder='Correo' className={styles.inputLogin}></input>
-                <input type='password' placeholder='Contraseña' className={styles.inputLogin}></input>
+
+                <label htmlFor='email'>Correo</label>
+                <input type='email' name='email' placeholder='Correo' className={styles.inputLogin}></input>
+
+                <label htmlFor='password'>Contraseña</label>
+                <input type='password' name='password' placeholder='Contraseña' className={styles.inputLogin}></input>
                 <button className={styles.buttonLogin}>Log in</button>
                 <button className={styles.buttonLogin}>Google</button>
             </form>

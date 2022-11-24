@@ -8,26 +8,26 @@ const SignUp: NextComponentType = () => {
             <p>Please sign up to proceed.</p>
             <form className={styles.formSignUp}>
                 <img alt='logo'></img>
-                <label htmlFor='Nombres'>Nombres</label>
-                <input type='text' placeholder='Nombres' className={styles.inputSignUp}></input>
+                <label htmlFor='names'>Nombres</label>
+                <input type='text' name='names' placeholder='Nombres' className={styles.inputSignUp}></input>
 
-                <label htmlFor='Apellidos'>Apellidos</label>
-                <input type='text' placeholder='Apellidos' className={styles.inputSignUp}></input>
+                <label htmlFor='lastNames'>Apellidos</label>
+                <input type='text' name='lastNames' placeholder='Apellidos' className={styles.inputSignUp}></input>
 
-                <label htmlFor='Fecha de nacimiento'>Fecha de nacimiento</label>
-                <input type='date' placeholder='Fecha de nacimiento' className={styles.inputSignUp}></input>
+                <label htmlFor='birthday'>Fecha de nacimiento</label>
+                <input type='date' name='birthday' placeholder='Fecha de nacimiento' className={styles.inputSignUp}></input>
 
-                <label htmlFor='Nacionalidad'>Nacionalidad</label>
-                <input type='text' placeholder='Nacionalidad' className={styles.inputSignUp}></input>
+                <label htmlFor='nationality'>Nacionalidad</label>
+                <input type='text' name='nationality' placeholder='Nacionalidad' className={styles.inputSignUp}></input>
 
-                <label htmlFor='Correo'>Correo</label>
-                <input type='email' placeholder='Correo' className={styles.inputSignUp}></input>
+                <label htmlFor='email'>Correo</label>
+                <input type='email' name='email' placeholder='Correo' className={styles.inputSignUp}></input>
 
-                <label htmlFor='Contraseña'>Contraseña</label>
-                <input type='password' placeholder='Contraseña' className={styles.inputSignUp}></input>
+                <label htmlFor='password'>Contraseña</label>
+                <input type='password' name='password' placeholder='Contraseña' className={styles.inputSignUp}></input>
 
-                <label htmlFor='Confirmar Contraseña'>Confirmar Contraseña</label>
-                <input type='password' placeholder='Confirmar Contraseña' className={styles.inputSignUp}></input>
+                <label htmlFor='confirmPassword'>Confirmar Contraseña</label>
+                <input type='password' name='confirmPassword' placeholder='Confirmar Contraseña' className={styles.inputSignUp}></input>
                 <button className={styles.buttonSignUp}>Sign un</button>
                 <button className={styles.buttonSignUp}>Google</button>
             </form>
