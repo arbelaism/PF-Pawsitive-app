@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -7,11 +7,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if(professionals.length > 0) {
             res.status(200).json(professionals)
         }else{
-            throw new Error
+            res.status(401).json({ message: "no professionals found" })
         }     
     } catch (error) {
         console.log(error)
         res.status(400).json({ message: "error " })
     }
-
 } 

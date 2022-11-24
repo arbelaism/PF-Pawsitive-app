@@ -9,6 +9,7 @@ export default async function getPosts(req: NextApiRequest, res: NextApiResponse
                 active:true
             },
             select:{
+                id: true,
                 name: true,
                 size: true,
                 age: true,
