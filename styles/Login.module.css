@@ -1,0 +1,59 @@
+.container{
+    margin-top: 5vh;
+    color: rgb(18, 18, 18);
+    background-color: rgb(255, 255, 121);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 60vw;
+    height: 80vh;
+}
+
+.titleLogin{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.form{
+    background-color: white;
+    width: 20vw;
+    height: 70vh;
+    padding: 5vh 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.inputLogin{
+    background-color: white;
+    border: 1px solid rgb(18, 18, 18);
+    border-radius: 5px;
+    padding: 3px;
+    width: 15vw;
+}
+
+.buttonLogin{
+    cursor: pointer;
+    background-color: rgb(255, 255, 121);
+    border-radius: 5px;
+    padding: 1vh ;
+    width: 10vw;
+}
+
+.secondContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    width: auto;
+}
+
+.secondContainer button{
+
+    margin: 1vw;
+}
