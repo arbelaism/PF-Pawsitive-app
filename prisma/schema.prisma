@@ -15,7 +15,7 @@ model User {
   email                String                 @unique
   name                 String
   lastName             String
-  age                  Int
+  birthday             String               
   photo                String?
   role                 Role                   @default(BASIC)
   password             String
@@ -45,9 +45,9 @@ model AdoptionPost {
 }
 
 enum Size {
-  small
-  medium
-  big
+  SMALL
+  MEDIUM
+  BIG
 }
 
 model ProfessionalBusiness {
