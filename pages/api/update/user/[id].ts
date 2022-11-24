@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const id = req.query.id
-    const { email, name, lastName, age, photo, role, password } = req.body
+    const { email, name, lastName, birthday, photo, role, password } = req.body
     try {
         const user = await prisma.user.update({
             where: { id: String(id) },
@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 email,
                 name,
                 lastName,
-                age,
+                birthday,
                 photo,
                 role,
                 password,
