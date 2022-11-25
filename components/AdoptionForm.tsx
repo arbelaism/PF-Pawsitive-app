@@ -7,22 +7,25 @@ interface AdoptFormInput {
     size?: string;
     age?: number;
     breed?: string;
-    photo?: string;
+    //photo?: File; //Se deshabilita la foto hasta que implementemos cloudinary
   }
 
 const AdoptionForm: NextComponentType = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<AdoptFormInput>();
 
     const onSubmit: SubmitHandler<AdoptFormInput> = async (data) => {
-        const dataplain = JSON.stringify({... data, active: true})
-        console.log(dataplain)
+        // const formData = new FormData();
+        // if(data.photo) formData.append('image', data.photo[0]);
+        // console.log(formData.image)
+        // const dataplain = JSON.stringify({... data, active: true})
+        // console.log(dataplain)
         await fetch('http://localhost:3000/api/create/adoptionpost', { 
             method: 'POST', 
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({... data, active: true, userId:"0fbabf3b-f938-4205-88a6-9de88f155ff9"}) })
+            body: JSON.stringify({... data, active: true, userId:"36c33827-1476-42dc-a64b-cbea76b6da62"}) })
         .then(res => console.log(res.json()))
 
     }
@@ -79,7 +82,9 @@ const AdoptionForm: NextComponentType = () => {
             <div className='mb-6'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Photo:</label>
                 <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                    id="photo" type="file" {...register("photo")} multiple accept='image/*'/>
+                    id="photo" type="file" accept='image/*'/>
+                {/* <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                    id="photo" type="file" {...register("photo")} accept='image/*'/> */}
             </div>
                 <p className='text-black-500 text-xs italic'>Please note that fields with * are required</p>
                 <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'type="submit">Register</button>

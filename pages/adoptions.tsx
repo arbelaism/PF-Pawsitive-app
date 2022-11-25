@@ -53,7 +53,7 @@ const Adoptions: NextPage = ({ adoptions }: Adop) => {
             {/*FILTROS*/}
 
             <div className="flex flex-wrap justify-center items-center">
-                {adoptions.length > 1
+                {adoptions.length > 0
                     ? adoptions.map((adoption: Adoption) => {
                           return (
                               <AdoptionCard
