@@ -2,7 +2,6 @@ import { prisma } from "../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { name, age, breed, photo, active, userId } = req.body;
     const size = req.body.size.toUpperCase();
