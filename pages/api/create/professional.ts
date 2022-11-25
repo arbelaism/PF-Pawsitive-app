@@ -14,6 +14,7 @@ export default async function handler(
     dni,
     type,
     qualification,
+    active,
     id,
   } = req.body;
   try {
@@ -26,6 +27,7 @@ export default async function handler(
         photo,
         dni,
         type,
+        active,
         qualification,
         ownerBusinessId: id,
       },
