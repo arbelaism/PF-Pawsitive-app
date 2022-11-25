@@ -1,6 +1,7 @@
 import { NextComponentType } from 'next'
 import style from '../styles/AdoptionsScreen.module.css'
 import Link from 'next/link'
+import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 
 const AdoptionsScreen: NextComponentType = () => {
     return (
@@ -21,13 +22,16 @@ const AdoptionsScreen: NextComponentType = () => {
             </div>
             <div className={style.buttonsContainerAdoptionsScreen}>
                 <Link href="/adoptions">
-                    <a className={style.buttonsAdoptionsScreen}>Adoptar</a>
-                </Link>
-                <Link href="/adopt">
                     <a className={style.buttonsAdoptionsScreen}>
-                        Dar en adopcion
+                        Ir a Adopciones
+                        <BsFillArrowRightCircleFill />
                     </a>
                 </Link>
+                {/* <Link href="/adopt"> */}
+                {/*     <a className={style.buttonsAdoptionsScreen}> */}
+                {/*         Dar en adopcion */}
+                {/*     </a> */}
+                {/* </Link> */}
             </div>
         </div>
     )
