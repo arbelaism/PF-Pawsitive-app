@@ -1,13 +1,20 @@
 import { prisma } from "../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
-
-
+export interface Post {
+    name: string
+    size: string
+    age: string
+    breed: string
+    photo: string
+    active: boolean
+    userAdopId: string
+  }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { name, age, breed, photo, active, userId } = req.body;
+    const { name, age, breed, photo, active, userAdopId }:Post = req.body;
     const size = req.body.size.toUpperCase();
     try {
-            if(userId){
+            if(userAdopId){
                 const newPost = await prisma.adoptionPost.create({
                     data: {
                         name,
@@ -16,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         breed,
                         photo,
                         active,
-                        userAdopId: userId
+                        userAdopId
                     }
                 })
                 res.status(201).json(newPost)
