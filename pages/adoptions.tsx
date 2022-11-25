@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
+import Link from 'next/link'
 import React from 'react'
-import { MainLayout, AdoptionCard } from '../components'
+import { MainLayout, AdoptionCard, AdoptionsComponent } from '../components'
 
 type Adop = {
     [key: string]: any
@@ -48,9 +49,15 @@ export const getServerSideProps: GetServerSideProps<{
 const Adoptions: NextPage = ({ adoptions }: Adop) => {
     return (
         <MainLayout title="Pawsitive - Adoptions">
-            <h1>Adoptions</h1>
+            <div className="px-4 py-2 w-full flex justify-between items-center">
+                <h1 className="text-3xl font-bold">Adoptions</h1>
+                <Link href={'/create'}>
+                    <a className="font-bold underline">Poner en adopción</a>
+                </Link>
+            </div>
 
             {/*FILTROS*/}
+            <AdoptionsComponent />
 
             <div className="flex flex-wrap justify-center items-center">
                 {adoptions.length > 1

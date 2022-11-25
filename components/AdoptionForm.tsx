@@ -7,7 +7,7 @@ interface AdoptFormInput {
     size?: string;
     age?: number;
     breed?: string;
-    photo?: string;
+    // photo?: string;
   }
 
 const AdoptionForm: NextComponentType = () => {
@@ -22,7 +22,7 @@ const AdoptionForm: NextComponentType = () => {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({... data, active: true, userId:"0fbabf3b-f938-4205-88a6-9de88f155ff9"}) })
+            body: JSON.stringify({... data, active: true, userId:"1"}) })
         .then(res => console.log(res.json()))
 
     }
@@ -47,7 +47,7 @@ const AdoptionForm: NextComponentType = () => {
                     <select className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
                         id="size" placeholder="Size" {...register("size", { required: true})} >
                         <option>Small</option>
-                        <option>Medium</option>
+                        <option>MEDIUM</option>
                         <option>Big</option>
                     </select>
                     {
@@ -76,11 +76,11 @@ const AdoptionForm: NextComponentType = () => {
                     }
                 </div>
             </div>
-            <div className='mb-6'>
+            {/*<div className='mb-6'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Photo:</label>
                 <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
                     id="photo" type="file" {...register("photo")} multiple accept='image/*'/>
-            </div>
+            </div>*/}
                 <p className='text-black-500 text-xs italic'>Please note that fields with * are required</p>
                 <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'type="submit">Register</button>
         </form>
