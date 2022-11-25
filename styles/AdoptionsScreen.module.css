@@ -8,9 +8,18 @@
     justify-content: center;
     justify-content: space-between;
     align-items: center;
+    gap: 40px;
     width: 95%;
-    height: 25vh;
-    cursor: pointer;
+    height: 65vh;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    flex: 1.5;
 }
 
 .titleAdoptionsScreen{
@@ -21,13 +30,21 @@
 
 .descriptionAdoptionsScreen{
     font-size: 1rem;
+    line-height: 1.50;
+    text-align: justify;
 }
 
 .buttonsContainerAdoptionsScreen{
-    flex-direction: row;
     padding: 1rem;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .buttonsAdoptionsScreen{
+    width: 150px;
+    border: 1px solid red;
+    padding: 1rem 2rem;
     font-size: 1.5rem;
 }

@@ -16,15 +16,21 @@ const Footer: NextComponentType = () => {
                             </a>
                         </Link>
                     </div>
+                    <div className={styles.footerCopyright}>
+                        <p>
+                            @ Copyright 2022 Pawsitive App. Todos los derechos
+                            reservados
+                        </p>
+                    </div>
                     <div className={styles.menuContainer}>
                         <ul className={styles.menu}>
                             <li>
-                                <Link href={'contacto'}>
+                                <Link href={'/contact'}>
                                     <a>Contacto</a>
                                 </Link>
                             </li>
                             <li>
-                                <Link href={'about'}>
+                                <Link href={'/about'}>
                                     <a>About</a>
                                 </Link>
                             </li>
@@ -38,12 +44,6 @@ const Footer: NextComponentType = () => {
                                 </Link>
                             </li>
                         </ul>
-                    </div>
-                    <div className={styles.footerCopyright}>
-                        <p>
-                            @ Copyright 2022 Pawsitive App. Todos los derechos
-                            reservados
-                        </p>
                     </div>
                 </div>
             </footer>
