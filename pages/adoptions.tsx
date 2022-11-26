@@ -1,52 +1,50 @@
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
-import React from 'react'
-import { MainLayout, AdoptionCard, AdoptionsComponent } from '../components'
+import React, { useContext, useEffect, useReducer } from 'react'
+import { fetchAdoptions } from '../app/actions'
+import { FETCH_ADOPTIONS } from '../app/constants'
+import { reducer } from '../app/reducer'
+import AppContext from '../app/store'
+import { MainLayout, AdoptionCard } from '../components'
+import { IAdoption } from '../types/index'
 
 type Adop = {
     [key: string]: any
 }
 
-type User = {
-    name: string
-    lastName: string
-    email: string
-}
+// export const getServerSideProps: GetServerSideProps<{
+//     adoptions: IAdoption
+// }> = async () => {
+//     const response = await fetch(
+//         'http://localhost:3000/api/read/adoptionposts/all'
+//     )
 
-type Adoption = {
-    id: number
-    name: string
-    size: string
-    age: string
-    breed: string
-    photo: string
-    active?: boolean
-    userAdop: User
-}
+//     const adoptions: IAdoption = await response.json()
 
-export const getServerSideProps: GetServerSideProps<{
-    adoptions: Adoption
-}> = async () => {
-    const response = await fetch(
-        'http://localhost:3000/api/read/adoptionposts/all'
-    )
+//     if (!adoptions) {
+//         return {
+//             notFound: true
+//         }
+//     }
 
-    const adoptions: Adoption = await response.json()
+//     return {
+//         props: {
+//             adoptions
+//         }
+//     }
+// }
 
-    if (!adoptions) {
-        return {
-            notFound: true
-        }
-    }
+const Adoptions: NextPage = () => {
+    const ctx = useContext(AppContext)
 
-    return {
-        props: {
-            adoptions
-        }
-    }
-}
+    const [state, dispatch] = useReducer(reducer, ctx)
 
-const Adoptions: NextPage = ({ adoptions }: Adop) => {
+    useEffect(() => {
+        dispatch({ type: FETCH_ADOPTIONS, payload: fetchAdoptions() })
+    }, [dispatch])
+
+    const { adoptions } = state
+
     return (
         <MainLayout title="Pawsitive - Adoptions">
             <div className="px-4 py-2 w-full flex justify-between items-center">
@@ -57,16 +55,16 @@ const Adoptions: NextPage = ({ adoptions }: Adop) => {
             </div>
 
             {/*FILTROS*/}
-            <AdoptionsComponent />
+            {/* <AdoptionsComponent /> */}
 
             <div className="flex flex-wrap justify-center items-center">
                 {adoptions.length > 1
-                    ? adoptions.map((adoption: Adoption) => {
+                    ? adoptions.map((adoption: IAdoption) => {
                           return (
                               <AdoptionCard
                                   key={adoption.id}
                                   name={adoption.name}
-                                  size={adoption.size}
+                                  size={adoption.size.toLowerCase()}
                                   age={adoption.age}
                                   breed={adoption.breed}
                                   photo={adoption.photo}
