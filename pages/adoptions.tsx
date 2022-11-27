@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
 import React from 'react'
-import { MainLayout, AdoptionCard, AdoptionsComponent } from '../components'
+import { MainLayout, AdoptionCard, AdoptionsComponent, Pagination } from '../components'
 
 type Adop = {
     [key: string]: any
@@ -59,8 +59,11 @@ const Adoptions: NextPage = ({ adoptions }: Adop) => {
             {/*FILTROS*/}
             <AdoptionsComponent />
 
-            <div className="flex flex-wrap justify-center items-center">
-                {adoptions.length > 1
+            <div className="flex flex-wrap justify-end items-center">
+                <Pagination data={adoptions} pageLimit={3} dataLimit={6} />
+
+
+                {/* {adoptions.length > 1
                     ? adoptions.map((adoption: Adoption) => {
                           return (
                               <AdoptionCard
@@ -73,7 +76,7 @@ const Adoptions: NextPage = ({ adoptions }: Adop) => {
                               />
                           )
                       })
-                    : null}
+                    : null} */}
             </div>
         </MainLayout>
     )
