@@ -39,6 +39,7 @@ const Adoptions: NextPage = () => {
     }, [dispatch])
 
     const { adoptions } = state
+    console.log(adoptions)
 
     return (
         <MainLayout title="Pawsitive - Adoptions">
@@ -53,7 +54,7 @@ const Adoptions: NextPage = () => {
             {/* <AdoptionsComponent /> */}
 
             <div className="flex flex-wrap justify-center items-center">
-                {adoptions.length > 1
+                {adoptions
                     ? adoptions.map((adoption: IAdoption) => {
                           return (
                               <AdoptionCard

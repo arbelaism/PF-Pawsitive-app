@@ -15,16 +15,20 @@ import axios from 'axios'
 export const fetchAdoptions = (): Action => {
     let adoptions: IAdoption[] = []
 
-    // FIX: 
-    adoptions = axios
+    axios
         .get('http://localhost:3000/api/read/adoptionposts/all')
         .then(response => {
-            return response.data
+            adoptions.push(response.data)
         })
 
-    console.log(adoptions)
+    // let response: IAdoption = adoptions[0]
+
+    // FIX: ! type error. se queja porque adoptions[0] se supone que
+    // es un tipo IAdoption y realmente es el array que nosotros queremos usar
+    // hay que hacer que de acá salga con el tipo correcto.
+
     return {
         type: FETCH_ADOPTIONS,
-        payload: adoptions
+        payload: adoptions[0]
     }
 }
