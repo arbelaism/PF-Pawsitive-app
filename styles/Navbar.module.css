@@ -1,14 +1,15 @@
 .navContainer{
-    padding:0;
+    padding: 0.50rem 1rem;
     margin:0;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 100vw;
     min-width: 700px;
     color: rgb(18, 18, 18);
-    background-color: rgb(255, 255, 121);    
+    background-color: rgb(253, 253, 81);    
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 .logoContainer{
     width: 15vw;

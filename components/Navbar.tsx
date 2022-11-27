@@ -8,7 +8,7 @@ const Navbar: NextComponentType = () => {
             <nav>
                 <div className={styles.navContainer}>
                     <div className={styles.logoContainer}>
-                        <Link href={'/home'}>
+                        <Link href={'/'}>
                             <a>
                                 <span className={styles.paw}>Paw</span>
                                 <span className={styles.sitive}>sitive</span>
@@ -17,27 +17,27 @@ const Navbar: NextComponentType = () => {
                     </div>
                     <div className={styles.linksContainer}>
                         <div>
-                            <Link href={'/home'}>
+                            <Link href={'/'}>
                                 <a>Home</a>
                             </Link>
                         </div>
                         <div>
-                            <Link href={'/adopciones'}>
+                            <Link href={'/adoptions'}>
                                 <a>Adopciones</a>
                             </Link>
                         </div>
                         <div>
-                            <Link href={'/servicios'}>
+                            <Link href={'/services'}>
                                 <a>Servicios</a>
                             </Link>
                         </div>
                         <div>
-                            <Link href={'contacto'}>
+                            <Link href={'/contact'}>
                                 <a>Contacto</a>
                             </Link>
                         </div>
                         <div>
-                            <Link href={'about'}>
+                            <Link href={'/about'}>
                                 <a>About</a>
                             </Link>
                         </div>

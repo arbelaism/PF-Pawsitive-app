@@ -1,6 +1,7 @@
 import { NextComponentType } from "next";
 import styles from "../styles/LinkAdoption.module.css";
 import Link from "next/link";
+
 const LinkAdoption: NextComponentType = () => {
   return (
     <div>

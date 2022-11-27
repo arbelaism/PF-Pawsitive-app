@@ -5,4 +5,6 @@ export { default as Login } from './Login'
 export { default as SignUp } from './SignUp'
 export { default as AdoptionCard } from './AdoptionCard'
 export { default as AdoptionsScreen } from './AdoptionsScreen'
-
+export { default as LinkAdoption } from './LinkAdoption'
+export { default as AdoptionsComponent } from './AdoptionsComponent'
+export { default as AdoptionForm } from './AdoptionForm'

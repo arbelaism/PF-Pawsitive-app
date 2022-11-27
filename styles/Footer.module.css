@@ -1,81 +1,84 @@
-.footerContainer{
+.footerContainer {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 50px;
-    padding:0;
+    padding: 0.5rem 1rem;
     margin: 0;
 }
-.logoContainer{
-    width: 15vw;
-    text-align: center;
+.logoContainer {
+    width: 25vw;
+    text-align: left;
 }
-.logoContainer span{
+.logoContainer span {
     font-size: 25px;
 }
 
 /* "Paw" styles */
-.paw{
+.paw {
     font-family: 'Courier New', Courier, monospace;
     font-weight: 100;
 }
 
 /* "sitive" styles */
-.sitive{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.sitive {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
     font-weight: bolder;
 }
-.menuContainer{
-    width: 30vw;
+
+.menuContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 20vw;
     padding-bottom: 15px;
 }
 
-
-.footer{
+.footer {
     text-align: center;
     color: rgb(18, 18, 18);
-    background-color: rgb(253, 253, 81);    
+    background-color: rgb(253, 253, 81);
 }
 
-.footer li{
+.footer li {
     list-style: none;
     margin: 10px;
     margin-bottom: 0;
     display: inline-block;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
 }
 
-.icons a{
-    background-color: rgb(255, 255, 121);   
+.icons a {
+    background-color: rgb(255, 255, 121);
     padding: 10px;
     font-size: 20px;
     font-weight: bolder;
     border-radius: 100%;
     display: flex;
+    transition: color 0.5s ease-in-out;
 }
-.icons a:hover{
+.icons a:hover {
     color: rgb(255, 255, 255);
-    transition: 0.5s;
 }
 
-.menu a{
+.menu a {
     color: rgb(18, 18, 18);
     text-transform: capitalize;
+    transition: all 0.4s ease;
 }
-.menu a:hover{
+.menu a:hover {
     color: rgb(57, 57, 57);
-    transition: 0.4s;
 }
 
-.footerCopyright{
+.footerCopyright {
     color: rgb(18, 18, 18);
     text-transform: capitalize;
     width: 45vw;
-    
 }
 
-.footerCopyright p{
-    font-size: 12px;    
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.footerCopyright p {
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
 }
