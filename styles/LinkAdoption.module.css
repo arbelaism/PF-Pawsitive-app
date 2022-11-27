@@ -1,13 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 .container {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f9fafb;
+}
+
+.containerMain{
+  transform: scale(0.3);
 }
 
 .buttonContainer {

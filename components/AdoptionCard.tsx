@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import styles from '../styles/AdoptionCard.module.css'
+import LinkAdoption from './LinkAdoption'
 
 type Adoption = {
     name: string
@@ -26,6 +27,7 @@ const AdoptionCard = ({ name, size, age, breed, photo }: Adoption) => {
                 <p className={styles.text}>Age: {age}</p>
                 <p className={styles.text}>Breed: {breed}</p>
                 <div className={styles.adoptButton}></div>
+                <LinkAdoption/>
             </div>
         </div>
     )
