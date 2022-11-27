@@ -8,10 +8,6 @@ import AppContext from '../app/store'
 import { MainLayout, AdoptionCard } from '../components'
 import { IAdoption } from '../types/index'
 
-type Adop = {
-    [key: string]: any
-}
-
 // export const getServerSideProps: GetServerSideProps<{
 //     adoptions: IAdoption
 // }> = async () => {
@@ -36,11 +32,10 @@ type Adop = {
 
 const Adoptions: NextPage = () => {
     const ctx = useContext(AppContext)
-
     const [state, dispatch] = useReducer(reducer, ctx)
 
     useEffect(() => {
-        dispatch({ type: FETCH_ADOPTIONS, payload: fetchAdoptions() })
+        dispatch(fetchAdoptions())
     }, [dispatch])
 
     const { adoptions } = state

@@ -23,10 +23,10 @@ export interface IAdoption {
 
 export interface IAppContext {
     users: []
-    adoptions: []
+    adoptions: IAdoption[] | []
 }
 
 export interface Action {
     type: string
-    payload: []
+    payload: IAdoption[] | []
 }
