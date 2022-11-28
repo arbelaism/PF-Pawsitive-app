@@ -31,8 +31,7 @@ const LinkAdoption: NextComponentType = () => {
               <div className={styles.right}></div>
             </div>
           </div>
-          <AdoptionDetails/>
-          
+          <AdoptionDetails/>          
           <div className={styles.paw}></div>
           <div className={styles.top}></div>
         </div>
