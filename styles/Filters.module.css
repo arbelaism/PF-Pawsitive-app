@@ -1,4 +1,8 @@
-.filtersContainer{
+.container {
+    width: 100%;
+}
+
+.filtersContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,16 +10,16 @@
     width: 250px;
     height: 65vh;
     background: rgb(255, 158, 0, 0.8);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
     position: fixed;
     border-radius: 10px;
     margin-left: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-    
 }
-.itemSelector{
+.itemSelector {
     background-color: transparent;
-    padding:3px;
+    padding: 3px;
     font-size: 15px;
     width: 110px;
     color: rgb(0, 0, 0);
@@ -24,33 +28,31 @@
     border-radius: 10px;
     height: 30px;
     width: 200px;
-    
 }
 .itemFilter {
-  text-align: left;
-  padding: 5px;
-  text-align: center;
+    text-align: left;
+    padding: 5px;
+    text-align: center;
 }
-.itemFilter h2{
-    font-size: 16px;
+.itemFilter h2 {
+    font-size: px;
     font-weight: bolder;
 }
-.itemFilter select{
-  text-align: left;
-  border-radius: 8px;
-  border: solid rgb(0, 0, 0) 2px;
-  background-color: transparent;
-  transition: 0.5s;
-  color: rgb(0, 0, 0);  
+.itemFilter select {
+    text-align: left;
+    border-radius: 8px;
+    border: solid rgb(0, 0, 0) 2px;
+    background-color: transparent;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
 }
-.itemFilter select:hover{
-  text-align: left;
-  border: solid #ffff79 1px;
-  background-color: rgb(49, 49, 49, 0.7);
+.itemFilter select:hover {
+    text-align: left;
+    border: solid #ffff79 1px;
+    background-color: rgb(49, 49, 49, 0.7);
 }
-.itemFilter select:focus{
-  text-align: left;
-  border: solid #ffff79 1px;
-  background-color: rgb(49, 49, 49);
-
+.itemFilter select:focus {
+    text-align: left;
+    border: solid #ffff79 1px;
+    background-color: rgb(49, 49, 49);
 }
