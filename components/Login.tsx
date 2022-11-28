@@ -1,5 +1,5 @@
 import { NextComponentType } from 'next'
-import styles from '../styles/Login.module.css'
+import styles from 'styles/Login.module.css'
 
 const Login: NextComponentType = () => {
     return (

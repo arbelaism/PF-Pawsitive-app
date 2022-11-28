@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Navbar, Footer } from './index'
+import { Navbar, Footer } from 'components'
 
 type MainLayoutProps = {
     children: React.ReactNode
