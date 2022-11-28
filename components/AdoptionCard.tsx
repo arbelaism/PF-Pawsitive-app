@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import styles from '../styles/AdoptionCard.module.css'
+import styles from 'styles/AdoptionCard.module.css'
 import LinkAdoption from './LinkAdoption'
 
 type Adoption = {

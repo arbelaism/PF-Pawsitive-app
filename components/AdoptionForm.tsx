@@ -1,21 +1,37 @@
 import { NextComponentType } from 'next'
 import { useForm, SubmitHandler } from "react-hook-form";
-import styles from '../styles/AdoptionForm.module.css'
+import styles from 'styles/AdoptionForm.module.css'
+import React, { useState } from 'react';
+import { mediaUploader } from '../utils/mediaUploader';
+
 
 interface AdoptFormInput {
-    name?: string;
-    size?: string;
-    age?: number;
-    breed?: string;
-    // photo?: string;
-  }
+    name: string;
+    size: string;
+    age: number;
+    breed: string;
+    photo?: string;
+}
+
+
 
 const AdoptionForm: NextComponentType = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<AdoptFormInput>();
+    const [media, setMedia] = useState<File[]>([])
+     
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+        const target = e.target as HTMLInputElement;
+        const files = [... Object.values(target.files!)]
+        setMedia([...files])
+    }
 
     const onSubmit: SubmitHandler<AdoptFormInput> = async (data) => {
-        const dataplain = JSON.stringify({... data, active: true})
-        console.log(dataplain)
+        
+        let urlPhoto : any = await mediaUploader(media);
+        // console.log(urlPhoto)
+        data.photo = urlPhoto[0]
+        // console.log(data.photo)
         await fetch('http://localhost:3000/api/create/adoptionpost', { 
             method: 'POST', 
             headers: {
@@ -76,11 +92,11 @@ const AdoptionForm: NextComponentType = () => {
                     }
                 </div>
             </div>
-            {/*<div className='mb-6'>
+            <div className='mb-6'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Photo:</label>
-                <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                    id="photo" type="file" {...register("photo")} multiple accept='image/*'/>
-            </div>*/}
+                <input onChange={(e)=>handleChange(e)} className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                    id="photo" type="file" multiple accept='image/*'/>
+            </div>
                 <p className='text-black-500 text-xs italic'>Please note that fields with * are required</p>
                 <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'type="submit">Register</button>
         </form>

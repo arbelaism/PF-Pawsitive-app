@@ -1,4 +1,4 @@
-import styles from '../styles/AdoptionsComponent.module.css';
+import styles from 'styles/AdoptionsComponent.module.css';
 import {NextComponentType} from 'next';
 const AdoptionsComponent: NextComponentType = ()=>{
     return(
@@ -36,21 +36,7 @@ const AdoptionsComponent: NextComponentType = ()=>{
                         </select>
                     </div>
                 </div>
-                <div className={styles.cardsContainer}>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus ab non quaerat corrupti fugit consequuntur alias esse, laboriosam ad mollitia perferendis est amet obcaecati dolores? Veniam nulla ullam inventore repellat.</h1>
-                                     
-                </div>
+ 
             </div>
         
     )

@@ -1,6 +1,6 @@
 import { NextComponentType } from 'next'
 import Link from 'next/link'
-import styles from '../styles/Footer.module.css'
+import styles from 'styles/Footer.module.css'
 import { AiFillGithub } from 'react-icons/ai'
 
 const Footer: NextComponentType = () => {
