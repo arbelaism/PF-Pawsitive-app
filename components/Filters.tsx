@@ -43,6 +43,7 @@ const Filters: NextComponentType = ({ adoptions }: Props) => {
     async function handleFilterBreed(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault()
         const breed = e.target.value
+        if (breed === '') return
         const breeds = await axios.get(
             `http://localhost:3000/api/read/adoptionposts/type/${breed}`
         )
@@ -51,7 +52,14 @@ const Filters: NextComponentType = ({ adoptions }: Props) => {
 
         return
     }
-    useEffect(() => {}, [data])
+    async function handleReset() {
+        const select = document.querySelectorAll('select')
+
+        select.forEach(s => (s.value = ''))
+        setData(adoptions)
+
+        return
+    }
 
     return (
         <div className={styles.container}>
@@ -74,8 +82,7 @@ const Filters: NextComponentType = ({ adoptions }: Props) => {
                     <h2>Filtrar por Tamaño</h2>
                     <select
                         name="size"
-                        onChange={e => handleFilterSize}
-                        onClick={() => setClick(true)}
+                        onChange={e => handleFilterSize(e)}
                         className={styles.itemSelector}>
                         <option value="">Tamaño...</option>
                         <option value="BIG">Grande</option>
@@ -109,6 +116,7 @@ const Filters: NextComponentType = ({ adoptions }: Props) => {
                         <option value="4 years">4 años</option>
                         <option value="5 years">5 años</option>
                     </select>
+                    <button onClick={handleReset}>Reset</button>
                 </div>
             </div>
             <div className="flex flex-wrap justify-end items-center">
