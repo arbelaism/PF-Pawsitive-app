@@ -75,7 +75,7 @@ export default async function createDB() {
                     id: "1",
                     name: "rayito",
                     size: "SMALL",
-                    age: "un año",
+                    age: "1 años",
                     breed: "ave",
                     photo: "https://img.freepik.com/foto-gratis/loro-color-muy-bonito-posado-rama-arbol_493961-1289.jpg?w=2000",
                     active: true,
