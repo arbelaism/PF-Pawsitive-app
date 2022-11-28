@@ -31,7 +31,7 @@ const LinkAdoption: NextComponentType = () => {
             </div>
           </div>
           <button>
-            <Link href="/adopt">Adopt me!</Link>
+            Adopt me!
           </button>
           <div className={styles.paw}></div>
           <div className={styles.top}></div>

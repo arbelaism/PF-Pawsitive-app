@@ -8,12 +8,12 @@ export default async function handler(
   const {id} = req.query;
   try {
     if (id) {
-      const post = await prisma.adoptionPost.findMany({
+      const post = await prisma.adoptionPost.findUnique({
         where: {
           id: String(id),
         },
       });
-      if (post.length > 0) res.status(200).json(post);
+      if (post) res.status(200).json(post);
       else
         return res
           .status(401)
