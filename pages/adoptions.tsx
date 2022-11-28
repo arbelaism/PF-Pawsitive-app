@@ -1,11 +1,11 @@
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
-import React  from 'react'
+import React from 'react'
 import { IAdoption } from 'app/types'
 import { MainLayout, Pagination } from 'components'
 import Filters from 'components/Filters'
 
-type Props = {
+export type Props = {
     [key: string]: any
 }
 
@@ -54,11 +54,9 @@ const Adoptions: NextPage = ({ adoptions }: Props) => {
             </div>
 
             {/*FILTROS*/}
-            <Filters />
+            <Filters adoptions={adoptions} />
 
             <div className="flex flex-wrap justify-end items-center">
-                <Pagination data={adoptions} pageLimit={3} dataLimit={6} />
-
                 {/* {adoptions.length > 1
                     ? adoptions.map((adoption: Adoption) => {
                           return (
