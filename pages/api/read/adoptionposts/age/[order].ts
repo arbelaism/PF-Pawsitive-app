@@ -50,10 +50,10 @@ function postJoin(years: any[], months: any[], order: number): any[] {
       const nameA = parseInt(a.age.slice(0, 2));
       const nameB = parseInt(b.age.slice(0, 2));
       if (nameA < nameB) {
-        return -order;
+        return -1;
       }
       if (nameA > nameB) {
-        return order;
+        return 1;
       }
       return 0;
     })
@@ -62,13 +62,14 @@ function postJoin(years: any[], months: any[], order: number): any[] {
         const nameA = parseInt(a.age.slice(0, 2));
         const nameB = parseInt(b.age.slice(0, 2));
         if (nameA < nameB) {
-          return -order;
+          return -1;
         }
         if (nameA > nameB) {
-          return order;
+          return 1;
         }
         return 0;
       })
     );
+  if (order < 0) orderPost = orderPost.reverse();
   return orderPost;
 }
