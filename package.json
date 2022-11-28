@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.16",
     "axios": "^1.2.0",
+    "bootstrap": "^5.2.3",
     "next": "12.3.3",
     "react": "18.2.0",
+    "react-bootstrap": "^2.6.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.39.5",
+    "react-hook-form": "^7.39.6",
     "react-icons": "^4.6.0"
   },
   "devDependencies": {
