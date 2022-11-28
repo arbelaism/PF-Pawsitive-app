@@ -5,8 +5,8 @@ import { fetchAdoptions } from 'app/actions'
 import { FETCH_ADOPTIONS } from 'app/constants'
 import { reducer } from 'app/reducer'
 import AppContext from 'app/store'
-import { MainLayout, AdoptionCard } from 'components'
 import { IAdoption } from 'app/types'
+import { MainLayout, AdoptionCard, AdoptionsComponent, Pagination } from 'components'
 
 // export const getServerSideProps: GetServerSideProps<{
 //     adoptions: IAdoption
@@ -55,9 +55,11 @@ const Adoptions: NextPage = () => {
             {/*FILTROS*/}
             {/* <AdoptionsComponent /> */}
 
-            <div className="flex flex-wrap justify-center items-center">
-                {adoptions.length > 1
-                    ? adoptions.map((adoption: IAdoption) => {
+            <div className="flex flex-wrap justify-end items-center">
+                <Pagination data={adoptions} pageLimit={3} dataLimit={6} />
+
+                {/* {adoptions.length > 1
+                    ? adoptions.map((adoption: Adoption) => {
                           return (
                               <AdoptionCard
                                   key={adoption.id}
@@ -69,7 +71,7 @@ const Adoptions: NextPage = () => {
                               />
                           )
                       })
-                    : null}
+                    : null} */}
             </div>
         </MainLayout>
     )

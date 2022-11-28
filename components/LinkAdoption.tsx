@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const LinkAdoption: NextComponentType = () => {
   return (
-    <div>
+    <div className={styles.containerMain}>
       <div className={styles.container}>
         <div className={styles.buttonContainer}>
           <div className={styles.dog}>
