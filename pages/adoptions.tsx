@@ -1,47 +1,48 @@
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
-import React, { useContext, useEffect, useReducer } from 'react'
-import { fetchAdoptions } from 'app/actions'
-import { FETCH_ADOPTIONS } from 'app/constants'
-import { reducer } from 'app/reducer'
-import AppContext from 'app/store'
+import React  from 'react'
 import { IAdoption } from 'app/types'
-import { MainLayout, AdoptionCard, AdoptionsComponent, Pagination } from 'components'
+import { MainLayout, Pagination } from 'components'
+import Filters from 'components/Filters'
 
-// export const getServerSideProps: GetServerSideProps<{
-//     adoptions: IAdoption
-// }> = async () => {
-//     const response = await fetch(
-//         'http://localhost:3000/api/read/adoptionposts/all'
-//     )
+type Props = {
+    [key: string]: any
+}
 
-//     const adoptions: IAdoption = await response.json()
+export const getServerSideProps: GetServerSideProps<{
+    adoptions: IAdoption
+}> = async () => {
+    const response = await fetch(
+        'http://localhost:3000/api/read/adoptionposts/all'
+    )
 
-//     if (!adoptions) {
-//         return {
-//             notFound: true
-//         }
-//     }
+    const adoptions: IAdoption = await response.json()
 
-//     return {
-//         props: {
-//             adoptions
-//         }
-//     }
-// }
+    if (!adoptions) {
+        return {
+            notFound: true
+        }
+    }
 
-const Adoptions: NextPage = () => {
-    const ctx = useContext(AppContext)
-    const [state, dispatch] = useReducer(reducer, ctx)
+    return {
+        props: {
+            adoptions
+        }
+    }
+}
 
-    // TODO: Refactor
-    useEffect(() => {
-        fetchAdoptions().then(value => {
-            dispatch({ type: FETCH_ADOPTIONS, payload: value })
-        })
-    }, [dispatch])
+const Adoptions: NextPage = ({ adoptions }: Props) => {
+    // const ctx = useContext(AppContext)
+    // const [state, dispatch] = useReducer(reducer, ctx)
+    //
+    // // TODO: Refactor
+    // useEffect(() => {
+    //     fetchAdoptions().then(value => {
+    //         dispatch({ type: FETCH_ADOPTIONS, payload: value })
+    //     })
+    // }, [dispatch])
 
-    const { adoptions } = state
+    // const { adoptions } = state
 
     return (
         <MainLayout title="Pawsitive - Adoptions">
@@ -53,7 +54,7 @@ const Adoptions: NextPage = () => {
             </div>
 
             {/*FILTROS*/}
-            {/* <AdoptionsComponent /> */}
+            <Filters />
 
             <div className="flex flex-wrap justify-end items-center">
                 <Pagination data={adoptions} pageLimit={3} dataLimit={6} />

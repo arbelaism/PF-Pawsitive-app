@@ -2,20 +2,19 @@
 .container {
     padding: 0%;
     margin: 0;
-    width: 85vw;
-    height: 130vh;
+    width: 80vw;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
   }
   .dataContainer {
-    margin: 50px;
     width: 100%;
-    height: 120%;
+    height: auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     justify-items: center;
   }
   .pagination {
