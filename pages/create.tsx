@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
-import { AdoptionForm, MainLayout } from '../components'
+import { AdoptionForm, MainLayout } from 'components'
 
 const Create: NextPage = () => {
     return (

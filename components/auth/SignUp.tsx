@@ -1,5 +1,5 @@
 import { NextComponentType } from 'next'
-import styles from '../styles/SignUp.module.css'
+import styles from 'styles/SignUp.module.css'
 
 const SignUp: NextComponentType = () => {
     return (

@@ -1,12 +1,12 @@
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
 import React, { useContext, useEffect, useReducer } from 'react'
-import { fetchAdoptions } from '../app/actions'
-import { FETCH_ADOPTIONS } from '../app/constants'
-import { reducer } from '../app/reducer'
-import AppContext from '../app/store'
-import { MainLayout, AdoptionCard } from '../components'
-import { IAdoption } from '../types/index'
+import { fetchAdoptions } from 'app/actions'
+import { FETCH_ADOPTIONS } from 'app/constants'
+import { reducer } from 'app/reducer'
+import AppContext from 'app/store'
+import { MainLayout, AdoptionCard } from 'components'
+import { IAdoption } from 'app/types'
 
 // export const getServerSideProps: GetServerSideProps<{
 //     adoptions: IAdoption
@@ -34,12 +34,14 @@ const Adoptions: NextPage = () => {
     const ctx = useContext(AppContext)
     const [state, dispatch] = useReducer(reducer, ctx)
 
+    // TODO: Refactor
     useEffect(() => {
-        dispatch(fetchAdoptions())
+        fetchAdoptions().then(value => {
+            dispatch({ type: FETCH_ADOPTIONS, payload: value })
+        })
     }, [dispatch])
 
     const { adoptions } = state
-    console.log(adoptions)
 
     return (
         <MainLayout title="Pawsitive - Adoptions">
@@ -54,7 +56,7 @@ const Adoptions: NextPage = () => {
             {/* <AdoptionsComponent /> */}
 
             <div className="flex flex-wrap justify-center items-center">
-                {adoptions
+                {adoptions.length > 1
                     ? adoptions.map((adoption: IAdoption) => {
                           return (
                               <AdoptionCard

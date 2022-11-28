@@ -1,4 +1,4 @@
-import { IAppContext } from '../../types'
+import { IAppContext } from 'app/types'
 
 export const INITIAL_STATE: IAppContext = {
     users: [],

@@ -1,4 +1,4 @@
-import styles from '../styles/AdoptionsComponent.module.css';
+import styles from 'styles/AdoptionsComponent.module.css';
 import {NextComponentType} from 'next';
 const AdoptionsComponent: NextComponentType = ()=>{
     return(

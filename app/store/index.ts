@@ -1,6 +1,6 @@
 import { createContext } from 'react'
-import { IAppContext } from '../../types/index'
-import { INITIAL_STATE } from '../constants'
+import { IAppContext } from 'app/types'
+import { INITIAL_STATE } from 'app/constants'
 
 const AppContext = createContext<IAppContext>(INITIAL_STATE)
 

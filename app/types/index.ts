@@ -26,9 +26,6 @@ export interface IAppContext {
     adoptions: IAdoption[] | []
 }
 
-//FIX: ! Si acá agregamos a cada adoptions el type IAdoption (sin el [])
-// pasa en actions pero no deja mapear en adoptions porque no es un array.
-
 export interface Action {
     type: string
     payload: IAdoption[] | []

@@ -1,6 +1,6 @@
 import { NextComponentType } from 'next'
 import { useForm, SubmitHandler } from "react-hook-form";
-import styles from '../styles/AdoptionForm.module.css'
+import styles from 'styles/AdoptionForm.module.css'
 
 interface AdoptFormInput {
     name?: string;

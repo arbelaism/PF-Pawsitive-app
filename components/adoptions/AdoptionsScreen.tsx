@@ -1,5 +1,5 @@
 import { NextComponentType } from 'next'
-import style from '../styles/AdoptionsScreen.module.css'
+import style from 'styles/AdoptionsScreen.module.css'
 import Link from 'next/link'
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 

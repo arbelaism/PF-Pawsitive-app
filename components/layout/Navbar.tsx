@@ -1,6 +1,6 @@
 import { NextComponentType } from 'next'
 import Link from 'next/link'
-import styles from '../styles/Navbar.module.css'
+import styles from 'styles/Navbar.module.css'
 
 const Navbar: NextComponentType = () => {
     return (
