@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
 import React from 'react'
 import { IAdoption } from 'app/types'
-import { MainLayout, Pagination } from 'components'
+import { MainLayout } from 'components'
 import Filters from 'components/Filters'
 
 export type Props = {

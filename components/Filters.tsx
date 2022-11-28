@@ -1,13 +1,12 @@
 import { NextComponentType } from 'next'
 import styles from '../styles/Filters.module.css'
 import React, { useContext, useEffect, useReducer, useState } from 'react'
-import { fetchAdoptions } from 'app/actions'
-import { reducer } from 'app/reducer'
-import AppContext from 'app/store'
+// import { fetchAdoptions } from 'app/actions'
+// import { reducer } from 'app/reducer'
+// import AppContext from 'app/store'
 import { Props } from 'pages/adoptions'
 import axios from 'axios'
 import { Pagination } from 'components'
-import Router, { useRouter } from 'next/router'
 
 const Filters: NextComponentType = ({ adoptions }: Props) => {
     const [data, setData] = useState(adoptions)
