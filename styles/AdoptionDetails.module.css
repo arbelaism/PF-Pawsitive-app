@@ -1,0 +1,33 @@
+
+
+.container{
+    /* position: 'absolute'; */
+    /* top: 50%; */
+    left: 50%;
+    transform: translate(50%,10%);
+    width: 60vw;
+    height: 80vh;
+    background-color: rgb(38, 38, 38, 0.8);
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-shadow: 24px;
+    color: white;
+ 
+  }
+  .containerDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px
+  }
+  .imgContainer{
+    width: 300px;
+    height: 200px;
+    border: 1px solid #000;
+    border-radius: 10px;
+  }
+  .itemContainer{
+    padding: 10px;
+    margin:5px
+  }
