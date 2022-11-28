@@ -2,40 +2,41 @@ import React from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { MainLayout } from 'components'
 import { IAdoption } from 'app/types'
-import axios from "axios"
+import axios from 'axios'
 
 export type Props = {
-  [key: string]: any
+    [key: string]: any
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  adoption: IAdoption
+    adoption: IAdoption
 }> = async () => {
-  const response = await axios.get(
-      'http://localhost:3000/api/read/adoptionposts/id/1'
-  )
+    const response = await axios.get(
+        'http://localhost:3000/api/read/adoptionposts/id/1'
+    )
 
-  const adoption: IAdoption = await response.data
+    const adoption: IAdoption = await response.data
 
-  if (!adoption) {
-      return {
-          notFound: true
-      }
-  }
+    if (!adoption) {
+        return {
+            notFound: true
+        }
+    }
 
-  return {
-      props: {
-          adoption
-      }
-  }
+    return {
+        props: {
+            adoption
+        }
+    }
 }
 
-const Detail: NextPage = ({adoption}:Props) => {
-  return (
-    <MainLayout title="Pawsitive - Adoptions">
-        <h1>{adoption.name}</h1>
-    </MainLayout>
-  )
+const Detail: NextPage = ({ adoption }: Props) => {
+    console.log(adoption)
+    return (
+        <MainLayout title="Pawsitive - Adoptions">
+            {/* <h1>{adoption[0].name}</h1> */}
+        </MainLayout>
+    )
 }
 
 export default Detail
