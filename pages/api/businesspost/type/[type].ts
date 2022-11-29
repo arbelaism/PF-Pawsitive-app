@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   const type = req.query.type as string;
   try {
-    const professionals = await prisma.professionalBusiness.findMany();
+    const professionals = await prisma.businessPost.findMany();
     const result = professionals.filter((prof) => prof.type === type.toUpperCase());
     if (result.length > 0) res.status(200).json(result);
     else

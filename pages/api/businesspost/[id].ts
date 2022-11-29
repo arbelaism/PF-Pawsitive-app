@@ -10,12 +10,12 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         case "GET":
             try {
-                const professional = await prisma.professionalBusiness.findUnique({
+                const business = await prisma.businessPost.findUnique({
                     where: {
                         id: String(id),
                     },
                 });
-                if (professional) res.status(200).json(professional);
+                if (business) res.status(200).json(business);
                 else
                     return res
                         .status(401)
@@ -30,13 +30,13 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         case "PUT":
             const data = req.body
             try {
-                const professionalBusiness = await prisma.professionalBusiness.update({
+                const business = await prisma.businessPost.update({
                     where: {
                         id: id?.toString()
                     },
                     data
                 })
-                res.status(200).json(professionalBusiness)
+                res.status(200).json(business)
             } catch (error) {
                 console.log(error)
                 res.status(400).json({ message: "Error: " + error })
@@ -47,13 +47,13 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         case "DELETE":
             try {
-                const professional = await prisma.professionalBusiness.update({
+                const business = await prisma.businessPost.update({
                     where: { id: String(id) },
                     data: {
                         active: false,
                     },
                 });
-                professional
+                business
                     ? res.status(200).json({ message: "professional logic delete" })
                     : res.status(400).json({
                         message: "the professional does not exist in the database.",

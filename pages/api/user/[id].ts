@@ -16,8 +16,8 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                     },
                     include: {
                         adoptionPost: true,
-                        professionalBusiness: true,
-                        item: true
+                        businessPost: true,
+                        product: true
                     }
                 })
                 user ?
@@ -34,17 +34,18 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // PUT(UPDATE) THE USER BY ID
 
         case "PUT":
-            const { email, name, lastName, birthday, photo, role, password } = req.body
+            const { firstName, lastName, email, age, photo, role, active, password } = req.body
             try {
                 const user = await prisma.user.update({
                     where: { id: String(id) },
                     data: {
-                        email,
-                        name,
+                        firstName,
                         lastName,
-                        birthday,
+                        email,
+                        age,
                         photo,
                         role,
+                        active,
                         password,
                     }
                 })
@@ -66,7 +67,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                 const user = await prisma.user.update({
                     where: { id: String(id) },
                     data: {
-                        role: "INACTIVE",
+                        active: false,
                     }
                 })
                 user ?
