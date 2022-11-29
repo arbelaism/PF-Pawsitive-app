@@ -1,17 +1,11 @@
 import { prisma } from "../../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
-enum Size {
-  SMALL,
-  MEDIUM,
-  BIG
-}
-
 export default async function getPosts(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const size:Size  = req.body.size.toUpperCase();
+  const size  = req.body.size.toUpperCase();
   try {
     const posts = await prisma.adoptionPost.findMany({
       where: { active: true, size: size},
