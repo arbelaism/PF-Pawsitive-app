@@ -2,7 +2,7 @@ import { NextComponentType } from 'next'
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from 'styles/AdoptionForm.module.css'
 import React, { useState } from 'react';
-import { mediaUploader } from '../utils/mediaUploader';
+import { mediaUploader } from 'utils/mediaUploader';
 
 
 interface AdoptFormInput {

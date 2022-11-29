@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getAdoptions= async () => {
-    const response = await axios.get('http://localhost:3000/api/read/adoptionposts/all');
+    const response = await axios.get('http://localhost:3000/api/adoptionpost');
     const adoptions = await response.data;
 
     if (!adoptions) {

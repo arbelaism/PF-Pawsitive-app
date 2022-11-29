@@ -2,11 +2,9 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import { IAdoption } from 'app/types';
-import { MainLayout } from 'components';
-import AdoptionCard from '../../components/AdoptionCard';
-import Filters from 'components/Filters';
+import { MainLayout, AdoptionCard, Filters } from 'components';
 import {useQuery} from 'react-query';
-import {getAdoptions} from '../../utils/dbFetching'
+import {getAdoptions} from 'utils/dbFetching'
 
 export type Props = {
     [key: string]: any
@@ -25,7 +23,8 @@ const Adoptions: NextPage = () => {
             </div>
 
             {/*FILTROS*/}
-            <Filters adoptions={adoptions} />
+            {/* FIX: FIX THIS */}
+            {/* <Filters adoptions={adoptions} /> */}
 
             <div className="flex flex-wrap justify-end items-center">
                 {isLoading ? <h1>Cargando...</h1>

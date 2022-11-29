@@ -1,5 +1,5 @@
 import { NextComponentType } from 'next'
-import styles from '../styles/Filters.module.css'
+import styles from 'styles/Filters.module.css'
 import React, { useContext, useEffect, useReducer, useState } from 'react'
 // import { fetchAdoptions } from 'app/actions'
 // import { reducer } from 'app/reducer'

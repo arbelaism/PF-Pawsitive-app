@@ -1,6 +1,6 @@
 import { NextComponentType } from "next";
-import { MainLayout } from "../components";
-import styles from "../styles/Contact.module.css";
+import { MainLayout } from "components";
+import styles from "styles/Contact.module.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 

@@ -1,7 +1,7 @@
 import React, { EventHandler, useEffect } from 'react'
 import { useState } from 'react'
-import styles from '../styles/Pagination.module.css'
-import AdoptionCard from './AdoptionCard'
+import styles from 'styles/Pagination.module.css'
+import AdoptionCard from '../adoptions/AdoptionCard'
 
 interface Props {
     data: Adoption[]
