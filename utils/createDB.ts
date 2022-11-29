@@ -84,7 +84,7 @@ export default async function createDB() {
                     breed: "ave",
                     photo: "https://img.freepik.com/foto-gratis/loro-color-muy-bonito-posado-rama-arbol_493961-1289.jpg?w=2000",
                     active: true,
-                    userAdopId: "1"
+                    userId: "1"
                 },
                 {
                     id: "2",
@@ -94,7 +94,7 @@ export default async function createDB() {
                     breed: "tortuga",
                     photo: "https://img.freepik.com/foto-gratis/tortuga-estimulada-africana-hierba_167946-113.jpg?w=2000",
                     active: true,
-                    userAdopId: "2"
+                    userId: "2"
                 },
                 {
                     id: "3",
@@ -104,7 +104,7 @@ export default async function createDB() {
                     breed: "tortuga",
                     photo: "https://img.freepik.com/fotos-premium/tortuga-sucata-suelo_41969-10112.jpg?w=2000",
                     active: true,
-                    userAdopId: "3"
+                    userId: "3"
                 },
                 {
                     id: "4",
@@ -114,7 +114,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/fotos-premium/lindo-gatito-gris-amarillo-ve-juega-negocios-copyspace_89381-2435.jpg?w=2000",
                     active: true,
-                    userAdopId: "4"
+                    userId: "4"
                 },
                 {
                     id: "5",
@@ -124,7 +124,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/free-photo/shallow-focus-shot-cute-golden-retriever-puppy-sitting-grass-ground_181624-24655.jpg?w=2000",
                     active: true,
-                    userAdopId: "5"
+                    userId: "5"
                 },
                 {
                     id: "6",
@@ -134,7 +134,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/fotos-premium/hermoso-gato-ojos-azules_58409-14525.jpg?w=2000",
                     active: true,
-                    userAdopId: "4"
+                    userId: "4"
                 },
                 {
                     id: "7",
@@ -144,7 +144,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/foto-gratis/lindo-perro-pastor-posando-aislado-sobre-fondo-blanco_155003-46179.jpg?w=2000",
                     active: true,
-                    userAdopId: "4"
+                    userId: "4"
                 },
                 {
                     id: "8",
@@ -154,7 +154,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/fotos-premium/primer-plano-perro-raza-mixta-jadeando_191971-7459.jpg?w=2000",
                     active: true,
-                    userAdopId: "5"
+                    userId: "5"
                 }
                 ,
                 {
@@ -165,7 +165,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/fotos-premium/foto-vertical-cachorro-labrador-marron-cachorro-pequeno-expresion-adulta-dulce-perrito_106652-1123.jpg?w=2000",
                     active: true,
-                    userAdopId: "5"
+                    userId: "5"
                 }
                 ,
                 {
@@ -176,7 +176,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/foto-gratis/cerrar-propietario-sosteniendo-lindo-gato_23-2149339568.jpg?w=2000",
                     active: true,
-                    userAdopId: "6"
+                    userId: "6"
                 }
                 ,
                 {
@@ -187,7 +187,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8vdq8XcrUFKWHTzBfK2taLeiumVdfWqy5KQ&usqp=CAU",
                     active: true,
-                    userAdopId: "6"
+                    userId: "6"
                 }
                 ,
                 {
@@ -198,7 +198,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/foto-gratis/gatito_658691-474.jpg?w=2000",
                     active: true,
-                    userAdopId: "6"
+                    userId: "6"
                 }
             ]
         })
@@ -239,7 +239,7 @@ export default async function createDB() {
                 },
                 {
                     id: "4",
-                    businessName: "Peluqueria patitas",
+                    name: "Peluqueria patitas",
                     contact: "3215344474564",
                     address: "cra 426 a 5 74 ",
                     description: "estilisamos a tus mascotas",
