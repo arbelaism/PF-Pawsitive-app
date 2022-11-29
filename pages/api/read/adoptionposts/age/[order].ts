@@ -31,19 +31,19 @@ function buildName(
 ): object[] {
   let orderPost: any[] = [];
   if (order === "min") {
-    let years = data.filter((post) => post.age.includes("años"));
-    let months = data.filter((post) => post.age.includes("meses"));
+    let years = data.filter((post) => post.age.includes("año"));
+    let months = data.filter((post) => post.age.includes("mes"));
     orderPost = postJoin(years, months, 1);
   } else {
-    let years = data.filter((post) => post.age.includes("años"));
-    let months = data.filter((post) => post.age.includes("meses"));
+    let years = data.filter((post) => post.age.includes("año"));
+    let months = data.filter((post) => post.age.includes("mes"));
     orderPost = postJoin(years, months, -1);
   }
   return orderPost;
 }
 function postJoin(years: any[], months: any[], order: number): any[] {
   let orderPost: any[] = [];
-  console.log(order);
+  // console.log(order);
   orderPost = months
     .sort((a, b) => {
       console.log(typeof a);

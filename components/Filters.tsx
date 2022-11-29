@@ -29,22 +29,38 @@ const Filters: NextComponentType = ({ adoptions }: Props) => {
     //     })
     // }
 
-    async function handleFilterSize(e: React.ChangeEvent<HTMLInputElement>) {
+    async function handleFilterSize(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
         const size = e.target.value
-        const sizes = await axios.get(
-            `http://localhost:3000/api/read/adoptionposts/type/${size}`
+        const sizes = await axios.post(
+            `http://localhost:3000/api/read/adoptionposts/size`,
+            {
+                size:size
+            }
         )
+        
         setData(sizes.data)
 
         return
     }
-    async function handleFilterBreed(e: React.ChangeEvent<HTMLInputElement>) {
+    async function handleFilterBreed(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
         const breed = e.target.value
         if (breed === '') return
         const breeds = await axios.get(
             `http://localhost:3000/api/read/adoptionposts/type/${breed}`
+        )
+
+        setData(breeds.data)
+
+        return
+    }
+    async function handleOrderAge(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const order = e.target.value
+        if (order === '') return
+        const breeds = await axios.get(
+            `http://localhost:3000/api/read/adoptionposts/age/${order}`
         )
 
         setData(breeds.data)
@@ -69,11 +85,13 @@ const Filters: NextComponentType = ({ adoptions }: Props) => {
                         name="selector"
                         onChange={e => handleFilterBreed(e)}
                         className={styles.itemSelector}>
-                        <option value="">Categoría...</option>
+                        <option value="">Categoria...</option>
                         <option value="gato">Gatos</option>
                         <option value="perro">Perros</option>
                         <option value="ave">Aves</option>
                         <option value="tortuga">Tortugas</option>
+                        <option value="roedor">Roedores</option>
+                        <option value="otros">Otros</option>
                     </select>
                 </div>
 
@@ -91,29 +109,14 @@ const Filters: NextComponentType = ({ adoptions }: Props) => {
                 </div>
 
                 <div className={styles.itemFilter}>
-                    <h2>Filtrar por Edad</h2>
+                    <h2>Ordenar por Edad</h2>
                     <select
                         name="age"
-                        onChange={() => {}}
+                        onChange={(e) => handleOrderAge(e)}
                         className={styles.itemSelector}>
                         <option value="">Edad...</option>
-                        <option value="1 mes">1 Mes</option>
-                        <option value="2 meses">2 Meses</option>
-                        <option value="3 meses">3 Meses</option>
-                        <option value="4 meses">4 Meses</option>
-                        <option value="5 meses">5 Meses</option>
-                        <option value="6 mes">6 Meses</option>
-                        <option value="7 meses">7 Meses</option>
-                        <option value="8 meses">8 Meses</option>
-                        <option value="9 meses">9 Meses</option>
-                        <option value="10 mes">10 Meses</option>
-                        <option value="11 mes">11 Meses</option>
-                        <option value="12 meses">12 Meses</option>
-                        <option value="1 year">1 año</option>
-                        <option value="2 years">2 años</option>
-                        <option value="3 years">3 años</option>
-                        <option value="4 years">4 años</option>
-                        <option value="5 years">5 años</option>
+                        <option value="min">Menor a mayor</option>
+                        <option value="max">Mayor a menor</option>                        
                     </select>
                     <button onClick={handleReset}>Reset</button>
                 </div>
