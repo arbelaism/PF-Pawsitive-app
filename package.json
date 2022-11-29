@@ -19,7 +19,9 @@
     "react-bootstrap": "^2.6.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.39.6",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.6.0",
+    "react-query": "^3.39.2"
+
   },
   "devDependencies": {
     "@prisma/client": "^4.6.1",
