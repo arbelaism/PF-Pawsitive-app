@@ -1,6 +1,7 @@
 import { NextComponentType } from "next";
 import styles from "styles/LinkAdoption.module.css";
 import Link from "next/link";
+import AdoptionDetails from "./AdoptionDetails";
 
 const LinkAdoption: NextComponentType = () => {
   return (
@@ -31,8 +32,9 @@ const LinkAdoption: NextComponentType = () => {
             </div>
           </div>
           <button>
-            <Link href="/adopt">Adopt me!</Link>
+            Adopt me!
           </button>
+          {/*<AdoptionDetails/> */}         
           <div className={styles.paw}></div>
           <div className={styles.top}></div>
         </div>
