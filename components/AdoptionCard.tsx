@@ -15,7 +15,7 @@ type Adoption = {
 
 const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
     return (
-        <div className={styles.cardContainer}>
+        <div className={styles.cardContainer} key={id}>
             <div className={styles.card}>
                 <Image
                     src={photo}
