@@ -1,14 +1,14 @@
-import { prisma } from "../../../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const type = req.query.type;
+  const type = req.query.type as string;
   try {
     const professionals = await prisma.professionalBusiness.findMany();
-    const result = professionals.filter((prof) => prof.type === type);
+    const result = professionals.filter((prof) => prof.type === type.toUpperCase());
     if (result.length > 0) res.status(200).json(result);
     else
       return res
