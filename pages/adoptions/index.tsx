@@ -1,48 +1,19 @@
-import { GetServerSideProps, NextPage } from 'next'
-import Link from 'next/link'
-import React from 'react'
-import { IAdoption } from 'app/types'
-import { MainLayout } from 'components'
-import Filters from 'components/Filters'
+import { NextPage } from 'next';
+import Link from 'next/link';
+import React from 'react';
+import { IAdoption } from 'app/types';
+import { MainLayout } from 'components';
+import AdoptionCard from '../../components/AdoptionCard';
+import Filters from 'components/Filters';
+import {useQuery} from 'react-query';
+import {getAdoptions} from '../../utils/dbFetching'
 
 export type Props = {
     [key: string]: any
 }
 
-export const getServerSideProps: GetServerSideProps<{
-    adoptions: IAdoption
-}> = async () => {
-    const response = await fetch(
-        'http://localhost:3000/api/read/adoptionposts/all'
-    )
-
-    const adoptions: IAdoption = await response.json()
-
-    if (!adoptions) {
-        return {
-            notFound: true
-        }
-    }
-
-    return {
-        props: {
-            adoptions
-        }
-    }
-}
-
-const Adoptions: NextPage = ({ adoptions }: Props) => {
-    // const ctx = useContext(AppContext)
-    // const [state, dispatch] = useReducer(reducer, ctx)
-    //
-    // // TODO: Refactor
-    // useEffect(() => {
-    //     fetchAdoptions().then(value => {
-    //         dispatch({ type: FETCH_ADOPTIONS, payload: value })
-    //     })
-    // }, [dispatch])
-
-    // const { adoptions } = state
+const Adoptions: NextPage = () => {
+    const {data: adoptions, error, isLoading} = useQuery(['adoptions'], getAdoptions);
 
     return (
         <MainLayout title="Pawsitive - Adoptions">
@@ -57,20 +28,20 @@ const Adoptions: NextPage = ({ adoptions }: Props) => {
             <Filters adoptions={adoptions} />
 
             <div className="flex flex-wrap justify-end items-center">
-                {/* {adoptions.length > 1
-                    ? adoptions.map((adoption: Adoption) => {
-                          return (
-                              <AdoptionCard
-                                  key={adoption.id}
-                                  name={adoption.name}
-                                  size={adoption.size.toLowerCase()}
-                                  age={adoption.age}
-                                  breed={adoption.breed}
-                                  photo={adoption.photo}
-                              />
-                          )
-                      })
-                    : null} */}
+                {isLoading ? <h1>Cargando...</h1>
+                    : adoptions.map((adoption: IAdoption) => {
+                        return (
+                            <AdoptionCard
+                                key={adoption.id}
+                                id={adoption.id}
+                                name={adoption.name}
+                                size={adoption.size.toLowerCase()}
+                                age={adoption.age}
+                                breed={adoption.breed}
+                                photo={adoption.photo}
+                            />
+                        )
+                    })}
             </div>
         </MainLayout>
     )
