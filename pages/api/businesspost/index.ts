@@ -9,12 +9,12 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         case "GET":
             try {
-                const professionals = await prisma.professionalBusiness.findMany()
-                if(professionals.length > 0) {
-                    res.status(200).json(professionals)
-                }else{
+                const business = await prisma.businessPost.findMany()
+                if (business.length > 0) {
+                    res.status(200).json(business)
+                } else {
                     res.status(401).json({ message: "no professionals found" })
-                }     
+                }
             } catch (error) {
                 console.log(error)
                 res.status(400).json({ message: "error " })
@@ -25,30 +25,26 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         case "POST":
             const {
-                businessName,
+                name,
                 contact,
                 address,
                 description,
                 photo,
-                dni,
                 type,
-                qualification,
                 active,
-                id,
+                userId,
             } = req.body;
             try {
-                await prisma.professionalBusiness.create({
+                await prisma.businessPost.create({
                     data: {
-                        businessName,
+                        name,
                         contact,
                         address,
                         description,
                         photo,
-                        dni,
                         type,
                         active,
-                        qualification,
-                        ownerBusinessId: id,
+                        ownerBusinessId: userId,
                     },
                 });
                 res.status(200).json({ message: "created " });

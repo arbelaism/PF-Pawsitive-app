@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import { MainLayout, AdoptionsScreen } from 'components'
-// import createDB from '../createDB'
+//import createDB from '../utils/createDB'
 
 const Home: NextPage = () => {
-    // createDB()
+   // createDB()
 
     return (
         <MainLayout title="Pawsitive - Home">
