@@ -14,6 +14,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                     where: {
                         id: String(id),
                     },
+                    include: { ownerBusiness: { select: { firstName: true, lastName: true, email: true } } }
                 });
                 if (business) res.status(200).json(business);
                 else
