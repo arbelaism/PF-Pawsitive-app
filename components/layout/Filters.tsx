@@ -4,19 +4,31 @@ import axios from 'axios'
 import { IAdoption } from 'app/types'
 
 type Props = {
-    setData: (data: IAdoption) => void
+    data: IAdoption[]
+    setData: (data: IAdoption[]) => void
 }
 
-const Filters = ({ setData }: Props) => {
-    async function handleFilterBreed(e: React.ChangeEvent<HTMLInputElement>) {
+const Filters = ({ data, setData }: Props) => {
+    // async function handleFilterBreed(e: React.ChangeEvent<HTMLInputElement>) {
+    //     e.preventDefault()
+    //     const breed = e.target.value
+    //     if (breed === '') return
+
+    //     const breeds: IAdoption = await axios.get(
+    //         `http://localhost:3000/api/adoptionposts/type/${breed}`
+    //     )
+    //     console.log(breeds)
+    //     setData(breeds)
+    //     return
+    // }
+    function handleFilterCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
-        const breed = e.target.value
+        const breed = e.target.value as string
         if (breed === '') return
 
-        const breeds: IAdoption = await axios.get(
-            `http://localhost:3000/api/adoptionposts/type/${breed}`
-        )
-        setData(breeds)
+        const filteredData = data?.filter(d => d.breed === breed)
+        console.log(filteredData, "filter data")
+        setData(filteredData)
         return
     }
 
@@ -34,7 +46,7 @@ const Filters = ({ setData }: Props) => {
                 <h2>Filtrar por Categoría</h2>
                 <select
                     name="selector"
-                    onChange={e => handleFilterBreed}
+                    onChange={e => handleFilterCategory}
                     className={styles.itemSelector}>
                     <option value="">Categoría...</option>
                     <option value="gato">Gatos</option>

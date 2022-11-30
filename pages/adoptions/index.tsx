@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IAdoption } from 'app/types'
 import { MainLayout, AdoptionCard, Filters } from 'components'
 import { useQuery } from 'react-query'
@@ -20,15 +20,27 @@ const Adoptions: NextPage = () => {
 
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
-    const [data, setData] = useState(adoptions)
+    const [data, setData] = useState<IAdoption[]>(adoptions)
 
+    // useEffect(() => {
+    //     setData(adoptions)
+    //     if (data) {
+    //         currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+    //     }
+    //     console.log(currentItems)
+    // }, [data])
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
-
     let currentItems: IAdoption[] = []
     if (adoptions && !data) {
         currentItems = [...adoptions.slice(firstItemIndex, lastItemIndex)]
     }
+
+    // if (adoptions && !data) {
+    //     currentItems = [...adoptions.slice(firstItemIndex, lastItemIndex)]
+    // }
+
+    // console.log(currentItems)
 
     return (
         <MainLayout title="Pawsitive - Adoptions">
@@ -41,7 +53,7 @@ const Adoptions: NextPage = () => {
 
             <div className="flex">
                 <div className="w-64">
-                    <Filters setData={setData} />
+                    <Filters setData={setData} data={data} />
                 </div>
                 <div className="flex grow flex-col justify-center items-center">
                     {!isLoading && currentItems ? (
