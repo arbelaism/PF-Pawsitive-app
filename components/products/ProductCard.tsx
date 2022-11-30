@@ -6,28 +6,28 @@ import Link from 'next/link'
 import { style } from '@mui/system';
 import { CartItemType } from "pages/products";
 
-type Props = {  
-    product : Product  
-    handleAddToCart: (clickedItem: CartItemType) => void;
+type Props = {    
+    product : Product
+    handleAddToCart: (clickedItem: Product) => void;
 }
 
-const ProductCard = ( product : Product, {handleAddToCart} : Props) => {
+const ProductCard = ({product, handleAddToCart} : Props) => {
     return (
-        <div className={styles.cardContainer} key={id}>
-            <div className={styles.card}>
+        <div className={styles.cardContainer}>
+            <div className={styles.card} key={product.id}>
                 <Image
-                    src={photo}
+                    src={product.photo}
                     alt="No image to display"
                     width={150}
                     height={150}
                     className={styles.cardImage}
                 />
-                <h2 className={styles.title}>{name}</h2>
-                <p className={styles.text}>Tamaño: {size}</p>
-                <p className={styles.text}>Descripcion: {description}</p>
-                <p className={styles.text}>Precio: ${price}</p>
-                <h3 className={styles.title}>Vendedor: {user.firstName +' '+user.lastName}</h3>
-                <button className={styles.button} onClick={() => handleAddToCart(item)}>Agregar al carrito</button>
+                <h2 className={styles.title}>{product.name}</h2>
+                <p className={styles.text}>Tamaño: {product.size}</p>
+                <p className={styles.text}>Descripcion: {product.description}</p>
+                <p className={styles.text}>Precio: ${product.price}</p>
+                <h3 className={styles.title}>Vendedor: {product.user.firstName +' '+product.user.lastName}</h3>
+                <button className={styles.button} onClick={() => handleAddToCart(product)}>Agregar al carrito</button>
                 
             </div>
         </div>

@@ -33,6 +33,7 @@ export interface Product {
     size: string
     active?: boolean        
     user: UserProduct
+    amount?: number
   }
   
   export interface UserProduct {
