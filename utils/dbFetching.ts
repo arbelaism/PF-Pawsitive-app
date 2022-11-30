@@ -9,3 +9,11 @@ export const getAdoptions= async () => {
     }
     return adoptions;
 }
+
+export const getProducts = async ()=>{
+    const response = await axios.get('http://localhost:3000/api/product')
+    const products = await response.data;
+
+    if(!products) throw new Error('Data not found')
+    return products;
+}
