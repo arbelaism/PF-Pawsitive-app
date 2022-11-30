@@ -3,23 +3,24 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import styles from '../styles/AdoptionDetails.module.css';
+import styles from 'styles/AdoptionDetails.module.css'
 import Image from 'next/image';
+import {getPetById} from 'utils/dbFetching'
+import { Props } from 'pages/adoptions';
+import { AiOutlineClose } from 'react-icons/ai'
 
 
-export default function AdoptionDetails(){
+
+export default function AdoptionDetails({id}:Props){
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const nombre= 'Patricio';
-  const edad= '6 años';
-  const categoria= 'Pony salvaje';
+  
+  const {data: pet, isLoading} = getPetById(id);
 
   return (
     <div>
-      <Button onClick={handleOpen}>Adopt me!</Button>
+      <button onClick={handleOpen} className={styles.button}>Adopt me!</button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -34,27 +35,31 @@ export default function AdoptionDetails(){
         <Fade in={open}>
           <Box className={styles.container}>
             <div className={styles.containerDetails}>
-                <div>
-                    <Typography id="transition-modal-title" variant="h6" component="h2">
-                        ¡Adóptame!
-                    </Typography>
-                </div>
-                <div>
-                    <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                        {`Mi nombre es ${nombre}, soy un amable y cariñoso ${categoria} de ${edad} de edad. Busco ...
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.`}
-                    </Typography>
-                </div>
-                <div className={styles.imgContainer}>
-                    <Image src="" alt=""/>                
-                </div>
-                <div>
-                    <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                            AQUI VA FORMULARIO DE ADOPCION: Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
-                </div>
-
+                {isLoading ? <h1>Loading...</h1>
+                : 
+                  <>
+                  <div className={styles.headerContainer}>
+                    <div className={styles.titleContainer}>                    
+                      <h1>¡Adopt me!</h1>                   
+                    </div>
+                    <div className={styles.buttonContainer}>
+                      <button onClick={handleClose}><AiOutlineClose/></button>
+                    </div>
+                  </div>
+                  <div className={styles.descriptionContainer}>
+                    <p>
+                    My name is <span>{pet.data.name}</span>, I'm a very kind and friendly <span>{pet.data.breed}</span>. I'm <span>{pet.data.age}</span>. 
+                    I'm looking for my dreamed home (family), somebody who can love me and take care of me.
+                    </p>
+                  </div>
+                  <div className={styles.imgContainer}>
+                    <Image src={pet.data.photo} alt={`Adopt me: ${pet.data.name}`} layout="fill"/>                
+                  </div>
+                  <div className={styles.contatcFormContainer}>                   
+                    AQUI VA FORMULARIO DE ADOPCION: Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                  </div>
+                  </>
+                }
             </div>
           </Box>
         </Fade>
