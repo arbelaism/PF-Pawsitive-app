@@ -31,7 +31,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                             }
                         }
                     }
-                })
+                )
                 res.status(200).json(posts)
             } catch (error) {
                 console.log(error)

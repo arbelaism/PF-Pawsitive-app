@@ -1,20 +1,17 @@
-.container {
-    width: 100%;
-}
-
 .filtersContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 250px;
-    height: 65vh;
+    height: 75vh;
     background: rgb(255, 158, 0, 0.8);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
         sans-serif;
-    position: fixed;
+    position: sticky;
+    top: 150px;
+    margin: 1.5rem;
     border-radius: 10px;
-    margin-left: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 .itemSelector {

@@ -1,17 +1,54 @@
-import { NextPage } from 'next';
-import Link from 'next/link';
-import React from 'react';
-import { IAdoption } from 'app/types';
-import { MainLayout, AdoptionCard, Filters } from 'components';
-import {useQuery} from 'react-query';
-import {getAdoptions} from 'utils/dbFetching'
+import { NextPage } from 'next'
+import Link from 'next/link'
+import React, { useState, useEffect } from 'react'
+import { IAdoption } from 'app/types'
+import { MainLayout, AdoptionCard, Filters } from 'components'
+import { useQuery } from 'react-query'
+import { getAdoptions } from 'utils/dbFetching'
+import AlternativePagination from 'components/layout/AlternativePagination'
 
 export type Props = {
     [key: string]: any
 }
 
 const Adoptions: NextPage = () => {
-    const {data: adoptions, error, isLoading} = useQuery(['adoptions'], getAdoptions);
+    const {
+        data: adoptions,
+        error,
+        isLoading,
+        isSuccess
+    } = useQuery(['adoptions'], getAdoptions)
+
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
+    const [data, setData] = useState<IAdoption[]>()
+
+    // useEffect(() => {
+    //     setData(adoptions)
+    //     if (data) {
+    //         currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+    //     }
+    //     console.log(currentItems)
+    // }, [data])
+    const lastItemIndex = currentPage * itemsPerPage
+    const firstItemIndex = lastItemIndex - itemsPerPage
+    let currentItems: IAdoption[] = []
+    if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+
+    useEffect(() => {
+        if (isSuccess) {
+            setData(adoptions)
+
+        }
+    },[isSuccess,adoptions]
+
+    )
+
+    // if (adoptions && !data) {
+    //     currentItems = [...adoptions.slice(firstItemIndex, lastItemIndex)]
+    // }
+
+    // console.log(currentItems)
 
     return (
         <MainLayout title="Pawsitive - Adoptions">
@@ -22,25 +59,38 @@ const Adoptions: NextPage = () => {
                 </Link>
             </div>
 
-            {/*FILTROS*/}
-            {/* FIX: FIX THIS */}
-            {/* <Filters adoptions={adoptions} /> */}
-
-            <div className="flex flex-wrap justify-end items-center">
-                {isLoading ? <h1>Cargando...</h1>
-                    : adoptions.map((adoption: IAdoption) => {
-                        return (
-                            <AdoptionCard
-                                key={adoption.id}
-                                id={adoption.id}
-                                name={adoption.name}
-                                size={adoption.size.toLowerCase()}
-                                age={adoption.age}
-                                breed={adoption.breed}
-                                photo={adoption.photo}
-                            />
-                        )
-                    })}
+            <div className="flex">
+                <div className="w-64">
+                    <Filters setData={setData} data={data} />
+                </div>
+                <div className="flex grow flex-col justify-center items-center">
+                    {!isLoading && currentItems ? (
+                        <AlternativePagination
+                            totalItems={adoptions?.length}
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    ) : null}
+                    <div className="grid grid-cols-3 justify-center items-center">
+                        {isLoading ? (
+                            <h1>Loading...</h1>
+                        ) : (
+                            currentItems.map((adoption: IAdoption) => {
+                                return (
+                                    <AdoptionCard
+                                        key={adoption.id}
+                                        id={adoption.id}
+                                        name={adoption.name}
+                                        size={adoption.size.toLowerCase()}
+                                        age={adoption.age}
+                                        breed={adoption.breed}
+                                        photo={adoption.photo}
+                                    />
+                                )
+                            })
+                        )}
+                    </div>
+                </div>
             </div>
         </MainLayout>
     )

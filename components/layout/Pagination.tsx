@@ -1,4 +1,4 @@
-import React, { EventHandler, useEffect } from 'react'
+import React, {  useEffect } from 'react'
 import { useState } from 'react'
 import styles from 'styles/Pagination.module.css'
 import AdoptionCard from '../adoptions/AdoptionCard'
