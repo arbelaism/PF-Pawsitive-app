@@ -5,10 +5,10 @@ export default async function getPosts(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const size  = req.body.size.toUpperCase();
+  const size = req.body.size.toUpperCase();
   try {
     const posts = await prisma.adoptionPost.findMany({
-      where: { active: true, size: size},
+      where: { active: true, size: size },
       select: {
         id: true,
         name: true,
@@ -16,7 +16,10 @@ export default async function getPosts(
         age: true,
         breed: true,
         photo: true,
-        userAdop: { select: { name: true, lastName: true, email: true } },
+        active: true,
+        description: true,
+        createdAt: true,
+        user: { select: { firstName: true, lastName: true, email: true } },
       },
     });
     res.status(200).json(posts);

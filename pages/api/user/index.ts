@@ -11,7 +11,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             try {
                 const users = await prisma.user.findMany({
                     include: {
-                        professionalBusiness: true,
+                        businessPost: true,
                     }
                 })
                 users ?
@@ -28,16 +28,17 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // POST(CREATE) THE USER
 
         case "POST":
-            const { email, name, lastName, birthday, photo, role, password } = req.body;
+            const { firstName, lastName, email, age, photo, role, active, password } = req.body;
             try {
                 const newUser = await prisma.user.create({
                     data: {
-                        email,
-                        name,
+                        firstName,
                         lastName,
-                        birthday,
+                        email,
+                        age,
                         photo,
                         role,
+                        active,
                         password,
                     }
                 })

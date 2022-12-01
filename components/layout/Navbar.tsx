@@ -27,8 +27,8 @@ const Navbar: NextComponentType = () => {
                             </Link>
                         </div>
                         <div>
-                            <Link href={'/services'}>
-                                <a>Servicios</a>
+                            <Link href={'/products'}>
+                                <a>Productos</a>
                             </Link>
                         </div>
                         <div>

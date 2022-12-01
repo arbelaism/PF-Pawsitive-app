@@ -7,6 +7,7 @@ const nextConfig = {
             'images.unsplash.com',
             'img.freepik.com',
             'encrypted-tbn0.gstatic.com',
+            'puppis.vteximg.com.br',
             'res.cloudinary.com'
         ]
     }

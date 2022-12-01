@@ -10,12 +10,13 @@ export const getAdoptions= async () => {
         throw new Error('Data not found')
     }
     return adoptions;
-};
-//Custom hook to fetch data by id
-const fetchPet = (id: any)=>{
-    return axios.get(`http://localhost:3000/api/adoptionpost/${id}`);
-};
-//Data query by id
-export const getPetById = (id: any)=>{
-    return useQuery(['pet', id], ()=> fetchPet(id))
-};
+}
+
+export const getProducts = async ()=>{
+    const response = await axios.get('http://localhost:3000/api/product')
+    const products = await response.data;
+
+    if(!products) throw new Error('Data not found')
+    return products;
+}
+
