@@ -20,15 +20,10 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         age: true,
                         breed: true,
                         photo: true,
-                        userAdop: {
-                            select: {
-                                name: true,
-                                lastName: true,
-                                email: true,
-                            }
+                        user:true,
                         }
                     }
-                })
+                )
                 res.status(200).json(posts)
             } catch (error) {
                 console.log(error)
@@ -39,10 +34,10 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // POST(CREATE) THE ADOPTIONPOST
 
         case "POST":
-            const { name, age, breed, photo, active, userAdopId } = req.body;
+            const { name, age, breed, photo, active, user } = req.body;
             const size = req.body.size.toUpperCase();
             try {
-                if (userAdopId) {
+                if (user) {
                     const newPost = await prisma.adoptionPost.create({
                         data: {
                             name,
@@ -51,7 +46,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                             breed,
                             photo,
                             active,
-                            userAdopId
+                            user
                         }
                     })
                     res.status(201).json(newPost)

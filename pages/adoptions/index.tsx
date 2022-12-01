@@ -15,12 +15,13 @@ const Adoptions: NextPage = () => {
     const {
         data: adoptions,
         error,
-        isLoading
+        isLoading,
+        isSuccess
     } = useQuery(['adoptions'], getAdoptions)
 
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
-    const [data, setData] = useState<IAdoption[]>(adoptions)
+    const [data, setData] = useState<IAdoption[]>()
 
     // useEffect(() => {
     //     setData(adoptions)
@@ -32,9 +33,16 @@ const Adoptions: NextPage = () => {
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
     let currentItems: IAdoption[] = []
-    if (adoptions && !data) {
-        currentItems = [...adoptions.slice(firstItemIndex, lastItemIndex)]
-    }
+    if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+
+    useEffect(() => {
+        if (isSuccess) {
+            setData(adoptions)
+
+        }
+    },[isSuccess,adoptions]
+
+    )
 
     // if (adoptions && !data) {
     //     currentItems = [...adoptions.slice(firstItemIndex, lastItemIndex)]

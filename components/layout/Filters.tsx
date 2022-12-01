@@ -2,13 +2,15 @@ import styles from 'styles/Filters.module.css'
 import React from 'react'
 import axios from 'axios'
 import { IAdoption } from 'app/types'
-
+import { getAdoptions } from 'utils/dbFetching'
+import { useQuery } from 'react-query'
+import { set } from 'react-hook-form'
 type Props = {
-    data: IAdoption[]
+    data: IAdoption[] | undefined
     setData: (data: IAdoption[]) => void
 }
 
-const Filters = ({ data, setData }: Props) => {
+const Filters = ({ setData, data }: Props) => {
     // async function handleFilterBreed(e: React.ChangeEvent<HTMLInputElement>) {
     //     e.preventDefault()
     //     const breed = e.target.value
@@ -21,13 +23,43 @@ const Filters = ({ data, setData }: Props) => {
     //     setData(breeds)
     //     return
     // }
+    const {
+        data: adoptions,
+        error,
+        isLoading,
+        isSuccess
+    } = useQuery(['adoptions'], getAdoptions)
+    console.log("setData", setData)
+
+
     function handleFilterCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
         const breed = e.target.value as string
         if (breed === '') return
 
-        const filteredData = data?.filter(d => d.breed === breed)
-        console.log(filteredData, "filter data")
+        const filteredData = (data ? data : adoptions)?.filter((d) => d.breed === breed)
+        setData(filteredData)
+        return
+
+
+    }
+    function handleFilterSize(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const size = e.target.value as string
+        if (size === '') return
+
+        const filteredData = (data ? data : adoptions)?.filter((d) => d.size === size.toUpperCase())
+        setData(filteredData)
+        return
+
+
+    }
+    function handleFilterAge(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const age = e.target.value as string
+        if (age === '') return
+
+        const filteredData = (data ? data : adoptions)?.filter((d) => d.breed === age.toLowerCase())
         setData(filteredData)
         return
     }
@@ -36,6 +68,7 @@ const Filters = ({ data, setData }: Props) => {
         const select = document.querySelectorAll('select')
 
         select.forEach(s => (s.value = ''))
+        setData(adoptions)
 
         return
     }
@@ -46,7 +79,7 @@ const Filters = ({ data, setData }: Props) => {
                 <h2>Filtrar por Categoría</h2>
                 <select
                     name="selector"
-                    onChange={e => handleFilterCategory}
+                    onChange={e => handleFilterCategory(e)}
                     className={styles.itemSelector}>
                     <option value="">Categoría...</option>
                     <option value="gato">Gatos</option>
@@ -60,7 +93,7 @@ const Filters = ({ data, setData }: Props) => {
                 <h2>Filtrar por Tamaño</h2>
                 <select
                     name="size"
-                    onChange={() => {}}
+                    onChange={(e) => handleFilterSize(e)}
                     className={styles.itemSelector}>
                     <option value="">Tamaño...</option>
                     <option value="BIG">Grande</option>
@@ -73,7 +106,7 @@ const Filters = ({ data, setData }: Props) => {
                 <h2>Filtrar por Edad</h2>
                 <select
                     name="age"
-                    onChange={() => {}}
+                    onChange={(e) => handleFilterAge(e)}
                     className={styles.itemSelector}>
                     <option value="">Edad...</option>
                     <option value="1 mes">1 Mes</option>
