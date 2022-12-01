@@ -71,6 +71,7 @@ const Products: NextPage = () => {
                 {isLoading ? <h1>Cargando...</h1>
                     : products.map((product: Product) => 
                             <ProductCard
+                                key={product.id}
                                 id={product.id}                             
                                 product={product}
                                 handleAddToCart={handleAddToCart}
