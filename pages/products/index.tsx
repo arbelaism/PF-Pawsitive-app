@@ -23,7 +23,7 @@ export type CartItemType = {
 
 
 const Products: NextPage = () => {
-    // const [cartOpen, setCartOpen] = useState(false);<
+    //Recover cartproducts when user comeback from the cart to products again    
     const cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
     const [cartItems, setCartItems] = useState(cartFromLocalStorage as CartItemType[]);
 
@@ -49,37 +49,13 @@ const Products: NextPage = () => {
           return [...prev, {...clickedItem, amount: 1}];
       
         })        
-    };
-    const handleRemoveFromCart = (id: string) => {
-    setCartItems(prev => 
-        prev.reduce((acc, item) => {
-        if (item.id === id) {
-            if (item.amount === 1) return acc;
-            return [...acc, {...item, amount: item.amount - 1}]
-        } else {
-            return [...acc, item]; 
-        }
-        },  [] as CartItemType[])
-    )
-    };
+    };    
 
     useEffect(() => {
         // storing input cartItems
         localStorage.setItem("cartProducts", JSON.stringify(cartItems));
         
-      }, [cartItems]);
-    // useEffect(() => {
-    //     // storing input cartItems
-    //     // localStorage.clear()
-    //     setCartItems(prev=>{
-    //         const saved =localStorage.getItem("cartProducts")
-    //         const products = JSON.parse(saved!)
-
-    //         return [...prev, {... products}]
-    //     })
-    //     console.log(cartItems)
-        
-    // }, []);
+      }, [cartItems]);    
 
     return (
         <MainLayout title="Pawsitive - Productos">

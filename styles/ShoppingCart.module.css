@@ -1,3 +1,14 @@
+.cartContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    border: 3px outset;
+    padding: 8px;
+    border-radius: 50px;
+}
+
 .container {
     width: 100%;
     padding: 2rem;
@@ -24,10 +35,29 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;    
   }
   .body > * {
     flex: 1;
+  }
+  .total{
+    display: flex;
+    margin-left: 68%;
+    justify-content: space-evenly;
+    font-size: large;
+    font-style: oblique;
+    font-weight: bold;
+  }
+  .paybutton{
+    width: 20%;
+    height: 15%;
+    margin-left: 20px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 121, 1);
+    border: 1px solid rgb(153, 180, 33);
+    font-size: large;
+    font-style: oblique;
+    font-weight: bold;
   }
   .image {
     width: 100px;

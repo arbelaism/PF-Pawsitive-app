@@ -1,6 +1,6 @@
 import { NextPage} from 'next';
 import { Product } from 'app/types';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import { MainLayout} from 'components';
 import ProductOnCart from 'components/products/ProductOnCart'
 import styles from 'styles/ShoppingCart.module.css'
@@ -53,24 +53,29 @@ const Cart : NextPage = () => {
           0
         );
     };
+    useEffect(() => {
+        // storing input cartProducts
+        localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+        
+      }, [cartProducts]);
     
     return (
         
         <MainLayout title="Pawsitive - Carrito">
-            <div className="px-4 py-2 w-full flex justify-between items-center">
+            <div className={styles.cartContainer}>
                 <h1 className="text-3xl font-bold">Carrito de compras</h1><br/>             
                 <div className={styles.container}>
                     {!cartProducts.length ? 
                         <h1>Your Cart is Empty!</h1>
                      : 
-                        <div className='body'>
+                        <div className="body">
                             <div className={styles.header}>
-                                <div>Image</div>
-                                <div>Product</div>
-                                <div>Price</div>
-                                <div>Quantity</div>
-                                <div>Actions</div>
-                                <div>Total Price</div>
+                                <div>Imagen</div>
+                                <div>Producto</div>
+                                <div>Precio unitario</div>
+                                <div>Cantidad</div>
+                                <div>Agregar/Remover</div>
+                                <div>Precio total producto</div>
                             </div>
                             {cartProducts.map((product : Product)=>
                             <ProductOnCart
@@ -79,13 +84,16 @@ const Cart : NextPage = () => {
                             removeFromCart={handleRemoveFromCart}
                             /> 
                         )}
-
-                            <h2>Total compra: $ {getTotalPrice()}</h2>
-                        </div>
-
-                                                   
-                                        
+                        </div>                                       
                     }
+                    <hr/>
+                    <div className={styles.total}>
+                        <h3>Total compra: $ </h3>
+                        <h3>{getTotalPrice()}</h3>                                               
+                    </div>
+                    
+                    <button className={styles.paybutton}>Pagar</button>                                               
+                    
                 </div>                
             </div>
         </MainLayout>

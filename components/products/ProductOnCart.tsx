@@ -12,7 +12,7 @@ const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
   return (
     <div className={styles.body}>
         <div className={styles.image}>
-            <img src={product.photo} height="90" width="65" />
+            <img className={styles.image} src={product.photo} height="90" width="65" />
         </div>
         <p>{product.name}</p>        
         <p>${product.price}</p>
