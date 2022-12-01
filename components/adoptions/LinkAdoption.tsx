@@ -1,9 +1,9 @@
 import { NextComponentType } from "next";
-import styles from "styles/LinkAdoption.module.css";
-import Link from "next/link";
+import styles from 'styles/LinkAdoption.module.css';
 import AdoptionDetails from "./AdoptionDetails";
+import { Props } from "pages/adoptions";
 
-const LinkAdoption: NextComponentType = () => {
+const LinkAdoption: NextComponentType = ({id}:Props) => {
   return (
     <div className={styles.containerMain}>
       <div className={styles.container}>
@@ -31,10 +31,7 @@ const LinkAdoption: NextComponentType = () => {
               <div className={styles.right}></div>
             </div>
           </div>
-          <button>
-            Adopt me!
-          </button>
-          {/*<AdoptionDetails/> */}         
+          <AdoptionDetails id={id}/>         
           <div className={styles.paw}></div>
           <div className={styles.top}></div>
         </div>

@@ -1,18 +1,47 @@
 
 
 .container{
-    /* position: 'absolute'; */
-    /* top: 50%; */
     left: 50%;
-    transform: translate(50%,10%);
+    transform: translate(30%,10%);
     width: 60vw;
     height: 80vh;
-    background-color: rgb(38, 38, 38, 0.8);
+    background-color: rgba(255, 200, 73, 0.8);
     border: 1px solid #000;
     border-radius: 10px;
     box-shadow: 24px;
-    color: white;
+    color: rgb(37, 37, 37);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
  
+  }
+  .headerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 30px;
+    }
+  .buttonContainer{
+    width: 10%;
+    text-align: right;
+    font-weight: bolder;
+    color:rgb(77, 77, 77);
+  }
+  .buttonContainer button{
+    font-size: 25px;
+  }
+  .titleContainer{
+    width: 90%;
+    text-align: center;
+  }
+  .descriptionContainer span{
+    font-weight: bolder;
+    font-size: large;
+    text-transform: capitalize;
+  }
+  .titleContainer h1{
+    font: bolder;
+    font-size: 20px;
+    margin-bottom: 15px;
   }
   .containerDetails{
     display: flex;
@@ -21,13 +50,34 @@
     align-items: center;
     padding: 15px
   }
+  .descriptionContainer{
+    padding-left:15px;
+    padding-right: 15px;
+    text-align: center;
+  }
   .imgContainer{
     width: 300px;
     height: 200px;
-    border: 1px solid #000;
-    border-radius: 10px;
+    border: 2px solid #000;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+    margin-top: 15px;
+    margin-bottom:15px;
+    object-fit: "contain";
+    position:relative;
   }
   .itemContainer{
     padding: 10px;
     margin:5px
+  }
+  .button {
+    color: #02091a;
+    padding: 10px 20px;
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    background-color: #fff;
+    border: 5px solid #02091a;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
   }
