@@ -1,4 +1,5 @@
 import { Product } from "app/types";
+import styles from 'styles/ShoppingCart.module.css'
 
 type Props = {
   product: Product;
@@ -7,27 +8,30 @@ type Props = {
 };
 
 const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
+    
   return (
-    <div>
-      <h3>{product.name}</h3>
-      <div className={"information"}>
-        <p>Price: ${product.price}</p>
-        <p>Total: ${(product.amount! * product.price).toFixed(2)}</p>
-      </div>
-      <div className="buttons">
-        <button          
-          onClick={() => removeFromCart(product.id)}
-        >
-          -
-        </button>
+    <div className={styles.body}>
+        <div className={styles.image}>
+            <img className={styles.image} src={product.photo} height="90" width="65" />
+        </div>
+        <p>{product.name}</p>        
+        <p>${product.price}</p>
         <p>{product.amount}</p>
-        <button          
-          onClick={() => addToCart(product)}
-        >
-          +
-        </button>
-      </div>
-      <img src={product.photo} alt={product.name} />
+        
+        <div className={styles.buttons}>
+            <button          
+            onClick={() => removeFromCart(product.id)}
+            >
+            -
+            </button>            
+            <button          
+            onClick={() => addToCart(product)}
+            >
+            +
+            </button>
+        </div>
+            <p>${(product.amount! * product.price)}</p>
+      
     </div>
   );
 };

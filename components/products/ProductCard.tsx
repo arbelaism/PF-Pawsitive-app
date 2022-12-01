@@ -7,14 +7,15 @@ import { style } from '@mui/system';
 import { CartItemType } from "pages/products";
 
 type Props = {    
+    id : string
     product : Product
     handleAddToCart: (clickedItem: Product) => void;
 }
 
-const ProductCard = ({product, handleAddToCart} : Props) => {
+const ProductCard = ({id, product, handleAddToCart} : Props) => {
     return (
-        <div className={styles.cardContainer}>
-            <div className={styles.card} key={product.id}>
+        <div className={styles.cardContainer} key={id}>
+            <div className={styles.card} key={id}>
                 <Image
                     src={product.photo}
                     alt="No image to display"
