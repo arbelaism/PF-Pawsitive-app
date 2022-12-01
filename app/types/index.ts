@@ -21,6 +21,7 @@ export interface IAdoption {
     userAdop: User
 }
 export interface Product {
+    key?: string
     id: string
     name: string
     price: number

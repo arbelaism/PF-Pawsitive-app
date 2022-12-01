@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { Product } from 'app/types';
@@ -21,9 +21,11 @@ export type CartItemType = {
     amount: number;
 }
 
+
 const Products: NextPage = () => {
-    const [cartOpen, setCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([] as CartItemType[]);
+    // const [cartOpen, setCartOpen] = useState(false);<
+    const cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
+    const [cartItems, setCartItems] = useState(cartFromLocalStorage as CartItemType[]);
 
     const {data: products, error, isLoading} = useQuery(['products'], getProducts);
     
@@ -64,17 +66,36 @@ const Products: NextPage = () => {
     useEffect(() => {
         // storing input cartItems
         localStorage.setItem("cartProducts", JSON.stringify(cartItems));
+        
       }, [cartItems]);
+    // useEffect(() => {
+    //     // storing input cartItems
+    //     // localStorage.clear()
+    //     setCartItems(prev=>{
+    //         const saved =localStorage.getItem("cartProducts")
+    //         const products = JSON.parse(saved!)
+
+    //         return [...prev, {... products}]
+    //     })
+    //     console.log(cartItems)
+        
+    // }, []);
 
     return (
         <MainLayout title="Pawsitive - Productos">
             <div className="px-4 py-2 w-full flex justify-between items-center">
                 <h1 className="text-3xl font-bold">Productos</h1>                
             </div>
+            <div className='flex flex-wrap justify-end items-center'>
+                <Link href={'/shoppingCart'}>
+                    <a>Ir al carrito</a>
+                </Link>
+            </div>
             <div className="flex flex-wrap justify-end items-center">
                 {isLoading ? <h1>Cargando...</h1>
                     : products.map((product: Product) => 
-                            <ProductCard                                
+                            <ProductCard
+                                id={product.id}                             
                                 product={product}
                                 handleAddToCart={handleAddToCart}
                             />
