@@ -32,10 +32,10 @@ const Contact: NextComponentType = () => {
           "Vu6_KG-xIf-x55P1I"
         )
         .then(
-          function (response) {
+          function (response:any) {
             console.log("SUCCESS!", response.status, response.text);
           },
-          function (error) {
+          function (error:any) {
             console.log("FAILED...", error);
           }
         );
