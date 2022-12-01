@@ -29,11 +29,11 @@ const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
                 <p className={styles.text}>Age: {age}</p>
                 <p className={styles.text}>Breed: {breed}</p>
                 <div className={styles.adoptButton}></div>
-                <Link href={`/adoptions/${id}`}>
+                {/* <Link href={`/adoptions/${id}`}> */}
                     <a>
-                        <LinkAdoption />
+                        <LinkAdoption id={id}/>
                     </a>
-                </Link>
+                {/* </Link> */}
             </div>
         </div>
     )

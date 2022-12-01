@@ -12,16 +12,12 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             try {
                 if (id) {
 
-                    const item = await prisma.item.findUnique({
+                    const item = await prisma.product.findUnique({
                         where: {
                             id: id.toString()
                         },
                         include: {
-                            professionalBusiness: {
-                                select: {
-                                    businessName: true
-                                }
-                            }
+                            user: true,
                         }
                     })
                     res.status(200).json(item)
@@ -41,7 +37,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         case "PUT":
             const data = req.body
             try {
-                const item = await prisma.item.update({
+                const item = await prisma.product.update({
                     where: {
                         id: id?.toString()
                     },
@@ -59,7 +55,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         case "DELETE":
 
             try {
-                const item = await prisma.item.update({
+                const item = await prisma.product.update({
                     where: {
                         id: id,
                     },

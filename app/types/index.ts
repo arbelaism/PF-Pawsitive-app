@@ -20,6 +20,34 @@ export interface IAdoption {
     active?: boolean
     userAdop: User
 }
+export interface Product {
+    key?: string
+    id: string
+    name: string
+    price: number
+    displayPrice?: number
+    description: string
+    stock: number
+    photo: string
+    category: string
+    brand: string
+    size: string
+    active?: boolean        
+    user: UserProduct
+    amount?: number
+  }
+  
+  export interface UserProduct {
+    id: string
+    firstName: string
+    lastName: string
+    email: string
+    age?: number
+    photo?: string
+    role?: string
+    active?: boolean
+    password?: string
+  }
 
 export interface IAppContext {
     users: []

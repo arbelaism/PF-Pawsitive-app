@@ -20,7 +20,15 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         age: true,
                         breed: true,
                         photo: true,
-                        user:true,
+                        active: true,
+                        description: true,
+                        createdAt: true,
+                        user: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                email: true,
+                            }
                         }
                     }
                 )
@@ -34,7 +42,15 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // POST(CREATE) THE ADOPTIONPOST
 
         case "POST":
-            const { name, age, breed, photo, active, user } = req.body;
+            const {
+                name,
+                age,
+                breed,
+                photo,
+                active,
+                description,
+                user
+            } = req.body;
             const size = req.body.size.toUpperCase();
             try {
                 if (user) {
@@ -46,6 +62,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                             breed,
                             photo,
                             active,
+                            description,
                             user
                         }
                     })

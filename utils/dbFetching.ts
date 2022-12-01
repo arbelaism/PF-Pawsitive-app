@@ -1,4 +1,6 @@
 import axios from "axios";
+import {useQuery} from 'react-query';
+import { Props } from "pages/adoptions";
 
 export const getAdoptions= async () => {
     const response = await axios.get('http://localhost:3000/api/adoptionpost');
@@ -9,3 +11,12 @@ export const getAdoptions= async () => {
     }
     return adoptions;
 }
+
+export const getProducts = async ()=>{
+    const response = await axios.get('http://localhost:3000/api/product')
+    const products = await response.data;
+
+    if(!products) throw new Error('Data not found')
+    return products;
+}
+
