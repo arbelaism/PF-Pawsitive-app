@@ -1,9 +1,10 @@
 import { Product } from "app/types";
 import styles from 'styles/ShoppingCart.module.css'
+import Image from 'next/image'
 
 type Props = {
   product: Product;
-  addToCart: (clickedproduct: Product) => void;
+  addToCart: (clickedProduct: Product) => void;
   removeFromCart: (id: string) => void;
 };
 
@@ -12,7 +13,13 @@ const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
   return (
     <div className={styles.body}>
         <div className={styles.image}>
-            <img className={styles.image} src={product.photo} height="90" width="65" />
+        <Image
+                    src={product.photo}
+                    alt="No image to display"
+                    width={90}
+                    height={65}
+                    className={styles.cardImage}
+                />
         </div>
         <p>{product.name}</p>        
         <p>${product.price}</p>

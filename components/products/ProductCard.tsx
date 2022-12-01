@@ -27,7 +27,6 @@ const ProductCard = ({id, product, handleAddToCart} : Props) => {
                 <p className={styles.text}>Tamaño: {product.size}</p>
                 <p className={styles.text}>Descripcion: {product.description}</p>
                 <p className={styles.text}>Precio: ${product.price}</p>
-                <h3 className={styles.title}>Vendedor: {product.user.firstName +' '+product.user.lastName}</h3>
                 <button className={styles.button} onClick={() => handleAddToCart(product)}>Agregar al carrito</button>
                 
             </div>
