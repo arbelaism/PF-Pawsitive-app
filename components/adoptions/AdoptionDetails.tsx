@@ -7,6 +7,7 @@ import styles from 'styles/AdoptionDetails.module.css'
 import Image from 'next/image';
 import {getPetById} from 'utils/dbFetching'
 import { Props } from 'pages/adoptions';
+import { useQuery } from 'react-query';
 import { AiOutlineClose } from 'react-icons/ai'
 
 
@@ -16,7 +17,12 @@ export default function AdoptionDetails({id}:Props){
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
-  const {data: pet, isLoading} = getPetById(id);
+  const {
+    data: pet,
+    error,
+    isLoading,
+    isSuccess,
+  } = useQuery(["pet", id], () => getPetById(id));
 
   return (
     <div>
@@ -48,12 +54,12 @@ export default function AdoptionDetails({id}:Props){
                   </div>
                   <div className={styles.descriptionContainer}>
                     <p>
-                    My name is <span>{pet.data.name}</span>, I'm a very kind and friendly <span>{pet.data.breed}</span>. I'm <span>{pet.data.age}</span>. 
+                    My name is <span>{pet.name}</span>, I'm a very kind and friendly <span>{pet.breed}</span>. I'm <span>{pet.age}</span>. 
                     I'm looking for my dreamed home (family), somebody who can love me and take care of me.
                     </p>
                   </div>
                   <div className={styles.imgContainer}>
-                    <Image src={pet.data.photo} alt={`Adopt me: ${pet.data.name}`} layout="fill"/>                
+                    <Image src={pet.photo} alt={`Adopt me: ${pet.name}`} layout="fill"/>                
                   </div>
                   <div className={styles.contatcFormContainer}>                   
                     AQUI VA FORMULARIO DE ADOPCION: Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
