@@ -110,7 +110,7 @@ const Products: NextPage = () => {
                 <div className="flex grow flex-col justify-center items-center">
                     {!isLoading && currentItems ? (
                         <AlternativePagination
-                            totalItems={products?.length}
+                            totalItems={(data ? data : products)?.length}
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
                         />

@@ -19,10 +19,10 @@ const Adoptions: NextPage = () => {
         isSuccess
     } = useQuery(['adoptions'], getAdoptions)
 
+    //Pagination with Data o Adoptions
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
     const [data, setData] = useState<IAdoption[]>()
-
 
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
@@ -34,7 +34,7 @@ const Adoptions: NextPage = () => {
             setData(adoptions)
 
         }
-    },[isSuccess,adoptions]
+    }, [isSuccess, adoptions]
 
     )
 
@@ -55,7 +55,7 @@ const Adoptions: NextPage = () => {
                 <div className="flex grow flex-col justify-center items-center">
                     {!isLoading && currentItems ? (
                         <AlternativePagination
-                            totalItems={adoptions?.length}
+                            totalItems={(data ? data : adoptions)?.length}
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
                         />
