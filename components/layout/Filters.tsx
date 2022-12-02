@@ -6,7 +6,7 @@ import { useQuery } from 'react-query'
 type Props = {
     data: IAdoption[] | undefined
     setData: (data: IAdoption[]) => void
-    setCurrentPage:(n : number)=> void
+    setCurrentPage: (n: number) => void
 }
 interface Values {
     breed: string,
@@ -14,7 +14,7 @@ interface Values {
     age: string,
 }
 
-const Filters = ({ setData, data , setCurrentPage }: Props) => {
+const Filters = ({ setData, data, setCurrentPage }: Props) => {
     // async function handleFilterBreed(e: React.ChangeEvent<HTMLInputElement>) {
     //     e.preventDefault()
     //     const breed = e.target.value

@@ -50,10 +50,10 @@ const Adoptions: NextPage = () => {
 
             <div className="flex">
                 <div className="w-64">
-                    <Filters 
-                    setData={setData} 
-                    data={data}
-                    setCurrentPage={setCurrentPage}
+                    <Filters
+                        setData={setData}
+                        data={data}
+                        setCurrentPage={setCurrentPage}
                     />
                 </div>
                 <div className="flex grow flex-col justify-center items-center">
