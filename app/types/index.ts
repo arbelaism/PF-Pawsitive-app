@@ -20,6 +20,18 @@ export interface IAdoption {
     active?: boolean
     userAdop: User
 }
+
+export interface AdoptFormInput {
+    name: string;
+    size: string;
+    age: string;
+    active? : boolean,
+    description?: string,
+    monthOrYear: string;
+    breed: string;
+    photo?: string;
+    userId: string
+  }
 export interface Product {
     key?: string
     id: string
