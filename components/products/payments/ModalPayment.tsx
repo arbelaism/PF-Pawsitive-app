@@ -16,7 +16,7 @@ import Checkout from './Checkout';
 
 const stripePromise = loadStripe("pk_test_51M9y5pEAdwcBn8LBT7JVGygAveqQs9qERPGoCFo0gkYtsuiFqy1D9XSxUbPRcqrGHsOfyeGyoRYpLgnaAYUA5jJa00zhIbP99y");
 
-const ModalPayment: NextComponentType = ({price}:Props)=>{
+const ModalPayment = ({price}:Props)=>{
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);  
@@ -43,7 +43,7 @@ const ModalPayment: NextComponentType = ({price}:Props)=>{
                       
                       <div className={styles.headerContainer}>
                         <div className={styles.titleContainer}>                    
-                          <h2>Complete data and press 'Buy' button to confirm</h2>                   
+                          <h2>Complete data and press Buy button to confirm</h2>                   
                         </div>
                         <div className={styles.buttonContainer}>
                           <button onClick={handleClose}><AiOutlineClose/></button>
@@ -54,9 +54,9 @@ const ModalPayment: NextComponentType = ({price}:Props)=>{
                       </div>
                       <div className={styles.FormContainer}>
                         <div className={styles.descriptionContainer}>
-                          <p className={styles.description}>Please, if you are sure to buy these products, add your card details. All your personal information is safe, don't worry. After processing your payment, you'll recieved a mail details about your purchased.</p>
+                          <p className={styles.description}>Please, if you are sure to buy these products, add your card details. All your personal information is safe, dont worry. After processing your payment, youll recieved a mail details about your purchased.</p>
                         </div>
-                        <Checkout price = {price}/>
+                        <Checkout price={price}/>
                       </div>                
                     
                 </div>
