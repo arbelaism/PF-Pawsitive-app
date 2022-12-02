@@ -53,3 +53,15 @@
     border: solid #ffff79 1px;
     background-color: rgb(49, 49, 49);
 }
+.buttons{
+    border:2px solid black;
+    margin:4px;
+    padding:0 5px;
+    width: 80px;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+.buttons:hover{
+    border: solid #ffff79 1px;
+    background-color: rgb(49, 49, 49, 0.7);
+}

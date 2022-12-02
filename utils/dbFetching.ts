@@ -37,3 +37,4 @@ export const createPost = async (data: AdoptFormInput) => {
 
   return "Post de " + newPost + " creado";
 };
+
