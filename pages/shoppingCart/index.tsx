@@ -2,6 +2,7 @@ import { NextPage} from 'next';
 import { Product } from 'app/types';
 import { useState, useEffect} from 'react';
 import { MainLayout} from 'components';
+import ModalPayment from 'components/products/payments/ModalPayment';
 import ProductOnCart from 'components/products/ProductOnCart'
 import styles from 'styles/ShoppingCart.module.css'
 
@@ -58,6 +59,8 @@ const Cart : NextPage = () => {
         localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
         
       }, [cartProducts]);
+
+    const priceToPay = getTotalPrice();  
     
     return (
         
@@ -91,8 +94,8 @@ const Cart : NextPage = () => {
                         <h3>Total compra: $ </h3>
                         <h3>{getTotalPrice()}</h3>                                               
                     </div>
-                    
-                    <button className={styles.paybutton}>Pagar</button>                                               
+                    <ModalPayment price={priceToPay}/>
+                    {/* <button className={styles.paybutton}>Pagar</button>                                                */}
                     
                 </div>                
             </div>
