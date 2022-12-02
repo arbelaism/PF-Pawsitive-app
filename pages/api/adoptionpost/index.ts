@@ -41,7 +41,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         // POST(CREATE) THE ADOPTIONPOST
 
-        case "POST":
+        case "POST":            
             const {
                 name,
                 age,
@@ -49,11 +49,11 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                 photo,
                 active,
                 description,
-                user
+                userId
             } = req.body;
             const size = req.body.size.toUpperCase();
             try {
-                if (user) {
+                if (userId) {
                     const newPost = await prisma.adoptionPost.create({
                         data: {
                             name,
@@ -63,7 +63,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                             photo,
                             active,
                             description,
-                            user
+                            userId
                         }
                     })
                     res.status(201).json(newPost)
