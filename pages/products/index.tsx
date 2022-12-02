@@ -105,7 +105,7 @@ const Products: NextPage = () => {
             </div>
             <div className="flex">
                 <div className="w-64">
-                    <Filtersproducts setData={setData} data={data} />
+                    <Filtersproducts setData={setData} data={data} setCurrentPage={setCurrentPage} />
                 </div>
                 <div className="flex grow flex-col justify-center items-center">
                     {!isLoading && currentItems ? (

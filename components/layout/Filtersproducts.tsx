@@ -8,6 +8,7 @@ import { useQuery } from 'react-query'
 export type Props = {
     data: CartItemType[] | undefined
     setData: (data: CartItemType[]) => void
+    setCurrentPage:(n : number)=> void
 }
 export type CartItemType = {
     id: string;
@@ -24,7 +25,7 @@ interface Values {
     price: number,
 }
 
-const Filters = ({ setData, data }: Props) => {
+const Filters = ({ setData, data, setCurrentPage }: Props) => {
 
     const {
         data: products,
@@ -80,6 +81,7 @@ const Filters = ({ setData, data }: Props) => {
         let filteredData: CartItemType[] = [];
         if(size && price){
             filteredData = (data)?.filter((d: CartItemType) => d.size === size).filter((d: CartItemType) => d.price < price)
+            setCurrentPage(1)
             return setData(filteredData)
         }
         if (size) {
@@ -88,6 +90,7 @@ const Filters = ({ setData, data }: Props) => {
         if (price) {
             filteredData = (data)?.filter((d: CartItemType) => d.price < price)
         }
+        setCurrentPage(1)
         return setData(filteredData)
     }
 
