@@ -8,12 +8,21 @@ import styles from 'styles/ShoppingCart.module.css'
 
 
 const Cart : NextPage = () => {
-    
-    if (typeof window !== 'undefined') {
-        var [cartProducts, setCartProducts] = useState<Product[]>(()=>{
+    // let products : Product[] = [];
+    const [cartProducts, setCartProducts] = useState<Product[]>([])
+    // if (typeof window !== 'undefined') {
+        //     var [cartProducts, setCartProducts] = useState<Product[]>(() => {
+            //         const saved = localStorage.getItem("cartProducts")
+            //         const products = JSON.parse(saved!);
+            //         return products
+            //     })
+            
+    //}
+    const setLocalStorageAtComponentMount = () => {
+        setCartProducts(() => {
             const saved = localStorage.getItem("cartProducts")
             const products = JSON.parse(saved!);
-            return products;
+            return products
         })
     }
     const handleAddToCart = (clickedItem: Product) => {
@@ -54,9 +63,17 @@ const Cart : NextPage = () => {
           0
         );
     };
+
+    useEffect(() => {
+        setLocalStorageAtComponentMount();
+    }, [])
+    
     useEffect(() => {
         // storing input cartProducts
-        localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+        if(cartProducts.length){
+
+            localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+        }
         
       }, [cartProducts]);
 
