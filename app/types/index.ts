@@ -9,7 +9,6 @@ export type User = {
     lastName: string
     email: string
 }
-
 export interface IAdoption {
     id: string
     name: string
@@ -69,4 +68,10 @@ export interface IAppContext {
 export interface Action {
     type: string
     payload: IAdoption[] | []
+}
+
+export interface ContactForm {
+  name: string;
+  email: string;
+  message: string;
 }
