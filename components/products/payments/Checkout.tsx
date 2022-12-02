@@ -28,7 +28,7 @@ const CARD_ELEMENT_OPTIONS = {
     },
   };
 
-const Checkout : NextComponentType = ({price}:Props)=>{
+const Checkout  = ({price}:Props)=>{
     const stripe = useStripe();
     const elements = useElements();
     const [loading, setLoading] = useState(false);
@@ -36,9 +36,10 @@ const Checkout : NextComponentType = ({price}:Props)=>{
   
     const handleSubmit= async(e: ChangeEvent<HTMLFormElement>)=>{
       e.preventDefault();
-      const {error, paymentMethod} = await stripe?.createPaymentMethod({
+
+      const {error, paymentMethod} = await stripe!.createPaymentMethod({
         type: 'card',
-        card: elements?.getElement(CardElement)
+        card: elements!.getElement(CardElement)!
       })
       setLoading(true);
       

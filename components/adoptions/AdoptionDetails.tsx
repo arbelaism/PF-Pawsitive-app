@@ -54,8 +54,8 @@ export default function AdoptionDetails({id}:Props){
                   </div>
                   <div className={styles.descriptionContainer}>
                     <p>
-                    My name is <span>{pet.name}</span>, I'm a very kind and friendly <span>{pet.breed}</span>. I'm <span>{pet.age}</span>. 
-                    I'm looking for my dreamed home (family), somebody who can love me and take care of me.
+                    My name is <span>{pet.name}</span>, Im a very kind and friendly <span>{pet.breed}</span>. Im <span>{pet.age}</span>. 
+                    Im looking for my dreamed home (family), somebody who can love me and take care of me.
                     </p>
                   </div>
                   <div className={styles.imgContainer}>

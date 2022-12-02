@@ -3,7 +3,7 @@ import styles from 'styles/LinkAdoption.module.css';
 import AdoptionDetails from "./AdoptionDetails";
 import { Props } from "pages/adoptions";
 
-const LinkAdoption: NextComponentType = ({id}:Props) => {
+const LinkAdoption = ({id}:Props) => {
   return (
     <div className={styles.containerMain}>
       <div className={styles.container}>
