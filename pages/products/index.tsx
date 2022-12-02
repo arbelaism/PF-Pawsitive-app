@@ -16,7 +16,7 @@ export type CartItemType = {
     id: string;
     category: string;
     description: string;
-    size:string;
+    size: string;
     image?: string;
     price: number;
     name: string;
@@ -25,6 +25,8 @@ export type CartItemType = {
 
 
 const Products: NextPage = () => {
+
+    //pagination anda data for filter
     const { data: products, error, isLoading, isSuccess } = useQuery(['products'], getProducts);
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
@@ -35,6 +37,17 @@ const Products: NextPage = () => {
     let currentItems: CartItemType[] = []
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
 
+    useEffect(() => {
+
+        if (isSuccess) {
+            setData(products)
+
+        }
+
+    }, [products, isSuccess]
+
+    )
+
     //Recover cartproducts when user comeback from the cart to products again   
     let cartFromLocalStorage;
     try {
@@ -42,82 +55,42 @@ const Products: NextPage = () => {
     } catch (error) {
         console.log(error)
     }
-  
+
     const handleAddToCart = (clickedItem: Product) => {
-        
-        if(!clickedItem.amount) clickedItem.amount=0
+
+        if (!clickedItem.amount) clickedItem.amount = 0
         setCartItems(prev => {
-          // is the item already added in the cart
-          const isItemInCart = prev.find(item => item.id === clickedItem.id); 
-          
-          if (isItemInCart) {
-            return prev.map(item => 
-              item.id === clickedItem.id 
-              ? { ...item, amount: item.amount + 1 } 
-              : item 
-            );
-          };
-          
-          // first time the item is added 
-          return [...prev, {...clickedItem, amount: 1}];
-      
-        })        
-    };    
+            // is the item already added in the cart
+            const isItemInCart = prev.find(item => item.id === clickedItem.id);
+
+            if (isItemInCart) {
+                return prev.map(item =>
+                    item.id === clickedItem.id
+                        ? { ...item, amount: item.amount + 1 }
+                        : item
+                );
+            };
+
+            // first time the item is added 
+            return [...prev, { ...clickedItem, amount: 1 }];
+
+        })
+    };
 
 
-    const lastItemIndex = currentPage * itemsPerPage
-    const firstItemIndex = lastItemIndex - itemsPerPage
-    let currentItems: Product[] = []
-    if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+
+
+
+    // Recover cartproducts when user comeback from the cart to products again  
+
+    const [cartItems, setCartItems] = useState(cartFromLocalStorage as CartItemType[]);
+
 
     useEffect(() => {
-
         // storing input cartItems
         localStorage.setItem("cartProducts", JSON.stringify(cartItems));
-        
-        if (isSuccess) {
-            setData(products)
 
-        }
-
-    }, [isSuccess, products]
-
-    )
-
-
-    //Recover cartproducts when user comeback from the cart to products again  
-
-    // const cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
-    // const [cartItems, setCartItems] = useState(cartFromLocalStorage as CartItemType[]);
-
-
-
-    const handleAddToCart = (clickedItem: Product) => {}
-
-    //     if (!clickedItem.amount) clickedItem.amount = 0
-    //     setCartItems(prev => {
-    //         // is the item already added in the cart
-    //         const isItemInCart = prev.find(item => item.id === clickedItem.id);
-
-    //         if (isItemInCart) {
-    //             return prev.map(item =>
-    //                 item.id === clickedItem.id
-    //                     ? { ...item, amount: item.amount + 1 }
-    //                     : item
-    //             );
-    //         };
-
-    //         // first time the item is added 
-    //         return [...prev, { ...clickedItem, amount: 1 }];
-
-    //     })
-    // };
-
-    // useEffect(() => {
-    //     // storing input cartItems
-    //     localStorage.setItem("cartProducts", JSON.stringify(cartItems));
-
-    // }, [cartItems, products]);
+    }, [cartItems, products]);
 
 
     return (
