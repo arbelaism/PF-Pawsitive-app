@@ -82,6 +82,7 @@ const Cart : NextPage = () => {
                             </div>
                             {cartProducts.map((product : Product)=>
                             <ProductOnCart
+                            key={product.id}
                             product={product}
                             addToCart={handleAddToCart}
                             removeFromCart={handleRemoveFromCart}

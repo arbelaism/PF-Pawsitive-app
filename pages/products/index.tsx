@@ -7,6 +7,7 @@ import { MainLayout} from 'components';
 import ProductCard  from 'components/products/ProductCard';
 import {useQuery} from 'react-query';
 import {getProducts} from 'utils/dbFetching'
+import AlternativePagination from 'components/layout/AlternativePagination'
 
 export type Props = {
     [key: string]: any
@@ -26,8 +27,11 @@ const Products: NextPage = () => {
     //Recover cartproducts when user comeback from the cart to products again    
     const cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
     const [cartItems, setCartItems] = useState(cartFromLocalStorage as CartItemType[]);
+    const [data, setData] = useState<Product[]>()
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
 
-    const {data: products, error, isLoading} = useQuery(['products'], getProducts);
+    const {data: products, error, isLoading, isSuccess} = useQuery(['products'], getProducts);
     
     
     const handleAddToCart = (clickedItem: Product) => {
@@ -51,11 +55,21 @@ const Products: NextPage = () => {
         })        
     };    
 
+    const lastItemIndex = currentPage * itemsPerPage
+    const firstItemIndex = lastItemIndex - itemsPerPage
+    let currentItems: Product[] = []
+    if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+
     useEffect(() => {
         // storing input cartItems
         localStorage.setItem("cartProducts", JSON.stringify(cartItems));
         
-      }, [cartItems]);    
+        if (isSuccess) {
+            setData(products)
+
+        }
+
+      }, [cartItems, products]);    
 
     return (
         <MainLayout title="Pawsitive - Productos">
@@ -68,8 +82,16 @@ const Products: NextPage = () => {
                 </Link>
             </div>
             <div className="flex flex-wrap justify-end items-center">
+                    {!isLoading && currentItems ? (
+                        <AlternativePagination
+                            totalItems={products?.length}
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    ) : null}
+
                 {isLoading ? <h1>Cargando...</h1>
-                    : products.map((product: Product) => 
+                    : currentItems.map((product: Product) => 
                             <ProductCard
                                 key={product.id}
                                 id={product.id}                             
