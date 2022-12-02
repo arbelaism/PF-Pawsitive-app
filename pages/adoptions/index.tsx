@@ -23,13 +23,7 @@ const Adoptions: NextPage = () => {
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
     const [data, setData] = useState<IAdoption[]>()
 
-    // useEffect(() => {
-    //     setData(adoptions)
-    //     if (data) {
-    //         currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
-    //     }
-    //     console.log(currentItems)
-    // }, [data])
+
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
     let currentItems: IAdoption[] = []
@@ -44,11 +38,6 @@ const Adoptions: NextPage = () => {
 
     )
 
-    // if (adoptions && !data) {
-    //     currentItems = [...adoptions.slice(firstItemIndex, lastItemIndex)]
-    // }
-
-    // console.log(currentItems)
 
     return (
         <MainLayout title="Pawsitive - Adoptions">

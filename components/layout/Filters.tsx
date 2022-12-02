@@ -1,13 +1,16 @@
 import styles from 'styles/Filters.module.css'
-import React from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { IAdoption } from 'app/types'
 import { getAdoptions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import { set } from 'react-hook-form'
 type Props = {
     data: IAdoption[] | undefined
     setData: (data: IAdoption[]) => void
+}
+interface Values {
+    breed: string,
+    size: string,
+    age: string,
 }
 
 const Filters = ({ setData, data }: Props) => {
@@ -29,16 +32,19 @@ const Filters = ({ setData, data }: Props) => {
         isLoading,
         isSuccess
     } = useQuery(['adoptions'], getAdoptions)
-    console.log("setData", setData)
 
+    let values = { breed: "", size: "", age: "" }
+    // const [val, setVal ]= useState(values)
 
     function handleFilterCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
         const breed = e.target.value as string
         if (breed === '') return
+        values = ({ ...values, breed: breed })
+        console.log(values)
 
-        const filteredData = (data ? data : adoptions)?.filter((d) => d.breed === breed)
-        setData(filteredData)
+        // orderData(refValues.current, adoptions)
+
         return
 
 
@@ -48,8 +54,9 @@ const Filters = ({ setData, data }: Props) => {
         const size = e.target.value as string
         if (size === '') return
 
-        const filteredData = (data ? data : adoptions)?.filter((d) => d.size === size.toUpperCase())
-        setData(filteredData)
+        values = ({ ...values, size: size })
+        console.log(values)
+        // orderData(refValues.current, adoptions)
         return
 
 
@@ -59,12 +66,28 @@ const Filters = ({ setData, data }: Props) => {
         const age = e.target.value as string
         if (age === '') return
 
-        const filteredData = (data ? data : adoptions)?.filter((d) => d.breed === age.toLowerCase())
-        setData(filteredData)
+        values = ({ ...values, age: age })
+        console.log(values)
+        // orderData(refValues.current, adoptions)
         return
+    }
+    function orderData(values: Values, data: IAdoption[]) {
+        const { breed, size, age } = values
+        let filteredData: IAdoption[] = [];
+        if (breed) {
+            filteredData = data?.filter((d: IAdoption) => d.breed === breed)
+        }
+        if (size) {
+            filteredData = (filteredData ? filteredData : data)?.filter((d: IAdoption) => d.size === size)
+        }
+        if (age) {
+            filteredData = (filteredData ? filteredData : data)?.filter((d: IAdoption) => d.age === age)
+        }
+        return setData(filteredData)
     }
 
     async function handleReset() {
+        // orderData(values, adoptions)
         const select = document.querySelectorAll('select')
 
         select.forEach(s => (s.value = ''))
@@ -72,7 +95,18 @@ const Filters = ({ setData, data }: Props) => {
 
         return
     }
+    async function handleFilter() {
+        orderData(values, adoptions)
+        const select = document.querySelectorAll('select')
 
+        select.forEach(s => (s.value = ''))
+        // setData(adoptions)
+
+        return
+    }
+    useEffect(() => {
+
+    }, [])
     return (
         <div className={styles.filtersContainer}>
             <div className={styles.itemFilter}>
@@ -109,16 +143,19 @@ const Filters = ({ setData, data }: Props) => {
                     onChange={(e) => handleFilterAge(e)}
                     className={styles.itemSelector}>
                     <option value="">Edad...</option>
-                    <option value="1 mes">1 Mes</option>
+                    <option value="1 meses">1 Mes</option>
                     <option value="2 meses">2 Meses</option>
                     <option value="3 meses">3 Meses</option>
                     <option value="4 meses">4 Meses</option>
                     <option value="5 meses">5 Meses</option>
-                    <option value="1 year">1 año</option>
-                    <option value="2 years">2 años</option>
-                    <option value="3 years">3 años</option>
+                    <option value="1 años">1 año</option>
+                    <option value="2 años">2 años</option>
+                    <option value="3 años">3 años</option>
                 </select>
-                <button onClick={handleReset}>Reset</button>
+            </div>
+            <div  >
+                <button className={styles.buttons} onClick={handleFilter}>Filter</button>
+                <button className={styles.buttons} onClick={handleReset}>Reset</button>
             </div>
         </div>
     )
