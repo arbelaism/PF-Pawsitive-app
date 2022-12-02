@@ -2,13 +2,10 @@ import { NextComponentType } from "next";
 import { MainLayout } from "components";
 import styles from "styles/Contact.module.css";
 import { useForm, SubmitHandler } from "react-hook-form";
-import emailjs from "@emailjs/browser";
-
-interface ContactForm {
-  name: string;
-  email: string;
-  message: string;
-}
+import { useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/router"
+import { sendMail } from "utils/dbFetching"
+import { ContactForm } from "../../app/types";
 
 const Contact: NextComponentType = () => {
   const {
@@ -16,32 +13,30 @@ const Contact: NextComponentType = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ContactForm>();
-
-  const onSubmit: SubmitHandler<ContactForm> = async (data) => {
-    try {
-      emailjs
-        .send(
-          "service_crfov1j",
-          "template_ykzfued",
-          {
-            from_name: "Pawsitive team",
-            to_name: `${data.name}`,
-            message: `contest this mail to start a conversation with us`,
-            reply_to: `${data.email}`,
-          },
-          "Vu6_KG-xIf-x55P1I"
-        )
-        .then(
-          function (response:any) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function (error:any) {
-            console.log("FAILED...", error);
-          }
-        );
-    } catch (error) {
-      console.log(error + "Incorrect data form");
+  
+  const router = useRouter()
+  const queryClient = useQueryClient();
+  const { mutate, isLoading } = useMutation(sendMail, {
+    onSuccess: data => {
+      console.log(data);
+      const message = "Mail sent"
+      alert(message)
+      router.push("http://localhost:3000/") 
+    },
+    onError: () => {
+      alert("Cant send the mail")
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries('create');
     }
+  });
+  
+  const onSubmit: SubmitHandler<ContactForm> = async (data) => {
+    const mail = {
+      ...data,
+      action : "contact",
+    };
+    mutate(mail)
   };
 
   return (
