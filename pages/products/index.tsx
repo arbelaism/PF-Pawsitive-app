@@ -23,8 +23,13 @@ export type CartItemType = {
 
 
 const Products: NextPage = () => {
-    //Recover cartproducts when user comeback from the cart to products again    
-    const cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
+    //Recover cartproducts when user comeback from the cart to products again   
+    let cartFromLocalStorage;
+    try {
+        cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
+    } catch (error) {
+        console.log(error)
+    }
     const [cartItems, setCartItems] = useState(cartFromLocalStorage as CartItemType[]);
 
     const {data: products, error, isLoading} = useQuery(['products'], getProducts);

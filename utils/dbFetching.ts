@@ -20,3 +20,12 @@ export const getProducts = async ()=>{
     return products;
 }
 
+
+export const getPetById = async (id:string)=>{
+    const response = await axios.get(`http://localhost:3000/api/adoptionpost/${id}`)
+    const products = await response.data;
+
+    if(!products) throw new Error('Data not found')
+    return products;
+}
+
