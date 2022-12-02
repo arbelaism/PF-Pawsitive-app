@@ -20,14 +20,20 @@ export const getProducts = async () => {
   if (!products) throw new Error("Data not found");
   return products;
 };
+export const getPetById = async (id: string) => {
+  const response = await axios.get(
+    `http://localhost:3000/api/adoptionpost/${id}`
+  );
+  const products = await response.data;
+  if (!products) throw new Error("Data not found");
+  return products;
+};
 
-export const createPost = async (data : AdoptFormInput) => {    
-    const newPost = await axios.post("http://localhost:3000/api/adoptionpost",    
-        data
-    )
-    .then(response => response.data.name)
-    .catch(error => console.log(error))
+export const createPost = async (data: AdoptFormInput) => {
+  const newPost = await axios
+    .post("http://localhost:3000/api/adoptionpost", data)
+    .then((response) => response.data.name)
+    .catch((error) => console.log(error));
 
-    return "Post de "+ newPost + " creado";
-    
-}
+  return "Post de " + newPost + " creado";
+};
