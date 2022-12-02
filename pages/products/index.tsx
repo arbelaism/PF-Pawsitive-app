@@ -30,25 +30,59 @@ const Products: NextPage = () => {
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
     const [data, setData] = useState<CartItemType[]>()
 
-
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
     let currentItems: CartItemType[] = []
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
 
+    //Recover cartproducts when user comeback from the cart to products again   
+    let cartFromLocalStorage;
+    try {
+        cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
+    } catch (error) {
+        console.log(error)
+    }
+  
+    const handleAddToCart = (clickedItem: Product) => {
+        
+        if(!clickedItem.amount) clickedItem.amount=0
+        setCartItems(prev => {
+          // is the item already added in the cart
+          const isItemInCart = prev.find(item => item.id === clickedItem.id); 
+          
+          if (isItemInCart) {
+            return prev.map(item => 
+              item.id === clickedItem.id 
+              ? { ...item, amount: item.amount + 1 } 
+              : item 
+            );
+          };
+          
+          // first time the item is added 
+          return [...prev, {...clickedItem, amount: 1}];
+      
+        })        
+    };    
+
+
+    const lastItemIndex = currentPage * itemsPerPage
+    const firstItemIndex = lastItemIndex - itemsPerPage
+    let currentItems: Product[] = []
+    if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+
     useEffect(() => {
+
+        // storing input cartItems
+        localStorage.setItem("cartProducts", JSON.stringify(cartItems));
+        
         if (isSuccess) {
             setData(products)
 
         }
+
     }, [isSuccess, products]
 
     )
-
-
-
-
-
 
 
     //Recover cartproducts when user comeback from the cart to products again  
@@ -83,7 +117,8 @@ const Products: NextPage = () => {
     //     // storing input cartItems
     //     localStorage.setItem("cartProducts", JSON.stringify(cartItems));
 
-    // }, [cartItems]);
+    // }, [cartItems, products]);
+
 
     return (
         <MainLayout title="Pawsitive - Productos">
@@ -126,6 +161,7 @@ const Products: NextPage = () => {
                         }
                     </div>
                 </div>
+
             </div>
 
         </MainLayout>

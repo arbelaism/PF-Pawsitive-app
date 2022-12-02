@@ -50,7 +50,7 @@ const Navbar: NextComponentType = () => {
             </div>
             <div>
               <Link href={"/shoppingCart"}>
-                <a>🛒 {cartProducts.reduce((a, b) => a + b)}</a>
+                <a>🛒 {cartProducts.reduce((a, b) => a + b,0)}</a>
               </Link>
             </div>
           </div>
