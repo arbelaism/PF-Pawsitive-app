@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
-import { AdoptFormInput } from "app/types";
+import { AdoptFormInput, ContactForm } from "app/types";
 import { Props } from "pages/adoptions";
 
 export const getAdoptions = async () => {
@@ -38,3 +38,10 @@ export const createPost = async (data: AdoptFormInput) => {
   return "Post de " + newPost + " creado";
 };
 
+export const sendMail = async (data: ContactForm) => {
+  const newPost = await axios
+    .post("http://localhost:3000/api/sendMail", data)
+    .catch((error) => console.log(error));
+
+  return "email send";
+};

@@ -4,7 +4,6 @@ import { transporter } from "../../../utils/mailer";
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
   const { action, email, name, items, total } = req.body;
     //items y total serían para que creen un formato para el correo que te muestre lo que compraste
-    console.log(action + " " + email + " " + name)
   switch (action) {
     case "contact":
       try {
