@@ -5,11 +5,13 @@ import { MainLayout} from 'components';
 import ModalPayment from 'components/products/payments/ModalPayment';
 import ProductOnCart from 'components/products/ProductOnCart'
 import styles from 'styles/ShoppingCart.module.css'
+import useLocalStorage from 'use-local-storage';
 
 
 const Cart : NextPage = () => {
     // let products : Product[] = [];
     const [cartProducts, setCartProducts] = useState<Product[]>([])
+    const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
     // if (typeof window !== 'undefined') {
         //     var [cartProducts, setCartProducts] = useState<Product[]>(() => {
             //         const saved = localStorage.getItem("cartProducts")
@@ -18,13 +20,14 @@ const Cart : NextPage = () => {
             //     })
             
     //}
-    const setLocalStorageAtComponentMount = () => {
-        setCartProducts(() => {
-            const saved = localStorage.getItem("cartProducts")
-            const products = JSON.parse(saved!);
-            return products
-        })
-    }
+    // const setLocalStorageAtComponentMount = () => {
+    //     setCartProducts(() => {
+    //         // const saved = localStorage.getItem("cartProducts")
+    //         // const products = JSON.parse(saved!);
+
+    //         return products
+    //     })
+    // }
     const handleAddToCart = (clickedItem: Product) => {
         
         if(!clickedItem.amount) clickedItem.amount=0
@@ -65,14 +68,15 @@ const Cart : NextPage = () => {
     };
 
     useEffect(() => {
-        setLocalStorageAtComponentMount();
+        setCartProducts(products)
     }, [])
     
     useEffect(() => {
         // storing input cartProducts
         if(cartProducts.length){
 
-            localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+            // localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+            setProducts(cartProducts)
         }
         
       }, [cartProducts]);

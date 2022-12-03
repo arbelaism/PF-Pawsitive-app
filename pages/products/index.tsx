@@ -8,6 +8,7 @@ import ProductCard from 'components/products/ProductCard';
 import { useQuery } from 'react-query';
 import { getProducts } from 'utils/dbFetching';
 import AlternativePagination from 'components/layout/AlternativePagination'
+import useLocalStorage from 'use-local-storage';
 
 export type Props = {
     [key: string]: any
@@ -22,6 +23,8 @@ const Products: NextPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
     const [data, setData] = useState<Product[]>()
+
+    const [productsFromStorage, setProductsFromStorage] = useLocalStorage<Product[]>("cartProducts", [])
 
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
@@ -39,12 +42,12 @@ const Products: NextPage = () => {
     )
 
     //Recover cartproducts when user comeback from the cart to products again   
-    let cartFromLocalStorage;
-    try {
-        cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
-    } catch (error) {
-        console.log(error)
-    }
+    let [cartFromLocalStorage, setCartFromLocalStorage] = useLocalStorage<Product[]>("cartProducts", [])
+    // try {
+    //     cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
+    // } catch (error) {
+    //     console.log(error)
+    // }
 
     const handleAddToCart = (clickedItem: Product) => {
 
@@ -78,7 +81,8 @@ const Products: NextPage = () => {
 
     useEffect(() => {
         // storing input cartItems
-        localStorage.setItem("cartProducts", JSON.stringify(cartItems));
+        // localStorage.setItem("cartProducts", JSON.stringify(cartItems));
+        setProductsFromStorage(cartItems)
 
     }, [cartItems, products]);
 
