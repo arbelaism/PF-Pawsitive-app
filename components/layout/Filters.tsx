@@ -6,6 +6,7 @@ import { useQuery } from 'react-query'
 type Props = {
     data: IAdoption[] | undefined
     setData: (data: IAdoption[]) => void
+    setCurrentPage: (n: number) => void
 }
 interface Values {
     breed: string,
@@ -13,19 +14,7 @@ interface Values {
     age: string,
 }
 
-const Filters = ({ setData, data }: Props) => {
-    // async function handleFilterBreed(e: React.ChangeEvent<HTMLInputElement>) {
-    //     e.preventDefault()
-    //     const breed = e.target.value
-    //     if (breed === '') return
-
-    //     const breeds: IAdoption = await axios.get(
-    //         `http://localhost:3000/api/adoptionposts/type/${breed}`
-    //     )
-    //     console.log(breeds)
-    //     setData(breeds)
-    //     return
-    // }
+const Filters = ({ setData, data, setCurrentPage }: Props) => {
     const {
         data: adoptions,
         error,
@@ -34,17 +23,12 @@ const Filters = ({ setData, data }: Props) => {
     } = useQuery(['adoptions'], getAdoptions)
 
     let values = { breed: "", size: "", age: "" }
-    // const [val, setVal ]= useState(values)
 
     function handleFilterCategory(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
         const breed = e.target.value as string
         if (breed === '') return
         values = ({ ...values, breed: breed })
-        console.log(values)
-
-        // orderData(refValues.current, adoptions)
-
         return
 
 
@@ -53,10 +37,7 @@ const Filters = ({ setData, data }: Props) => {
         e.preventDefault()
         const size = e.target.value as string
         if (size === '') return
-
         values = ({ ...values, size: size })
-        console.log(values)
-        // orderData(refValues.current, adoptions)
         return
 
 
@@ -65,24 +46,29 @@ const Filters = ({ setData, data }: Props) => {
         e.preventDefault()
         const age = e.target.value as string
         if (age === '') return
-
         values = ({ ...values, age: age })
-        console.log(values)
-        // orderData(refValues.current, adoptions)
         return
     }
     function orderData(values: Values, data: IAdoption[]) {
         const { breed, size, age } = values
-        let filteredData: IAdoption[] = [];
+        let filteredData: IAdoption[]=[];
+        if (breed && size && age) {
+            filteredData = adoptions?.filter((d: IAdoption) => d.breed === breed)
+                .filter((d: IAdoption) => d.size === size)
+                .filter((d: IAdoption) => d.age === age)
+            setCurrentPage(1)
+            return setData(filteredData)
+        }
         if (breed) {
             filteredData = data?.filter((d: IAdoption) => d.breed === breed)
         }
         if (size) {
-            filteredData = (filteredData ? filteredData : data)?.filter((d: IAdoption) => d.size === size)
+            filteredData = data?.filter((d: IAdoption) => d.size === size)
         }
         if (age) {
-            filteredData = (filteredData ? filteredData : data)?.filter((d: IAdoption) => d.age === age)
+            filteredData = data?.filter((d: IAdoption) => d.age === age)
         }
+        setCurrentPage(1)
         return setData(filteredData)
     }
 

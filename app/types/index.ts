@@ -36,7 +36,7 @@ export interface Product {
     id: string
     name: string
     price: number
-    displayPrice?: number
+    displayPrice: number
     description: string
     stock: number
     photo: string
