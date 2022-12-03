@@ -30,12 +30,11 @@ const Products: NextPage = () => {
 
     useEffect(() => {
 
-        if (isSuccess) {
+  
             setData(products)
+     
 
-        }
-
-    }, [products, isSuccess]
+    }, [products]
 
     )
 
@@ -98,7 +97,7 @@ const Products: NextPage = () => {
                 <div className="w-64">
                     <Filtersproducts
                         setData={setData}
-                        data={data}
+
                         setCurrentPage={setCurrentPage}
                     />
                 </div>

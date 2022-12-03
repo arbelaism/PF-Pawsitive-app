@@ -4,9 +4,11 @@ import axios from 'axios'
 import { Product } from 'app/types'
 import { getProducts } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
+import Adoptions from '../../pages/adoptions/index';
+import { privateDecrypt } from 'crypto'
 
 export type Props = {
-    data: Product[] | undefined
+
     setData: (data: Product[]) => void
     setCurrentPage: (n: number) => void
 }
@@ -17,7 +19,7 @@ interface Values {
     price: number,
 }
 
-const Filters = ({ setData, data, setCurrentPage }: Props) => {
+const Filters = ({ setData, setCurrentPage }: Props) => {
 
     const {
         data: products,
@@ -26,15 +28,10 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         isSuccess
     } = useQuery(['products'], getProducts)
 
-    let values = {
-        category: "",
-        size: "",
-        price: 0
-    }
-
     //SEARCHBAR
 
     const [name, setName] = useState("");
+
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault();
         setName(e.target.value);
@@ -47,99 +44,103 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
     }
 
     // FILTERS
+    const [dataLocal, setDataLocal] = useState<Product[]>({ ...products }) // copy products
 
-    function handleFilterCategory(e: React.ChangeEvent<HTMLSelectElement>) {
+    //Handle the change in the object options
+
+    let values = { //initial state
+        category: "",
+        size: "",
+        price: 0,
+    }
+    const [options, setOptions] = useState({ ...values }) //copy values
+
+    function handleOptions(e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault()
-        const category = e.target.value as string
-        if (category === '') return
-
-        values = ({ ...values, category: category })
-        console.log(values)
-        // orderData(refValues.current, adoptions)
+        let { name, value } = e.target
+        if (!value) return
+        setOptions({ ...options, [name]: value })
         return
     }
 
-    function handleFilterSize(e: React.ChangeEvent<HTMLSelectElement>) {
-        e.preventDefault()
-        const size = e.target.value as string
-        if (size === '') return
 
-        values = ({ ...values, size: size })
-        console.log(values)
-        // orderData(refValues.current, adoptions)
-        return
-    }
+    //Execute the filters with the option and the localData
 
-    function handleFilterPrice(e: React.ChangeEvent<HTMLSelectElement>) {
-        e.preventDefault()
-        const price = Number(e.target.value) as number
-        if (price === 0) return
+    useEffect(() => {
+        setDataLocal(products)
+    }, [])
 
-        values = ({ ...values, price: price })
-        console.log(values)
-        // orderData(refValues.current, adoptions)
-        return
-    }
-    function orderData(values: Values, data: Product[]) {
-        const { category, size, price } = values
+
+    function orderData(options: Values, dataLocal: Product[]) {
+        const { category, size, price } = options
         let filteredData: Product[] = [];
+
         if (category && size && price) {
             filteredData = (products)?.filter((d: Product) => d.category === category)
                 .filter((d: Product) => d.size === size)
                 .filter((d: Product) => d.price < price)
             setCurrentPage(1)
+            setDataLocal({ ...products })
             return setData(filteredData)
         }
-        if (category) {
-            filteredData = (data)?.filter((d: Product) => d.category === category)
+        if (category !== "") {
+            filteredData = (products)?.filter((d: Product) => d.category === category)
         }
-        if (size) {
-            filteredData = (filteredData ? filteredData : data)?.filter((d: Product) => d.size === size)
+        if (size !== "") {
+            filteredData = (filteredData.length > 0 ? filteredData : dataLocal)?.filter((d: Product) => d.size === size)
         }
-        if (price) {
-            filteredData = ((filteredData ? filteredData : data))?.filter((d: Product) => d.price < price)
+        if (price > 0) {
+            filteredData = (filteredData.length > 0 ? filteredData : dataLocal)?.filter((d: Product) => d.displayPrice < price)
         }
         setCurrentPage(1)
+        setDataLocal({ ...products })
         return setData(filteredData)
     }
 
-    function handlerSort(e: React.ChangeEvent<HTMLSelectElement>) {
-        e.preventDefault()
-        const orderSort = e.target.value as string
-        let filteredD: Product[] = (products).sort((a: Product, b: Product) => {
+    //Dispacth the filter options 
+
+    async function handleFilter() {
+        if (options.category || options.price || options.size) {
+            orderData(options, dataLocal)
+            setDataLocal(products)
+            const select = document.querySelectorAll('select')
+            select.forEach(s => (s.value = ''))
+            setOptions(values)
+            return
+        }
+        return
+
+    }
+    //Dispacth the SORT
+
+    async function handleSortMax() {
+
+        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
+            if (a.displayPrice < b.displayPrice) return -1
             if (a.displayPrice > b.displayPrice) return 1
-            if (b.displayPrice > a.displayPrice) return -1
             return 0
         })
-        // console.log(filteredD)
-        // setData(filteredD)
-        // if (orderSort === "MAX") {
-        //    let ordered = filteredD.reverse()
-        //     setCurrentPage(1)
-        //     return  setData(ordered)
-        // } else if (orderSort === "MIN") {
-        //     setCurrentPage(1)
-        //     return setData(filteredD)
-        // }
-    }
-
-    async function handleReset() {
-        // orderData(values, adoptions)
-        const select = document.querySelectorAll('select')
-
-        select.forEach(s => (s.value = ''))
-        setCurrentPage(1)
-        setData(products)
-
+        setData(sorted)
         return
     }
-    async function handleFilter() {
-        orderData(values, products)
+    async function handleSortMin() {
+        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
+            if (a.displayPrice < b.displayPrice) return 1
+            if (a.displayPrice > b.displayPrice) return -1
+            return 0
+        })
+        setData(sorted)
+        return
+    }
+
+    //Reset Filters
+
+    async function handleReset() {
         const select = document.querySelectorAll('select')
-
         select.forEach(s => (s.value = ''))
-        // setData(adoptions)
-
+        setOptions(values)
+        setCurrentPage(1)
+        setData(products)
         return
     }
 
@@ -165,10 +166,16 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
             </form>
 
             <div className={styles.itemFilter}>
+                <h2>Ordenar por Precio</h2>
+                <button className={styles.buttons} onClick={handleSortMax}>▲</button>
+                <button className={styles.buttons} onClick={handleSortMin}>▼</button>
+            </div>
+
+            <div className={styles.itemFilter}>
                 <h2>Filtrar por Categoria</h2>
                 <select
                     name="category"
-                    onChange={(e) => handleFilterCategory(e)}
+                    onChange={(e) => handleOptions(e)}
                     className={styles.itemSelector}>
                     <option value="">Categoria...</option>
                     <option value="TOY">Juguete</option>
@@ -184,7 +191,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                 <h2>Filtrar por Tamaño</h2>
                 <select
                     name="size"
-                    onChange={(e) => handleFilterSize(e)}
+                    onChange={(e) => handleOptions(e)}
                     className={styles.itemSelector}>
                     <option value="">Tamaño...</option>
                     <option value="UNIQUE">Unico</option>
@@ -194,30 +201,22 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                 </select>
             </div>
 
-            <div className={styles.itemFilter}>
+
+            <form className={styles.itemFilter}>
                 <h2>Filtrar por Precio</h2>
-                <select
-                    name="age"
-                    onChange={(e) => handleFilterPrice(e)}
-                    className={styles.itemSelector}>
-                    <option value="" >Precio hasta...</option>
-                    <option value={1000}>1000</option>
-                    <option value={2000}>2000</option>
-                    <option value={5000}>5000</option>
-                    <option value={10000}>10000</option>
-                </select>
-            </div>
-            <div className={styles.itemFilter}>
-                <h2>Ordenar por Precio</h2>
-                <select
-                    name="sort"
-                    onChange={(e) => handlerSort(e)}
-                    className={styles.itemSelector}>
-                    <option value="" >Ordenar de ...</option>
-                    <option value="MAX" >Mayor a Menor</option>
-                    <option value="MIN" >Menor a Mayor</option>
-                </select>
-            </div>
+                <input
+                    name='price'
+                    type="number"
+                    id='price'
+                    placeholder='Precio Maximo'
+                    className={styles.itemSelector}
+                    value={options.price ? options.price : ""}
+                    onChange={(e) => handleOptions(e)}
+                    min="1"
+                    max="50000"
+                />
+            </form>
+
             <div  >
                 <button className={styles.buttons} onClick={handleFilter}>Filtrar</button>
                 <button className={styles.buttons} onClick={handleReset}>Reset</button>
