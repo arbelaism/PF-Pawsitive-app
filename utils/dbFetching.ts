@@ -1,7 +1,5 @@
 import axios from "axios";
-import { useMutation, useQuery } from "react-query";
 import { AdoptFormInput, ContactForm } from "app/types";
-import { Props } from "pages/adoptions";
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
