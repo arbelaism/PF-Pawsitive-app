@@ -40,7 +40,7 @@ export const createPost = async (data: AdoptFormInput) => {
 
 export const sendMail = async (data: ContactForm) => {
   const newPost = await axios
-    .post("http://localhost:3000/api/sendMail", data)
+    .post("/api/sendMail", data)
     .catch((error) => console.log(error));
 
   return "email send";
