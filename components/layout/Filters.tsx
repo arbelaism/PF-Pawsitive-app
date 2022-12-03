@@ -1,5 +1,5 @@
 import styles from 'styles/Filters.module.css'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { IAdoption } from 'app/types'
 import { getAdoptions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
@@ -63,10 +63,10 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
             filteredData = data?.filter((d: IAdoption) => d.breed === breed)
         }
         if (size) {
-            filteredData = data?.filter((d: IAdoption) => d.size === size)
+            filteredData = (filteredData ? filteredData : data)?.filter((d: IAdoption) => d.size === size)
         }
         if (age) {
-            filteredData = data?.filter((d: IAdoption) => d.age === age)
+            filteredData = (filteredData ? filteredData : data)?.filter((d: IAdoption) => d.age === age)
         }
         setCurrentPage(1)
         return setData(filteredData)
@@ -90,9 +90,6 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
 
         return
     }
-    useEffect(() => {
-
-    }, [])
     return (
         <div className={styles.filtersContainer}>
             <div className={styles.itemFilter}>

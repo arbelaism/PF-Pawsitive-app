@@ -1,11 +1,8 @@
 import styles from 'styles/Filters.module.css'
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Product } from 'app/types'
 import { getProducts } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import Adoptions from '../../pages/adoptions/index';
-import { privateDecrypt } from 'crypto'
 
 export type Props = {
 
