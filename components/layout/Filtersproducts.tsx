@@ -41,6 +41,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
     }
 
     // FILTERS
+
     const [dataLocal, setDataLocal] = useState<Product[]>({ ...products }) // copy products
 
     //Handle the change in the object options
