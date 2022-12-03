@@ -68,7 +68,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     useEffect(() => {
         setDataLocal(products)
-    }, [])
+    }, [products])
 
 
     function orderData(options: Values, dataLocal: Product[]) {
@@ -115,21 +115,21 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     async function handleSortMax() {
 
-        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
-            if (a.displayPrice < b.displayPrice) return -1
-            if (a.displayPrice > b.displayPrice) return 1
-            return 0
-        })
-        setData(sorted)
+        // const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
+        //     if (a.displayPrice < b.displayPrice) return -1
+        //     if (a.displayPrice > b.displayPrice) return 1
+        //     return 0
+        // })
+        // setData(sorted)
         return
     }
     async function handleSortMin() {
-        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
-            if (a.displayPrice < b.displayPrice) return 1
-            if (a.displayPrice > b.displayPrice) return -1
-            return 0
-        })
-        setData(sorted)
+        // const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
+        //     if (a.displayPrice < b.displayPrice) return 1
+        //     if (a.displayPrice > b.displayPrice) return -1
+        //     return 0
+        // })
+        // setData(sorted)
         return
     }
 
