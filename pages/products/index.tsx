@@ -12,16 +12,7 @@ import AlternativePagination from 'components/layout/AlternativePagination'
 export type Props = {
     [key: string]: any
 }
-export type CartItemType = {
-    id: string;
-    category: string;
-    description: string;
-    size: string;
-    image?: string;
-    price: number;
-    name: string;
-    amount: number;
-}
+
 
 
 const Products: NextPage = () => {
@@ -30,11 +21,11 @@ const Products: NextPage = () => {
     const { data: products, error, isLoading, isSuccess } = useQuery(['products'], getProducts);
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
-    const [data, setData] = useState<CartItemType[]>()
+    const [data, setData] = useState<Product[]>()
 
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
-    let currentItems: CartItemType[] = []
+    let currentItems: Product[] = []
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
 
     useEffect(() => {
@@ -66,7 +57,7 @@ const Products: NextPage = () => {
             if (isItemInCart) {
                 return prev.map(item =>
                     item.id === clickedItem.id
-                        ? { ...item, amount: item.amount + 1 }
+                        ? { ...item, amount: item.amount! + 1 }
                         : item
                 );
             };
@@ -83,7 +74,7 @@ const Products: NextPage = () => {
 
     // Recover cartproducts when user comeback from the cart to products again  
 
-    const [cartItems, setCartItems] = useState(cartFromLocalStorage as CartItemType[]);
+    const [cartItems, setCartItems] = useState(cartFromLocalStorage as Product[]);
 
 
     useEffect(() => {

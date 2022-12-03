@@ -1,26 +1,18 @@
 import styles from 'styles/Filters.module.css'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { IAdoption } from 'app/types'
+import { Product } from 'app/types'
 import { getProducts } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
 
 export type Props = {
-    data: CartItemType[] | undefined
-    setData: (data: CartItemType[]) => void
+    data: Product[] | undefined
+    setData: (data: Product[]) => void
     setCurrentPage: (n: number) => void
 }
-export type CartItemType = {
-    id: string;
-    category: string;
-    size: string;
-    description: string;
-    image?: string;
-    price: number;
-    name: string;
-    amount: number;
-}
+
 interface Values {
+    category: string,
     size: string,
     price: number,
 }
@@ -35,11 +27,12 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
     } = useQuery(['products'], getProducts)
 
     let values = {
+        category: "",
         size: "",
         price: 0
     }
-    //SEARCHBAR
 
+    //SEARCHBAR
 
     const [name, setName] = useState("");
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -48,11 +41,23 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
     }
     function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
-        const productFiltered = products?.filter((product: CartItemType) => new RegExp(name, 'ig').test(product.name))
+        const productFiltered = products?.filter((product: Product) => new RegExp(name, 'ig').test(product.name))
         setData(productFiltered)
         setName("");
     }
 
+    // FILTERS
+
+    function handleFilterCategory(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const category = e.target.value as string
+        if (category === '') return
+
+        values = ({ ...values, category: category })
+        console.log(values)
+        // orderData(refValues.current, adoptions)
+        return
+    }
 
     function handleFilterSize(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
@@ -63,9 +68,8 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         console.log(values)
         // orderData(refValues.current, adoptions)
         return
-
-
     }
+
     function handleFilterPrice(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
         const price = Number(e.target.value) as number
@@ -76,22 +80,47 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         // orderData(refValues.current, adoptions)
         return
     }
-    function orderData(values: Values, data: CartItemType[]) {
-        const { size, price } = values
-        let filteredData: CartItemType[] = [];
-        if (size && price) {
-            filteredData = (data)?.filter((d: CartItemType) => d.size === size).filter((d: CartItemType) => d.price < price)
+    function orderData(values: Values, data: Product[]) {
+        const { category, size, price } = values
+        let filteredData: Product[] = [];
+        if (category && size && price) {
+            filteredData = (products)?.filter((d: Product) => d.category === category)
+                .filter((d: Product) => d.size === size)
+                .filter((d: Product) => d.price < price)
             setCurrentPage(1)
             return setData(filteredData)
         }
+        if (category) {
+            filteredData = (data)?.filter((d: Product) => d.category === category)
+        }
         if (size) {
-            filteredData = (data)?.filter((d: CartItemType) => d.size === size)
+            filteredData = (filteredData ? filteredData : data)?.filter((d: Product) => d.size === size)
         }
         if (price) {
-            filteredData = (data)?.filter((d: CartItemType) => d.price < price)
+            filteredData = ((filteredData ? filteredData : data))?.filter((d: Product) => d.price < price)
         }
         setCurrentPage(1)
         return setData(filteredData)
+    }
+
+    function handlerSort(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const orderSort = e.target.value as string
+        let filteredD: Product[] = (products).sort((a: Product, b: Product) => {
+            if (a.displayPrice > b.displayPrice) return 1
+            if (b.displayPrice > a.displayPrice) return -1
+            return 0
+        })
+        // console.log(filteredD)
+        // setData(filteredD)
+        // if (orderSort === "MAX") {
+        //    let ordered = filteredD.reverse()
+        //     setCurrentPage(1)
+        //     return  setData(ordered)
+        // } else if (orderSort === "MIN") {
+        //     setCurrentPage(1)
+        //     return setData(filteredD)
+        // }
     }
 
     async function handleReset() {
@@ -99,6 +128,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         const select = document.querySelectorAll('select')
 
         select.forEach(s => (s.value = ''))
+        setCurrentPage(1)
         setData(products)
 
         return
@@ -112,9 +142,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
 
         return
     }
-    useEffect(() => {
 
-    }, [])
     return (
         <div className={styles.filtersContainer}>
             <form className={styles.itemFilter}>
@@ -136,6 +164,22 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                 > Buscar</button>
             </form>
 
+            <div className={styles.itemFilter}>
+                <h2>Filtrar por Categoria</h2>
+                <select
+                    name="category"
+                    onChange={(e) => handleFilterCategory(e)}
+                    className={styles.itemSelector}>
+                    <option value="">Categoria...</option>
+                    <option value="TOY">Juguete</option>
+                    <option value="FOOD">Comida</option>
+                    <option value="SNACK">Snack</option>
+                    <option value="ACCESORIES">Accesorios</option>
+                    <option value="HYGIENE">Higiene</option>
+                    <option value="HEALTH">Salud</option>
+                    <option value="OTHER">Otros</option>
+                </select>
+            </div>
             <div className={styles.itemFilter}>
                 <h2>Filtrar por Tamaño</h2>
                 <select
@@ -161,7 +205,17 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                     <option value={2000}>2000</option>
                     <option value={5000}>5000</option>
                     <option value={10000}>10000</option>
-
+                </select>
+            </div>
+            <div className={styles.itemFilter}>
+                <h2>Ordenar por Precio</h2>
+                <select
+                    name="sort"
+                    onChange={(e) => handlerSort(e)}
+                    className={styles.itemSelector}>
+                    <option value="" >Ordenar de ...</option>
+                    <option value="MAX" >Mayor a Menor</option>
+                    <option value="MIN" >Menor a Mayor</option>
                 </select>
             </div>
             <div  >
