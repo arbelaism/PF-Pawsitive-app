@@ -6,6 +6,8 @@ import { Props } from 'pages/adoptions';
 import { AiOutlineClose } from 'react-icons/ai'
 import { NextComponentType } from 'next';
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import { success } from 'utils/success';
+import { error } from 'utils/error'
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -28,11 +30,12 @@ const CARD_ELEMENT_OPTIONS = {
     },
   };
 
-const Checkout  = ({price}:Props)=>{
+const Checkout  = ({price, setOpen}:Props)=>{
     const stripe = useStripe();
     const elements = useElements();
     const [loading, setLoading] = useState(false);
     const [cardError, setCardError] = useState('');
+    const [message, setMessage] = useState('')
   
     const handleSubmit= async(e: ChangeEvent<HTMLFormElement>)=>{
       e.preventDefault();
@@ -48,6 +51,9 @@ const Checkout  = ({price}:Props)=>{
         try{
             setCardError(``);
             const {data} = await axios.post('/api/product/payment',{totalPrice: price, id});
+            const { message } = data
+            setMessage(message)
+
             elements?.getElement(CardElement)?.clear()
         }catch(err:any){
 
@@ -56,6 +62,7 @@ const Checkout  = ({price}:Props)=>{
             setCardError(`${err.response.data.Error}`);
         }
       } 
+      setOpen(false)
       setLoading(false); 
     }
   
@@ -65,8 +72,9 @@ const Checkout  = ({price}:Props)=>{
           <div className={styles.inputContainer}>
             <CardElement options={CARD_ELEMENT_OPTIONS}/>
           </div>
-          <h4 className={styles.error}>{cardError}</h4>
           <div>
+            {cardError && <>{error(cardError)}</>}
+            {message && <>{success('Payment', 'The payment was successful')}</>}
             <button className={styles.button}>
               {loading ? 
               <>Processing...</>

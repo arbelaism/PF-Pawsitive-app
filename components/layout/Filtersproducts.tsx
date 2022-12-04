@@ -42,7 +42,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     // FILTERS
 
-    const [dataLocal, setDataLocal] = useState<Product[]>({ ...products }) // copy products
+    const [dataLocal, setDataLocal] = useState<Product[]>(products) // copy products
 
     //Handle the change in the object options
 
@@ -64,9 +64,9 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     //Execute the filters with the option and the localData
 
-    useEffect(() => {
-        setDataLocal(products)
-    }, [products])
+    // useEffect(() => {
+    //     setDataLocal(products)
+    // }, [products])
 
 
     function orderData(options: Values, dataLocal: Product[]) {
@@ -78,8 +78,9 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
                 .filter((d: Product) => d.size === size)
                 .filter((d: Product) => d.price < price)
             setCurrentPage(1)
-            setDataLocal({ ...products })
-            return setData(filteredData)
+            setDataLocal([...filteredData])
+            setData([...filteredData])
+            return
         }
         if (category !== "") {
             filteredData = (products)?.filter((d: Product) => d.category === category)
@@ -91,8 +92,9 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
             filteredData = (filteredData.length > 0 ? filteredData : dataLocal)?.filter((d: Product) => d.displayPrice < price)
         }
         setCurrentPage(1)
-        setDataLocal({ ...products })
-        return setData(filteredData)
+        setDataLocal([...filteredData])
+        setData([...filteredData])
+        return
     }
 
     //Dispacth the filter options 
@@ -100,7 +102,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
     async function handleFilter() {
         if (options.category || options.price || options.size) {
             orderData(options, dataLocal)
-            setDataLocal(products)
+            // setDataLocal(products)
             const select = document.querySelectorAll('select')
             select.forEach(s => (s.value = ''))
             setOptions(values)
@@ -113,21 +115,21 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     async function handleSortMax() {
 
-        // const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
-        //     if (a.displayPrice < b.displayPrice) return -1
-        //     if (a.displayPrice > b.displayPrice) return 1
-        //     return 0
-        // })
-        // setData(sorted)
+        const sorted = (dataLocal).sort((a: Product, b: Product) => {
+            if (a.displayPrice < b.displayPrice) return -1
+            if (a.displayPrice > b.displayPrice) return 1
+            return 0
+        })
+        setData([...sorted])
         return
     }
     async function handleSortMin() {
-        // const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
-        //     if (a.displayPrice < b.displayPrice) return 1
-        //     if (a.displayPrice > b.displayPrice) return -1
-        //     return 0
-        // })
-        // setData(sorted)
+        const sorted = (dataLocal).sort((a: Product, b: Product) => {
+            if (a.displayPrice < b.displayPrice) return 1
+            if (a.displayPrice > b.displayPrice) return -1
+            return 0
+        })
+        setData([...sorted])
         return
     }
 
@@ -138,7 +140,8 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
         select.forEach(s => (s.value = ''))
         setOptions(values)
         setCurrentPage(1)
-        setData(products)
+        setDataLocal([...products])
+        setData([...products])
         return
     }
 
