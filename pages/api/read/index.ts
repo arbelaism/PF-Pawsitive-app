@@ -22,6 +22,7 @@ export default async function getFilters(
     });
     let result: Filters = { size: [], breed: [], years: [], months: [] };
     result.size = ["SMALL", "MEDIUM", "BIG"];
+    if (!posts) return
     posts.map((p) => {
       if (!result.breed.includes(p.breed)) {
         result.breed.push(p.breed);

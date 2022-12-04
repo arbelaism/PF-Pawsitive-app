@@ -2,14 +2,19 @@ import { NextComponentType } from "next";
 import Link from "next/link";
 import styles from "styles/Navbar.module.css";
 import { useState, useEffect } from "react";
+import useLocalStorage from "use-local-storage";
+import { Product } from "@prisma/client";
 
 const Navbar: NextComponentType = () => {
   const [cartProducts, setCartProducts] = useState([0]);
+    const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
+
   useEffect(() => {
-    const saved = localStorage.getItem("cartProducts" || "[]");
-    const products = JSON.parse(saved!);
-    setCartProducts(products.map((p: any) => p.amount));
-  }, []);
+    // const saved = localStorage.getItem("cartProducts" || "[]");
+    // const products = JSON.parse(saved!);
+        if (products.length > 0)
+            setCartProducts(products.map((p: any) => p.amount))
+  }, [products]);
   return (
     <>
       <nav>

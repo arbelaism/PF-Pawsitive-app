@@ -4,15 +4,14 @@ import { Product, UserProduct } from 'app/types';
 import styles from 'styles/ProductCard.module.css'
 import Link from 'next/link'
 import { style } from '@mui/system';
-import { CartItemType } from "pages/products";
 
-type Props = {    
-    id : string
-    product : Product
+type Props = {
+    id: string
+    product: Product
     handleAddToCart: (clickedItem: Product) => void;
 }
 
-const ProductCard = ({id, product, handleAddToCart} : Props) => {
+const ProductCard = ({ id, product, handleAddToCart }: Props) => {
     return (
         <div className={styles.cardContainer} key={id}>
             <div className={styles.card} key={id}>
@@ -26,9 +25,9 @@ const ProductCard = ({id, product, handleAddToCart} : Props) => {
                 <h2 className={styles.title}>{product.name}</h2>
                 <p className={styles.text}>Tamaño: {product.size}</p>
                 <p className={styles.text}>Descripcion: {product.description}</p>
-                <p className={styles.text}>Precio: ${product.price}</p>
+                <p className={styles.text}>Precio: ${product.displayPrice}</p>
                 <button className={styles.button} onClick={() => handleAddToCart(product)}>Agregar al carrito</button>
-                
+
             </div>
         </div>
     )

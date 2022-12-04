@@ -43,15 +43,29 @@
     transition: 0.5s;
     color: rgb(0, 0, 0);
 }
+.itemFilter input {
+    text-align: left;
+    border-radius: 8px;
+    border: solid rgb(0, 0, 0) 2px;
+    background-color: transparent;
+    transition: 0.5s;
+    color: rgb(0, 0, 0);
+}
 .itemFilter select:hover {
+    color: rgb(0, 0, 0);
     text-align: left;
     border: solid #ffff79 1px;
     background-color: rgb(49, 49, 49, 0.7);
 }
 .itemFilter select:focus {
+    color: rgb(0, 0, 0);
     text-align: left;
     border: solid #ffff79 1px;
     background-color: rgb(49, 49, 49);
+}
+.itemFilter ::placeholder {
+    color: rgb(0, 0, 0);
+    text-align: left;
 }
 .buttons{
     border:2px solid black;

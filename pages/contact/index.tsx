@@ -21,7 +21,7 @@ const Contact: NextComponentType = () => {
       console.log(data);
       const message = "Mail sent"
       alert(message)
-      router.push("http://localhost:3000/") 
+      router.push("/") 
     },
     onError: () => {
       alert("Cant send the mail")

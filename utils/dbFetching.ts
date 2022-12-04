@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useMutation, useQuery } from "react-query";
-import { AdoptFormInput } from "app/types";
-import { Props } from "pages/adoptions";
+import { AdoptFormInput, ContactForm } from "app/types";
 
 export const getAdoptions = async () => {
-  const response = await axios.get("http://localhost:3000/api/adoptionpost");
+  const response = await axios.get("/api/adoptionpost");
   const adoptions = await response.data;
 
   if (!adoptions) {
@@ -14,7 +12,7 @@ export const getAdoptions = async () => {
 };
 
 export const getProducts = async () => {
-  const response = await axios.get("http://localhost:3000/api/product");
+  const response = await axios.get("/api/product");
   const products = await response.data;
 
   if (!products) throw new Error("Data not found");
@@ -22,7 +20,7 @@ export const getProducts = async () => {
 };
 export const getPetById = async (id: string) => {
   const response = await axios.get(
-    `http://localhost:3000/api/adoptionpost/${id}`
+    `/api/adoptionpost/${id}`
   );
   const products = await response.data;
   if (!products) throw new Error("Data not found");
@@ -31,10 +29,17 @@ export const getPetById = async (id: string) => {
 
 export const createPost = async (data: AdoptFormInput) => {
   const newPost = await axios
-    .post("http://localhost:3000/api/adoptionpost", data)
+    .post("/api/adoptionpost", data)
     .then((response) => response.data.name)
     .catch((error) => console.log(error));
 
   return "Post de " + newPost + " creado";
 };
 
+export const sendMail = async (data: ContactForm) => {
+  const newPost = await axios
+    .post("/api/sendMail", data)
+    .catch((error) => console.log(error));
+
+  return "email send";
+};

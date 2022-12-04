@@ -50,9 +50,10 @@ const Checkout  = ({price, setOpen}:Props)=>{
         const {id} = paymentMethod;
         try{
             setCardError(``);
-            const {data} = await axios.post('http://localhost:3000/api/product/payment',{totalPrice: price, id});
+            const {data} = await axios.post('/api/product/payment',{totalPrice: price, id});
             const { message } = data
             setMessage(message)
+
             elements?.getElement(CardElement)?.clear()
         }catch(err:any){
 

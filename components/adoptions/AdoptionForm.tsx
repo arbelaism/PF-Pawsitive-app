@@ -41,7 +41,7 @@ const AdoptionForm: NextComponentType = () => {
         userId: "1",
     }
     mutate(data)
-    router.push("http://localhost:3000/")   
+    router.push("/")   
 
   };
 
