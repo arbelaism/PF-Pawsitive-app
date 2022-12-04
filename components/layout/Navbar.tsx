@@ -12,7 +12,8 @@ const Navbar: NextComponentType = () => {
   useEffect(() => {
     // const saved = localStorage.getItem("cartProducts" || "[]");
     // const products = JSON.parse(saved!);
-    setCartProducts(products.map((p: any) => p.amount));
+        if (products.length > 0)
+            setCartProducts(products.map((p: any) => p.amount))
   }, [products]);
   return (
     <>

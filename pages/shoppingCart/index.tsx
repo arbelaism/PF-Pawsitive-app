@@ -36,7 +36,7 @@ const Cart : NextPage = () => {
           const isItemInCart = prev.find(item => item.id === clickedItem.id); 
           
           if (isItemInCart) {
-            return prev.map(item => 
+            return prev?.map(item => 
               item.id === clickedItem.id 
               ? { ...item, amount: item.amount! + 1 } 
               : item 
@@ -89,7 +89,7 @@ const Cart : NextPage = () => {
             <div className={styles.cartContainer}>
                 <h1 className="text-3xl font-bold">Carrito de compras</h1><br/>             
                 <div className={styles.container}>
-                    {!cartProducts.length ? 
+                    {cartProducts.length === 0 ? 
                         <h1>Your Cart is Empty!</h1>
                      : 
                         <div className="body">
