@@ -22,12 +22,21 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                     height={150}
                     className={styles.cardImage}
                 />
-                <h2 className={styles.title}>{product.name}</h2>
-                <p className={styles.text}>Tamaño: {product.size}</p>
-                <p className={styles.text}>Descripcion: {product.description}</p>
-                <p className={styles.text}>Precio: ${product.displayPrice}</p>
-                <button className={styles.button} onClick={() => handleAddToCart(product)}>Agregar al carrito</button>
-
+                <div className="flex flex-col gap-2 justify-between items-center">
+                    <h2 className={styles.title}>{product.name}</h2>
+                    <p className={styles.description}>{product.description}</p>
+                    <div className='flex items-center gap-3'>
+                        <p className={styles.text}>Tamaño: {product.size}</p>
+                        <p className={styles.text}>
+                            Precio: ${product.displayPrice}
+                        </p>
+                    </div>
+                </div>
+                <button
+                    className={styles.button}
+                    onClick={() => handleAddToCart(product)}>
+                    Agregar al carrito
+                </button>
             </div>
         </div>
     )
