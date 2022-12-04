@@ -40,7 +40,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         setDataLocal(adoptions)
     }, [adoptions])
 
-    const [dataLocal, setDataLocal] = useState<IAdoption[]>({ ...adoptions }) // copy products
+    const [dataLocal, setDataLocal] = useState<IAdoption[]>(adoptions) // copy products
 
     function orderData(values: Values, data: IAdoption[]) {
         const { breed, size, age } = values
@@ -51,8 +51,8 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                 .filter((d: IAdoption) => d.size === size)
                 .filter((d: IAdoption) => d.age === age)
             setCurrentPage(1)
-            setDataLocal({ ...adoptions })
-            setData(filteredData)
+            setDataLocal([...adoptions])
+            setData([...filteredData])
             return
         }
         if (breed !== '') {
@@ -65,7 +65,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
             filteredData = (filteredData.length > 0 ? filteredData : data)?.filter((d: IAdoption) => d.age === age)
         }
         setCurrentPage(1)
-        setData(filteredData)
+        setData([...filteredData])
         return
     }
 
@@ -74,7 +74,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         const select = document.querySelectorAll('select')
 
         select.forEach(s => (s.value = ''))
-        setData(adoptions)
+        setData([...adoptions])
 
         return
     }
