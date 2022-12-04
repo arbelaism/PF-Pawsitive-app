@@ -43,7 +43,7 @@ const ModalPayment = ({price}:Props)=>{
                       
                       <div className={styles.headerContainer}>
                         <div className={styles.titleContainer}>                    
-                          <h2>Complete data and press Buy button to confirm</h2>                   
+                          <h2>Complete data and press Pay button to confirm</h2>                   
                         </div>
                         <div className={styles.buttonContainer}>
                           <button onClick={handleClose}><AiOutlineClose/></button>
@@ -56,7 +56,7 @@ const ModalPayment = ({price}:Props)=>{
                         <div className={styles.descriptionContainer}>
                           <p className={styles.description}>Please, if you are sure to buy these products, add your card details. All your personal information is safe, dont worry. After processing your payment, youll recieved a mail details about your purchased.</p>
                         </div>
-                        <Checkout price={price}/>
+                        <Checkout price={price} setOpen={setOpen}/>
                       </div>                
                     
                 </div>

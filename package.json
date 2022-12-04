@@ -27,7 +27,8 @@
     "react-hook-form": "^7.39.6",
     "react-icons": "^4.6.0",
     "react-query": "^3.39.2",
-    "stripe": "^11.1.0"
+    "stripe": "^11.1.0",
+    "sweetalert2": "^11.6.15"
   },
   "devDependencies": {
     "@prisma/client": "^4.6.1",
