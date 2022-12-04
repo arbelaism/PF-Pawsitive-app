@@ -34,9 +34,11 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         if (!value) return
         setOptions({ ...options, [name]: value })
         return
-
-
     }
+
+    useEffect(() => {
+        setDataLocal(adoptions)
+    }, [adoptions])
 
     const [dataLocal, setDataLocal] = useState<IAdoption[]>({ ...adoptions }) // copy products
 
@@ -50,7 +52,8 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                 .filter((d: IAdoption) => d.age === age)
             setCurrentPage(1)
             setDataLocal({ ...adoptions })
-            return setData(filteredData)
+            setData(filteredData)
+            return
         }
         if (breed !== '') {
             filteredData = (data)?.filter((d: IAdoption) => d.breed === breed)
@@ -62,7 +65,8 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
             filteredData = (filteredData.length > 0 ? filteredData : data)?.filter((d: IAdoption) => d.age === age)
         }
         setCurrentPage(1)
-        return setData(filteredData)
+        setData(filteredData)
+        return
     }
 
     async function handleReset() {
@@ -90,7 +94,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
             <div className={styles.itemFilter}>
                 <h2>Filtrar por Categoría</h2>
                 <select
-                    name="selector"
+                    name="breed"
                     onChange={e => handleOptions(e)}
                     className={styles.itemSelector}>
                     <option value="">Categoría...</option>
