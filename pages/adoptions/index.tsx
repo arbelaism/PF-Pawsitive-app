@@ -64,7 +64,7 @@ const Adoptions: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="grid grid-cols-3 justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-center">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : (
