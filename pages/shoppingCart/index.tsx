@@ -6,6 +6,8 @@ import ModalPayment from 'components/products/payments/ModalPayment';
 import ProductOnCart from 'components/products/ProductOnCart'
 import styles from 'styles/ShoppingCart.module.css'
 import useLocalStorage from 'use-local-storage';
+import Image from 'next/image';
+import EmptyCart from "public/xempty-cart.png"
 
 
 const Cart : NextPage = () => {
@@ -85,14 +87,17 @@ const Cart : NextPage = () => {
     const priceToPay = getTotalPrice();  
     
     return (
-        
         <MainLayout title="Pawsitive - Carrito">
             <div className={styles.cartContainer}>
-                <h1 className="text-3xl font-bold">Carrito de compras</h1><br/>             
+                <h1 className="text-3xl font-bold">Carrito de compras</h1>
+                <br />
                 <div className={styles.container}>
-                    {cartProducts.length === 0 ? 
-                        <h1>Your Cart is Empty!</h1>
-                     : 
+                    {cartProducts.length === 0 ? (
+                        <Image
+                            src={EmptyCart}
+                            alt="not found"
+                        />
+                    ) : (
                         <div className="body">
                             <div className={styles.header}>
                                 <div>Imagen</div>
@@ -102,28 +107,27 @@ const Cart : NextPage = () => {
                                 <div>Agregar/Remover</div>
                                 <div>Precio total producto</div>
                             </div>
-                            {cartProducts.map((product : Product)=>
-                            <ProductOnCart
-                            key={product.id}
-                            product={product}
-                            addToCart={handleAddToCart}
-                            removeFromCart={handleRemoveFromCart}
-                            /> 
-                        )}
-                        </div>                                       
-                    }
-                    <hr/>
+                            {cartProducts.map((product: Product) => (
+                                <ProductOnCart
+                                    key={product.id}
+                                    product={product}
+                                    addToCart={handleAddToCart}
+                                    removeFromCart={handleRemoveFromCart}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    <hr />
                     <div className={styles.total}>
                         <h3>Total compra: $ </h3>
-                        <h3>{getTotalPrice()}</h3>                                               
+                        <h3>{getTotalPrice()}</h3>
                     </div>
-                    <ModalPayment price={priceToPay}/>
+                    <ModalPayment price={priceToPay} />
                     {/* <button className={styles.paybutton}>Pagar</button>                                                */}
-                    
-                </div>                
+                </div>
             </div>
         </MainLayout>
-    );
+    )
 };
 
 export default Cart;
