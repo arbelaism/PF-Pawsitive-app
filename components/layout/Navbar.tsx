@@ -21,7 +21,7 @@ const Navbar: NextComponentType = () => {
   }, [products]);
   return (
       <>
-          <nav>
+          <nav className="w-full bg-yellow-300">
               <div className={styles.navContainer}>
                   <div className={styles.logoContainer}>
                       <Link href={'/'}>
@@ -57,6 +57,8 @@ const Navbar: NextComponentType = () => {
                               <a>About</a>
                           </Link>
                       </div>
+                  </div>
+                  <div className={styles.signUpContainer}>
                       <div>
                           <Link href={'/shoppingCart'}>
                               <a>
@@ -64,8 +66,6 @@ const Navbar: NextComponentType = () => {
                               </a>
                           </Link>
                       </div>
-                  </div>
-                  <div className={styles.signUpContainer}>
                       {!user ? (
                           <div className={styles.signUpLink}>
                               <Link href="/api/auth/login">
@@ -74,7 +74,7 @@ const Navbar: NextComponentType = () => {
                           </div>
                       ) : (
                           <>
-                              <span>Hola {user.name} | </span>
+                              <span>Hola {user.name} &nbsp;&nbsp;| </span>
                               <Link href="/api/auth/logout">
                                   <a>Logout</a>
                               </Link>

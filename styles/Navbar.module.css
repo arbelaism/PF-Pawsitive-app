@@ -1,15 +1,13 @@
 .navContainer{
-    padding: 0.50rem 1rem;
-    margin:0;
+    padding: 0.75rem 1rem;
+    margin:0 auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    width: 100vw;
-    min-width: 700px;
+    max-width: 80rem;
     color: rgb(18, 18, 18);
-    background-color: rgb(253, 253, 81);    
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: rgb(253, 224, 71);    
 }
 .logoContainer{
     width: 15vw;
@@ -34,11 +32,9 @@
 /* Container Nav links */
 .linksContainer{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    width: 50vw;
-    height: 22px;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    width: 50%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 500;       
 }
@@ -66,6 +62,10 @@
   
   /* Sign up / Login */
   .signUpContainer{
+    width: 26%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-right: 15px;
   }
   .signUpLink a{

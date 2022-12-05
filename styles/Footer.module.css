@@ -1,9 +1,10 @@
 .footerContainer {
+    width: 80rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem;
-    margin: 0;
+    margin: 0 auto;
 }
 .logoContainer {
     width: 25vw;
@@ -35,9 +36,10 @@
 }
 
 .footer {
+    width: 100%;
     text-align: center;
     color: rgb(18, 18, 18);
-    background-color: rgb(253, 253, 81);
+    background-color: rgb(253, 224, 71);
 }
 
 .footer li {
