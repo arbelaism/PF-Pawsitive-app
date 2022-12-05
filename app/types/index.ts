@@ -75,3 +75,11 @@ export interface ContactForm {
   email: string;
   message: string;
 }
+
+export interface CheckIn {
+  name: string;
+  email: string;
+  products: Product[];
+  total: string;
+  action: string
+}

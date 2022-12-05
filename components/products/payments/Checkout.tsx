@@ -8,6 +8,11 @@ import { NextComponentType } from 'next';
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { success } from 'utils/success';
 import { error } from 'utils/error'
+import { sendPaymentMail } from 'utils/dbFetching';
+import { useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import { CheckIn, Product } from 'app/types';
+import useLocalStorage from 'use-local-storage';
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -36,6 +41,23 @@ const Checkout  = ({price, setOpen}:Props)=>{
     const [loading, setLoading] = useState(false);
     const [cardError, setCardError] = useState('');
     const [message, setMessage] = useState('')
+    const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
+
+    const router = useRouter()
+    const queryClient = useQueryClient();
+    const { mutate, isLoading } = useMutation(sendPaymentMail, {
+      onSuccess: data => {
+        const message = "Mail sent"
+        alert(message)
+        router.push("/") 
+      },
+      onError: () => {
+        alert("Cant send the mail")
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('create');
+      }
+    });
   
     const handleSubmit= async(e: ChangeEvent<HTMLFormElement>)=>{
       e.preventDefault();
@@ -53,8 +75,16 @@ const Checkout  = ({price, setOpen}:Props)=>{
             const {data} = await axios.post('/api/product/payment',{totalPrice: price, id});
             const { message } = data
             setMessage(message)
-
+            let paymentData: CheckIn = {
+              name: 'fer',
+              email: 'famd2712@gmail.com',
+              products: products,
+              total: price,
+              action: 'sell',
+            } 
+            console.log(products)
             elements?.getElement(CardElement)?.clear()
+            mutate(paymentData)
         }catch(err:any){
 
             console.log(err.response.data.Error);
