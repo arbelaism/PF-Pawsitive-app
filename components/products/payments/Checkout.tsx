@@ -3,11 +3,13 @@ import axios from 'axios';
 import {ChangeEvent} from 'react';
 import styles from 'styles/ModalPayment.module.css'
 import { Props } from 'pages/adoptions';
-import { AiOutlineClose } from 'react-icons/ai'
-import { NextComponentType } from 'next';
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
-import { success } from 'utils/success';
-import { error } from 'utils/error'
+import { alerts } from 'utils/alerts';
+import { sendPaymentMail } from 'utils/dbFetching';
+import { useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/router";
+import { CheckIn, Product } from 'app/types';
+import useLocalStorage from 'use-local-storage';
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -36,6 +38,23 @@ const Checkout  = ({price, setOpen}:Props)=>{
     const [loading, setLoading] = useState(false);
     const [cardError, setCardError] = useState('');
     const [message, setMessage] = useState('')
+    const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
+    const myStorage =  window.localStorage
+    const router = useRouter()
+    const queryClient = useQueryClient();
+    const { mutate, isLoading } = useMutation(sendPaymentMail, {
+      onSuccess: data => {
+        alerts('Email', 'Email Sent', 'info', true)
+        myStorage.clear()
+        router.push("/") 
+      },
+      onError: () => {
+        alerts('Email', 'Cant send the mail','error', true)
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('create');
+      }
+    });
   
     const handleSubmit= async(e: ChangeEvent<HTMLFormElement>)=>{
       e.preventDefault();
@@ -53,11 +72,16 @@ const Checkout  = ({price, setOpen}:Props)=>{
             const {data} = await axios.post('/api/product/payment',{totalPrice: price, id});
             const { message } = data
             setMessage(message)
-
+            let paymentData: CheckIn = {
+              name: 'Cris',
+              email: 'cris-a2112@hotmail.com',
+              products: products,
+              total: price,
+              action: 'sell',
+            } 
             elements?.getElement(CardElement)?.clear()
+            mutate(paymentData)
         }catch(err:any){
-
-            console.log(err.response.data.Error);
             elements?.getElement(CardElement)?.clear()
             setCardError(`${err.response.data.Error}`);
         }
@@ -73,8 +97,8 @@ const Checkout  = ({price, setOpen}:Props)=>{
             <CardElement options={CARD_ELEMENT_OPTIONS}/>
           </div>
           <div>
-            {cardError && <>{error(cardError)}</>}
-            {message && <>{success('Payment', 'The payment was successful')}</>}
+            {cardError && <>{alerts('Oops...', cardError, 'error')}</>}
+            {message && <>{alerts('Payment', 'The payment was successful', 'success')}</>}
             <button className={styles.button}>
               {loading ? 
               <>Processing...</>
