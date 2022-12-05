@@ -37,7 +37,8 @@ const Footer: NextComponentType = () => {
                             <li className={styles.icons}>
                                 <Link
                                     href="https://github.com/arbelais/PF-Pawsitive-app.git"
-                                    target="_blank">
+                                    target="_blank"
+                                    rel="noreferrer noopener">
                                     <a>
                                         <AiFillGithub />
                                     </a>
