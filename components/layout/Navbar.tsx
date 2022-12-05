@@ -15,13 +15,18 @@ const Navbar: NextComponentType = () => {
     useEffect(() => {
         // const saved = localStorage.getItem("cartProducts" || "[]");
         // const products = JSON.parse(saved!);
+        if (products.length > 0)
+            setCartProducts(products.map((p: any) => p.amount))
+    }, [cartProducts, products]);
+
+    useEffect(() => {
         if (cartProducts.length > 0) {
             let numb = cartProducts.reduce((a, b) => a + b, 0)
             setNumberDisplayed(numb)
         }
-        if (products.length > 0)
-            setCartProducts(products.map((p: any) => p.amount))
-    }, [cartProducts, products]);
+    }, [cartProducts, numberDisplayed])
+
+
     return (
         <>
             <nav className="w-full bg-yellow-300">
