@@ -45,7 +45,6 @@ export const sendMail = async (data: ContactForm) => {
 };
 
 export const sendPaymentMail = async (data: CheckIn) => {
-  console.log(data)
   const newPost = await axios
     .post("/api/sendMail", data)
     .catch((error) => console.log(error));

@@ -19,9 +19,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
       }
       break;
 
-    case "sell":
-      console.log(email + total);
-      
+    case "sell": 
       try {
         await transporter.sendMail({
           from: 'Pawsitive Team " <hayateshin@gmail.com>', // sender address
