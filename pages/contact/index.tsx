@@ -18,7 +18,7 @@ const Contact: NextComponentType = () => {
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(sendMail, {
     onSuccess: data => {
-      console.log(data);
+      // console.log(data);
       const message = "Mail sent"
       alert(message)
       router.push("/") 

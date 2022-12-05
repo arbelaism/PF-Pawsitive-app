@@ -30,18 +30,21 @@ const AdoptionForm: NextComponentType = () => {
   };
 
   const onSubmit: SubmitHandler<AdoptFormInput> = async (data) => {
-    let urlPhoto: any = await mediaUploader(media);
+    let urlPhoto: any = []
+    if (media.length > 0) {
+        urlPhoto = await mediaUploader(media);
+    }
     // console.log(data)
     // data.age = data.age+" "+data.monthoryear;
     // console.log(data)
     data = {... data, 
-        photo : urlPhoto[0],
+        photo : urlPhoto ? urlPhoto[0] : null,
         active: true,
         age: data.age + " " + data.monthOrYear,
         userId: "1",
     }
     mutate(data)
-    router.push("/")   
+    router.push("/adoptions")   
 
   };
 

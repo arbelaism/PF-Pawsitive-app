@@ -12,7 +12,6 @@ const Navbar: NextComponentType = () => {
 
     const {user, error, isLoading} = useUser()
 
-    console.log(user)
   useEffect(() => {
     // const saved = localStorage.getItem("cartProducts" || "[]");
     // const products = JSON.parse(saved!);

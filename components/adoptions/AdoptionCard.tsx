@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import styles from 'styles/AdoptionCard.module.css'
 import LinkAdoption from './LinkAdoption'
-import Link from 'next/link'
+import placeholder from "public/256px-Black_Paw.svg.png"
 
 type Adoption = {
     id: string
@@ -18,7 +18,7 @@ const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
         <div className={styles.cardContainer} key={id}>
             <div className={styles.card}>
                 <Image
-                    src={photo}
+                    src={photo ? photo : placeholder}
                     alt="No image to display"
                     width={150}
                     height={150}
