@@ -44,12 +44,12 @@ const Checkout  = ({price, setOpen}:Props)=>{
     const queryClient = useQueryClient();
     const { mutate, isLoading } = useMutation(sendPaymentMail, {
       onSuccess: data => {
-        alerts('Email', 'Email Sent', 'info', true)
+        alerts({icon: 'info', title: '<strong>Email</strong>', text: 'Email Sent', toast: true})
         myStorage.clear()
         router.push("/") 
       },
       onError: () => {
-        alerts('Email', 'Cant send the mail','error', true)
+        alerts({icon: 'error', title: '<strong>Email</strong>', text: 'Cant send the mail', toast: true})
       },
       onSettled: () => {
         queryClient.invalidateQueries('create');
@@ -97,8 +97,9 @@ const Checkout  = ({price, setOpen}:Props)=>{
             <CardElement options={CARD_ELEMENT_OPTIONS}/>
           </div>
           <div>
-            {cardError && <>{alerts('Oops...', cardError, 'error')}</>}
-            {message && <>{alerts('Payment', 'The payment was successful', 'success')}</>}
+            {cardError && <>{alerts({icon: 'error', title: '<strong>Oops...</strong>', text: cardError })}</>}    
+            {message && <>{alerts({icon: 'success', title: '<strong>Payment</strong>', text: 'The payment was successful' })}</>}
+            
             <button className={styles.button}>
               {loading ? 
               <>Processing...</>

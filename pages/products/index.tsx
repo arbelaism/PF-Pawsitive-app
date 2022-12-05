@@ -9,9 +9,9 @@ import { useQuery } from 'react-query'
 import { getProducts } from 'utils/dbFetching'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage'
-import Swal from 'sweetalert2'
 import NotFound from 'public/mong03b.gif'
 import Image from 'next/image'
+import { alerts } from 'utils/alerts'
 
 export type Props = {
     [key: string]: any
@@ -48,16 +48,13 @@ const Products: NextPage = () => {
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
 
     const handleAddToCart = (clickedItem: Product) => {
-        Swal.fire({
-            title: '<strong>Producto agregado con exito</strong>',
+        alerts({
             icon: 'success',
-            html:
-                'Para ir al carrito presione <b><a href="/shoppingCart">aqui</a></b>, ' +
-                'para seguir comprando presione el boton "Continuar"',
-            showCloseButton: true,
-            focusConfirm: false,
+            title: '<strong>Producto agregado con exito</strong>',
+            html: 'Para ir al carrito presione <b><a href="/shoppingCart">aqui</a></b>, ' +
+            'para seguir comprando presione el boton "Continuar"',
             confirmButtonText: '<i class="fa fa-thumbs-up"></i> Continuar',
-            confirmButtonAriaLabel: 'Thumbs up, great!'
+            confirmButtonAriaLabel:  'Thumbs up, great!',
         })
         if (!clickedItem.amount) clickedItem.amount = 0
         setCartItems(prev => {
