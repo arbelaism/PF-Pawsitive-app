@@ -64,9 +64,10 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     //Execute the filters with the option and the localData
 
-    // useEffect(() => {
-    //     setDataLocal(products)
-    // }, [products])
+    useEffect(() => {
+        setDataLocal(products)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [products])
 
 
     function orderData(options: Values, dataLocal: Product[]) {
@@ -92,7 +93,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
             filteredData = (filteredData.length > 0 ? filteredData : dataLocal)?.filter((d: Product) => d.displayPrice < price)
         }
         setCurrentPage(1)
-        setDataLocal([...filteredData])
+        setDataLocal(filteredData)
         setData([...filteredData])
         return
     }
@@ -115,7 +116,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     async function handleSortMax() {
 
-        const sorted = (dataLocal).sort((a: Product, b: Product) => {
+        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
             if (a.displayPrice < b.displayPrice) return -1
             if (a.displayPrice > b.displayPrice) return 1
             return 0
@@ -124,7 +125,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
         return
     }
     async function handleSortMin() {
-        const sorted = (dataLocal).sort((a: Product, b: Product) => {
+        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
             if (a.displayPrice < b.displayPrice) return 1
             if (a.displayPrice > b.displayPrice) return -1
             return 0
