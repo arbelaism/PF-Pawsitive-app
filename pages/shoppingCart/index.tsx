@@ -38,13 +38,13 @@ const Cart : NextPage = () => {
           if (isItemInCart) {
             return prev?.map(item => 
               item.id === clickedItem.id 
-              ? { ...item, amount: item.amount! + 1 } 
+              ? { ...item, amount: item.amount! + 1, stock: item.stock-1 } 
               : item 
             );
           };
           
           // first time the item is added 
-          return [...prev, {...clickedItem, amount: 1}];
+          return [...prev, {...clickedItem, amount: 1, stock: clickedItem.stock-1}];
       
         })        
     };
@@ -53,7 +53,7 @@ const Cart : NextPage = () => {
         prev.reduce((acc, item) => {
         if (item.id === id) {
             if (item.amount === 1) return acc;
-            return [...acc, {...item, amount: item.amount! - 1}]
+            return [...acc, {...item, amount: item.amount! - 1, stock: item.stock + 1}]
         } else {
             return [...acc, item]; 
         }
@@ -73,13 +73,14 @@ const Cart : NextPage = () => {
     
     useEffect(() => {
         // storing input cartProducts
-        if(cartProducts.length){
-
-            // localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+        if(cartProducts.length){            
             setProducts(cartProducts)
         }
+        else{
+            setProducts([])
+        }
         
-      }, [cartProducts]);
+    }, [cartProducts]);
 
     const priceToPay = getTotalPrice();  
     

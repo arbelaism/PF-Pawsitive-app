@@ -33,6 +33,7 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                     </div>
                 </div>
                 <button
+                    disabled = {product.stock<=1 && true}
                     className={styles.button}
                     onClick={() => handleAddToCart(product)}>
                     Agregar al carrito

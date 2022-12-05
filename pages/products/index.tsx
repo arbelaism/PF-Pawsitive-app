@@ -9,6 +9,7 @@ import { useQuery } from 'react-query';
 import { getProducts } from 'utils/dbFetching';
 import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage';
+import Swal from 'sweetalert2';
 
 export type Props = {
     [key: string]: any
@@ -23,68 +24,65 @@ const Products: NextPage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
     const [data, setData] = useState<Product[]>()
+    
+    //Recover cartproducts when user comeback from the cart to products again   
+    const [cartFromLocalStorage, setCartFromLocalStorage] = useLocalStorage<Product[]>("cartProducts", [])
+    const [cartItems, setCartItems] = useState(cartFromLocalStorage as Product[]);
+    
+    // const [productsFromStorage, setProductsFromStorage] = useLocalStorage<Product[]>("cartProducts", [])
+    
+    // Recover cartproducts when user comeback from the cart to products again 
 
-    const [productsFromStorage, setProductsFromStorage] = useLocalStorage<Product[]>("cartProducts", [])
-
+    //pagination
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
     let currentItems: Product[] = []
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
 
-    useEffect(() => {
-
-  
-            setData(products)
-     
-
-    }, [products]
-
-    )
-
-    //Recover cartproducts when user comeback from the cart to products again   
-    let [cartFromLocalStorage, setCartFromLocalStorage] = useLocalStorage<Product[]>("cartProducts", [])
-    // try {
-    //     cartFromLocalStorage = JSON.parse(localStorage.getItem("cartProducts") || '[]')
-    // } catch (error) {
-    //     console.log(error)
-    // }
-
+    
     const handleAddToCart = (clickedItem: Product) => {
-
+        Swal.fire({
+            title: '<strong>Producto agregado con exito</strong>',
+            icon: 'success',
+            html:
+              'Para ir al carrito presione <b><a href="/shoppingCart">aqui</a></b>, ' +
+              'para seguir comprando presione el boton "Continuar"',
+            showCloseButton: true,            
+            focusConfirm: false,
+            confirmButtonText:
+              '<i class="fa fa-thumbs-up"></i> Continuar',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            
+        })
         if (!clickedItem.amount) clickedItem.amount = 0
         setCartItems(prev => {
             // is the item already added in the cart
             const isItemInCart = prev.find(item => item.id === clickedItem.id);
-
+            
             if (isItemInCart) {
                 return prev.map(item =>
                     item.id === clickedItem.id
-                        ? { ...item, amount: item.amount! + 1 }
-                        : item
-                );
-            };
-
-            // first time the item is added 
-            return [...prev, { ...clickedItem, amount: 1 }];
-
-        })
-    };
-
-
-
-
-
-    // Recover cartproducts when user comeback from the cart to products again  
-
-    const [cartItems, setCartItems] = useState(cartFromLocalStorage as Product[]);
-
-
+                    ? { ...item, amount: item.amount! + 1 }
+                    : item
+                    );
+                };
+                
+                // first time the item is added 
+                return [...prev, { ...clickedItem, amount: 1 }];
+                
+            })
+        };
+    useEffect(() => {
+    
+        setData(products)
+    }, [products])    
+        
     useEffect(() => {
         // storing input cartItems
         // localStorage.setItem("cartProducts", JSON.stringify(cartItems));
-        setProductsFromStorage(cartItems)
+        setCartFromLocalStorage(cartItems)
 
-    }, [cartItems, products]);
+    }, [cartItems]);
 
 
     return (

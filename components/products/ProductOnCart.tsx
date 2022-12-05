@@ -31,7 +31,8 @@ const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
             >
             -
             </button>            
-            <button          
+            <button
+            disabled={product.stock<=1 && true}    
             onClick={() => addToCart(product)}
             >
             +
