@@ -64,9 +64,10 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     //Execute the filters with the option and the localData
 
-    // useEffect(() => {
-    //     setDataLocal(products)
-    // }, [products])
+    useEffect(() => {
+        setDataLocal(products)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [products])
 
 
     function orderData(options: Values, dataLocal: Product[]) {
