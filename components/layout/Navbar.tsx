@@ -20,10 +20,10 @@ const Navbar: NextComponentType = () => {
     }, [cartProducts, products]);
 
     useEffect(() => {
-        if (cartProducts.length > 0) {
+      
             let numb = cartProducts.reduce((a, b) => a + b, 0)
             setNumberDisplayed(numb)
-        }
+    
     }, [cartProducts, numberDisplayed])
 
 
