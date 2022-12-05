@@ -10,7 +10,7 @@ const Navbar: NextComponentType = () => {
   const [cartProducts, setCartProducts] = useState([0]);
     const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
 
-    const {user, error, isLoading} = useUser()
+    const { user, error, isLoading } = useUser()
 
   useEffect(() => {
     // const saved = localStorage.getItem("cartProducts" || "[]");

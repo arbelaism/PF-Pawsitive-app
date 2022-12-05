@@ -6,6 +6,8 @@ import { MainLayout, AdoptionCard, Filters } from 'components'
 import { useQuery } from 'react-query'
 import { getAdoptions } from 'utils/dbFetching'
 import AlternativePagination from 'components/layout/AlternativePagination'
+import NotFound from 'public/mong03b.gif'
+import Image from 'next/image'
 
 export type Props = {
     [key: string]: any
@@ -32,12 +34,8 @@ const Adoptions: NextPage = () => {
     useEffect(() => {
         if (isSuccess) {
             setData(adoptions)
-
         }
-    }, [isSuccess, adoptions]
-
-    )
-
+    }, [isSuccess, adoptions])
 
     return (
         <MainLayout title="Pawsitive - Adoptions">
@@ -67,6 +65,16 @@ const Adoptions: NextPage = () => {
                     <div className="flex flex-wrap justify-center items-center">
                         {isLoading ? (
                             <h1>Loading...</h1>
+                        ) : currentItems.length === 0 ? (
+                            <div className='flex flex-col justify-center items-center'>
+                                <h1 className='font-bold text-3xl'>No encontramos items</h1>
+                                <Image
+                                    src={NotFound}
+                                    alt="not found"
+                                    width={500}
+                                    height={400}
+                                />
+                            </div>
                         ) : (
                             currentItems.map((adoption: IAdoption) => {
                                 return (
