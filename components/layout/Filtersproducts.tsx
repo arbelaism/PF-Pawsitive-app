@@ -115,7 +115,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
 
     async function handleSortMax() {
 
-        const sorted = (dataLocal).sort((a: Product, b: Product) => {
+        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
             if (a.displayPrice < b.displayPrice) return -1
             if (a.displayPrice > b.displayPrice) return 1
             return 0
@@ -124,7 +124,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
         return
     }
     async function handleSortMin() {
-        const sorted = (dataLocal).sort((a: Product, b: Product) => {
+        const sorted = (dataLocal ? dataLocal : products).sort((a: Product, b: Product) => {
             if (a.displayPrice < b.displayPrice) return 1
             if (a.displayPrice > b.displayPrice) return -1
             return 0
