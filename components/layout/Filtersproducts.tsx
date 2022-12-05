@@ -92,7 +92,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
             filteredData = (filteredData.length > 0 ? filteredData : dataLocal)?.filter((d: Product) => d.displayPrice < price)
         }
         setCurrentPage(1)
-        setDataLocal([...filteredData])
+        setDataLocal([filteredData])
         setData([...filteredData])
         return
     }
