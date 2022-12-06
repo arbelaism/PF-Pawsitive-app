@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { transporter } from "../../../utils/mailer";
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
-  const { action, email, name, products, total,numPayment,message } = req.body;
+  const { action, email, name, products, total,message } = req.body;
     //items y total serían para que creen un formato para el correo que te muestre lo que compraste
   switch (action) {
     case "contact":
@@ -56,6 +56,20 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
               <h3>Pawsitive Team</h3>
           </footer>
           </body>`
+        });
+        res.status(200).json({ message: "email sent" })
+      } catch (error) {
+        res.status(401).json({ message: `cant send email to ${email}` })
+      }
+      break;
+
+      case "contactUs":
+      try {
+        await transporter.sendMail({
+          from: `Cliente <${email}>`, // sender address
+          to: 'famd2712@gmail.com', // list of receivers
+          subject: 'Mensaje de Cliente', // Subject line
+          html: `<span>${message}</span>`, // html body
         });
         res.status(200).json({ message: "email sent" })
       } catch (error) {
