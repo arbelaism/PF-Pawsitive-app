@@ -1,0 +1,94 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../../lib/prisma";
+
+export default async function user(req: NextApiRequest, res: NextApiResponse) {
+    const { method } = req;
+    switch (method) {
+
+        // GET ALL THE TRANSACTIONS
+
+        case "GET":
+            try {
+                const transactions = await prisma.transaction.findMany({
+                    include: {
+                        user: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                email: true,
+                                photo: true
+                            }
+                        },
+                        quantity: {
+                            select: {
+                                quantity: true,
+                                product: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                        displayPrice: true,
+                                        category: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
+                transactions ?
+                    res.status(200).json(transactions)
+                    :
+                    res.status(400).json({ message: "transactions dont found." })
+
+            } catch (error) {
+                console.log(error)
+                res.status(404).json({ message: "an error occurred in the database." })
+            }
+            break;
+
+        // POST(CREATE) THE TRANSACTION
+
+        case "POST":
+            const { amount, userId, status, array } = req.body;
+
+            /*
+            Formato del array
+            array=[
+                {
+                    quantity:2,         --> cantidad del producto 
+                    productId:"algo"    --> id del producto
+                },
+                {
+                    quantity:2,         --> cantidad del producto 
+                    productId:"algo"    --> id del producto
+                },
+                {
+                    quantity:2,         --> cantidad del producto 
+                    productId:"algo"    --> id del producto
+                }
+            ]
+            */
+
+            try {
+                const newTransaction = await prisma.transaction.create({
+                    data: {
+                        amount,
+                        userId,
+                        status,
+                        quantity: {
+                            create: array
+                        }
+                    }
+                })
+                newTransaction ?
+                    res.status(200).json({ message: "created" })
+                    :
+                    res.status(400).json({ message: "could not create user" })
+
+            } catch (error) {
+                res.status(400).json({ message: "Error" })
+            }
+            break;
+        default:
+            return res.status(400).json({ message: 'invalid method' })
+    }
+};
