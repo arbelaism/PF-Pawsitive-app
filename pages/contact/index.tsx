@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router"
 import { sendMail } from "utils/dbFetching"
 import { ContactForm } from "../../app/types";
+import { alerts } from "utils/alerts";
 
 const Contact: NextComponentType = () => {
   const {
@@ -19,12 +20,11 @@ const Contact: NextComponentType = () => {
   const { mutate, isLoading } = useMutation(sendMail, {
     onSuccess: data => {
       // console.log(data);
-      const message = "Mail sent"
-      alert(message)
+      alerts({icon: 'info', title: '<strong>Email</strong>', text: 'Email Sent', toast: true})
       router.push("/") 
     },
     onError: () => {
-      alert("Cant send the mail")
+      alerts({icon: 'error', title: '<strong>Email</strong>', text: 'Cant send the mail', toast: true})
     },
     onSettled: () => {
       queryClient.invalidateQueries('create');
