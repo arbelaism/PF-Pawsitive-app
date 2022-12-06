@@ -17,7 +17,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                     include: {
                         adoptionPost: true,
                         businessPost: true,
-                        product: true
+                        review: true
                     }
                 })
                 user ?

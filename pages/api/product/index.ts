@@ -17,7 +17,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         }
                     },
                     include: {
-                        user: true,
+                        review: true,
                     },
                 });
 
