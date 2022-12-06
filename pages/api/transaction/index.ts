@@ -4,7 +4,6 @@ import { prisma } from "../../../lib/prisma";
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
     const { method } = req;
     switch (method) {
-
         // GET ALL THE TRANSACTIONS
 
         case "GET":

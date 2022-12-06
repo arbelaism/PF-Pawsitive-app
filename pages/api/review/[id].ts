@@ -35,7 +35,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             break;
 
         // PUT(UPDATE) THE USER BY ID
-//El ID que usa es el de la ""review"" no del usuario
+        //El ID que usa es el de la ""review"" no del usuario
         case "PUT":
             const { review, rating } = req.body
             try {

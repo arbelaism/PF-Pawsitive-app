@@ -31,7 +31,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             }
             break;
 
-        // POST(CREATE) THE USER
+        // POST(CREATE) THE REVIEW
 
         case "POST":
             const { rating, review, productId, userId } = req.body;

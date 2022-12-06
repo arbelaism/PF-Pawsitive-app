@@ -48,13 +48,13 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         case "PUT":
             const { status } = req.body
             try {
-                const user = await prisma.transaction.update({
+                const transactionUpdated = await prisma.transaction.update({
                     where: {
                         id: id
                     },
                     data: { status }
                 })
-                user ?
+                transactionUpdated ?
                     res.status(200).json({ message: "Updated" })
                     :
                     res.status(400).json({ message: "the user does not exist." })
