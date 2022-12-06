@@ -53,7 +53,7 @@ const Products: NextPage = () => {
             title: '<strong>Producto agregado con exito</strong>',
             html: 'Para ir al carrito presione <b><a href="/shoppingCart">aqui</a></b>, ' +
             'para seguir comprando presione el boton "Continuar"',
-            confirmButtonText: '<i class="fa fa-thumbs-up"></i> Continuar',
+            confirmButtonText: 'Continuar',
             confirmButtonAriaLabel:  'Thumbs up, great!',
         })
         if (!clickedItem.amount) clickedItem.amount = 0

@@ -74,7 +74,7 @@ const Checkout  = ({price, setOpen}:Props)=>{
             setMessage(message)
             let paymentData: CheckIn = {
               name: 'Cris',
-              email: 'cris-a2112@hotmail.com',
+              email: 'famd2712@gmail.com',
               products: products,
               total: price,
               action: 'sell',
