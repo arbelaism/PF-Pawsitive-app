@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "styles/Navbar.module.css";
 import { useState, useEffect } from "react";
 import useLocalStorage from "use-local-storage";
-import { Product } from "@prisma/client";
+import { Product } from "../../app/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 const Navbar: NextComponentType = () => {
@@ -13,10 +13,13 @@ const Navbar: NextComponentType = () => {
     const { user, error, isLoading } = useUser()
 
   useEffect(() => {
-    // const saved = localStorage.getItem("cartProducts" || "[]");
-    // const products = JSON.parse(saved!);
-        if (products.length > 0)
-            setCartProducts(products.map((p: any) => p.amount))
+    setCartProducts(() => {
+      let total: number[] = [0];
+      if (products.length) {
+        products.map((product: Product) => (total[0] += product.amount!));
+      }
+      return total;
+    });
   }, [products]);
   return (
       <>
@@ -60,9 +63,9 @@ const Navbar: NextComponentType = () => {
                   <div className={styles.signUpContainer}>
                       <div>
                           <Link href={'/shoppingCart'}>
-                              <a>
-                                  🛒 {cartProducts.reduce((a, b) => a + b, 0)}
-                              </a>
+                             
+                                <a>🛒 {cartProducts[0]}</a>
+                           
                           </Link>
                       </div>
                       {!user ? (
