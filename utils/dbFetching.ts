@@ -28,6 +28,23 @@ export const getProducts = async () => {
   if (!products) throw new Error("Data not found");
   return products;
 };
+export const getProductById = async (id: string) => {
+  const response = await axios.get("/api/product/"+id);
+  const product = await response.data;
+
+  if (!product) throw new Error("Data not found");
+  return product;
+};
+export const getProductsByCategory = async (foodCategory: string) => {  
+  const response = await axios.get("/api/product/", { params:{
+    categoria : foodCategory
+  } } );
+  const products = await response.data;
+
+  if (!products) throw new Error("Data not found");
+  return products;
+};
+
 export const getPetById = async (id: string) => {
   const response = await axios.get(
     `/api/adoptionpost/${id}`
