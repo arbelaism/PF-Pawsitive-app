@@ -34,12 +34,12 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
             </div>
             
             <div className="flex items-center mb-2.5">
-                {stars.map(star=>{
+                {stars.map((star, idx)=>{
                     if(star===true){
-                        return <AiFillStar/>
+                        return <AiFillStar key={idx}/>
                     } 
                     if(star===false){
-                        return <AiOutlineStar/>
+                        return <AiOutlineStar key={idx}/>
                     } 
                 })}
             </div>
