@@ -92,7 +92,6 @@ const Checkout  = ({price, setOpen}:Props)=>{
             const productsT = products.map((product)=>{
               return {quantity: product.amount , productId: product.id}
             })
-            console.log(productsT);
             
             const dataT = {amount: price, userId: '1', array: productsT}
             
