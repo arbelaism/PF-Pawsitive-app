@@ -20,6 +20,7 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
     }
 
     return (      
+
         
 <div key={id} >
     <div className="flex flex-col justify-between items-center m-5 bg-white shadow-md rounded-lg w-60 h-80 shadow-xl">
@@ -63,7 +64,9 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
 
             </div>
             <div className='pb-5'>
+
                 <Link href={"/products/"+product.id}>
+
                     <a className="text-pwgreen-500  text-md font-semibold">
                         Ver detalles
                     </a>

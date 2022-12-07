@@ -10,6 +10,8 @@ import { useMutation, useQueryClient } from "react-query";
 import { useRouter } from "next/router";
 import { CheckIn, Product } from 'app/types';
 import useLocalStorage from 'use-local-storage';
+import { useUser } from '@auth0/nextjs-auth0/client';
+
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -42,6 +44,7 @@ const Checkout  = ({price, setOpen}:Props)=>{
     const myStorage =  window.localStorage
     const router = useRouter()
     const queryClient = useQueryClient();
+    const { user, error } = useUser()
     const { mutate, isLoading } = useMutation(sendPaymentMail, {
       onSuccess: data => {
         alerts({icon: 'info', title: '<strong>Email</strong>', text: 'Email Sent', toast: true})
@@ -55,7 +58,7 @@ const Checkout  = ({price, setOpen}:Props)=>{
         queryClient.invalidateQueries('create');
       }
     });
-  
+    
     const handleSubmit= async(e: ChangeEvent<HTMLFormElement>)=>{
       e.preventDefault();
 
@@ -72,15 +75,22 @@ const Checkout  = ({price, setOpen}:Props)=>{
             const {data} = await axios.post('/api/product/payment',{totalPrice: price, id});
             const { message } = data
             setMessage(message)
-            let paymentData: CheckIn = {
-              name: 'Cris',
-              email: 'famd2712@gmail.com',
+            
+            if (user?.name && user.nickname && user.sub){
+              let email: string = ""
+              if(/google/gi.test(user?.sub)){
+                email=`${user?.nickname}@gmail.com`
+              }
+              let paymentData: CheckIn = {
+              name: user!.name,
+              email: email,
               products: products,
               total: price,
               action: 'sell',
             } 
             elements?.getElement(CardElement)?.clear()
             mutate(paymentData)
+            }
         }catch(err:any){
             elements?.getElement(CardElement)?.clear()
             setCardError(`${err.response.data.Error}`);
