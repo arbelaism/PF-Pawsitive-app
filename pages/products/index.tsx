@@ -108,7 +108,7 @@ const Products: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-center bg-pwpurple-200">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (
