@@ -4,21 +4,32 @@ import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Title);
 
+interface Props {
+  title: string,
+  bridge: string,
+  labels: string[],
+  dat: number[],
+  colors: string[]
+}
 
 
-const DoughnutGraphic = () => {
+const DoughnutGraphic = ({ title, bridge, labels, dat, colors }: Props) => {
+
+  //DEFAULTS
+  ChartJS.defaults.font.size = 20;
+  // ChartJS.defaults.backgroundColor = '#a73e7b';
+
+
+
   const data = {
-    labels: ['Juguetes', 'Comida', 'Accesorios', 'Thurs', 'Fri'],
+    labels: labels,
     datasets: [
       {
-        label: 'Attendance for Week 1',
-        data: [25, 24, 25, 25, 3],
-        borderColor: ['rgba(255,206,86,0.2)'],
-        backgroundColor: ['rgba(232,99,132,1)',
-          'rgba(232,211,6,1)',
-          'rgba(54,162,235,1)',
-          'rgba(255,159,64,1)',
-          'rgba(153,102,255,1)'],
+        label: bridge,
+        data: dat,
+        borderColor: ['rgba(0,0,0,0.2)'],
+        borderWidth: 1,
+        backgroundColor: colors,
         pointBackgroundColor: 'rgba(255,206,86,0.2)',
       }
 
@@ -26,11 +37,35 @@ const DoughnutGraphic = () => {
   }
   const options = {
     responsive: true,
-    maintainAspectRatio: true,
-    animation: false,
-    plugins: { title: { display: true, text: 'CATEGORIAS MAS VENDIDAS' } }
+    maintainAspectRatio: false,
+    // plugins: { title: { display: true, text: title } },
+    // legend: {
+    //   display: true,
+    //   position: "bottom",
+    //   labels: {
+    //     fontColor: "#333",
+    //     fontSize: 16
+    //   }
+    // },
+    plugins: {
+      title: {
+        display: true,
+        // position: "top",
+        text: title,
+        font: {
+          size: 40
+        }
+      },
+      // legend: {
+      //   labels: {
+      //     font: {
+      //       size: 60
+      //     }
+      //   }
+      // }
+    },
 
-
+    // animation: false,
     // rotation: -90,
     // circumference: 180,
     // cutout: "60%",
@@ -38,8 +73,8 @@ const DoughnutGraphic = () => {
     // responsive: true
   }
   return (
-    <div className='w-1/4 h-auto'>
-      <Doughnut data={data}  options={options} />
+    <div className='w-1/3 h-auto'>
+      <Doughnut data={data} width="400" height="400" options={options} />
     </div>
   )
 }

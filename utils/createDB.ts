@@ -1,4 +1,5 @@
 import { prisma } from "lib/prisma";
+import Create from '../pages/create/index';
 
 export default async function createDB() {
 
@@ -606,6 +607,63 @@ export default async function createDB() {
                     active: true,
                 }
             ]
+        })
+
+        await prisma.transaction.create({
+            data: {
+                amount: 50500,
+                userId: '1',
+                quantity: {
+                    create: [
+                        { quantity: 5, productId: "1" },
+                        { quantity: 2, productId: "2" },
+                        { quantity: 3, productId: "3" },
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                amount: 60500,
+                userId: '2',
+                quantity: {
+                    create: [
+                        { quantity: 5, productId: "6" },
+                        { quantity: 12, productId: "7" },
+                        { quantity: 3, productId: "8" },
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                amount: 70500,
+                userId: '3',
+                quantity: {
+                    create: [
+                        { quantity: 5, productId: "9" },
+                        { quantity: 2, productId: "10" },
+                        { quantity: 13, productId: "11" },
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                amount: 150500,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 15, productId: "15" },
+                        { quantity: 4, productId: "16" },
+                        { quantity: 5, productId: "17" },
+                    ]
+                }
+
+            }
         })
 
     } catch (error) {

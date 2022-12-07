@@ -78,3 +78,13 @@ export const sendPaymentMail = async (data: CheckIn) => {
 
   return "email send";
 };
+
+export const getTransactions = async () => {
+  const response = await axios.get("/api/transaction");
+  const transaction = await response.data;
+
+  if (!transaction) {
+    throw new Error("Data not found");
+  }
+  return transaction;
+};
