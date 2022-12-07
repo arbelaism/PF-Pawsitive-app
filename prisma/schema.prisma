@@ -14,15 +14,23 @@ model User {
   firstName    String
   lastName     String
   email        String         @unique
-  age          Int
+  gender       String?
+  birthday     String?
+  address      String?
+  phone        String?
+  city         String?
+  province     String?
+  postCode     String?
   photo        String?
   role         Role           @default(BASIC)
   active       Boolean        @default(true)
-  password     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   adoptionPost AdoptionPost[]
   businessPost BusinessPost[]
   transaction  Transaction[]
   review       Review[]
+  apply        Apply?
 }
 
 enum Role {
@@ -44,6 +52,7 @@ model AdoptionPost {
   updatedAt   DateTime @updatedAt
   user        User?    @relation(fields: [userId], references: [id])
   userId      String?
+  apply       Apply[]
 }
 
 enum Size {
@@ -51,6 +60,27 @@ enum Size {
   MEDIUM
   BIG
   UNIQUE
+}
+
+model Apply {
+  id             String        @id @default(uuid())
+  reason         String
+  past           Boolean       @default(false)
+  residence      Residence
+  employee       Boolean       @default(false)
+  garden         Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  adoptionPost   AdoptionPost? @relation(fields: [adoptionPostId], references: [id])
+  adoptionPostId String?
+  user           User?         @relation(fields: [userId], references: [id])
+  userId         String?       @unique
+}
+
+enum Residence {
+  DEPARTAMENTO
+  CASA
+  PISO
 }
 
 model BusinessPost {
@@ -87,7 +117,6 @@ model Product {
   active       Boolean
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-  // transaction  Transaction[]
   review       Review[]
   quantity     Quantity[]
 }
@@ -111,8 +140,6 @@ model Transaction {
   userId    String
   quantity  Quantity[]
   status    STATUS     @default(PROCESSING_PAYMENT)
-  // product    Product  @relation(fields: [productId], references: [id])
-  // productId  String
 }
 
 enum STATUS {
@@ -128,7 +155,7 @@ model Quantity {
   id          String        @id @default(uuid())
   quantity    Int
   transaction Transaction[]
-  product     Product?       @relation(fields: [productId], references: [id])
+  product     Product?      @relation(fields: [productId], references: [id])
   productId   String?
 }
 
@@ -138,9 +165,9 @@ model Review {
   review    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User?     @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
   userId    String?
-  product   Product?  @relation(fields: [productId], references: [id])
+  product   Product? @relation(fields: [productId], references: [id])
   productId String?
 
   @@unique([userId, productId])
