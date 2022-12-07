@@ -85,7 +85,7 @@ const Products: NextPage = () => {
 
     return (
         <MainLayout title="Pawsitive - Productos">
-            <div className="px-4 py-2 w-full flex justify-between items-center">
+            <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
                 <h1 className="text-3xl font-bold">Productos</h1>
             </div>
             <div className="flex flex-wrap justify-end items-center">
@@ -108,7 +108,7 @@ const Products: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="flex flex-wrap justify-center items-center bg-pwpurple-200">
+                    <div className="flex flex-wrap justify-center items-center bg-pwgreen-100">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (
