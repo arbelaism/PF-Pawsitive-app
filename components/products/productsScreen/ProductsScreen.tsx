@@ -44,13 +44,12 @@ const ProductsScreen: NextComponentType = () => {
                     {productsList.map((product:any)=>{
                         
                         return (
-                            <SwiperSlide>
+                            <SwiperSlide key={product.id}>
                                 <ProductsScreenCard
                                     key={product.id}
                                     id={product.id}
                                     product={product}
                                 />
-
                             </SwiperSlide>
                         )                        
                     })}              

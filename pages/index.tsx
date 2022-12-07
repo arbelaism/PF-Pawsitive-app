@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { MainLayout, AdoptionsScreen } from 'components'
+import { MainLayout, AdoptionsScreen, ProductsScreen } from 'components'
 //import createDB from '../utils/createDB'
 
 const Home: NextPage = () => {
@@ -8,6 +8,7 @@ const Home: NextPage = () => {
     return (
         <MainLayout title="Pawsitive - Home">
             <AdoptionsScreen />
+            <ProductsScreen />
         </MainLayout>
     )
 }
