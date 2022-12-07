@@ -62,7 +62,7 @@
   
   /* Sign up / Login */
   .signUpContainer{
-    width: 26%;
+    width: 30%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -71,4 +71,5 @@
   .signUpLink a{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 500;
+    margin: 0 .25rem;
   }

@@ -63,15 +63,16 @@ const Navbar: NextComponentType = () => {
                   <div className={styles.signUpContainer}>
                       <div>
                           <Link href={'/shoppingCart'}>
-                             
-                                <a>🛒 {cartProducts[0]}</a>
-                           
+                              <a>🛒 {cartProducts[0]}</a>
                           </Link>
                       </div>
                       {!user ? (
                           <div className={styles.signUpLink}>
+                              <Link href="/register">
+                                  <a>Registrate</a>
+                              </Link>
                               <Link href="/api/auth/login">
-                                  <a>Login</a>
+                                  <a>Iniciar sesión</a>
                               </Link>
                           </div>
                       ) : (
