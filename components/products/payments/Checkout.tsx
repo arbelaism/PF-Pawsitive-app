@@ -12,7 +12,6 @@ import { CheckIn, Product } from 'app/types';
 import useLocalStorage from 'use-local-storage';
 import { useUser } from '@auth0/nextjs-auth0/client';
 
-
 const CARD_ELEMENT_OPTIONS = {
     style: {
       base: {
@@ -90,6 +89,19 @@ const Checkout  = ({price, setOpen}:Props)=>{
             } 
             elements?.getElement(CardElement)?.clear()
             mutate(paymentData)
+            const productsT = products.map((product)=>{
+              return {quantity: product.amount , productId: product.id}
+            })
+            console.log(productsT);
+            
+            const dataT = {amount: price, userId: '1', array: productsT}
+            
+            await axios.post('/api/transaction',dataT)
+            products.map(async (product)=>{
+              if(product.amount){
+                await axios.put(`/api/product/${product.id}`,{stock:product.stock-product?.amount})
+              }
+            })
             }
         }catch(err:any){
             elements?.getElement(CardElement)?.clear()
