@@ -15,6 +15,8 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
     return (
         <div className={styles.cardContainer} key={id}>
             <div className={styles.card} key={id}>
+            <Link href={'/products/'+product.id}>
+                <a>
                 <Image
                     src={product.photo}
                     alt="No image to display"
@@ -32,6 +34,8 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                         </p>
                     </div>
                 </div>
+                </a>
+            </Link>
                 <button
                     disabled = {product.stock<=1 && true}
                     className={styles.button}
