@@ -8,7 +8,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
     case "contact":
       try {
         await transporter.sendMail({
-          from: 'Pawsitive Team " <hayateshin@gmail.com>', // sender address
+          from: `Pawsitive Team ${process.env.EMAIL_PAWSITIVE}`, // sender address
           to: email, // list of receivers
           subject: 'Gracias por contactar a Pawsitive', // Subject line
           html: `<header><h2>Hello ${name}</h2</header>
@@ -36,7 +36,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           })        
         
         await transporter.sendMail({
-          from: 'Pawsitive Team " <hayateshin@gmail.com>', // sender address
+          from: `Pawsitive Team ${process.env.EMAIL_PAWSITIVE}`, // sender address
           to: email, // list of receivers
           subject: `Hola ${name}`, // Subject line
           html: `
@@ -67,7 +67,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
       try {
         await transporter.sendMail({
           from: `Cliente <${email}>`, // sender address
-          to: 'famd2712@gmail.com', // list of receivers
+          to: process.env.EMAIL_PAWSITIVE, // list of receivers
           subject: 'Mensaje de Cliente', // Subject line
           html: `<span>${message}</span>`, // html body
         });
