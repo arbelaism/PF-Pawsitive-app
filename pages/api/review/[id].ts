@@ -10,18 +10,21 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         case "GET":
             try {
-                const user = await prisma.user.findUnique({
-                    where: {
-                        id: String(id),
-                    },
+                const reviews = await prisma.review.findMany({
+                    where: { productId: id },
                     include: {
-                        adoptionPost: true,
-                        businessPost: true,
-                        review: true
+                        user: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                email: true,
+                                photo: true
+                            }
+                        }
                     }
                 })
-                user ?
-                    res.status(200).json(user)
+                reviews ?
+                    res.status(200).json(reviews)
                     :
                     res.status(404).json({ message: `cant found the user with the id:${id} or not exist.` })
 
@@ -32,24 +35,20 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             break;
 
         // PUT(UPDATE) THE USER BY ID
-
+        //El ID que usa es el de la ""review"" no del usuario
         case "PUT":
-            const { firstName, lastName, email, age, photo, role, active, password } = req.body
+            const { review, rating } = req.body
             try {
-                const user = await prisma.user.update({
-                    where: { id: String(id) },
+                const reviews = await prisma.review.update({
+                    where: { id },
                     data: {
-                        firstName,
-                        lastName,
-                        email,
-                        age,
-                        photo,
-                        role,
-                        active,
-                        password,
+                        review,
+                        rating
                     }
+
                 })
-                user ?
+
+                reviews ?
                     res.status(200).json({ message: "Updated" })
                     :
                     res.status(400).json({ message: "the user does not exist." })
@@ -64,14 +63,11 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         case "DELETE":
             try {
-                const user = await prisma.user.update({
-                    where: { id: String(id) },
-                    data: {
-                        active: false,
-                    }
+                const reviewDeleted = await prisma.review.delete({
+                    where: { id }
                 })
-                user ?
-                    res.status(200).json({ message: "user logic delete" })
+                reviewDeleted ?
+                    res.status(200).json({ message: "delete the review" })
                     :
                     res.status(400).json({ message: "the user does not exist in the database." })
 
