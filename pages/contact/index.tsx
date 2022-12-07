@@ -36,9 +36,15 @@ const Contact: NextComponentType = () => {
       ...data,
       action : "contact",
     };
+    const email = {
+      ...data,
+      action : "contactUs",
+    };
+    mutate(email)
     mutate(mail)
-  };
 
+  };
+  
   return (
     <MainLayout title="Contact">
       <div className={styles.container}>
