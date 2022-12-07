@@ -10,10 +10,9 @@ export default async function createDB() {
                     firstName: "Constanza",
                     lastName: "Guerrero",
                     email: "constanza_guerrero@test.com",
-                    age: 19,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest01",
                     photo: "https://img.freepik.com/free-photo/beautiful-female-face-perfect-clean-skin-face-white_155003-32164.jpg?w=2000"
                 },
                 {
@@ -21,10 +20,9 @@ export default async function createDB() {
                     firstName: "Florencio",
                     lastName: "Busquets",
                     email: "florencio_busquets@test.com",
-                    age: 19,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest01",
                     photo: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?w=2000"
                 },
                 {
@@ -32,10 +30,9 @@ export default async function createDB() {
                     firstName: "Candela",
                     lastName: "Lozano",
                     email: "candela_lozano@test.com",
-                    age: 19,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest01",
                     photo: "https://img.freepik.com/free-photo/worldface-american-woman-white-background_53876-146191.jpg?w=2000"
                 },
                 {
@@ -43,10 +40,9 @@ export default async function createDB() {
                     firstName: "Rafael",
                     lastName: "Pedrosa",
                     email: "rafael_pedrosa@test.com",
-                    age: 19,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest01",
                     photo: "https://img.freepik.com/premium-photo/take-good-look-this-face-youll-miss-it-later-shot-handsome-young-man-standing-against-grey-background_590464-57810.jpg?w=2000"
                 },
                 {
@@ -54,10 +50,9 @@ export default async function createDB() {
                     firstName: "Urbano",
                     lastName: "Quevedo",
                     email: "urbano_quevedo@test.com",
-                    age: 19,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest01",
                     photo: "https://img.freepik.com/free-photo/shallow-focus-shot-young-black-male-grey-wall_181624-52039.jpg?w=2000"
                 },
                 {
@@ -65,10 +60,9 @@ export default async function createDB() {
                     firstName: "Cristian",
                     lastName: "Villalobos",
                     email: "cristian_villalobos@test.com",
-                    age: 19,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest01",
                     photo: "https://img.freepik.com/foto-gratis/chico-worldface-espanol-fondo-blanco_53876-137665.jpg?w=2000"
                 },
                 {
@@ -76,10 +70,9 @@ export default async function createDB() {
                     firstName: "Soledad",
                     lastName: "Acuña",
                     email: "soledad_acuna@test.com",
-                    age: 29,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest02",
                     photo: "https://img.freepik.com/free-photo/woman-with-confident-face-expression-dressed-hoodie-looks-directly-camera-poses-rests-after-strolling-city_273609-54736.jpg?w=2000"
                 },
                 {
@@ -87,10 +80,9 @@ export default async function createDB() {
                     firstName: "Guillermo",
                     lastName: "Godoy",
                     email: "guillermo_godoy@test.com",
-                    age: 29,
+                    birthday: "23/04/2000",
                     role: "BASIC",
                     active: true,
-                    password: "passtest02",
                     photo: "https://img.freepik.com/fotos-premium/apuesto-joven-empresario-camisa-anteojos_85574-6228.jpg?w=2000"
                 },
                 {
@@ -98,10 +90,9 @@ export default async function createDB() {
                     firstName: "Juan",
                     lastName: "Puerta",
                     email: "juan_puerta@test.com",
-                    age: 49,
+                    birthday: "23/04/2000",
                     role: "PROFESSIONAL",
                     active: true,
-                    password: "passtest03",
                     photo: "https://img.freepik.com/free-photo/portrait-shirtless-young-man-isolated-grey-studio-background-caucasian-healthy-male-model-looking-side-posing-concept-men-s-health-beauty-self-care-body-skin-care_155003-33864.jpg?w=2000"
                 },
                 {
@@ -109,10 +100,9 @@ export default async function createDB() {
                     firstName: "Jaime",
                     lastName: "Iñiguez",
                     email: "jaime_iniguez@test.com",
-                    age: 36,
+                    birthday: "23/04/2000",
                     role: "PROFESSIONAL",
                     active: true,
-                    password: "passtest03",
                     photo: "https://img.freepik.com/fotos-premium/vista-frontal-hombre-cara-seria_23-2148364723.jpg?w=2000"
                 }
 
