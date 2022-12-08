@@ -83,3 +83,8 @@ export interface CheckIn {
   total: string;
   action: string
 }
+
+export interface Apply{
+  petId: string;
+  userId: string
+}
