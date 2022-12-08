@@ -2,7 +2,8 @@ import React from 'react'
 import { NextPage } from 'next'
 import { getTransactions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import { Transaction, Quantity } from '../../app/types'
+import { Transaction, Quantity } from '../../../app/types'
+import BarGraphicVertical from '../graphics/BarGraphicVertical'
 
 const BalanceCurrentMont: NextPage = () => {
 
@@ -39,24 +40,22 @@ const BalanceCurrentMont: NextPage = () => {
     }
   }
 
-  const data = getAmountByMont() || [0, 0]
+  const datos = getAmountByMont() || [0, 0]
+
+  const data = {
+    title: "Balance de este mes",
+    labelstitle: ["Ventas", "Gastos", "Ganancias"],
+    datos: [...datos, (datos[0] - datos[1])]
+
+  }
+
+
+
 
   return (
     <div className='flex flex-row p-4 place-content-center'>
-      <h1>Balance de este Mes</h1>
-      <div className='p-3 '>
-        <h2>Ventas</h2>
-        <h1>{data[0]}</h1>
-      </div>
-      <div className='p-3 '>
-        <h2>Gastos</h2>
-        <h1>{data[1]}</h1>
-      </div>
-      <div className='p-3 '>
-        <h2>Ganacia</h2>
-        <h1>{data[0] - data[1]}</h1>
-      </div>
 
+      <BarGraphicVertical {...data} />
 
     </div>
   )

@@ -1,9 +1,9 @@
 import React from 'react'
 import { NextPage } from 'next'
-import BarGraphic from './graphics/BarGraphic'
+import BarGraphic from '../graphics/BarGraphic'
 import { getAdoptions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import { Adoptions } from '../../app/types'
+import { Adoptions } from '../../../app/types'
 
 
 

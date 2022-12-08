@@ -17,7 +17,7 @@ const DashboardAdm = () => {
             <Header />
             <LeftNavbar />
             <div className="flex space-x-4 w-screen border-2 border-black">
-                <div className="w-1/3 border-2 border-black place-items-center bg-pwpurple-100">
+                <div className="w-1/3 border-2 border-black place-items-center bg-pwgreen-200">
                     <SalePerMontPrice />
                 </div>
                 <div className="w-1/3 border-2 border-black place-items-center bg-pwgreen-200">

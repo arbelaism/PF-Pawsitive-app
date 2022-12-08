@@ -1,9 +1,9 @@
 import React from 'react'
 import { NextPage } from 'next'
-import BarGraphic from './graphics/BarGraphic'
+import BarGraphic from '../graphics/BarGraphic'
 import { getUsers } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import { Users } from '../../app/types'
+import { Users } from '../../../app/types'
 
 interface Data {
   title: string,

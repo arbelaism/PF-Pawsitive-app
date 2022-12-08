@@ -1,9 +1,9 @@
 import React from 'react'
 import { NextPage } from 'next'
-import LineGraphic from './graphics/LineGraphic'
+import LineGraphic from '../graphics/LineGraphic'
 import { getTransactions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import { Transaction, Quantity } from '../../app/types'
+import { Transaction, Quantity } from '../../../app/types'
 
 interface Data {
   title: string,

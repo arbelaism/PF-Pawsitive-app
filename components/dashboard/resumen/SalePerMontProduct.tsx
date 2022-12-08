@@ -1,9 +1,9 @@
 import React from 'react'
 import { NextPage } from 'next'
-import DoughnutGraphic from './graphics/DoughnutGraphic'
+import DoughnutGraphic from '../graphics/DoughnutGraphic'
 import { getTransactions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import { Transaction, Quantity } from '../../app/types'
+import { Transaction, Quantity } from '../../../app/types'
 
 
 
