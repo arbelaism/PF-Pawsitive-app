@@ -611,13 +611,12 @@ export default async function createDB() {
 
         await prisma.transaction.create({
             data: {
-                amount: 50500,
+                createdAt: "2022-12-08T03:08:45.700Z",
+                amount: 13000,
                 userId: '1',
                 quantity: {
                     create: [
-                        { quantity: 5, productId: "1" },
-                        { quantity: 2, productId: "2" },
-                        { quantity: 3, productId: "3" },
+                        { quantity: 10, productId: "1" },
                     ]
                 }
 
@@ -625,13 +624,13 @@ export default async function createDB() {
         })
         await prisma.transaction.create({
             data: {
-                amount: 60500,
+                createdAt: "2022-11-08T03:08:45.700Z",
+                amount: 15000,
                 userId: '2',
                 quantity: {
                     create: [
-                        { quantity: 5, productId: "6" },
-                        { quantity: 12, productId: "4" },
-                        { quantity: 3, productId: "8" },
+                        { quantity: 10, productId: "2" },
+
                     ]
                 }
 
@@ -639,13 +638,12 @@ export default async function createDB() {
         })
         await prisma.transaction.create({
             data: {
-                amount: 70500,
+                amount: 13550,
                 userId: '3',
                 quantity: {
                     create: [
-                        { quantity: 5, productId: "6" },
-                        { quantity: 2, productId: "1" },
-                        { quantity: 13, productId: "5" },
+                        { quantity: 10, productId: "3" },
+
                     ]
                 }
 
@@ -653,13 +651,199 @@ export default async function createDB() {
         })
         await prisma.transaction.create({
             data: {
-                amount: 150500,
+                createdAt: "2022-10-08T03:08:45.700Z",
+                amount: 155000,
                 userId: '4',
                 quantity: {
                     create: [
-                        { quantity: 2, productId: "12" },
-                        { quantity: 3, productId: "18" },
-                        { quantity: 5, productId: "20" },
+                        { quantity: 10, productId: "6" },
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-09-08T03:08:45.700Z",
+                amount: 96200,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "7" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-08-08T03:08:45.700Z",
+                amount: 125550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "9" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-07-08T03:08:45.700Z",
+                amount: 43550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "10" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-06-08T03:08:45.700Z",
+                amount: 166050,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "11" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-05-08T03:08:45.700Z",
+                amount: 158550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "12" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-04-08T03:08:45.700Z",
+                amount: 9550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "18" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-03-08T03:08:45.700Z",
+                amount: 36550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "19" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-02-08T03:08:45.700Z",
+                amount: 18550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "20" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-01-08T03:08:45.700Z",
+                amount: 23550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "21" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 3550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "17" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 9750,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "15" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 158550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "12" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 21500,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 5, productId: "10" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 30000,
+                userId: '6',
+                quantity: {
+                    create: [
+                        { quantity: 20, productId: "2" }
                     ]
                 }
 

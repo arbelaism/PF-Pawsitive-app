@@ -55,6 +55,7 @@ const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
     //   }
     // },
     plugins: {
+      legend:{display:false},
       title: {
         display: true,
         // position: "top",

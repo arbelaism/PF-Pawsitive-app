@@ -17,7 +17,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  // Tooltip,
+  Tooltip,
   Legend
 );
 //DEFAULTS
@@ -65,14 +65,14 @@ const BarGraphic = ({
       {
         label: labels1title,
         data: dat1,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: '#235d3b',
+        backgroundColor: '#3ea76a',
       },
       {
         label: labels2title,
         data: dat2,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        borderColor: '#a73e7b',
+        backgroundColor: '#5d2344',
       },
     ],
   };
