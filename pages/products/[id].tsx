@@ -2,12 +2,15 @@ import { NextPage } from 'next'
 import { Product } from "app/types";
 import { MainLayout } from 'components'
 import ProductDetailComp  from 'components/products/ProductDetail'
+import ProductReviews from 'components/products/ProductReviews'
 import { useQuery } from 'react-query'
 import { getProductById, getProductsByCategory } from 'utils/dbFetching'
 import { useRouter } from 'next/router'
 import { useState, useEffect} from 'react';
 import useLocalStorage from 'use-local-storage';
 import { alerts } from 'utils/alerts';
+import { Review } from '@prisma/client';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
 export type Props = {
     [key: string]: any
@@ -23,10 +26,9 @@ const ProductDetail: NextPage = () => {
         isLoading, 
         isSuccess,        
     } = useQuery(['product'], () => getProductById(String(id)))
-    console.log(router.query.id)
-    console.log(id)
+    
     const [cartProduct, setCartProduct] = useState<Product>(Object)
-    const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
+    const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])    
 
     const handleAddToCart = (clickedItem: Product) => {
         alerts({
@@ -82,11 +84,20 @@ const ProductDetail: NextPage = () => {
                             <h1>Loading...</h1>
                         ) : error ? (
                             <p>Not found</p>
-                        ) : 
-                            <ProductDetailComp
-                                product = {product}
-                                addToCart = {handleAddToCart}                            
+                        ) : <div className='bg-pwgreen-100'>
+                                <ProductDetailComp
+                                    product = {product}
+                                    addToCart = {handleAddToCart}                            
                                 />
+                                <div className='flex flex-wrap flex-col justify-between items-start m-5 bg-pwgreen-100 w-full h-auto'>
+                                {product.review ? (product.review.map((review : Review)=>
+                                        <ProductReviews
+                                            review={review}
+                                        />
+                                        ))
+                                        :null}
+                                </div>
+                            </div>                                
                         }                        
                     </div>
         </MainLayout>
