@@ -28,18 +28,37 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // POST(CREATE) THE USER
 
         case "POST":
-            const { firstName, lastName, email, age, photo, role, active, password } = req.body;
+            const {
+                firstName,
+                lastName,
+                email,
+                gender,
+                birthday,
+                address,
+                phone,
+                city,
+                province,
+                postCode,
+                photo,
+                role,
+                active
+            } = req.body;
             try {
                 const newUser = await prisma.user.create({
                     data: {
                         firstName,
                         lastName,
                         email,
-                        age,
+                        gender,
+                        birthday,
+                        address,
+                        phone,
+                        city,
+                        province,
+                        postCode,
                         photo,
                         role,
-                        active,
-                        password,
+                        active
                     }
                 })
                 newUser ?

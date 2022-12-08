@@ -54,7 +54,7 @@ const Adoptions: NextPage = () => {
                         setCurrentPage={setCurrentPage}
                     />
                 </div>
-                <div className="flex grow flex-col justify-center items-center">
+                <div className="flex grow flex-col justify-center items-center bg-pwgreen-100">
                     {!isLoading && currentItems ? (
                         <AlternativePagination
                             totalItems={(data ? data : adoptions)?.length}
@@ -62,7 +62,7 @@ const Adoptions: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-center bg-pwgreen-100">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (

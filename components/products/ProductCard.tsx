@@ -19,10 +19,11 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
         if(i>=productR) stars.push(false);
     }
 
-    return (
+    return (      
+
         
 <div key={id} >
-    <div className="flex flex-col justify-between items-center m-5 bg-white shadow-md rounded-lg w-60 h-80 shadow-xl">
+    <div className="flex flex-col justify-between items-center m-5 bg-white rounded-xl w-60 h-80 shadow-2xl">
         <div className='h-1/8'>
             <Image className="rounded-t-lg p-8" src={product.photo} alt="product image" width={120} height={120}/>
         </div>          
@@ -63,7 +64,9 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
 
             </div>
             <div className='pb-5'>
-                <Link href="/products/:id">
+
+                <Link href={"/products/"+product.id}>
+
                     <a className="text-pwgreen-500  text-md font-semibold">
                         Ver detalles
                     </a>
