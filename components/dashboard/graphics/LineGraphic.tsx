@@ -4,16 +4,18 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend
@@ -31,7 +33,7 @@ interface Props {
 }
 
 
-const BarGraphic = ({
+const LineGraphic = ({
   title,
   labelRow,
   labels1title,
@@ -77,7 +79,12 @@ const BarGraphic = ({
   };
 
 
-  return <Line height={400} width={400} options={options} data={data} />;
+  return (
+    <div>
+      <Line height={400} width={400} options={options} data={data} />
+    </div>
+
+  )
 }
 
 

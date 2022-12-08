@@ -55,7 +55,7 @@ const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
     //   }
     // },
     plugins: {
-      legend:{display:false},
+      legend: { display: false },
       title: {
         display: true,
         // position: "top",
@@ -82,7 +82,6 @@ const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
   }
   return (
     <div>
-
       <Doughnut data={data} width="400" height="400" options={options} />
     </div>
 

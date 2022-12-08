@@ -1,6 +1,6 @@
 import React from 'react'
 import { NextPage } from 'next'
-import BarGraphic from './graphics/BarGraphic'
+import LineGraphic from './graphics/LineGraphic'
 import { getTransactions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
 import { Transaction, Quantity } from '../../app/types'
@@ -99,8 +99,8 @@ const BalancePerMont: NextPage = () => {
         'Noviembre',
         'Diciembre',
       ],
-      labels1title: 'Venta Por Mes',
-      labels2title: 'Costo Por Mes',
+      labels1title: 'Costo Por Mes',
+      labels2title: 'Venta Por Mes',
       dat1: result[0],
       dat2: result[1],
     }
@@ -112,7 +112,7 @@ const BalancePerMont: NextPage = () => {
 
   return (
     <div >
-      <BarGraphic {...data} />
+      <LineGraphic {...data} />
     </div>
   )
 }
