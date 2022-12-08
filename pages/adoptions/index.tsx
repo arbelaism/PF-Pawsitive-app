@@ -38,9 +38,9 @@ const Adoptions: NextPage = () => {
     }, [isSuccess, adoptions])
 
     return (
-        <MainLayout title="Pawsitive - Adoptions">
-            <div className="px-4 py-2 w-full flex justify-between items-center">
-                <h1 className="text-3xl font-bold">Adoptions</h1>
+        <MainLayout title="Pawsitive - Adopciones">
+            <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
+                <h1 className="text-3xl font-bold">Adopciones</h1>
                 <Link href={'/adoptions/create'}>
                     <a className="font-bold underline">Poner en adopción</a>
                 </Link>
@@ -66,8 +66,10 @@ const Adoptions: NextPage = () => {
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (
-                            <div className='flex flex-col justify-center items-center'>
-                                <h1 className='font-bold text-3xl'>No encontramos items</h1>
+                            <div className="flex flex-col justify-center items-center">
+                                <h1 className="font-bold text-3xl">
+                                    No encontramos items
+                                </h1>
                                 <Image
                                     src={NotFound}
                                     alt="not found"
