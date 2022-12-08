@@ -12,7 +12,8 @@ module.exports = {
             xl: '1280px'
         },
         fontFamily: {
-            'Rubik': ['Rubik', 'sans-serif']
+            sans: ['Assistant', 'sans-serif'],
+            Rubik: ['Rubik', 'sans-serif']
         },
         extend: {
             colors: {
