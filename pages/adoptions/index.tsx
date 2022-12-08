@@ -38,9 +38,9 @@ const Adoptions: NextPage = () => {
     }, [isSuccess, adoptions])
 
     return (
-        <MainLayout title="Pawsitive - Adoptions">
+        <MainLayout title="Pawsitive - Adopciones">
             <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
-                <h1 className="text-3xl font-bold">Adoptions</h1>
+                <h1 className="text-3xl font-bold">Adopciones</h1>
                 <Link href={'/create'}>
                     <a className="font-bold underline">Poner en adopción</a>
                 </Link>

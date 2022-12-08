@@ -1,11 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import styles from 'styles/AdoptionCard.module.css'
 import LinkAdoption from './LinkAdoption'
 import placeholder from "public/256px-Black_Paw.svg.png"
-import Link from 'next/link'
-import product from 'pages/api/product'
-
 type Adoption = {
     id: string
     name: string
@@ -21,7 +17,7 @@ const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
             <div className='h-1/8'>
                 <Image
                     src={photo ? photo : placeholder}
-                    alt="No image to display"
+                    alt="No hay imagen para mostrar"
                     width='30%'
                     height='30%'
                     layout='responsive'
@@ -29,9 +25,9 @@ const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
                     className="rounded-full"
                 />
                 <h2 className="text-gray-900 font-Rubik text-xl font-medium capitalize">{name}</h2>
-                <p className="text-gray-900 font-Rubik">Size: {size}</p>
-                <p className="text-gray-900 font-Rubik">Age: {age}</p>
-                <p className="text-gray-900 font-Rubik hidden">Breed: {breed}</p>
+                <p className="text-gray-900 font-Rubik">Tamaño: {size}</p>
+                <p className="text-gray-900 font-Rubik">Edad: {age}</p>
+                <p className="text-gray-900 font-Rubik hidden">Raza: {breed}</p>
                 {/* <Link href={`/adoptions/${id}`}> */}
                     <a>
                         <LinkAdoption id={id}/>
