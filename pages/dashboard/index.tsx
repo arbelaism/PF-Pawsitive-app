@@ -1,11 +1,12 @@
-import { Header, LeftNavbar, Content } from "../../components/dashboard"
+import { Header, LeftNavbar, SalePerMontPrice,SalePerMontProduct } from "../../components/dashboard"
 
 const DashboardAdm = () => {
     return (
         <div>
             <Header />
             <LeftNavbar />
-            <Content />
+            <SalePerMontPrice />
+            <SalePerMontProduct />
         </div>
     )
 }

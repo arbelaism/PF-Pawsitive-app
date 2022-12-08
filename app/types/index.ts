@@ -83,3 +83,32 @@ export interface CheckIn {
   total: string;
   action: string
 }
+export interface Transaction {
+  id:        string;
+  amount:    number;
+  createdAt: string;
+  updatedAt: string;
+  userId:    string;
+  status:    string;
+  user:      UserT;
+  quantity:  Quantity[];
+}
+
+export interface Quantity {
+  quantity: number;
+  product:  Product;
+}
+
+export interface Product {
+  id:           string;
+  name:         string;
+  displayPrice: number;
+  category:     string;
+}
+
+export interface UserT {
+  firstName: string;
+  lastName:  string;
+  email:     string;
+  photo:     string;
+}

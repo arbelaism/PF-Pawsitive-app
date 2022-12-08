@@ -9,11 +9,10 @@ interface Props {
   bridge: string,
   labels: string[],
   dat: number[],
-  colors: string[]
 }
 
 
-const DoughnutGraphic = ({ title, bridge, labels, dat, colors }: Props) => {
+const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
 
   //DEFAULTS
   ChartJS.defaults.font.size = 20;
@@ -28,8 +27,16 @@ const DoughnutGraphic = ({ title, bridge, labels, dat, colors }: Props) => {
         label: bridge,
         data: dat,
         borderColor: ['rgba(0,0,0,0.2)'],
-        borderWidth: 1,
-        backgroundColor: colors,
+        borderWidth: 2,
+        backgroundColor: [
+          '#a2dcbb',
+          '#7dcf9f',
+          '#58c184',
+          '#3ea76a',
+          '#308253',
+          '#235d3b',
+          '#153823',
+        ],
         pointBackgroundColor: 'rgba(255,206,86,0.2)',
       }
 
@@ -53,7 +60,7 @@ const DoughnutGraphic = ({ title, bridge, labels, dat, colors }: Props) => {
         // position: "top",
         text: title,
         font: {
-          size: 40
+          size: 30
         }
       },
       // legend: {
@@ -73,9 +80,11 @@ const DoughnutGraphic = ({ title, bridge, labels, dat, colors }: Props) => {
     // responsive: true
   }
   return (
-    <div className='w-1/3 h-auto'>
+    <div>
+
       <Doughnut data={data} width="400" height="400" options={options} />
     </div>
+
   )
 }
 
