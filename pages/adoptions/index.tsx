@@ -41,7 +41,7 @@ const Adoptions: NextPage = () => {
         <MainLayout title="Pawsitive - Adoptions">
             <div className="px-4 py-2 w-full flex justify-between items-center">
                 <h1 className="text-3xl font-bold">Adoptions</h1>
-                <Link href={'/create'}>
+                <Link href={'/adoptions/create'}>
                     <a className="font-bold underline">Poner en adopción</a>
                 </Link>
             </div>
