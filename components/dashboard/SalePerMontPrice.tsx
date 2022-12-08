@@ -18,7 +18,7 @@ const Content: NextPage = () => {
   } = useQuery(['adoptions'], getTransactions)
 
   const fecha = new Date();
-  const mesActual = fecha.getMonth() + 1;
+  const mesActual = fecha.getMonth() + 1 > 9 ? fecha.getMonth() + 1 : `0${fecha.getMonth() + 1}`;
   const añoActual = fecha.getFullYear()
 
   const info = [0, 0, 0, 0, 0, 0, 0,]
