@@ -25,6 +25,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                                     select: {
                                         id: true,
                                         name: true,
+                                        price:true,
                                         displayPrice: true,
                                         category: true
                                     }

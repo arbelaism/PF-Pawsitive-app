@@ -8,7 +8,7 @@ import { Transaction, Quantity } from '../../app/types'
 
 
 
-const Content: NextPage = () => {
+const SalePerMontProduct: NextPage = () => {
 
   const {
     data: transactions,
@@ -55,10 +55,10 @@ const Content: NextPage = () => {
 
 
   return (
-    <div className='w-80 h-auto flex col-auto'>
+    <div>
       <DoughnutGraphic key={props.title} {...props} />
     </div>
   )
 }
 
-export default Content
+export default SalePerMontProduct
