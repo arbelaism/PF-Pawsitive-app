@@ -1,4 +1,15 @@
-import { Header, LeftNavbar, SalePerMontPrice, SalePerMontProduct, ProductMoreSold, BalancePerMont } from "../../components/dashboard"
+import { 
+    Header, 
+    LeftNavbar, 
+    SalePerMontPrice, 
+    SalePerMontProduct, 
+    ProductMoreSold, 
+    BalancePerMont,
+    BalanceCurrentMont,
+    RegisterAdoptions,
+    RegisterUser } from "../../components/dashboard"
+
+// import BarGraphic from "components/dashboard/graphics/BarGraphic"
 
 const DashboardAdm = () => {
     return (
@@ -16,9 +27,19 @@ const DashboardAdm = () => {
                     <ProductMoreSold />
                 </div>
             </div>
-            <div className="w-screen h-screen border-2 border-black bg-pwgreen-200">
+            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
+                    <RegisterAdoptions />
+            </div>
+            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
                     <BalancePerMont />
             </div>
+            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
+                    <BalanceCurrentMont />
+            </div>
+            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
+                    <RegisterUser />
+            </div>
+   
         
         </div>
     )

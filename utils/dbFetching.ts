@@ -88,3 +88,13 @@ export const getTransactions = async () => {
   }
   return transaction;
 };
+
+export const getUsers = async () => {
+  const response = await axios.get("/api/user");
+  const users = await response.data;
+
+  if (!users) {
+    throw new Error("Data not found");
+  }
+  return users;
+};

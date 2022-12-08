@@ -15,7 +15,7 @@ const SalePerMontPrice: NextPage = () => {
     error,
     isLoading,
     isSuccess
-  } = useQuery(['adoptions'], getTransactions)
+  } = useQuery(['transactions'], getTransactions)
 
   const fecha = new Date();
   const mesActual = fecha.getMonth() + 1 > 9 ? fecha.getMonth() + 1 : `0${fecha.getMonth() + 1}`;
@@ -56,7 +56,7 @@ const SalePerMontPrice: NextPage = () => {
 
   return (
     <div>
-      <DoughnutGraphic key={props.title} {...props} />
+      <DoughnutGraphic key={3} {...props} />
     </div>
   )
 }

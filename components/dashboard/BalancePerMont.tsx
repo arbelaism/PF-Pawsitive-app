@@ -25,7 +25,7 @@ const BalancePerMont: NextPage = () => {
     error,
     isLoading,
     isSuccess
-  } = useQuery(['adoptions'], getTransactions)
+  } = useQuery(['transactions'], getTransactions)
 
   const fecha = new Date();
   const meses = [
@@ -77,7 +77,6 @@ const BalancePerMont: NextPage = () => {
       }
 
     }
-    console.log(data1AndData2)
     return data1AndData2
   }
   function createData() {
@@ -112,7 +111,7 @@ const BalancePerMont: NextPage = () => {
 
   return (
     <div >
-      <LineGraphic {...data} />
+      <LineGraphic key={1} {...data} />
     </div>
   )
 }

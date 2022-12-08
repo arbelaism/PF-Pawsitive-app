@@ -1,8 +1,9 @@
 import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
+// import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
+import 'chart.js/auto'
 import { Doughnut } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Title);
+// ChartJS.register(ArcElement, Tooltip, Title);
 
 interface Props {
   title: string,
@@ -15,7 +16,7 @@ interface Props {
 const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
 
   //DEFAULTS
-  ChartJS.defaults.font.size = 20;
+  // ChartJS.defaults.font.size = 20;
   // ChartJS.defaults.backgroundColor = '#a73e7b';
 
 

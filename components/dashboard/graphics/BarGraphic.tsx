@@ -1,84 +1,86 @@
 import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+// import {
+//   Chart as ChartJS,
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   Title,
+//   Tooltip,
+//   Legend,
+// } from 'chart.js';
+import 'chart.js/auto'
 import { Bar } from 'react-chartjs-2';
+import { Title } from 'chart.js';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend
-);
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   Title,
+//   Tooltip,
+//   Legend
+// );
 //DEFAULTS
 // ChartJS.defaults.font.size = 1;
 // ChartJS.defaults.backgroundColor = '#a73e7b';
 interface Props {
   title: string,
-  labelRow: string[],
-  labels1title: string,
-  labels2title: string,
-  dat1: number[],
-  dat2: number[],
+  labelstitle: string,
+  datos: number[],
 }
 
 
-const BarGraphic = ({
-  title,
-  labelRow,
-  labels1title,
-  labels2title,
-  dat1,
-  dat2
-}: Props) => {
+const BarGraphic = ({ title, labelstitle, datos }: Props) => {
 
 
 
   const options = {
-    responsive: true,
     maintainAspectRatio: false,
+    indexAxis: 'y' as const,
+    elements: {
+      bar: {
+        borderWidth: 2,
+      },
+    },
+    responsive: true,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: 'right' as const,
       },
       title: {
         display: true,
         text: title,
       },
     },
-
   };
-  // [4, 5, 6, 3, 5, 2, 3, 2, 3, 4, 1, 2]
-  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+  const labels = [labelstitle];
+
   const data = {
     labels,
     datasets: [
       {
-        label: labels1title,
-        data: dat1,
+        label: 'Registrados este Mes',
+        data: [datos[0]],
         borderColor: '#235d3b',
         backgroundColor: '#3ea76a',
       },
       {
-        label: labels2title,
-        data: dat2,
-        borderColor: '#a73e7b',
-        backgroundColor: '#5d2344',
+        label: 'Registrados el Mes Anterior',
+        data: [datos[1]],
+        borderColor: '#5d2344',
+        backgroundColor: '#c15895',
       },
     ],
   };
 
+  return (
+    <div>
+      <Bar width={400} height={500} key={5} options={options} data={data} />
+    </div>
 
-  return <Line height={400} width={400} options={options} data={data} />;
+  )
 }
 
 
-export default LineGraphic
+export default BarGraphic

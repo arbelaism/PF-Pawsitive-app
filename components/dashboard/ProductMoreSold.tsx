@@ -23,7 +23,7 @@ const ProductMoreSold: NextPage = () => {
     error,
     isLoading,
     isSuccess
-  } = useQuery(['adoptions'], getTransactions)
+  } = useQuery(['transactions'], getTransactions)
 
   const fecha = new Date();
   const diaActual = fecha.getDate() > 9 ? fecha.getDate() : `0${fecha.getDate()}`;
@@ -108,7 +108,7 @@ const ProductMoreSold: NextPage = () => {
 
   return (
     <div>
-      <DoughnutGraphic key={1} {...data} />
+      <DoughnutGraphic key={2} {...data} />
       <div><h3>El producto mas vendidos es: {data.labels[0]}</h3></div>
     </div>
   )
