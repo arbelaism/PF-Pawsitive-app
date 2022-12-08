@@ -26,7 +26,7 @@ export default function AdoptionDetails({id}:Props){
 
   return (
     <div>
-      <button onClick={handleOpen} className={styles.button}>Adopt me!</button>
+      <button onClick={handleOpen} className={styles.button}>Adoptame!</button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

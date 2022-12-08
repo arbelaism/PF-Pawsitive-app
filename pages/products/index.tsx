@@ -83,10 +83,10 @@ const Products: NextPage = () => {
 
     return (
         <MainLayout title="Pawsitive - Productos">
-            <div className="px-4 py-2 w-full flex justify-between items-center">
+            <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
                 <h1 className="text-3xl font-bold">Productos</h1>
             </div>
-            <div className="flex flex-wrap justify-end items-center">
+            <div className="flex flex-wrap justify-end items-center bg-pwgreen-100">
                 <Link href={'/shoppingCart'}>
                     <a>Ir al carrito</a>
                 </Link>
@@ -98,7 +98,7 @@ const Products: NextPage = () => {
                         setCurrentPage={setCurrentPage}
                     />
                 </div>
-                <div className="flex grow flex-col justify-center items-center">
+                <div className="flex grow flex-col justify-center items-center bg-pwgreen-100">
                     {!isLoading && currentItems ? (
                         <AlternativePagination
                             totalItems={(data ? data : products)?.length}
@@ -106,7 +106,7 @@ const Products: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="flex flex-wrap justify-center items-center bg-pwpurple-200">
+                    <div className="flex flex-wrap justify-center items-center bg-pwgreen-100">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (

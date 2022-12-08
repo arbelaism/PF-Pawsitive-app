@@ -11,7 +11,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           from: `Pawsitive Team ${process.env.EMAIL_PAWSITIVE}`, // sender address
           to: email, // list of receivers
           subject: 'Gracias por contactar a Pawsitive', // Subject line
-          html: `<header><h2>Hello ${name}</h2</header>
+          html: `<header><h2>Hola ${name}</h2</header>
           <h3>Gracias por contactarnos,</h3> 
           <p>Nuestro equipo te contactara pronto!</p>
           <br/>
