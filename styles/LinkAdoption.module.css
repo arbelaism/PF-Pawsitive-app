@@ -20,10 +20,11 @@
 .buttonContainer button {
   color: #02091a;
   padding: 10px 20px;
-  font-family: "Poppins", sans-serif;
   font-size: 28px;
+  font-weight: 500;
+  color: #a73e7b;
   background-color: #fff;
-  border: 5px solid #02091a;
+  border: 5px solid #a73e7b;
   border-radius: 10px;
   cursor: pointer;
   position: relative;
