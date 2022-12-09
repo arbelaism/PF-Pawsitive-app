@@ -1,54 +1,62 @@
-import { NextComponentType } from 'next'
-import Link from 'next/link'
-import styles from 'styles/Footer.module.css'
-import { AiFillGithub } from 'react-icons/ai'
+import { NextComponentType } from "next";
+import Link from "next/link";
+import styles from "styles/Footer.module.css";
+import { BsGithub } from "react-icons/bs";
 
 const Footer: NextComponentType = () => {
-    return (
-        <>
-            <footer className={styles.footer}>
-                <div className={styles.footerContainer}>
-                    <div className={styles.logoContainer}>
-                        <Link href={'/home'}>
-                            <a>
-                                <span className={styles.paw}>Paw</span>
-                                <span className={styles.sitive}>sitive</span>
-                            </a>
-                        </Link>
-                    </div>
-                    <div className={styles.footerCopyright}>
-                        <p>
-                            @ Copyright 2022 Pawsitive App. Todos los derechos
-                            reservados
-                        </p>
-                    </div>
-                    <div className={styles.menuContainer}>
-                        <ul className={styles.menu}>
-                            <li>
-                                <Link href={'/contact'}>
-                                    <a>Contacto</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href={'/about'}>
-                                    <a>About</a>
-                                </Link>
-                            </li>
-                            <li className={styles.icons}>
-                                <Link
-                                    href="https://github.com/arbelais/PF-Pawsitive-app.git"
-                                    target="_blank"
-                                    rel="noreferrer noopener">
-                                    <a>
-                                        <AiFillGithub />
-                                    </a>
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
-        </>
-    )
-}
-export default Footer
+    // .icons a {
+    //     background-color: rgb(255, 255, 121);
+    //     padding: 10px;
+    //     font-size: 20px;
+    //     font-weight: bolder;
+    //     border-radius: 100%;
+    //     display: flex;
+    //     transition: color 0.5s ease-in-out;
+    // }
+
+  return (
+    <>
+      <footer className="w-[100%] text-center text-pwgreen-50 bg-pwgreen-500 sticky left-0 bottom-0">
+        <div className="w-[100%] flex justify-between items-center m-0 py-0 px-4">
+          <div className="flex items-center flex-shrink-0 text-2xl ease-in">
+            <Link href={"/"}>
+              <a >
+                <span className="font-thin hover:text-pwpurple-700 ease-in duration-400">Paw</span>
+                <span className="font-black hover:text-pwpurple-400 ease-in duration-200">sitive</span>
+              </a>
+            </Link>
+          </div>
+          <div className="capitalize text-pwgreen-50 w-[45%]">
+            <p>@ Copyright 2022 Pawsitive App. Todos los derechos reservados</p>
+          </div>
+          <div className="flex justify-end items-center w-[20%] p-4">
+            <ul className="text-pwgreen-50 capitalize flex flex-col lg:flex-row lg:gap-4">
+              <li className="hover:text-pwpurple-700 ease-in duration-200 lg:hover:font-bold ">
+                <Link href={"/contact"}>
+                  <a>Contacto</a>
+                </Link>
+              </li>
+              <li className="hover:text-pwpurple-700 ease-in duration-200 lg:hover:font-bold">
+                <Link href={"/about"}>
+                  <a>About</a>
+                </Link>
+              </li>
+              <li className="bg-pwgreen-700 py-1 rounded-full px-2 hover:bg-pwpurple-700 ease-in duration-200 hover:pl-9 lg:w-16 lg:hover:pl-10">
+                <Link
+                  href="https://github.com/arbelais/PF-Pawsitive-app.git"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <a>
+                    <BsGithub />
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+};
+export default Footer;
