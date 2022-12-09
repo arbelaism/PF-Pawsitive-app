@@ -147,34 +147,35 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
   return (
-    <div className={styles.filtersContainer}>
-      <form className={styles.itemFilter}>
-        <h2>Filtrar por Nombre</h2>
+    <div className="w-64 h-auto p-5 rounded-lg bg-pwgreen-600 mt-16 drop-shadow-lg shadow-lg shadow-pwpurple-200">
+      <form className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700 ">
+        <h2 className="mb-4 pl-2">Filtrar por Nombre</h2>
         <input
           type="text"
           id="search"
           placeholder="Buscar por Nombre"
-          className={styles.itemSelector}
+          className=" border-pwpurple-600 bg-pwpurple-600 p-1 text-sm w-[85%] placeholder:text-white
+          hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black rounded-xl block w-full p-2.5 pr-4 focus:border-solid focus:border-pwpurple-700 "
           value={name}
           onChange={handleInputChange}
         />
       </form>
-      <div className={styles.itemFilter}>
-        <h2>Ordenar por Precio</h2>
-        <button className={styles.buttons} onClick={handleSortMax}>
+      <div className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-3.5 mt-4 mb-4 pl-8 shadow-md shadow-pwpurple-700">
+        <h2 className="mx-4">Ordenar por Precio</h2>
+        <button className="border-2 border-pwpurple-700 px-4 w-[30%] rounded-xl delay-100 hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black mt-4 mx-2 delay-200  hover:animate-pulse  hover:opacity-65" onClick={handleSortMax}>
           ▲
         </button>
-        <button className={styles.buttons} onClick={handleSortMin}>
+        <button className="border-2 border-pwpurple-700 px-4 w-[30%] rounded-xl delay-75 hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black mt-4 mx-4 delay-200  hover:animate-pulse   hover:opacity-65" onClick={handleSortMin}>
           ▼
         </button>
       </div>
 
-      <div className={styles.itemFilter}>
-        <h2>Filtrar por Categoria</h2>
+      <div className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700">
+        <h2 className="text-white mb-4 pl-2">Filtrar por Categoria</h2>
         <select
           name="category"
           onChange={(e) => handleOptions(e)}
-          className={styles.itemSelector}
+          className="bg-pwpurple-500 p-2.5 w-[75%] text-sm text-white border-2 border-pwpurple-700 rounded-2xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black "
         >
           {options.category === "" && <option value="">Categoria...</option>}
           <option value="TOY">Juguete</option>
@@ -186,12 +187,12 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
           <option value="OTHER">Otros</option>
         </select>
       </div>
-      <div className={styles.itemFilter}>
-        <h2>Filtrar por Tamaño</h2>
+      <div className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700">
+        <h2 className="text-white mb-4 pl-2">Filtrar por Tamaño</h2>
         <select
           name="size"
           onChange={(e) => handleOptions(e)}
-          className={styles.itemSelector}
+          className="bg-pwpurple-500 p-2.5 w-[75%] text-sm text-white border-2 border-pwpurple-700 rounded-2xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black"
         >
           {options.size === "" && <option value="">Tamaño...</option>}
           <option value="UNIQUE">Unico</option>
@@ -201,22 +202,23 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
         </select>
       </div>
 
-      <form className={styles.itemFilter}>
-        <h2>Filtrar por Precio</h2>
+      <form className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700">
+        <h2 className="text-white mb-4 pl-2">Filtrar por Precio</h2>
         <input
           name="price"
           type="text"
           id="price"
           placeholder="Precio Maximo"
-          className={styles.itemSelector}
+          className="border-pwpurple-600 bg-pwpurple-600 p-1 text-sm w-[85%] placeholder:text-white
+          hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black rounded-xl block w-full p-2.5 pr-4 focus:border-solid focus:border-pwpurple-700 "
           value={options.price ? options.price : ""}
           onChange={(e) => handleOptions(e)}
         />
       </form>
 
       <div>
-        <button className={styles.buttons} onClick={handleReset}>
-          Reset
+        <button className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-[50%] p-2.5 ml-12 mt-8 shadow-md shadow-pwpurple-700 delay-200  hover:animate-bounce   hover:opacity-65" onClick={handleReset}>
+          Reiniciar
         </button>
       </div>
     </div>

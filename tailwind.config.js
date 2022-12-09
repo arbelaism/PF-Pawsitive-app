@@ -42,7 +42,10 @@ module.exports = {
                     900: '#13070e'
                 }
             }
-        }
+        }, 
+        backgroundImage: {
+            'paw': "url('/public/256px-Black_Paw.svg.png')",
+          }
     },
     plugins: []
 }
