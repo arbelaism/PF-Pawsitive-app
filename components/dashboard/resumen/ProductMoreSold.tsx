@@ -71,8 +71,8 @@ const ProductMoreSold: NextPage = () => {
       (p1, p2) => (p1.quantity < p2.quantity) ? 1 : (p1.quantity > p2.quantity) ? -1 : 0);
 
     if (sortedProducts.length > 0) {
-      const label = sortedProducts.map(product => product.name).slice(0, 6)
-      const datos = sortedProducts.map(product => product.quantity).slice(0, 6)
+      const label = sortedProducts.map(product => product.name).slice(0, 5)
+      const datos = sortedProducts.map(product => product.quantity).slice(0, 5)
 
       const props: Data = {
         title: "Los 5 productos mas vendidos del dia",
