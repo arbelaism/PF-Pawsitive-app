@@ -23,6 +23,7 @@ const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
                     layout='responsive'
                     objectFit='cover'
                     className="rounded-full"
+                    loading='lazy'
                 />
                 <h2 className="text-gray-900 font-Rubik text-xl font-medium capitalize">{name}</h2>
                 <p className="text-gray-900 font-Rubik">Tamaño: {size}</p>

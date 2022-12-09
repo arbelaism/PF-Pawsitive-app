@@ -14,7 +14,7 @@ import {Elements, CardElement, useStripe, useElements} from '@stripe/react-strip
 import Checkout from './Checkout';
 
 
-const stripePromise = loadStripe("pk_test_51M9y5pEAdwcBn8LBT7JVGygAveqQs9qERPGoCFo0gkYtsuiFqy1D9XSxUbPRcqrGHsOfyeGyoRYpLgnaAYUA5jJa00zhIbP99y");
+const stripePromise = loadStripe("pk_test_51MCoCQKy1tWUr0G9bIjjBwCg9hCK7rC3pD3n0bR5rsjwROzCWBcoyHahEa62IEsd3gRfOdysQM9j4NzbygKCB8it00XjZLuyTi");
 
 const ModalPayment = ({price}:Props)=>{
 

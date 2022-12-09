@@ -1,8 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
-import { Product } from 'app/types';
 import Link from 'next/link'
+import { Product } from 'app/types';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { FaShoppingCart, FaBox } from "react-icons/fa";
 
 type Props = {
     id: string
@@ -52,13 +53,23 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                 </div>
                 <div className='px-2.5'>
                     <div>
-                        <button onClick={() => 
-                            handleAddToCart(product)} 
-                            disabled = {product.stock<=1 && true} 
-                            className="text-l font-bold rounded-lg px-1 py-1 border-2 border-pwpurple-700 text-pwpurple-700 hover:bg-pwpurple-700 hover:text-pwpurple-100 duration-300"
-                            >
-                            +Carrito
-                        </button>
+                        <button
+                            onClick={() => handleAddToCart(product)}
+                            disabled={product.stock <= 1 && true}
+                            className="cart-button"
+                            id={'buttonCart' + product.id}>
+                            <span className="add-to-cart">
+                                +Carrito
+                            </span>
+                            <span className="added">Agregado</span>
+                            <span className="fa-shopping-cart">
+                                <FaShoppingCart />
+                            </span>
+                            <span className="fa-box">
+                                <FaBox />
+                            </span>
+                      </button>
+
                     </div>
                 </div>
 
@@ -77,9 +88,6 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
 
 </div>
 
-
-            
-        
     )
 }
 
