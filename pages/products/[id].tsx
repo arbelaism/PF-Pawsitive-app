@@ -11,6 +11,7 @@ import useLocalStorage from 'use-local-storage';
 import { alerts } from 'utils/alerts';
 import { Review } from '@prisma/client';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import ProductReviewForm from 'components/products/ProductReviewForm';
 
 export type Props = {
     [key: string]: any
@@ -89,6 +90,10 @@ const ProductDetail: NextPage = () => {
                                     product = {product}
                                     addToCart = {handleAddToCart}                            
                                 />
+                                <div>
+                                    <ProductReviewForm
+                                    id ={product.id}/>
+                                </div>
                                 <div className='flex flex-wrap flex-col justify-between items-start m-5 bg-pwgreen-100 w-full h-auto'>
                                 {product.review ? (product.review.map((review : Review)=>
                                         <ProductReviews

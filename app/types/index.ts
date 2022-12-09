@@ -31,6 +31,12 @@ export interface AdoptFormInput {
     photo?: string;
     userId: string
   }
+  export interface ReviewFormInput {
+    review: string
+    rating : number
+    userId?: string
+    productId: string
+  }
 export interface Product {
     key?: string
     id: string

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AdoptFormInput, ContactForm, CheckIn } from "app/types";
+import { AdoptFormInput, ContactForm, CheckIn, ReviewFormInput} from "app/types";
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
@@ -61,6 +61,14 @@ export const createPost = async (data: AdoptFormInput) => {
     .catch((error) => console.log(error));
 
   return "Post de " + newPost + " creado";
+};
+export const createReview = async (data: ReviewFormInput) => {
+  const newReview = await axios
+    .post("/api/review", data)
+    .then((response) => response.data.id)
+    .catch((error) => console.log(error));
+
+  return "Review de " + newReview + " creado";
 };
 
 export const sendMail = async (data: ContactForm) => {
