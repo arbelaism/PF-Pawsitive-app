@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AdoptFormInput, ContactForm, CheckIn } from "app/types";
+import { AdoptFormInput, ContactForm, CheckIn, Users } from "app/types";
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
@@ -29,16 +29,18 @@ export const getProducts = async () => {
   return products;
 };
 export const getProductById = async (id: string) => {
-  const response = await axios.get("/api/product/"+id);
+  const response = await axios.get("/api/product/" + id);
   const product = await response.data;
 
   if (!product) throw new Error("Data not found");
   return product;
 };
-export const getProductsByCategory = async (foodCategory: string) => {  
-  const response = await axios.get("/api/product/", { params:{
-    categoria : foodCategory
-  } } );
+export const getProductsByCategory = async (foodCategory: string) => {
+  const response = await axios.get("/api/product/", {
+    params: {
+      categoria: foodCategory
+    }
+  });
   const products = await response.data;
 
   if (!products) throw new Error("Data not found");
@@ -97,4 +99,14 @@ export const getUsers = async () => {
     throw new Error("Data not found");
   }
   return users;
+};
+export const putUsers = async (id: string, data: Object) => {
+  console.log('bd',id,data)
+ 
+  const response = await axios.put(`/api/user/${id}`, data);
+
+  if (!response) { 
+    throw new Error("Data not found");
+  }
+  return response;
 };

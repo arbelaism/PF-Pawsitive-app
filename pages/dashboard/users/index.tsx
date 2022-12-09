@@ -11,7 +11,10 @@ const DashboardAdm = () => {
         <div>
             <Header />
             <LeftNavbar />
+            <div className="mx-auto ">
             <TableUser />
+
+            </div>
 
    
         
