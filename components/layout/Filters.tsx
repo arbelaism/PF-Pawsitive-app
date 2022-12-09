@@ -91,27 +91,29 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
   return (
     <div className="w-64 h-auto p-5 rounded-lg bg-pwgreen-600 mt-16 drop-shadow-lg shadow-lg shadow-pwpurple-200">
       <div className="flex flex-col items-center w-[100%]  h-[25%] bg-pwgreen-600 ">
-        <div className="text-center p-1 mt-12">
-          <h2 className="text-white mb-2">Filtrar por Categoría</h2>
+        <div className="text-center p-2 mt-12 bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-3.5 mt-8 mb-4 pl-4 shadow-md shadow-pwpurple-700">
+          <h2 className="text-white mb-4 mr-4">Filtrar por Categoría</h2>
           <select
             name="breed"
             onChange={(e) => handleOptions(e)}
-            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5"
+            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 hover:animate-pulse hover:opacity-65"
           >
             {options.breed === "" && <option value="">Categoría...</option>}
-            <option className="" value="gato">Gatos</option>
+            <option className="" value="gato">
+              Gatos
+            </option>
             <option value="perro">Perros</option>
             <option value="ave">Aves</option>
             <option value="tortuga">Tortugas</option>
           </select>
         </div>
 
-        <div className="flex flex-col items-center w-[100%]  h-[25%] bg-pwgreen-600 mt-8">
-          <h2 className="text-white mb-2">Filtrar por Tamaño</h2>
+        <div className="text-center p-2 mt-12 bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-3.5 mt-8 mb-4 pl-4 shadow-md shadow-pwpurple-700">
+          <h2 className="text-white mb-4 mr-4">Filtrar por Tamaño</h2>
           <select
             name="size"
             onChange={(e) => handleOptions(e)}
-            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5"
+            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 hover:animate-pulse hover:opacity-65"
           >
             {options.size === "" && <option value="">Tamaño...</option>}
             <option value="BIG">Grande</option>
@@ -120,12 +122,12 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
           </select>
         </div>
 
-        <div className="flex flex-col items-center w-[100%]  h-[25%] bg-pwgreen-600 mt-16">
+        <div className="text-center p-2 mt-12 bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-3.5 mt-8 mb-4 pl-4 shadow-md shadow-pwpurple-700">
           <h2 className="text-white mb-2">Filtrar por Edad</h2>
           <select
             name="age"
             onChange={(e) => handleOptions(e)}
-            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5"
+            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 hover:animate-pulse hover:opacity-65"
           >
             {options.age === "" && <option value="">Edad...</option>}
             <option value="min">Menor a mayor</option>
@@ -134,10 +136,10 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         </div>
         <div className="flex flex-col items-center w-[50%]  h-[25%] bg-pwgreen-600 mt-24 rounded-xl">
           <button
-            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5"
+            className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-[100%] p-2.5 mb-8 shadow-md shadow-pwpurple-700 delay-200  hover:animate-bounce   hover:opacity-65"
             onClick={handleReset}
           >
-            Reset
+            Reiniciar
           </button>
         </div>
       </div>
