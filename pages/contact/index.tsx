@@ -39,7 +39,6 @@ const Contact: NextComponentType = () => {
       queryClient.invalidateQueries("create");
     },
   });
-
   const onSubmit: SubmitHandler<ContactForm> = async (data) => {
     const mail = {
       ...data,
@@ -54,14 +53,16 @@ const Contact: NextComponentType = () => {
   };
   return (
     <MainLayout title="Contact">
-      <div className="relative z-0 mb-6 w-full group mt-[15%] mb-[30%]">
+      <div className="relative z-0 mb-6 w-full group mt-[15%] mb-[30%] drop-shadow-md shadow-md shadow-pwgreen-700 p-12">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="m-2.5 pb-2.5 text-pwgreen-600 indent-[50%] border-b-2 border-pwgreen-700 ">CONTACTANOS</h2>
+          <h2 className="m-2.5 pb-2.5 text-pwgreen-600 indent-[50%] border-b-2 border-pwgreen-700 ">
+            CONTACTANOS
+          </h2>
           <div className="relative z-0 mb-6 w-full group">
             <input
               type="text"
               id=""
-              className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
+              className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-white appearance-none  focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
               placeholder=" "
               {...register("name", { required: true, maxLength: 20 })}
             />
@@ -75,7 +76,7 @@ const Contact: NextComponentType = () => {
           <div className="relative z-0 mb-6 w-full group">
             <input
               type="text"
-              className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
+              className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
               placeholder=" "
               {...register("email", { required: true, maxLength: 40 })}
             />
@@ -90,7 +91,7 @@ const Contact: NextComponentType = () => {
             <input
               type="text"
               id=""
-              className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
+              className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-white appearance-none dark:text-white focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
               placeholder=" "
               {...register("message", { required: true, maxLength: 20 })}
             />
@@ -101,10 +102,20 @@ const Contact: NextComponentType = () => {
               Mensaje{" "}
             </label>
           </div>
-          <button type="submit" className="text-white bg-pwgreen-500 hover:bg-pwgreen-800 focus:ring-4 focus:outline-none focus:ring-pwgreen-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-            Enviar
-          </button>
-          <div className="md:absolute -bottom-0.5 right-2 bg-pwgreen-600 text-white w-80 px-8 rounded-md text-sm shadow-md shadow-pwgreen-700 sm:mt-24 " >
+          {isLoading ?   (
+            <button type="button" className="text-white bg-pwgreen-500 hover:bg-pwgreen-800 focus:ring-4 focus:outline-none focus:ring-pwgreen-300 font-medium rounded-lg text-sm w-[15%] sm:w-[15%] px-5 py-2.5 text-center" disabled>
+              Enviando...
+            </button>
+          ): (
+            <button
+              type="submit"
+              className="text-white bg-pwgreen-500 hover:bg-pwgreen-800 focus:ring-4 focus:outline-none focus:ring-pwgreen-300 font-medium rounded-lg text-sm w-[15%] sm:w-[15%] px-5 py-2.5 text-center"
+            >
+              Enviar
+            </button>
+          )}
+
+          <div className="md:absolute -bottom-3.5 right-2 bg-pwgreen-600 text-white w-80 px-8 rounded-md text-sm shadow-md shadow-pwgreen-700 sm:mt-24 ">
             <span className="mx-8"></span> Email de contacto
             <span className="mx-8"></span> pawsitiveteam0@gmail.com
           </div>
@@ -114,4 +125,3 @@ const Contact: NextComponentType = () => {
   );
 };
 export default Contact;
-
