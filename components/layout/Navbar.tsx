@@ -5,7 +5,7 @@ import useLocalStorage from "use-local-storage";
 import { Product } from "../../app/types";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-const Navbar2: NextComponentType = () => {
+const Navbar: NextComponentType = () => {
   const [cartProducts, setCartProducts] = useState([0]);
     const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
 
@@ -90,4 +90,4 @@ const Navbar2: NextComponentType = () => {
     </nav>
   )
 };
-export default Navbar2;
+export default Navbar;
