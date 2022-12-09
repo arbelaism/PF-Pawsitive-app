@@ -147,7 +147,7 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
   return (
-    <div className="w-64 h-auto p-5 rounded-lg bg-pwgreen-600 mt-16 drop-shadow-lg shadow-lg shadow-pwpurple-200">
+    <div className="w-64 h-auto p-5 rounded-lg bg-pwgreen-600 mt-2 mb-16 drop-shadow-lg shadow-lg shadow-pwpurple-200">
       <form className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700 ">
         <h2 className="mb-4 pl-2">Filtrar por Nombre</h2>
         <input
