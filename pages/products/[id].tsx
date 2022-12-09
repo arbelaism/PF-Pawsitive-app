@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import { Product } from "app/types";
 import { MainLayout } from 'components'
+import Link from 'next/link';
 import ProductDetailComp  from 'components/products/ProductDetail'
 import ProductReviews from 'components/products/ProductReviews'
 import { useQuery } from 'react-query'
@@ -120,7 +121,7 @@ const ProductDetail: NextPage = () => {
                                             className='text-center col-start-2 col-span-4'
                                             >Sabemos que adquiriste nuestro producto y agradecemos que dejaras tu reseña,
                                             si deseas agregar alguna otra sugerencia o comentario, te invitamos contactarte con
-                                                nosotros haciendo <b className='text-pwpurple-700'><a href='/contact'>click aqui</a></b>
+                                                nosotros haciendo <b className='text-pwpurple-700'><Link href='/contact'>click aqui</Link></b>
                                             </p>
                                         </div>
                                     ): null
@@ -129,6 +130,7 @@ const ProductDetail: NextPage = () => {
                                 <div className='flex flex-wrap flex-col justify-between items-start m-5 bg-pwgreen-100 w-full h-auto'>
                                 {product.review ? (product.review.map((review : Review)=>
                                         <ProductReviews
+                                            key={review.id}
                                             id={review.id}
                                             review={review}
                                         />
