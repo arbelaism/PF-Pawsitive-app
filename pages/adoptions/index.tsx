@@ -39,10 +39,10 @@ const Adoptions: NextPage = () => {
 
     return (
         <MainLayout title="Pawsitive - Adopciones">
-            <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
-                <h1 className="text-3xl font-bold">Adopciones</h1>
-                <Link href={'/adoptions/create'}>
-                    <a className="font-bold underline">Poner en adopción</a>
+            <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100 mt-4">
+                <h1 className="text-3xl font-bold p-4 bg-pwpurple-50 rounded-xl border-pwgreen-700 shadow-xl lg:text-5xl">Adopciones</h1>
+                <Link href={'/create'}>
+                    <a className="p-1.5 shadow-md rounded-lg font-bold text-xl transition ease-in-out delay-100 bg-pwgreen-50 hover:translate-y-1 hover:scale-110 hover:bg-pwgreen-400 hover:text-pwgreen-50 hover:shadow-2xl duration-300">Poner en adopción</a>
                 </Link>
             </div>
 

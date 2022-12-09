@@ -1,6 +1,5 @@
 import { NextComponentType } from "next";
 import Link from "next/link";
-import styles from "styles/Navbar.module.css";
 import { useState, useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 import { Product } from "../../app/types";
@@ -21,72 +20,74 @@ const Navbar: NextComponentType = () => {
       return total;
     });
   }, [products]);
+
+  const onClick = ()=>{
+    const menu = document.querySelector('#menu')
+    menu?.classList.toggle('hidden')
+  }
   return (
-      <>
-          <nav className="w-full bg-yellow-300">
-              <div className={styles.navContainer}>
-                  <div className={styles.logoContainer}>
-                      <Link href={'/'}>
-                          <a>
-                              <span className={styles.paw}>Paw</span>
-                              <span className={styles.sitive}>sitive</span>
-                          </a>
-                      </Link>
-                  </div>
-                  <div className={styles.linksContainer}>
-                      <div>
-                          <Link href={'/'}>
-                              <a>Home</a>
-                          </Link>
-                      </div>
-                      <div>
-                          <Link href={'/adoptions'}>
-                              <a>Adopciones</a>
-                          </Link>
-                      </div>
-                      <div>
-                          <Link href={'/products'}>
-                              <a>Productos</a>
-                          </Link>
-                      </div>
-                      <div>
-                          <Link href={'/contact'}>
-                              <a>Contacto</a>
-                          </Link>
-                      </div>
-                      <div>
-                          <Link href={'/about'}>
-                              <a>About</a>
-                          </Link>
-                      </div>
-                  </div>
-                  <div className={styles.signUpContainer}>
-                      <div>
-                          <Link href={'/shoppingCart'}>
-                              <a>🛒 {cartProducts[0]}</a>
-                          </Link>
-                      </div>
-                      {!user ? (
-                          <div className={styles.signUpLink}>
-                              <Link href="/register">
-                                  <a>Registrate</a>
-                              </Link>
-                              <Link href="/api/auth/login">
-                                  <a>Iniciar sesión</a>
-                              </Link>
-                          </div>
-                      ) : (
-                          <>
-                              <span>Hola {user.name} &nbsp;&nbsp;| </span>
-                              <Link href="/api/auth/logout">
-                                  <a>Logout</a>
-                              </Link>
-                          </>
-                      )}
-                  </div>
-              </div>
-          </nav>
-      </>
+    <nav className="flex items-center justify-between flex-wrap bg-pwgreen-500 text-pwpurple-50 py-3 px-6">
+        <div className='flex items-center flex-shrink-0 text-2xl'>
+            <Link href={'/'}>
+                <a>
+                    <span className='font-thin'>Paw</span>
+                    <span className='font-black'>sitive</span>
+                </a>
+            </Link>
+        </div>
+        <div className="block lg:hidden">
+            <button onClick={onClick} className="flex items-center px-3 py-2 border rounded text-pwgreen-50 border-pwpurple-50 hover:text-pwpurple-50 hover:border-pwgreen-400">
+            <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+            </button>
+        </div>
+        <div id='menu' className="w-full block  justify-between font-medium lg:flex lg:items-center lg:w-auto">
+            <div>           
+                <Link href={'/'}>
+                    <a className="block mt-4 lg:inline-block lg:mt-0 hover:text-pwgreen-100 mr-4">Home</a>
+                </Link>
+        
+                <Link href={'/adoptions'}>
+                    <a className="block mt-4 lg:inline-block lg:mt-0 hover:text-pwgreen-100 mr-4">Adopciones</a>
+                </Link>
+                <Link href={'/products'}>
+                    <a className="block mt-4 lg:inline-block lg:mt-0 hover:text-pwgreen-100 mr-4">Productos</a>
+                </Link>
+            
+                <Link href={'/contact'}>
+                    <a className="block mt-4 lg:inline-block lg:mt-0 hover:text-pwgreen-100 mr-4">Contacto</a>
+                </Link>
+                <Link href={'/about'}>
+                    <a className="block mt-4 lg:inline-block lg:mt-0 hover:text-pwgreen-100 mr-4">Sobre nosotros</a>
+                </Link>
+            </div>
+            <div className='block mr-4 mt-4 lg:flex lg:flex-row lg:mt-1 xl:ml-36'>
+                <div className="my-2 mr-4 lg:my-0">
+                    <Link href={'/shoppingCart'}>
+                        <a className="hover:text-pwgreen-100">🛒 {cartProducts[0]}</a>
+                    </Link>
+                </div>
+                {!user ? (
+                    <div>
+                        <Link href="/register">
+                            <a className=' hover:text-pwgreen-100'>Registrate</a>
+                        </Link>
+                        <span>|</span>
+                        <Link href="/api/auth/login">
+                            <a className=' hover:text-pwgreen-100'>Iniciar sesión</a>
+                        </Link>
+                    </div>
+                ) : (
+                    <>
+                        <span>Hola {user.name} &nbsp;&nbsp;| </span>
+                        <Link href="/api/auth/logout">
+                            <a className='hover:text-pwgreen-100'>Cerrar sesion</a>
+                        </Link>
+                    </>
+                )}
+            </div>
+            
+        </div>
+    </nav>
   )
 };
 export default Navbar;
