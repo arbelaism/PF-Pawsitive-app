@@ -74,10 +74,10 @@ const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
       // }
     },
 
-    // animation: false,
-    // rotation: -90,
-    // circumference: 180,
-    // cutout: "60%",
+    animation: false,
+    rotation: -90,
+    circumference: 180,
+    cutout: "60%",
     // maintainAspectRatio: true,
     // responsive: true
   }

@@ -69,13 +69,18 @@ const LineGraphic = ({
         data: dat1,
         borderColor: '#235d3b',
         backgroundColor: '#3ea76a',
+        tension: 0.3,
+        fill:true,
       },
       {
         label: labels2title,
         data: dat2,
         borderColor: '#a73e7b',
         backgroundColor: '#5d2344',
+        tension: 0.3,
+        fill:true,
       },
+      
     ],
   };
 
