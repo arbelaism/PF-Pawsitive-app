@@ -5,18 +5,6 @@ import { getUsers } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
 import { Users } from '../../../app/types'
 
-interface Data {
-  title: string,
-  bridge: string,
-  labelRow: string[],
-  labels1title: string,
-  labels2title: string,
-  labels1: string[],
-  labels2: string[],
-  dat1: number[],
-  dat2: number[],
-}
-type Dat1Dat2 = [number[], number[]]
 
 const RegisterUser: NextPage = () => {
 
