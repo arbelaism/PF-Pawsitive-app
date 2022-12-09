@@ -12,22 +12,26 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                     include: {
                         user: {
                             select: {
+                                id: true,
                                 firstName: true,
                                 lastName: true,
                                 email: true,
-                                photo: true
+                                birthday: true,
+                                active: true,
+                                role: true,
                             }
                         },
                         quantity: {
                             select: {
+                                id: true,
                                 quantity: true,
                                 product: {
                                     select: {
                                         id: true,
                                         name: true,
-                                        price:true,
+                                        price: true,
                                         displayPrice: true,
-                                        category: true
+                                        category: true,
                                     }
                                 }
                             }
