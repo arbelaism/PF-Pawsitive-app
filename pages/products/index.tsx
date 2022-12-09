@@ -11,7 +11,6 @@ import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage'
 import NotFound from 'public/mong03b.gif'
 import Image from 'next/image'
-import { alerts } from 'utils/alerts'
 
 export type Props = {
     [key: string]: any
@@ -48,14 +47,9 @@ const Products: NextPage = () => {
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
 
     const handleAddToCart = (clickedItem: Product) => {
-        alerts({
-            icon: 'success',
-            title: '<strong>Producto agregado con exito</strong>',
-            html: 'Para ir al carrito presione <b><a href="/shoppingCart">aqui</a></b>, ' +
-            'para seguir comprando presione el boton "Continuar"',
-            confirmButtonText: 'Continuar',
-            confirmButtonAriaLabel:  'Thumbs up, great!',
-        })
+        const button = document.getElementById(`buttonCart${clickedItem.id}`) as HTMLButtonElement
+        button.classList.add('clicked')
+
         if (!clickedItem.amount) clickedItem.amount = 0
         setCartItems(prev => {
             // is the item already added in the cart
@@ -72,6 +66,10 @@ const Products: NextPage = () => {
             // first time the item is added
             return [...prev, { ...clickedItem, amount: 1 }]
         })
+
+        setTimeout(() => {
+            button.classList.remove('clicked')
+        }, 2300)
     }
     useEffect(() => {
         setData(products)
@@ -86,12 +84,7 @@ const Products: NextPage = () => {
     return (
         <MainLayout title="Pawsitive - Productos">
             <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
-                <h1 className="text-3xl font-bold">Productos</h1>
-            </div>
-            <div className="flex flex-wrap justify-end items-center bg-pwgreen-100">
-                <Link href={'/shoppingCart'}>
-                    <a>Ir al carrito</a>
-                </Link>
+                <h1 className="text-3xl font-bold p-4 bg-pwpurple-50 rounded-xl border-pwgreen-700 shadow-xl lg:text-5xl">Productos</h1>
             </div>
             <div className="flex">
                 <div className="w-64">
