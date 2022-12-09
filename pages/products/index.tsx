@@ -86,7 +86,7 @@ const Products: NextPage = () => {
     return (
         <MainLayout title="Pawsitive - Productos">
             <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
-                <h1 className="text-5xl font-bold p-4 bg-pwpurple-50 rounded-xl border-pwgreen-700 shadow-xl sm:text-3xl md:text-4xl">Productos</h1>
+                <h1 className="text-3xl font-bold p-4 bg-pwpurple-50 rounded-xl border-pwgreen-700 shadow-xl lg:text-5xl">Productos</h1>
             </div>
             <div className="flex flex-wrap justify-end items-center bg-pwgreen-100">
                 <Link href={'/shoppingCart'}>
