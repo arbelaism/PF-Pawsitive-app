@@ -4,13 +4,13 @@ import { MainLayout } from 'components'
 import ProductDetailComp  from 'components/products/ProductDetail'
 import ProductReviews from 'components/products/ProductReviews'
 import { useQuery } from 'react-query'
-import { getProductById, getProductsByCategory } from 'utils/dbFetching'
+import { getProductById, getTransactionByUserId } from 'utils/dbFetching'
 import { useRouter } from 'next/router'
 import { useState, useEffect} from 'react';
 import useLocalStorage from 'use-local-storage';
 import { alerts } from 'utils/alerts';
 import { Review } from '@prisma/client';
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { useUser } from "@auth0/nextjs-auth0/client";
 import ProductReviewForm from 'components/products/ProductReviewForm';
 
 export type Props = {
@@ -18,18 +18,38 @@ export type Props = {
 }
 
 const ProductDetail: NextPage = () => { 
-    
+    //get the idProduct from url
     const router = useRouter()   
     const { id } = router.query
+    //Search product in db by id
     const {
         data: product,
         error,
         isLoading, 
         isSuccess,        
     } = useQuery(['product'], () => getProductById(String(id)))
-    
+    //State to add product to shoppingCart
     const [cartProduct, setCartProduct] = useState<Product>(Object)
+    //Read products stored in localStorage
     const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])    
+    //search data to compare logged user
+    //get user to confirm if he is already logged
+    const { user, error: errorU, isLoading: isLoadingU } = useUser()
+    const {
+        data: transaction,
+        error: errorT,
+        isLoading: isLoadingT, 
+        isSuccess : isSuccessT,        
+    } = useQuery(['transaction'], () => getTransactionByUserId(String(user?.sub)))
+    //get quantity array from transaction
+    const quantities = transaction?.map((transaction:any)=>transaction.quantity)
+    //get quantities objects inside quantity array
+    const quantityObj = quantities?.find((quantity:any)=>true)
+    //search if product.id exist in user transactions quantities
+    const userBoughtProduct = quantityObj?.find((quantity:any)=> quantity.product?.id===product?.id)
+    //search if user already made a review
+    const userAlreadyReview = product?.review?.find((review : Review) => review.userId === user?.sub)
+    
 
     const handleAddToCart = (clickedItem: Product) => {
         alerts({
@@ -91,12 +111,25 @@ const ProductDetail: NextPage = () => {
                                     addToCart = {handleAddToCart}                            
                                 />
                                 <div>
+                                    {(userBoughtProduct && !userAlreadyReview) ?(
                                     <ProductReviewForm
                                     id ={product.id}/>
+                                    ): userAlreadyReview ? (
+                                        <div className='flex justify-content-center w-auto mx-5 rounded-lg px-1 py-1 border-2 border-pwpurple-700'>
+                                        <p
+                                            className='text-center col-start-2 col-span-4'
+                                            >Sabemos que adquiriste nuestro producto y agradecemos que dejaras tu reseña,
+                                            si deseas agregar alguna otra sugerencia o comentario, te invitamos contactarte con
+                                                nosotros haciendo <b className='text-pwpurple-700'><a href='/contact'>click aqui</a></b>
+                                            </p>
+                                        </div>
+                                    ): null
+                                    }
                                 </div>
                                 <div className='flex flex-wrap flex-col justify-between items-start m-5 bg-pwgreen-100 w-full h-auto'>
                                 {product.review ? (product.review.map((review : Review)=>
                                         <ProductReviews
+                                            id={review.id}
                                             review={review}
                                         />
                                         ))

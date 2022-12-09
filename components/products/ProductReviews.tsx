@@ -4,10 +4,11 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import styles from 'styles/ProductDetail.module.css'
 
 type Props = {
-    review: Review;       
+    review: Review;    
+    id : string;   
   };
   
-  const ProductReviews = ({ review }: Props) => {
+  const ProductReviews = ({ id, review }: Props) => {
     
     let stars= [];
     for(let i = 0; i<5; i++){
@@ -17,7 +18,7 @@ type Props = {
     
 
     return(
-        <div key={review.id} className="flex flex-row justify-between items-center m-2 bg-pwgreen-200 rounded-xl w-3/4 h-32 shadow-2xl">     
+        <div key={id} className="flex flex-row justify-between items-center m-2 bg-pwgreen-200 rounded-xl w-3/4 h-32 shadow-2xl">     
             <h2 className="text-gray-900 font-Rubik text-l font-medium m-0.5">{review.user?.firstName+" "+review.user?.lastName}</h2>
             <div className="flex flex-col items-start mr-2.5 w-3/4">                
                 <p>{review.review}</p>

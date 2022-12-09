@@ -35,6 +35,14 @@ export const getProductById = async (id: string) => {
   if (!product) throw new Error("Data not found");
   return product;
 };
+export const getTransactionByUserId = async (id: string) => {
+  const response = await axios.get("/api/transaction/"+id);
+  const user = await response.data;
+
+  if (!user) throw new Error("Data not found");
+  return user;
+};
+
 export const getProductsByCategory = async (foodCategory: string) => {  
   const response = await axios.get("/api/product/", { params:{
     categoria : foodCategory

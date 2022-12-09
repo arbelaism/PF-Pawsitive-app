@@ -6,6 +6,7 @@ import { alerts } from 'utils/alerts';
 import { useMutation, useQueryClient } from "react-query";
 import { createReview } from "utils/dbFetching"
 import { useRouter } from "next/router";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 type Props = {
     id : string   
@@ -26,10 +27,11 @@ const ProductReviewForm = ({id} : Props) => {
             queryClient.invalidateQueries("product")
         }
       })
+      const { user, error: errorU, isLoading: isLoadingU } = useUser()
       const onSubmit: SubmitHandler<ReviewFormInput> = async (data) => {
         data = {... data, 
             productId: id,
-            userId: "1"
+            userId: user?.sub as string
         }        
         mutate(data)
         alerts({

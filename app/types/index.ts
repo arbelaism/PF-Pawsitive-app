@@ -36,7 +36,7 @@ export interface AdoptFormInput {
     rating : number
     userId?: string
     productId: string
-  }
+  }  
 export interface Product {
     key?: string
     id: string

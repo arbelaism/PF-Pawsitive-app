@@ -35,7 +35,7 @@ type Props = {
 
     
     return(
-        <div className='flex items-center flex-row-reverse justify-between rounded-xl mt-5 p-2 right-0 bg-pwgreen-300'>
+        <div key={product.id} className='flex items-center flex-row-reverse justify-between rounded-xl mt-5 p-2 right-0 bg-pwgreen-300'>
             <div className="rounded-t-lg p-8">
                 <Image
                     src={product.photo}
