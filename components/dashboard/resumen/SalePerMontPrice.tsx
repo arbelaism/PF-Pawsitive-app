@@ -12,8 +12,6 @@ const SalePerMontPrice: NextPage = () => {
 
   const {
     data: transactions,
-    error,
-    isLoading,
     isSuccess
   } = useQuery(['transactions'], getTransactions)
 

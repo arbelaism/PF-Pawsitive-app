@@ -2,11 +2,9 @@ import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getUsers, putUsers } from 'utils/dbFetching';
 import { Users } from 'app/types'
-import { useSortableData, useSearchData } from '../tools'; //sort function
+import { useSortableData, useSearchData,FormCreateUser } from '../tools'; //sort function
 import Image from 'next/image';
 import AlternativePagination from 'components/layout/AlternativePagination'
-import Collapse from '@mui/material/Collapse';
-import { Search } from '@mui/icons-material';
 
 interface Data {
   id: string,
@@ -63,14 +61,16 @@ const TableUser = () => {
 
   //Collapsing table
   // const [condition, setCondition] = React.useState({ expanded: false })
+  const [rowExpande, setRowExpande] = React.useState<string | null>(null)
 
-  // console.log(condition)
-  // function toggleExpander(e: React.MouseEvent<HTMLButtonElement>) {
-  //   e.preventDefault()
-  //   if (!condition.expanded) {
-  //     setCondition({ ...condition, expanded: true })
-  //   } else { setCondition({ ...condition, expanded: false }) }
-  // }
+  function toggleExpander(e: any) {
+    // e.preventDefault()
+    const key = e as string
+    console.log(key)
+    if (key !== rowExpande) {
+      setRowExpande(key)
+    } else { setRowExpande(null) }
+  }
 
   // Searach Values
 
@@ -93,6 +93,9 @@ const TableUser = () => {
 
   return (
     <div className='w-full'>
+      <div className='container mx-auto'>
+     <FormCreateUser />
+      </div>
       <div className='flex flex-row justify-around w-full'>
         {!isLoading && currentItems ? (
           <AlternativePagination
@@ -116,7 +119,7 @@ const TableUser = () => {
 
       <table className='table-auto hover:table-fixed'>
         <thead>
-          <tr className='bg-pwgreen-600 text-base font-bold '>
+          <tr className='bg-pwgreen-800 text-base font-bold '>
             <th className='px-5 py-2'>
               <span className='text-pwgreen-50'>
                 ID
@@ -191,28 +194,36 @@ const TableUser = () => {
             return (<>
 
               <tr key={u.id} className='bg-pawgreen-50 text-center'>
-                <td className='px-16 py-2 flex flex-row items-center'>
-                  {/* <button
-                    className='p-1 text-xs focus:outline-none border-4 border-pwpurple-600 text-white hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg bg-pwgreen-600 '
-                    type='button'
-                    onClick={toggleExpander}
-                  >
-                    {condition.expanded
-                      ? <span className='text-pwgreen-50'>
-                        [+]
-                      </span>
-                      : <span className='text-pwgreen-50'>
-                        [-]
-                      </span>
-                    }
-                  </button> */}
-                  <Image
-                    src={u.photo || "#"}
-                    alt={u.id}
-                    width={100}
-                    height={100}
-                  />
-                  <span className='text-center ml-2 font-semibold'>{u.id}</span>
+                <td className='px-16 py-2 flex flex-col items-center'>
+
+                  <div>
+                    <Image
+                      src={u.photo || "#"}
+                      alt={u.id}
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                  <div className='flex flex-col items-center content-center' >
+                    <button
+                      className='p-1 text-xs focus:outline-none border-4 border-pwpurple-600 text-white hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg bg-pwgreen-600 '
+                      type='button'
+                      value={u.id}
+                      onClick={() => toggleExpander(u.id)}
+                    >
+                      {rowExpande === u.id
+                        ? <span className='text-pwgreen-50'>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+                        </span>
+                        : <span className='text-pwgreen-50'>
+                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+                        </span>
+                      }
+                    </button>
+                    <span className='text-center ml-2 font-semibold'>{u.id}</span>
+                  </div>
+
+
                 </td>
                 <td className='px-5 py-2'>{u.firstName || "No hay Datos"}</td>
                 <td className='px-5 py-2'>{u.lastName || "No hay Datos"}</td>
@@ -234,53 +245,52 @@ const TableUser = () => {
                 </td>
                 <td className='px-5 py-2'>{u.createdAt}</td>
               </tr>
-              {/* {condition.expanded
+              {(rowExpande === u.id)
                 ?
                 <>
-                  <table>
-                    <thead>
-                      <th className='px-5 py-2'>
-                        <span className='text-pwgreen-50'>
-                          PROVINCIA
-                        </span>
-                      </th>
-                      <th className='px-5 py-2'>
-                        <span className='text-pwgreen-50'>
-                          CIUDAD
-                        </span>
-                      </th>
-                      <th className='px-5 py-2'>
-                        <span className='text-pwgreen-50'>
-                          DIRECCION
-                        </span>
-                      </th>
-                      <th className='px-5 py-2'>
-                        <span className='text-pwgreen-50'>
-                          TELEFONO
-                        </span>
-                      </th>
-                      <th className='px-5 py-2'>
-                        <span className='text-pwgreen-50'>
-                          CORREO
-                        </span>
-                      </th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className='px-5 py-2'>{u.province || "No hay Datos"}</td>
-                        <td className='px-5 py-2'>{u.city || "No hay Datos"}</td>
-                        <td className='px-5 py-2'>{u.address || "No hay Datos"}</td>
-                        <td className='px-5 py-2'>{u.phone || "No hay Datos"}</td>
-                        <td className='px-5 py-2'>{u.postCode || "No hay Datos"}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <tr className='bg-pwgreen-800 text-base font-bold'>
+                    <th className='px-5 py-2 '>
+                      <span className='text-pwgreen-50'>
+                        PROVINCIA
+                      </span>
+                    </th>
+                    <th className='px-5 py-2'>
+                      <span className='text-pwgreen-50'>
+                        CIUDAD
+                      </span>
+                    </th>
+                    <th className='px-5 py-2'>
+                      <span className='text-pwgreen-50'>
+                        DIRECCION
+                      </span>
+                    </th>
+                    <th className='px-5 py-2'>
+                      <span className='text-pwgreen-50'>
+                        TELEFONO
+                      </span>
+                    </th>
+                    <th className='px-5 py-2'>
+                      <span className='text-pwgreen-50'>
+                        CORREO
+                      </span>
+                    </th>
+                  </tr>
+                  <tr>
+
+                    <td className='px-5 py-2'>{u.province || "No hay Datos"}</td>
+                    <td className='px-5 py-2'>{u.city || "No hay Datos"}</td>
+                    <td className='px-5 py-2'>{u.address || "No hay Datos"}</td>
+                    <td className='px-5 py-2'>{u.phone || "No hay Datos"}</td>
+                    <td className='px-5 py-2'>{u.postCode || "No hay Datos"}</td>
+
+                  </tr>
+
 
 
                 </>
 
                 : null
-              } */}
+              }
             </>
             )
           }
@@ -290,6 +300,9 @@ const TableUser = () => {
           {/* { condition.expanded ?  <tr></tr>:null} */}
         </tbody>
       </table>
+
+
+
     </div>
   );
 }

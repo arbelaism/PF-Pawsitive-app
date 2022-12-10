@@ -10,8 +10,6 @@ const RegisterUser: NextPage = () => {
 
   const {
     data: users,
-    error,
-    isLoading,
     isSuccess
   } = useQuery(['users'], getUsers)
 

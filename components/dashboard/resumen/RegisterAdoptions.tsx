@@ -11,8 +11,6 @@ const RegisterAdoptions: NextPage = () => {
 
   const {
     data: adoptions,
-    error,
-    isLoading,
     isSuccess
   } = useQuery(['adoptions'], getAdoptions)
 
@@ -57,7 +55,7 @@ const RegisterAdoptions: NextPage = () => {
 
   return (
     <div >
-      <BarGraphic key={5} {...data} />
+      <BarGraphic key={6} {...data} />
     </div>
   )
 }

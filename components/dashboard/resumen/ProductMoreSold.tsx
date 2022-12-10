@@ -20,8 +20,6 @@ const ProductMoreSold: NextPage = () => {
 
   const {
     data: transactions,
-    error,
-    isLoading,
     isSuccess
   } = useQuery(['transactions'], getTransactions)
 
