@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import { AdoptionForm, MainLayout } from 'components'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 
-export default withPageAuthRequired(function Create() {
+const  Create : NextPage = withPageAuthRequired(() => {
     return (
         <MainLayout title="Create">
             <AdoptionForm />
@@ -11,4 +11,4 @@ export default withPageAuthRequired(function Create() {
     )
 })
 
-// export default Create
+export default Create

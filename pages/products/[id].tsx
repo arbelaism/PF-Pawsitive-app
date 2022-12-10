@@ -9,7 +9,7 @@ import { getProductById, getTransactionByUserId } from 'utils/dbFetching'
 import { useRouter } from 'next/router'
 import { useState, useEffect} from 'react';
 import useLocalStorage from 'use-local-storage';
-import { alerts } from 'utils/alerts';
+import { redirectionAlert } from 'utils/alerts'
 import { Review } from '@prisma/client';
 import { useUser } from "@auth0/nextjs-auth0/client";
 import ProductReviewForm from 'components/products/ProductReviewForm';
@@ -53,26 +53,38 @@ const ProductDetail: NextPage = () => {
     
 
     const handleAddToCart = (clickedItem: Product) => {
-        alerts({
-            icon: 'success',
-            title: '<strong>Producto agregado con exito</strong>',
-            html: 'Para ir al carrito presione <b><a href="/shoppingCart">aqui</a></b>, ' +
-            'para seguir comprando presione el boton "Continuar"',
-            confirmButtonText: 'Continuar',
-            confirmButtonAriaLabel:  'Thumbs up, great!',
-        })
-        if(!clickedItem.amount) clickedItem.amount=0
-        setCartProduct(() => {
-          // is the item already added in the cart       
+        if(!user){
+            // router.push('/api/auth/login')
+            redirectionAlert({
+                icon: 'info',
+                title: '<strong>Inicio de sesion requerido</strong>',
+                html: 'Para agregar productos y poder disfrutar de todas nuestras funcionalidades' +
+                ' te invitamos a iniciar sesion o crear una cuenta.',
+                confirmButtonText: 'Iniciar sesion',                
+                confirmButtonAriaLabel:  'Thumbs up, great!',
+                link : '/api/auth/login'
+            })
+        }
+        else{
+
+            const button = document.getElementById(`buttonCart${clickedItem.id}`) as HTMLButtonElement
+            button.classList.add('clicked')
+            if(!clickedItem.amount) clickedItem.amount=0
+            setCartProduct(() => {
+              // is the item already added in the cart       
+              
+              if (cartProduct.id === clickedItem.id) {
+                return { ...cartProduct, amount: cartProduct.amount! + 1, stock: cartProduct.stock-1}
+              };
+              
+              // first time the item is added 
+              return {...clickedItem, amount: 1, stock: clickedItem.stock-1};
           
-          if (cartProduct.id === clickedItem.id) {
-            return { ...cartProduct, amount: cartProduct.amount! + 1, stock: cartProduct.stock-1}
-          };
-          
-          // first time the item is added 
-          return {...clickedItem, amount: 1, stock: clickedItem.stock-1};
-      
-        })        
+            })
+            setTimeout(() => {
+                button.classList.remove('clicked')
+            }, 2300)     
+        }
     };    
     useEffect(() => {
         // storing input cartProducts

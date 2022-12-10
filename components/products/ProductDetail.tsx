@@ -2,7 +2,7 @@ import { Review } from "app/types";
 import { Product } from "app/types";
 import Image from 'next/image'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
-import styles from 'styles/ProductDetail.module.css'
+import { FaShoppingCart, FaBox } from "react-icons/fa";
 
 type Props = {
     product: Product;
@@ -45,7 +45,7 @@ type Props = {
                     height={320}                
                 />
             </div>
-            <div className='flex items-start flex-col justify-between h-auto w-3/4 mr-4'>
+            <div className='flex items-start flex-col justify-between h-auto w-3/4 mr-4 px-1'>
                 <h2 className='text-2xl font-semibold w-full h-20 overflow-hidden'>{product.name}</h2>
                 <p className='text-justify'>{product.description}</p>   
                 <p>Precio: ${product.price}</p>
@@ -62,15 +62,26 @@ type Props = {
                     })}
                     <p>{"("+ratings.length+")"}</p>
                 </div>
-                <div>                    
-                    <button
-                    className="text-l font-bold rounded-lg px-1 py-1 border-2 border-pwpurple-700 text-pwpurple-700 hover:bg-pwpurple-700 hover:text-pwpurple-100 duration-300"
-                    hidden={product.stock<=1 && true}    
-                    onClick={() => addToCart(product)}
-                    >
-                    Agregar al carrito
-                    </button>
-                    {product.stock<=1 && (<p>Producto agotado</p>)}
+                <div className='px-1'>
+                    <div>
+                        <button
+                            onClick={() => addToCart(product)}
+                            disabled={product.stock <= 1 && true}
+                            className="cart-button"
+                            id={'buttonCart' + product.id}>
+                            <span className="add-to-cart">
+                                +Carrito
+                            </span>
+                            <span className="added">Agregado</span>
+                            <span className="fa-shopping-cart">
+                                <FaShoppingCart />
+                            </span>
+                            <span className="fa-box">
+                                <FaBox />
+                            </span>
+                      </button>
+
+                    </div>
                 </div>
             </div>
         </div>
