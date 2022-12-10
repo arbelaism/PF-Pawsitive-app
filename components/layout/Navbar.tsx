@@ -7,6 +7,8 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { FaShoppingCart } from "react-icons/fa";
 import { UserButton } from 'components'
 import { checkEmail } from "utils/checkEmail";
+import Image from "next/image";
+import IsoGreen from 'public/iso-green.svg'
 
 const Navbar: NextComponentType = () => {
     const [cartProducts, setCartProducts] = useState([0]);
@@ -49,16 +51,25 @@ const Navbar: NextComponentType = () => {
   }
   return (
       <nav className="flex items-center justify-between flex-wrap bg-pwgreen-500 text-pwpurple-50 py-3 px-6">
-          <div className="flex items-center flex-shrink-0 text-2xl ease-in">
+          <div className="flex items-center gap-1 flex-shrink-0 text-2xl ease-in">
               <Link href={'/'}>
-                  <a>
-                      <span className="font-thin hover:text-pwpurple-700 ease-in duration-400 delay-200">
-                          Paw
-                      </span>
-                      <span className="font-black hover:text-pwpurple-400 ease-in duration-400 delay-200">
-                          sitive
-                      </span>
-                  </a>
+                  <>
+                      <Image
+                          src={IsoGreen}
+                          alt="not found"
+                          width={40}
+                          height={40}
+                            className='cursor-pointer'
+                      />
+                      <a className="font-Rubik hidden md:block">
+                          <span className="hover:text-pwpurple-700 ease-in duration-400 delay-200">
+                              Paw
+                          </span>
+                          <span className="font-bold hover:text-pwpurple-400 ease-in duration-400 delay-200">
+                              sitive
+                          </span>
+                      </a>
+                  </>
               </Link>
           </div>
           <div className="block lg:hidden ">
@@ -134,31 +145,33 @@ const Navbar: NextComponentType = () => {
                       </a>
                   </Link>
               </div>
-              {!user ? (
-                  <div>
-                      <Link href="/register">
-                          <a
-                              className=" hover:text-pwpurple-600
+              <div className="w-1/6">
+                  {!user ? (
+                      <div>
+                          <Link href="/register">
+                              <a
+                                  className=" hover:text-pwpurple-600
                     hover:font-bold">
-                              Registrate
-                          </a>
-                      </Link>
-                      <span className="mx-2">|</span>
-                      <Link href="/api/auth/login">
-                          <a
-                              className=" hover:text-pwpurple-600
+                                  Registrate
+                              </a>
+                          </Link>
+                          <span className="mx-2">|</span>
+                          <Link href="/api/auth/login">
+                              <a
+                                  className=" hover:text-pwpurple-600
                     hover:font-bold">
-                              Iniciar sesión
-                          </a>
-                      </Link>
-                  </div>
-              ) : (
-                  <UserButton
-                      userName={name ?? ''}
-                      userEmail={email ?? ''}
-                      userPicture={user?.picture ?? ''}
-                  />
-              )}
+                                  Iniciar sesión
+                              </a>
+                          </Link>
+                      </div>
+                  ) : (
+                      <UserButton
+                          userName={name ?? ''}
+                          userEmail={email ?? ''}
+                          userPicture={user?.picture ?? ''}
+                      />
+                  )}
+              </div>
           </div>
       </nav>
   )
