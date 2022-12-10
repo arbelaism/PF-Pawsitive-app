@@ -30,24 +30,29 @@ const TableUser = () => {
     }
   })
 
-interface Confi {
-  key?:string | '',
-  direction?:string | ''
-} 
+  interface Confi {
+    key?: string | '',
+    direction?: string | ''
+  }
+
 
   //SORT DATA
-  const useSortableData = (items: Users[], config:Confi = {key:"",direction:""}) => {
-    const [sortConfig, setSortConfig] = useState(config);
+  const useSortableData = (items: Users[], config: Confi = { key: "", direction: "" }) => {
+    const [sortConfig, setSortConfig] = useState<Confi>(config);
 
     const sortedItems = React.useMemo(() => {
       let sortableItems = items;
-      if (sortConfig !== null && sortConfig.key && sortConfig.direction) {
-        
+
+      if (sortConfig && sortConfig.key && sortConfig.direction ) {
+        // let keys = sortConfig.key as string
+        // if (sortConfig.key != undefined) {
+        //   result = obj2[sortConfig.key as keyof typeof a];
+        // }
         sortableItems.sort((a: Users, b: Users) => {
-          if (a[sortConfig.key].toLowerCase() < b[sortConfig.key].toLowerCase()) {
+          if ((a[sortConfig.key as keyof typeof a] as string).toLowerCase() < (b[sortConfig.key as keyof typeof b] as string).toLowerCase()) {
             return sortConfig.direction === 'ascending' ? -1 : 1;
           }
-          if (a[sortConfig.key].toLowerCase() > b[sortConfig.key].toLowerCase()) {
+          if ((a[sortConfig.key as keyof typeof a] as string).toLowerCase() > (b[sortConfig.key as keyof typeof b] as string).toLowerCase()) {
             return sortConfig.direction === 'ascending' ? 1 : -1;
           }
           return 0;
@@ -72,7 +77,7 @@ interface Confi {
   };
 
   const { items, requestSort, sortConfig } = useSortableData(users);
-console.log(items)
+  console.log(items)
   // const getClassNamesFor = (name) => {
   //   if (!sortConfig) {
   //     return;
