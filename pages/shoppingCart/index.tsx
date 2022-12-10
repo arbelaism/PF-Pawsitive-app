@@ -8,9 +8,10 @@ import styles from 'styles/ShoppingCart.module.css'
 import useLocalStorage from 'use-local-storage';
 import Image from 'next/image';
 import EmptyCart from "public/xempty-cart.png"
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 
 
-const Cart : NextPage = () => {
+const Cart : NextPage = withPageAuthRequired(() => {
     // let products : Product[] = [];
     const [cartProducts, setCartProducts] = useState<Product[]>([])
     const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
@@ -128,6 +129,6 @@ const Cart : NextPage = () => {
             </div>
         </MainLayout>
     )
-};
+});
 
 export default Cart;

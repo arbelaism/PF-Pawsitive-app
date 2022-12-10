@@ -36,10 +36,6 @@ const Products: NextPage = () => {
         cartFromLocalStorage as Product[]
     )
 
-    // const [productsFromStorage, setProductsFromStorage] = useLocalStorage<Product[]>("cartProducts", [])
-
-    // Recover cartproducts when user comeback from the cart to products again
-
     //pagination
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
