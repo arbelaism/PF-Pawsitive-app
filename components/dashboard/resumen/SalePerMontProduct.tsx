@@ -5,15 +5,10 @@ import { getTransactions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
 import { Transaction, Quantity } from '../../../app/types'
 
-
-
-
 const SalePerMontProduct: NextPage = () => {
 
   const {
     data: transactions,
-    error,
-    isLoading,
     isSuccess
   } = useQuery(['transactions'], getTransactions)
 
