@@ -202,6 +202,7 @@ export interface User2 {
   firstName: string;
   lastName:  string;
   email:     string;
+}
 
 export interface IUser {
     name: string
