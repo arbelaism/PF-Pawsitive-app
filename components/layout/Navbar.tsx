@@ -9,7 +9,8 @@ import { FaShoppingCart } from "react-icons/fa";
 const Navbar: NextComponentType = () => {
   const [cartProducts, setCartProducts] = useState([0]);
     const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
-
+    const [color1, setColor1] = useState("pwpurple-700")
+    const [color2, setColor2] = useState("white")
     const { user, error, isLoading } = useUser()
 
   useEffect(() => {
@@ -22,6 +23,21 @@ const Navbar: NextComponentType = () => {
     });
   }, [products]);
 
+  const paw:string = `font-thin text-${color1} hover:text-pwpurple-300  ease-in duration-400 delay-200`
+  const sitive:string = `font-black text-${color2} hover:text-pwpurple-300 ease-in duration-400 delay-200`
+
+  useEffect(() => {
+    var timerID = setInterval(() => changeColor(), 2000);
+    return () => clearInterval(timerID);
+  });
+  function changeColor() {
+    color1 === "pwpurple-700" ? setColor1("white") : setColor1("pwpurple-700")
+    color2 === "white" ? setColor2("pwpurple-500") : setColor2("white")
+  }
+
+
+
+
   const onClick = ()=>{
     const menu = document.querySelector('#menu')
     const menuCart = document.querySelector('#menu-cart')
@@ -33,8 +49,8 @@ const Navbar: NextComponentType = () => {
         <div className="flex items-center flex-shrink-0 text-2xl ease-in">
             <Link href={"/"}>
               <a >
-                <span className="font-thin hover:text-pwpurple-700 ease-in duration-400 delay-200">Paw</span>
-                <span className="font-black hover:text-pwpurple-400 ease-in duration-400 delay-200">sitive</span>
+                <span className={paw}>Paw</span>
+                <span className={sitive}>sitive</span>
               </a>
             </Link>
           </div>
