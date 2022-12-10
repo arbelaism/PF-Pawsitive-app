@@ -2,9 +2,10 @@ import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getUsers, putUsers } from 'utils/dbFetching';
 import { Users } from 'app/types'
-import { useSortableData } from '../tools'; //sort function
+import { useSortableData, useSearchData } from '../tools'; //sort function
 import Image from 'next/image';
 import AlternativePagination from 'components/layout/AlternativePagination'
+import { Search } from '@mui/icons-material';
 
 interface Data {
   id: string,
@@ -29,6 +30,8 @@ const TableUser = () => {
       queryClient.prefetchQuery("users", getUsers)
     }
   })
+
+  //Sort Table
 
   const { items, requestSort, sortConfig } = useSortableData(users);
 
@@ -67,6 +70,16 @@ const TableUser = () => {
   //     setCondition({ ...condition, expanded: true })
   //   } else { setCondition({ ...condition, expanded: false }) }
   // }
+  //Searach Values
+
+  const [searchVal, setSearchVal] = React.useState(null);
+
+  const { filteredData, loading } = useSearchData({
+    searchVal,
+    retrieve: items
+  });
+
+
 
   //Pagination
   const [currentPage, setCurrentPage] = React.useState<number>(1)
@@ -74,17 +87,31 @@ const TableUser = () => {
   const lastItemIndex = currentPage * itemsPerPage
   const firstItemIndex = lastItemIndex - itemsPerPage
   let currentItems: Users[] = []
-  if (items) currentItems = [...items.slice(firstItemIndex, lastItemIndex)]
+  if (filteredData) currentItems = [...filteredData?.slice(firstItemIndex, lastItemIndex)]
 
   return (
     <div className='w-full'>
-      {!isLoading && currentItems ? (
-        <AlternativePagination
-          totalItems={(items ? items : users)?.length}
-          itemsPerPage={itemsPerPage}
-          setCurrentPage={setCurrentPage}
-        />
-      ) : null}
+      <div className='flex flex-row justify-around w-full'>
+        {!isLoading && currentItems ? (
+          <AlternativePagination
+            totalItems={(items ? items : users)?.length}
+            itemsPerPage={itemsPerPage}
+            setCurrentPage={setCurrentPage}
+          />
+        ) : null}
+        <form>
+          <div className="relative w-full">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input type="search" id="search" className="block w-full p-4 pl-10 text-sm text-gray-900 border bg-gray-50 border-pwpurple-300 rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500"
+              placeholder="Search"
+              onChange={(e: any) => setSearchVal(e.target.value)}
+            />
+          </div>
+        </form>
+      </div>
+
       <table className='min-w-full table-auto hover:table-fixed'>
         <thead>
           <tr className='bg-pwgreen-600 text-lg font-bold '>
