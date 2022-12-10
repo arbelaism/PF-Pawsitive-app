@@ -219,6 +219,11 @@ export interface IUserForm extends IUser {
   password: string
   confirmPassword: string
 }
+
+export interface Apply{
+  petId: string;
+  userId: string
+}
 export interface Form{
   reason: string,
   past: string,
