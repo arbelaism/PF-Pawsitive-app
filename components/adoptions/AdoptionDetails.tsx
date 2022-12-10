@@ -1,6 +1,4 @@
 import * as React from 'react';
-import useLocalStorage from 'use-local-storage';
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -9,8 +7,7 @@ import styles from 'styles/AdoptionDetails.module.css'
 import Image from 'next/image';
 import {getPetById} from 'utils/dbFetching'
 import { Props } from 'pages/adoptions';
-import { Apply } from 'app/types';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { AiOutlineClose } from 'react-icons/ai';
 import Link from 'next/link'
 
@@ -18,12 +15,9 @@ import Link from 'next/link'
 
 export default function AdoptionDetails({id}:Props){
   
-  const [ids, setIds] = useLocalStorage<Apply>("ids", {petId: "", userId:""});
   const [open, setOpen] = React.useState(false);
   const handleClose = () =>setOpen(false);
 
-  const { user, error: err, isLoading: loading } = useUser();
-  
   const {
     data: pet,
     error,
@@ -31,20 +25,15 @@ export default function AdoptionDetails({id}:Props){
     isSuccess,
   } = useQuery(["pet", id], () => getPetById(id));
 
-
-//De momento se usa un USERID hardcodeado, hasta que se modifique el model correspondiente a los usuarios. Arriba, se ve como se accede
-//user que se necesita.
-  const handleOpen = () => {
+  const queryClient = useQueryClient();
     
-      const idToString: string = id.toString();
-      const data = {
-        petId: idToString,
-        userId: "1"
-      };
-      setIds(data);
-      setOpen(true) 
-      
-  }; 
+
+  const handleOpen = () => {
+    console.log(id)
+    console.log(queryClient.getQueryData(["pet", id]));
+    setOpen(true)
+  };   
+  
   
 
   return (
