@@ -31,7 +31,14 @@ export interface AdoptFormInput {
     breed: string
     photo?: string
     userId: string
-}
+
+  }
+  export interface ReviewFormInput {
+    review: string
+    rating : number
+    userId?: string
+    productId: string
+  }  
 
 export interface Product {
     key?: string
@@ -48,9 +55,26 @@ export interface Product {
     active?: boolean
     user: UserProduct
     amount?: number
-}
+    review : Review[]
+  }
+  export interface Review {
+    id: string
+    rating: number
+    review: string
+    createdAt: Date
+    updatedAt: Date
+    user?: UserReview
+    userId?: string | null   
+    productId?: string | null
+  }
+  export interface UserReview {
+    firstName : string
+    lastName : string
+  }  
+
 
 export interface UserProduct {
+
     id: string
     firstName: string
     lastName: string
