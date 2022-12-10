@@ -9,7 +9,7 @@ import { getProductById, getTransactionByUserId } from 'utils/dbFetching'
 import { useRouter } from 'next/router'
 import { useState, useEffect} from 'react';
 import useLocalStorage from 'use-local-storage';
-import { alerts } from 'utils/alerts';
+import { redirectionAlert } from 'utils/alerts'
 import { Review } from '@prisma/client';
 import { useUser } from "@auth0/nextjs-auth0/client";
 import ProductReviewForm from 'components/products/ProductReviewForm';
@@ -54,7 +54,16 @@ const ProductDetail: NextPage = () => {
 
     const handleAddToCart = (clickedItem: Product) => {
         if(!user){
-            router.push('/api/auth/login')
+            // router.push('/api/auth/login')
+            redirectionAlert({
+                icon: 'info',
+                title: '<strong>Inicio de sesion requerido</strong>',
+                html: 'Para agregar productos y poder disfrutar de todas nuestras funcionalidades' +
+                ' te invitamos a iniciar sesion o crear una cuenta.',
+                confirmButtonText: 'Iniciar sesion',                
+                confirmButtonAriaLabel:  'Thumbs up, great!',
+                link : '/api/auth/login'
+            })
         }
         else{
 

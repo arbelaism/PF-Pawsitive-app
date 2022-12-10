@@ -7,6 +7,7 @@ import { MainLayout, Filtersproducts } from 'components'
 import ProductCard from 'components/products/ProductCard'
 import { useQuery } from 'react-query'
 import { getProducts } from 'utils/dbFetching'
+import { redirectionAlert } from 'utils/alerts'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage'
 import NotFound from 'public/mong03b.gif'
@@ -50,7 +51,16 @@ const Products: NextPage = () => {
 
     const handleAddToCart = (clickedItem: Product) => {
         if(!user){
-            router.push('/api/auth/login')
+            // router.push('/api/auth/login')
+            redirectionAlert({
+                icon: 'info',
+                title: '<strong>Inicio de sesion requerido</strong>',
+                html: 'Para agregar productos y poder disfrutar de todas nuestras funcionalidades' +
+                ' te invitamos a iniciar sesion o crear una cuenta.',
+                confirmButtonText: 'Iniciar sesion',                
+                confirmButtonAriaLabel:  'Thumbs up, great!',
+                link : '/api/auth/login'
+            })
         }
         else{
             const button = document.getElementById(`buttonCart${clickedItem.id}`) as HTMLButtonElement
