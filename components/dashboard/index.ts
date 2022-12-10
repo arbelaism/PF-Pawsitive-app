@@ -1,5 +1,4 @@
-export { default as Header } from './Header'
-export { default as LeftNavbar } from './LeftNavbar'
+export { default as DashboardLayout } from './dashboardLayout/DashboardLayout'
 export { default as SalePerMontPrice } from './resumen/SalePerMontPrice'
 export { default as SalePerMontProduct } from './resumen/SalePerMontProduct'
 export { default as ProductMoreSold } from './resumen/ProductMoreSold'

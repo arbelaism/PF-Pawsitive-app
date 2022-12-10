@@ -20,6 +20,33 @@
     .label {
         @apply font-medium;
     }
+
+    .dashboardButton {
+        @apply my-2
+        px-4 
+        py-3 
+        text-pwgreen-800
+        font-Rubik
+        rounded-xl flex items-center gap-2
+        cursor-pointer
+        font-medium
+        hover:bg-pwgreen-800 hover:text-pwgreen-50
+        transition ease-linear delay-100;
+    }
+
+    .dashboardSideTitle {
+        @apply
+        font-Rubik
+        font-medium
+        text-pwgreen-800
+        border-b
+        border-b-slate-300
+        px-2 py-1;
+    }
+
+    .active {
+        @apply bg-pwgreen-800 text-pwgreen-50;
+    }
 }
 
 @media (prefers-color-scheme: light) {

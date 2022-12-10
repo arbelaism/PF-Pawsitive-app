@@ -1,24 +1,10 @@
-import { 
-    Header, 
-    LeftNavbar, 
-    TableUser,
- } from "../../../components/dashboard"
+import { DashboardLayout } from 'components/dashboard'
 
-// import BarGraphic from "components/dashboard/graphics/BarGraphic"
-
-const DashboardAdm = () => {
+const Users = () => {
     return (
-        <div>
-            <Header />
-            <LeftNavbar />
-            <div className="mx-auto ">
-            <TableUser />
-
-            </div>
-
-   
-        
-        </div>
+        <DashboardLayout title="Usuarios">
+            <h1>USUARIOS</h1>
+        </DashboardLayout>
     )
 }
-export default DashboardAdm
+export default Users
