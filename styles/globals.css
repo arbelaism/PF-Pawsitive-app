@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,25 +24,31 @@
 
     .dashboardButton {
         @apply my-2
-        px-4 
+        px-3 
         py-3 
         text-pwgreen-800
         font-Rubik
+        text-sm
         rounded-xl flex items-center gap-2
         cursor-pointer
         font-medium
         hover:bg-pwgreen-800 hover:text-pwgreen-50
-        transition ease-linear delay-100;
+        transition ease-linear delay-100
+        lg:px-4 lg:py-3 lg:text-xl;
     }
 
     .dashboardSideTitle {
-        @apply
-        font-Rubik
+        @apply font-Rubik
         font-medium
         text-pwgreen-800
         border-b
         border-b-slate-300
-        px-2 py-1;
+        px-2 py-1
+        md:text-sm;
+    }
+
+    .dashboardLinks {
+        @apply md:text-sm;
     }
 
     .active {

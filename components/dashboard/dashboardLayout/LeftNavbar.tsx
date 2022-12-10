@@ -3,20 +3,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import { AiFillAppstore } from 'react-icons/ai'
-import { FaUser, FaPaw, FaBalanceScale, FaCog } from 'react-icons/fa'
+import { FaUser, FaPaw, FaBalanceScale } from 'react-icons/fa'
 import { useRouter } from 'next/router'
 
-type Props = {
-    active: string
-}
-
-const LeftNavbar = ({ active }: Props) => {
+const LeftNavbar = () => {
     const router = useRouter()
+
     return (
-        <div className="w-full p-10">
-            <div className="flex items-center justify-start gap-2">
+        <div className="h-full bg-white p-5 md:p-8">
+            <div className="relative hidden lg:flex lg:items-center md:gap-2 lg:justify-start">
                 <Image src={IsoGreen} alt="not found" width={40} height={40} />
-                <h1 className="font-Rubik text-3xl text-pwgreen-900">
+                <h1 className="font-Rubik text-pwgreen-900 hidden lg:block lg:text-2xl">
                     Paw<span className="font-bold">sitive</span>
                 </h1>
             </div>
@@ -30,7 +27,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <AiFillAppstore />
-                        <Link href={'/dashboard'}>Resumen</Link>
+                        <Link href={'/dashboard'}>
+                            <a className="dashboardLinks">Resumen</a>
+                        </Link>
                     </li>
                     <li
                         className={
@@ -39,7 +38,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <FaPaw />
-                        <Link href={'#'}>Actividad</Link>
+                        <Link href={'/dashboard/activity'}>
+                            <a className="dashboardLinks">Actividad</a>
+                        </Link>
                     </li>
                     <li
                         className={
@@ -48,7 +49,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <FaUser />
-                        <Link href={'/dashboard/users'}>Usuarios</Link>
+                        <Link href={'/dashboard/users'}>
+                            <a className="dashboardLinks">Usuarios</a>
+                        </Link>
                     </li>
                     <h3 className="dashboardSideTitle">Adopciones</h3>
                     <li
@@ -58,7 +61,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <FaPaw />
-                        <Link href={'#'}>Adopciones</Link>
+                        <Link href={'/dashboard/adoptions'}>
+                            <a className="dashboardLinks">Adopciones</a>
+                        </Link>
                     </li>
                     <li
                         className={
@@ -67,7 +72,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <FaPaw />
-                        <Link href={'#'}>Postulaciones</Link>
+                        <Link href={'/dashboard/applies'}>
+                            <a className="dashboardLinks">Aplicantes</a>
+                        </Link>
                     </li>
                     <h3 className="dashboardSideTitle">Productos</h3>
                     <li
@@ -77,7 +84,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <FaPaw />
-                        <Link href={'#'}>Productos</Link>
+                        <Link href={'/dashboard/products'}>
+                            <a className="dashboardLinks">Productos</a>
+                        </Link>
                     </li>
                     <h3 className="dashboardSideTitle">Ventas</h3>
                     <li
@@ -87,7 +96,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <FaBalanceScale />
-                        <Link href={'#'}>Balance</Link>
+                        <Link href={'/dashboard/balance'}>
+                            <a className="dashboardLinks">Balance</a>
+                        </Link>
                     </li>
                     <li
                         className={
@@ -96,7 +107,9 @@ const LeftNavbar = ({ active }: Props) => {
                                 : 'dashboardButton'
                         }>
                         <FaUser />
-                        <Link href={'#'}>Transacciones</Link>
+                        <Link href={'/dashboard/transactions'}>
+                            <a className="dashboardLinks">Transacciones</a>
+                        </Link>
                     </li>
                 </ul>
             </div>

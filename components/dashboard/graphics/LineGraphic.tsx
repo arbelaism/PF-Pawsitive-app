@@ -55,6 +55,10 @@ const LineGraphic = ({
       title: {
         display: true,
         text: title,
+        color: "#07130c",
+        font: {
+          size: 16
+        }
       },
     },
 
@@ -86,8 +90,8 @@ const LineGraphic = ({
 
 
   return (
-    <div>
-      <Line  options={options} data={data} />
+    <div className='w-full h-96 p-4 bg-pwgreen-50 rounded-xl shadow-2xl'>
+      <Line options={options} data={data} />
     </div>
 
   )

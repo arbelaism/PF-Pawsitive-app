@@ -23,6 +23,10 @@ const BarGraphicVertical = ({ title, labelstitle, datos }: Props) => {
       title: {
         display: true,
         text: title,
+        color: "#07130c",
+        font: {
+          size: 16
+        }
       },
     },
   };
@@ -43,7 +47,7 @@ const BarGraphicVertical = ({ title, labelstitle, datos }: Props) => {
   };
 
   return (
-    <div>
+    <div className='w-full h-96 p-4 bg-pwgreen-50 rounded-xl shadow-2xl'>
       <Bar key={5} options={options} data={data} />
     </div>
 

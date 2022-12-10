@@ -56,33 +56,33 @@ const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
     //   }
     // },
     plugins: {
-      legend: { display: false },
       title: {
         display: true,
-        // position: "top",
         text: title,
+        color: "#07130c",
         font: {
-          size: 30
+          size: 16
         }
       },
-      // legend: {
-      //   labels: {
-      //     font: {
-      //       size: 60
-      //     }
-      //   }
-      // }
+        legend: {
+            labels: {
+                display: false,
+                font: {
+                    size: 11
+                },
+            }
+        }
     },
 
-    animation: false,
+    animation: true,
     rotation: -90,
-    circumference: 180,
-    cutout: "60%",
+    circumference: 360,
+    cutout: "50%",
     // maintainAspectRatio: true,
     // responsive: true
   }
   return (
-    <div>
+    <div className='w-full h-96 p-4 bg-pwgreen-50 rounded-xl shadow-2xl'>
       <Doughnut data={data}  options={options} />
     </div>
 
