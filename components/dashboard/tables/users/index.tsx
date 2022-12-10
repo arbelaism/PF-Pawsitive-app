@@ -167,7 +167,7 @@ const TableUser = () => {
                 DIRECCION
               </span>
             </th>
-            <th className='px-5 py-2'>
+            <th className='px-16 py-2'>
               <span className='text-pwgreen-50'>
                 ROL
               </span>
