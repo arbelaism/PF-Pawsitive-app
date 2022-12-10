@@ -5,6 +5,7 @@ import { Users } from 'app/types'
 import { useSortableData, useSearchData } from '../tools'; //sort function
 import Image from 'next/image';
 import AlternativePagination from 'components/layout/AlternativePagination'
+import Collapse from '@mui/material/Collapse';
 import { Search } from '@mui/icons-material';
 
 interface Data {
@@ -60,7 +61,7 @@ const TableUser = () => {
     }
   }
 
-  // //Collapsing table
+  //Collapsing table
   // const [condition, setCondition] = React.useState({ expanded: false })
 
   // console.log(condition)
@@ -70,7 +71,8 @@ const TableUser = () => {
   //     setCondition({ ...condition, expanded: true })
   //   } else { setCondition({ ...condition, expanded: false }) }
   // }
-  //Searach Values
+
+  // Searach Values
 
   const [searchVal, setSearchVal] = React.useState(null);
 
@@ -112,9 +114,9 @@ const TableUser = () => {
         </form>
       </div>
 
-      <table className='min-w-full table-auto hover:table-fixed'>
+      <table className='table-auto hover:table-fixed'>
         <thead>
-          <tr className='bg-pwgreen-600 text-lg font-bold '>
+          <tr className='bg-pwgreen-600 text-base font-bold '>
             <th className='px-5 py-2'>
               <span className='text-pwgreen-50'>
                 ID
@@ -160,11 +162,7 @@ const TableUser = () => {
                 FECHA DE NACIMIENTO
               </span>
             </th>
-            <th className='px-5 py-2'>
-              <span className='text-pwgreen-50'>
-                DIRECCION
-              </span>
-            </th>
+
             <th className='px-16 py-2'>
               <span className='text-pwgreen-50'>
                 ROL
@@ -188,9 +186,10 @@ const TableUser = () => {
             </th>
           </tr>
         </thead>
-        <tbody className='bg-pwgreen-200'>
+        <tbody className='bg-pwgreen-200 text-sm'>
           {isSuccess ? (currentItems.map((u: Users) => {
-            return (
+            return (<>
+
               <tr key={u.id} className='bg-pawgreen-50 text-center'>
                 <td className='px-16 py-2 flex flex-row items-center'>
                   {/* <button
@@ -210,8 +209,8 @@ const TableUser = () => {
                   <Image
                     src={u.photo || "#"}
                     alt={u.id}
-                    width={50}
-                    height={50}
+                    width={100}
+                    height={100}
                   />
                   <span className='text-center ml-2 font-semibold'>{u.id}</span>
                 </td>
@@ -220,7 +219,6 @@ const TableUser = () => {
                 <td className='px-5 py-2'>{u.email || "No hay Datos"}</td>
                 <td className='px-5 py-2'>{u.gender || "No hay Datos"}</td>
                 <td className='px-5 py-2'>{u.birthday || "No hay Datos"}</td>
-                <td className='px-5 py-2'>{u.address || "No hay Datos"}</td>
                 <td className='px-5 py-2'>
                   <select className='bg-gray-50 border border-pwpurple-300 text-gray-900 text-xs rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500 block w-full p-2.5' name="role" id={u.id} value={u.role} onChange={handleRoleChange} >
                     <option value="BASIC">BASICO</option>
@@ -236,12 +234,59 @@ const TableUser = () => {
                 </td>
                 <td className='px-5 py-2'>{u.createdAt}</td>
               </tr>
+              {/* {condition.expanded
+                ?
+                <>
+                  <table>
+                    <thead>
+                      <th className='px-5 py-2'>
+                        <span className='text-pwgreen-50'>
+                          PROVINCIA
+                        </span>
+                      </th>
+                      <th className='px-5 py-2'>
+                        <span className='text-pwgreen-50'>
+                          CIUDAD
+                        </span>
+                      </th>
+                      <th className='px-5 py-2'>
+                        <span className='text-pwgreen-50'>
+                          DIRECCION
+                        </span>
+                      </th>
+                      <th className='px-5 py-2'>
+                        <span className='text-pwgreen-50'>
+                          TELEFONO
+                        </span>
+                      </th>
+                      <th className='px-5 py-2'>
+                        <span className='text-pwgreen-50'>
+                          CORREO
+                        </span>
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className='px-5 py-2'>{u.province || "No hay Datos"}</td>
+                        <td className='px-5 py-2'>{u.city || "No hay Datos"}</td>
+                        <td className='px-5 py-2'>{u.address || "No hay Datos"}</td>
+                        <td className='px-5 py-2'>{u.phone || "No hay Datos"}</td>
+                        <td className='px-5 py-2'>{u.postCode || "No hay Datos"}</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
 
+                </>
+
+                : null
+              } */}
+            </>
             )
           }
           )) : isLoading
           }
+
           {/* { condition.expanded ?  <tr></tr>:null} */}
         </tbody>
       </table>
