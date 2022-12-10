@@ -11,6 +11,8 @@ import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage'
 import NotFound from 'public/mong03b.gif'
 import Image from 'next/image'
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { useRouter } from 'next/router'
 
 export type Props = {
     [key: string]: any
@@ -28,6 +30,10 @@ const Products: NextPage = () => {
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
     const [data, setData] = useState<Product[]>()
 
+    //get user data from auth0
+    const {user, error: errorU, isLoading: isLoadingU} = useUser()
+    const router = useRouter()
+
     //Recover cartproducts when user comeback from the cart to products again
     const [cartFromLocalStorage, setCartFromLocalStorage] = useLocalStorage<
         Product[]
@@ -43,29 +49,34 @@ const Products: NextPage = () => {
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
 
     const handleAddToCart = (clickedItem: Product) => {
-        const button = document.getElementById(`buttonCart${clickedItem.id}`) as HTMLButtonElement
-        button.classList.add('clicked')
-
-        if (!clickedItem.amount) clickedItem.amount = 0
-        setCartItems(prev => {
-            // is the item already added in the cart
-            const isItemInCart = prev.find(item => item.id === clickedItem.id)
-
-            if (isItemInCart) {
-                return prev.map(item =>
-                    item.id === clickedItem.id
-                        ? { ...item, amount: item.amount! + 1 }
-                        : item
-                )
-            }
-
-            // first time the item is added
-            return [...prev, { ...clickedItem, amount: 1 }]
-        })
-
-        setTimeout(() => {
-            button.classList.remove('clicked')
-        }, 2300)
+        if(!user){
+            router.push('/api/auth/login')
+        }
+        else{
+            const button = document.getElementById(`buttonCart${clickedItem.id}`) as HTMLButtonElement
+            button.classList.add('clicked')
+    
+            if (!clickedItem.amount) clickedItem.amount = 0
+            setCartItems(prev => {
+                // is the item already added in the cart
+                const isItemInCart = prev.find(item => item.id === clickedItem.id)
+    
+                if (isItemInCart) {
+                    return prev.map(item =>
+                        item.id === clickedItem.id
+                            ? { ...item, amount: item.amount! + 1 }
+                            : item
+                    )
+                }
+    
+                // first time the item is added
+                return [...prev, { ...clickedItem, amount: 1 }]
+            })
+    
+            setTimeout(() => {
+                button.classList.remove('clicked')
+            }, 2300)
+        }
     }
     useEffect(() => {
         setData(products)

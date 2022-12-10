@@ -53,26 +53,29 @@ const ProductDetail: NextPage = () => {
     
 
     const handleAddToCart = (clickedItem: Product) => {
-        alerts({
-            icon: 'success',
-            title: '<strong>Producto agregado con exito</strong>',
-            html: 'Para ir al carrito presione <b><a href="/shoppingCart">aqui</a></b>, ' +
-            'para seguir comprando presione el boton "Continuar"',
-            confirmButtonText: 'Continuar',
-            confirmButtonAriaLabel:  'Thumbs up, great!',
-        })
-        if(!clickedItem.amount) clickedItem.amount=0
-        setCartProduct(() => {
-          // is the item already added in the cart       
+        if(!user){
+            router.push('/api/auth/login')
+        }
+        else{
+
+            const button = document.getElementById(`buttonCart${clickedItem.id}`) as HTMLButtonElement
+            button.classList.add('clicked')
+            if(!clickedItem.amount) clickedItem.amount=0
+            setCartProduct(() => {
+              // is the item already added in the cart       
+              
+              if (cartProduct.id === clickedItem.id) {
+                return { ...cartProduct, amount: cartProduct.amount! + 1, stock: cartProduct.stock-1}
+              };
+              
+              // first time the item is added 
+              return {...clickedItem, amount: 1, stock: clickedItem.stock-1};
           
-          if (cartProduct.id === clickedItem.id) {
-            return { ...cartProduct, amount: cartProduct.amount! + 1, stock: cartProduct.stock-1}
-          };
-          
-          // first time the item is added 
-          return {...clickedItem, amount: 1, stock: clickedItem.stock-1};
-      
-        })        
+            })
+            setTimeout(() => {
+                button.classList.remove('clicked')
+            }, 2300)     
+        }
     };    
     useEffect(() => {
         // storing input cartProducts
