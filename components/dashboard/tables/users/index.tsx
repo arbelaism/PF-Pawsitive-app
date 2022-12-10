@@ -2,12 +2,9 @@ import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getUsers, putUsers } from 'utils/dbFetching';
 import { Users } from 'app/types'
-import { useSortableData, useSearchData } from '../tools'; //sort function
+import { useSortableData, useSearchData,FormCreateUser } from '../tools'; //sort function
 import Image from 'next/image';
 import AlternativePagination from 'components/layout/AlternativePagination'
-import Collapse from '@mui/material/Collapse';
-import { Search } from '@mui/icons-material';
-import { Elements } from '@stripe/react-stripe-js';
 
 interface Data {
   id: string,
@@ -63,7 +60,7 @@ const TableUser = () => {
   }
 
   //Collapsing table
-  const [condition, setCondition] = React.useState({ expanded: false })
+  // const [condition, setCondition] = React.useState({ expanded: false })
   const [rowExpande, setRowExpande] = React.useState<string | null>(null)
 
   function toggleExpander(e: any) {
@@ -96,6 +93,9 @@ const TableUser = () => {
 
   return (
     <div className='w-full'>
+      <div className='container mx-auto'>
+     <FormCreateUser />
+      </div>
       <div className='flex flex-row justify-around w-full'>
         {!isLoading && currentItems ? (
           <AlternativePagination
@@ -213,10 +213,10 @@ const TableUser = () => {
                     >
                       {rowExpande === u.id
                         ? <span className='text-pwgreen-50'>
-                          [-]
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
                         </span>
                         : <span className='text-pwgreen-50'>
-                          [+]
+                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
                         </span>
                       }
                     </button>
