@@ -1,5 +1,4 @@
 import { prisma } from "lib/prisma";
-import Create from '../pages/create/index';
 
 export default async function createDB() {
 
