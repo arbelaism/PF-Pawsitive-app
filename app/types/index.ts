@@ -105,6 +105,105 @@ export enum Role {
     USER = 'USER'
 }
 
+
+export interface CheckIn {
+  name: string;
+  email: string;
+  products: Product[];
+  total: string;
+  action: string
+}
+export interface Transaction {
+  id:        string;
+  amount:    number;
+  createdAt: string;
+  updatedAt: string;
+  userId:    string;
+  status:    string;
+  user:      UserT;
+  quantity:  Quantity[];
+}
+
+export interface Quantity {
+  quantity: number;
+  product:  Product;
+}
+
+export interface Product {
+  id:           string;
+  name:         string;
+  displayPrice: number;
+  category:     string;
+}
+
+export interface UserT {
+  firstName: string;
+  lastName:  string;
+  email:     string;
+  photo:     string;
+}
+
+
+export interface Users {
+  id:           string;
+  firstName:    string;
+  lastName:     string;
+  email:        string;
+  gender:       string;
+  birthday:     string;
+  address:      string;
+  phone:        string;
+  city:         string;
+  province:     string;
+  postCode:     string;
+  photo:        string;
+  role:         string;
+  active:       boolean;
+  createdAt:    string;
+  updatedAt:    string;
+  businessPost: BusinessPost[];
+}
+
+export interface BusinessPost {
+  id:              string;
+  name:            string;
+  contact:         string;
+  address:         string;
+  description:     string;
+  photo:           string;
+  type:            string;
+  active:          boolean;
+  ownerBusinessId: string;
+}
+
+
+
+
+export interface Adoptions {
+  id:          string;
+  name:        string;
+  size:        Size;
+  age:         string;
+  breed:       string;
+  photo:       string;
+  active:      boolean;
+  description: null;
+  createdAt:   string;
+  user:        User2;
+}
+
+export enum Size {
+  Big = "BIG",
+  Medium = "MEDIUM",
+  Small = "SMALL",
+}
+
+export interface User2 {
+  firstName: string;
+  lastName:  string;
+  email:     string;
+}
+
 export interface IUser {
     name: string
     lastName: string

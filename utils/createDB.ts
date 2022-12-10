@@ -7,6 +7,7 @@ export default async function createDB() {
             data: [
                 {
                     id: "1",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     firstName: "Constanza",
                     lastName: "Guerrero",
                     email: "constanza_guerrero@test.com",
@@ -17,6 +18,7 @@ export default async function createDB() {
                 },
                 {
                     id: "2",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     firstName: "Florencio",
                     lastName: "Busquets",
                     email: "florencio_busquets@test.com",
@@ -27,6 +29,7 @@ export default async function createDB() {
                 },
                 {
                     id: "3",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     firstName: "Candela",
                     lastName: "Lozano",
                     email: "candela_lozano@test.com",
@@ -37,6 +40,7 @@ export default async function createDB() {
                 },
                 {
                     id: "4",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     firstName: "Rafael",
                     lastName: "Pedrosa",
                     email: "rafael_pedrosa@test.com",
@@ -113,6 +117,7 @@ export default async function createDB() {
             data: [
                 {
                     id: "1",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     name: "rayito",
                     size: "SMALL",
                     age: "1 años",
@@ -123,6 +128,7 @@ export default async function createDB() {
                 },
                 {
                     id: "2",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     name: "meteoro",
                     size: "BIG",
                     age: "5 años",
@@ -133,6 +139,7 @@ export default async function createDB() {
                 },
                 {
                     id: "3",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     name: "caos",
                     size: "SMALL",
                     age: "3 años",
@@ -143,6 +150,7 @@ export default async function createDB() {
                 },
                 {
                     id: "4",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     name: "roberto",
                     size: "MEDIUM",
                     age: "2 meses",
@@ -153,6 +161,7 @@ export default async function createDB() {
                 },
                 {
                     id: "5",
+                    createdAt:"2022-11-08T03:08:45.700Z",
                     name: "no tiene",
                     size: "SMALL",
                     age: "3 meses",
@@ -606,6 +615,247 @@ export default async function createDB() {
                     active: true,
                 }
             ]
+        })
+
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-12-08T03:08:45.700Z",
+                amount: 13000,
+                userId: '1',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "1"},
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-11-08T03:08:45.700Z",
+                amount: 15000,
+                userId: '2',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "2" },
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                amount: 13550,
+                userId: '3',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "3" },
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-10-08T03:08:45.700Z",
+                amount: 155000,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "6" },
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-09-08T03:08:45.700Z",
+                amount: 96200,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "7" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-08-08T03:08:45.700Z",
+                amount: 125550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "9" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-07-08T03:08:45.700Z",
+                amount: 43550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "10" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-06-08T03:08:45.700Z",
+                amount: 166050,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "11" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-05-08T03:08:45.700Z",
+                amount: 158550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "12" }
+
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-04-08T03:08:45.700Z",
+                amount: 9550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "18" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-03-08T03:08:45.700Z",
+                amount: 36550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "19" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-02-08T03:08:45.700Z",
+                amount: 18550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "20" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+                createdAt: "2022-01-08T03:08:45.700Z",
+                amount: 23550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "21" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 3550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "17" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 9750,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "15" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 158550,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 10, productId: "12" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 21500,
+                userId: '4',
+                quantity: {
+                    create: [
+                        { quantity: 5, productId: "10" }
+                    ]
+                }
+
+            }
+        })
+        await prisma.transaction.create({
+            data: {
+
+                amount: 30000,
+                userId: '6',
+                quantity: {
+                    create: [
+                        { quantity: 20, productId: "2" }
+                    ]
+                }
+
+            }
         })
 
     } catch (error) {

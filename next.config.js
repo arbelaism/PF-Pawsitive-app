@@ -8,7 +8,8 @@ const nextConfig = {
             'img.freepik.com',
             'encrypted-tbn0.gstatic.com',
             'puppis.vteximg.com.br',
-            'res.cloudinary.com'
+            'res.cloudinary.com',
+            'lh3.googleusercontent.com'
         ]
     }
 }
