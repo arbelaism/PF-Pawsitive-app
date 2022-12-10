@@ -1,90 +1,230 @@
 export enum Size {
-    SMALL = 'SMALL',
-    MEDIUM = 'MEDIUM',
-    BIG = 'BIG'
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
+  BIG = 'BIG'
 }
 
 export type User = {
-    name: string
-    lastName: string
-    email: string
+  name: string
+  lastName: string
+  email: string
 }
+
 export interface IAdoption {
-    id: string
-    name: string
-    size: Size
-    age: string
-    breed: string
-    photo: string
-    active?: boolean
-    userAdop: User
+  id: string
+  name: string
+  size: Size
+  age: string
+  breed: string
+  photo: string
+  active?: boolean
+  userAdop: User
 }
 
 export interface AdoptFormInput {
-    name: string;
-    size: string;
-    age: string;
-    active? : boolean,
-    description?: string,
-    monthOrYear: string;
-    breed: string;
-    photo?: string;
-    userId: string
-  }
-export interface Product {
-    key?: string
-    id: string
-    name: string
-    price: number
-    displayPrice: number
-    description: string
-    stock: number
-    photo: string
-    category: string
-    brand: string
-    size: string
-    active?: boolean        
-    user: UserProduct
-    amount?: number
-  }
-  
-  export interface UserProduct {
-    id: string
-    firstName: string
-    lastName: string
-    email: string
-    age?: number
-    photo?: string
-    role?: string
-    active?: boolean
-    password?: string
-  }
+  name: string
+  size: string
+  age: string
+  active?: boolean
+  description?: string
+  monthOrYear: string
+  breed: string
+  photo?: string
+  userId: string
 
-export interface IAppContext {
-    users: []
-    adoptions: IAdoption[] | []
 }
+export interface ReviewFormInput {
+  review: string
+  rating : number
+  userId?: string
+  productId: string
+}  
 
-export interface Action {
-    type: string
-    payload: IAdoption[] | []
+export interface Product {
+  key?: string
+  id: string
+  name: string
+  price: number
+  displayPrice: number
+  description: string
+  stock: number
+  photo: string
+  category: string
+  brand: string
+  size: string
+  active?: boolean
+  user: UserProduct
+  amount?: number
+  review : Review[]
+}
+export interface Review {
+  id: string
+  rating: number
+  review: string
+  createdAt: Date
+  updatedAt: Date
+  user?: UserReview
+  userId?: string | null   
+  productId?: string | null
+}
+export interface UserReview {
+  firstName : string
+  lastName : string
+}  
+
+
+export interface UserProduct {
+
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  age?: number
+  photo?: string
+  role?: string
+  active?: boolean
+  password?: string
 }
 
 export interface ContactForm {
-  name: string;
-  email: string;
-  message: string;
+  name: string
+  email: string
+  message: string
 }
 
 export interface CheckIn {
-  name: string;
-  email: string;
-  products: Product[];
-  total: string;
+  name: string
+  email: string
+  products: Product[]
+  total: string
   action: string
 }
 
-export interface Apply{
-  petId: string;
-  userId: string
+export enum Role {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}
+
+
+export interface CheckIn {
+name: string;
+email: string;
+products: Product[];
+total: string;
+action: string
+}
+export interface Transaction {
+id:        string;
+amount:    number;
+createdAt: string;
+updatedAt: string;
+userId:    string;
+status:    string;
+user:      UserT;
+quantity:  Quantity[];
+}
+
+export interface Quantity {
+quantity: number;
+product:  Product;
+}
+
+export interface Product {
+id:           string;
+name:         string;
+displayPrice: number;
+category:     string;
+}
+
+export interface UserT {
+firstName: string;
+lastName:  string;
+email:     string;
+photo:     string;
+}
+
+
+export interface Users {
+id:           string;
+firstName:    string;
+lastName:     string;
+email:        string;
+gender:       string;
+birthday:     string;
+address:      string;
+phone:        string;
+city:         string;
+province:     string;
+postCode:     string;
+photo:        string;
+role:         string;
+active:       boolean;
+createdAt:    string;
+updatedAt:    string;
+businessPost: BusinessPost[];
+}
+
+export interface BusinessPost {
+id:              string;
+name:            string;
+contact:         string;
+address:         string;
+description:     string;
+photo:           string;
+type:            string;
+active:          boolean;
+ownerBusinessId: string;
+}
+
+
+
+
+export interface Adoptions {
+id:          string;
+name:        string;
+size:        Size;
+age:         string;
+breed:       string;
+photo:       string;
+active:      boolean;
+description: null;
+createdAt:   string;
+user:        User2;
+}
+
+export enum Size {
+Big = "BIG",
+Medium = "MEDIUM",
+Small = "SMALL",
+}
+
+export interface User2 {
+firstName: string;
+lastName:  string;
+email:     string;
+}
+
+export interface IUser {
+  name: string
+  lastName: string
+  email: string
+  birthday: string
+  gender: string
+  nationality: string
+  role: string
+  active: boolean
+}
+
+export interface IUserForm extends IUser {
+  password: string
+  confirmPassword: string
+}
+export interface Form{
+  reason: string,
+  past: string,
+  residence: string,
+  employee: string,
+  garden: string,
+  adoptionPostId: string,
+  userId: string   
 }
