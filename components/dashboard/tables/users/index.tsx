@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getUsers, putUsers } from 'utils/dbFetching';
 import { Users } from 'app/types'
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useSortableData } from '../tools'; //sort function
 import Image from 'next/image';
+import AlternativePagination from 'components/layout/AlternativePagination'
 
 interface Data {
   id: string,
@@ -30,60 +30,7 @@ const TableUser = () => {
     }
   })
 
-  interface Confi {
-    key?: string | '',
-    direction?: string | ''
-  }
-
-
-  //SORT DATA
-  const useSortableData = (items: Users[], config: Confi = { key: "", direction: "" }) => {
-    const [sortConfig, setSortConfig] = useState<Confi>(config);
-
-    const sortedItems = React.useMemo(() => {
-      let sortableItems = items;
-
-      if (sortConfig && sortConfig.key && sortConfig.direction ) {
-        // let keys = sortConfig.key as string
-        // if (sortConfig.key != undefined) {
-        //   result = obj2[sortConfig.key as keyof typeof a];
-        // }
-        sortableItems.sort((a: Users, b: Users) => {
-          if ((a[sortConfig.key as keyof typeof a] as string).toLowerCase() < (b[sortConfig.key as keyof typeof b] as string).toLowerCase()) {
-            return sortConfig.direction === 'ascending' ? -1 : 1;
-          }
-          if ((a[sortConfig.key as keyof typeof a] as string).toLowerCase() > (b[sortConfig.key as keyof typeof b] as string).toLowerCase()) {
-            return sortConfig.direction === 'ascending' ? 1 : -1;
-          }
-          return 0;
-        });
-      }
-      return sortableItems;
-    }, [items, sortConfig]);
-
-    const requestSort = (key: string) => {
-      let direction = 'ascending';
-      if (
-        sortConfig &&
-        sortConfig.key === key &&
-        sortConfig.direction === 'ascending'
-      ) {
-        direction = 'descending';
-      }
-      setSortConfig({ key, direction });
-    };
-
-    return { items: sortedItems, requestSort, sortConfig };
-  };
-
   const { items, requestSort, sortConfig } = useSortableData(users);
-  console.log(items)
-  // const getClassNamesFor = (name) => {
-  //   if (!sortConfig) {
-  //     return;
-  //   }
-  //   return sortConfig.key === name ? sortConfig.direction : undefined;
-  // };
 
   //FUNCTIONS CHANGE DATA
   function handleRoleChange(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -110,11 +57,34 @@ const TableUser = () => {
     }
   }
 
+  // //Collapsing table
+  // const [condition, setCondition] = React.useState({ expanded: false })
 
+  // console.log(condition)
+  // function toggleExpander(e: React.MouseEvent<HTMLButtonElement>) {
+  //   e.preventDefault()
+  //   if (!condition.expanded) {
+  //     setCondition({ ...condition, expanded: true })
+  //   } else { setCondition({ ...condition, expanded: false }) }
+  // }
 
+  //Pagination
+  const [currentPage, setCurrentPage] = React.useState<number>(1)
+  const [itemsPerPage, _setItemsPerPage] = React.useState<number>(6)
+  const lastItemIndex = currentPage * itemsPerPage
+  const firstItemIndex = lastItemIndex - itemsPerPage
+  let currentItems: Users[] = []
+  if (items) currentItems = [...items.slice(firstItemIndex, lastItemIndex)]
 
   return (
-    <div>
+    <div className='w-full'>
+      {!isLoading && currentItems ? (
+        <AlternativePagination
+          totalItems={(items ? items : users)?.length}
+          itemsPerPage={itemsPerPage}
+          setCurrentPage={setCurrentPage}
+        />
+      ) : null}
       <table className='min-w-full table-auto hover:table-fixed'>
         <thead>
           <tr className='bg-pwgreen-600 text-lg font-bold '>
@@ -147,6 +117,7 @@ const TableUser = () => {
               </button>
 
             </th>
+
             <th className='px-5 py-2'>
               <span className='text-pwgreen-50'>
                 EMAIL
@@ -174,7 +145,7 @@ const TableUser = () => {
             </th>
             <th className='px-16 py-2'>
               <span className='text-pwgreen-50'>
-                ACTIVO
+                ESTADO
               </span>
             </th>
             <th className='px-5 py-2'>
@@ -191,18 +162,30 @@ const TableUser = () => {
           </tr>
         </thead>
         <tbody className='bg-pwgreen-200'>
-          {isSuccess ? (items.map((u: Users) => {
+          {isSuccess ? (currentItems.map((u: Users) => {
             return (
               <tr key={u.id} className='bg-pawgreen-50 text-center'>
-                <td className='px-5 py-2 flex flex-row items-center'>
+                <td className='px-16 py-2 flex flex-row items-center'>
+                  {/* <button
+                    className='p-1 text-xs focus:outline-none border-4 border-pwpurple-600 text-white hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg bg-pwgreen-600 '
+                    type='button'
+                    onClick={toggleExpander}
+                  >
+                    {condition.expanded
+                      ? <span className='text-pwgreen-50'>
+                        [+]
+                      </span>
+                      : <span className='text-pwgreen-50'>
+                        [-]
+                      </span>
+                    }
+                  </button> */}
                   <Image
                     src={u.photo || "#"}
                     alt={u.id}
-                    width={80}
-                    height={80}
-
+                    width={50}
+                    height={50}
                   />
-
                   <span className='text-center ml-2 font-semibold'>{u.id}</span>
                 </td>
                 <td className='px-5 py-2'>{u.firstName || "No hay Datos"}</td>
@@ -220,15 +203,19 @@ const TableUser = () => {
                 </td>
                 <td className='px-5 py-2'>
                   <select className='bg-gray-50 border border-pwpurple-300 text-gray-900 text-xs rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500 block w-full p-2.5    ' name="active" id={u.id} value={u.active.toString()} onChange={(e) => handleActiveChange(e)} >
-                    <option value="true" >ACTIVO</option>
-                    <option value="false">DESACTIVADO</option>
+                    <option value="true" className='bg-pwgreen-500 text-pwgreen-50 font-bold' >ACTIVO</option>
+                    <option value="false" className='bg-pwpurple-500 text-pwpurple-50 font-bold'>DESACTIVADO</option>
                   </select>
                 </td>
                 <td className='px-5 py-2'>{u.createdAt}</td>
-              </tr>)
+              </tr>
+
+
+            )
           }
           )) : isLoading
           }
+          {/* { condition.expanded ?  <tr></tr>:null} */}
         </tbody>
       </table>
     </div>
