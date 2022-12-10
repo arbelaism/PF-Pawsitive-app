@@ -10,5 +10,6 @@ export { default as LinkAdoption } from './adoptions/LinkAdoption'
 export { default as AdoptionForm } from './adoptions/AdoptionForm'
 export { default as Filters } from './layout/Filters'
 export { default as Filtersproducts } from './layout/Filtersproducts'
+export { default as UserButton } from './layout/UserButton'
 
 
