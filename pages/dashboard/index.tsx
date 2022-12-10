@@ -14,30 +14,32 @@ import {
 const DashboardAdm = () => {
     return (
         <DashboardLayout title='Resumen'>
-            {' '}
-            <div className="flex space-x-4 w-screen border-2 border-black">
-                <div className="w-1/3 border-2 border-black place-items-center bg-pwgreen-200">
-                    <SalePerMontPrice />
+            <div className='w-9/12'>
+                <div className="flex justify-center align-middle space-x-12 w-full ">
+                    <div className="w-auto   bg-pwgreen-100">
+                        <SalePerMontPrice />
+                    </div>
+                    <div className="w-auto   bg-pwgreen-100">
+                        <SalePerMontProduct />
+                    </div>
+                    <div className="w-auto   bg-pwgreen-100">
+                        <ProductMoreSold />
+                    </div>
                 </div>
-                <div className="w-1/3 border-2 border-black place-items-center bg-pwgreen-200">
-                    <SalePerMontProduct />
+                <div className="w-auto h-1/2 b bg-pwgreen-100">
+                    <RegisterAdoptions />
                 </div>
-                <div className="w-1/3 border-2 border-black place-items-center bg-pwgreen-200">
-                    <ProductMoreSold />
+                <div className="w-auto h-1/2  bg-pwgreen-100">
+                    <BalancePerMont />
+                </div>
+                <div className="w-auto h-1/2  bg-pwgreen-100">
+                    <BalanceCurrentMont />
+                </div>
+                <div className="w-auto h-1/2  bg-pwgreen-100">
+                    <RegisterUser />
                 </div>
             </div>
-            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
-                <RegisterAdoptions />
-            </div>
-            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
-                <BalancePerMont />
-            </div>
-            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
-                <BalanceCurrentMont />
-            </div>
-            <div className="w-screen h-1/2 border-2 border-black bg-pwgreen-200">
-                <RegisterUser />
-            </div>
+
         </DashboardLayout>
     )
 }

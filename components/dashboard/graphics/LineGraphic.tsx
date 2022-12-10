@@ -87,7 +87,7 @@ const LineGraphic = ({
 
   return (
     <div>
-      <Line height={400} width={400} options={options} data={data} />
+      <Line  options={options} data={data} />
     </div>
 
   )

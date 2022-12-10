@@ -42,6 +42,7 @@ interface Confi {
     const sortedItems = React.useMemo(() => {
       let sortableItems = items;
       if (sortConfig !== null && sortConfig.key && sortConfig.direction) {
+        
         sortableItems.sort((a: Users, b: Users) => {
           if (a[sortConfig.key].toLowerCase() < b[sortConfig.key].toLowerCase()) {
             return sortConfig.direction === 'ascending' ? -1 : 1;

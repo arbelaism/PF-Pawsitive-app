@@ -83,7 +83,7 @@ const DoughnutGraphic = ({ title, bridge, labels, dat }: Props) => {
   }
   return (
     <div>
-      <Doughnut data={data} width="400" height="400" options={options} />
+      <Doughnut data={data}  options={options} />
     </div>
 
   )

@@ -44,7 +44,7 @@ const BarGraphicVertical = ({ title, labelstitle, datos }: Props) => {
 
   return (
     <div>
-      <Bar width={400} height={500} key={5} options={options} data={data} />
+      <Bar key={5} options={options} data={data} />
     </div>
 
   )
