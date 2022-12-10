@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AdoptFormInput, ContactForm, CheckIn, Users } from "app/types";
+import { AdoptFormInput, ContactForm, CheckIn, IUserForm,Users, ReviewFormInput } from "app/types";
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
@@ -35,12 +35,20 @@ export const getProductById = async (id: string) => {
   if (!product) throw new Error("Data not found");
   return product;
 };
-export const getProductsByCategory = async (foodCategory: string) => {
-  const response = await axios.get("/api/product/", {
-    params: {
-      categoria: foodCategory
-    }
-  });
+
+export const getTransactionByUserId = async (id: string) => {
+  const response = await axios.get("/api/transaction/"+id);
+  const user = await response.data;
+
+  if (!user) throw new Error("Data not found");
+  return user;
+};
+
+export const getProductsByCategory = async (foodCategory: string) => {  
+  const response = await axios.get("/api/product/", { params:{
+    categoria : foodCategory
+  } } );
+
   const products = await response.data;
 
   if (!products) throw new Error("Data not found");
@@ -64,6 +72,14 @@ export const createPost = async (data: AdoptFormInput) => {
 
   return "Post de " + newPost + " creado";
 };
+export const createReview = async (data: ReviewFormInput) => {
+  const newReview = await axios
+    .post("/api/review", data)
+    .then((response) => response.data.id)
+    .catch((error) => console.log(error));
+
+  return "Review de " + newReview + " creado";
+};
 
 export const sendMail = async (data: ContactForm) => {
   const newPost = await axios
@@ -80,6 +96,7 @@ export const sendPaymentMail = async (data: CheckIn) => {
 
   return "email send";
 };
+
 
 export const getTransactions = async () => {
   const response = await axios.get("/api/transaction");
@@ -110,3 +127,11 @@ export const putUsers = async (id: string, data: Object) => {
   }
   return response;
 };
+
+export const registerUser = async (data: IUserForm) => {
+    const newUser = await axios
+        .post('/api/auth/register', data)
+        .catch(error => console.log(error))
+    return newUser
+}
+
