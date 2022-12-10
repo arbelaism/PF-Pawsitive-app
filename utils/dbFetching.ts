@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AdoptFormInput, ContactForm, CheckIn } from "app/types";
+import { AdoptFormInput, ContactForm, CheckIn, Form } from "app/types";
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
@@ -77,4 +77,12 @@ export const sendPaymentMail = async (data: CheckIn) => {
     .catch((error) => console.log(error));
 
   return "email send";
+};
+
+export const apply = async (data: Form) => {
+  const newApply = await axios
+      .post('/api/adoptionapply', data)
+      .catch(error => console.log(error))
+
+  return newApply;
 };
