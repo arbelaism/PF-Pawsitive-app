@@ -19,10 +19,10 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                 className="w-max text-pwgreen-100 bg-pwgreen-800 hover:bg-green-50 hover:text-pwgreen-800 font-medium rounded-lg text-sm px-4 py-2.5 flex gap-2 items-center"
                 type="button">
                 <Image
-                    src={userPicture ?? ''}
+                    src={userPicture}
                     alt="not found"
-                    width={32}
-                    height={32}
+                    width={24}
+                    height={24}
                     className="rounded-full"
                 />
                 <span className='hidden md:block'>{userName}</span>

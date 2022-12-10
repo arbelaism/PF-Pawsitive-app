@@ -53,7 +53,7 @@ const BalanceCurrentMont: NextPage = () => {
 
 
   return (
-    <div className='flex flex-row p-4 place-content-center'>
+    <div>
 
       <BarGraphicVertical {...data} />
 

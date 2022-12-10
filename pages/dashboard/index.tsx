@@ -13,33 +13,22 @@ import {
 
 const DashboardAdm = () => {
     return (
-        <DashboardLayout title='Resumen'>
-            <div className='w-9/12'>
-                <div className="flex justify-center align-middle space-x-12 w-full ">
-                    <div className="w-auto   bg-pwgreen-100">
-                        <SalePerMontPrice />
-                    </div>
-                    <div className="w-auto   bg-pwgreen-100">
-                        <SalePerMontProduct />
-                    </div>
-                    <div className="w-auto   bg-pwgreen-100">
-                        <ProductMoreSold />
-                    </div>
-                </div>
-                <div className="w-auto h-1/2 b bg-pwgreen-100">
-                    <RegisterAdoptions />
-                </div>
-                <div className="w-auto h-1/2  bg-pwgreen-100">
+        <DashboardLayout title="Resumen">
+            <div className="w-full">
+                <div className="px-7 my-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
+                    <ProductMoreSold />
                     <BalancePerMont />
                 </div>
-                <div className="w-auto h-1/2  bg-pwgreen-100">
-                    <BalanceCurrentMont />
-                </div>
-                <div className="w-auto h-1/2  bg-pwgreen-100">
+                <div className='px-7 my-5 grid grid-cols-1 gap-5 lg:grid-cols-2'>
+                    <RegisterAdoptions />
                     <RegisterUser />
                 </div>
+                <div className="px-7 my-5 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    <SalePerMontPrice />
+                    <SalePerMontProduct />
+                    <BalanceCurrentMont />
+                </div>
             </div>
-
         </DashboardLayout>
     )
 }
