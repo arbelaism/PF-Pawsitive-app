@@ -9,7 +9,8 @@ const nextConfig = {
             'encrypted-tbn0.gstatic.com',
             'puppis.vteximg.com.br',
             'res.cloudinary.com',
-            'lh3.googleusercontent.com'
+            'lh3.googleusercontent.com',
+            's.gravatar.com'
         ]
     }
 }
