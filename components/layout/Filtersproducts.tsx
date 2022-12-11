@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Product } from "app/types";
 import { getProducts } from "utils/dbFetching";
 import { useQuery } from "react-query";
+import { AiFillFilter } from "react-icons/ai";
 
 export type Props = {
   setData: (data: Product[]) => void;
@@ -146,80 +147,97 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
     setDataLocal(products);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
+
+  const onClick = ()=>{
+    const filters = document.querySelector('#filters')
+    filters?.classList.toggle('hidden')
+  }
+
   return (
-    <div className="w-64 h-auto p-5 rounded-lg bg-pwgreen-600 mt-2 mb-16 drop-shadow-lg shadow-lg shadow-pwpurple-200">
-      <form className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700 ">
-        <h2 className="mb-4 pl-2">Filtrar por Nombre</h2>
-        <input
-          type="text"
-          id="search"
-          placeholder="Buscar por Nombre"
-          className=" border-pwpurple-600 bg-pwpurple-600 p-1 text-sm w-[85%] placeholder:text-white
-          hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black rounded-xl block w-full p-2.5 pr-4 focus:border-solid focus:border-pwpurple-700 "
-          value={name}
-          onChange={handleInputChange}
-        />
-      </form>
-      <div className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-3.5 mt-4 mb-4 pl-8 shadow-md shadow-pwpurple-700">
-        <h2 className="mx-4">Ordenar por Precio</h2>
-        <button className="border-2 border-pwpurple-700 px-4 w-[30%] rounded-xl delay-100 hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black mt-4 mx-2 delay-200  hover:animate-pulse  hover:opacity-65" onClick={handleSortMax}>
-          ▲
-        </button>
-        <button className="border-2 border-pwpurple-700 px-4 w-[30%] rounded-xl delay-75 hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black mt-4 mx-4 delay-200  hover:animate-pulse   hover:opacity-65" onClick={handleSortMin}>
-          ▼
-        </button>
-      </div>
+    <div className="w-auto lg:top-5">
+      <div className="block lg:hidden ">
+          <button onClick={onClick} className="flex items-center px-3 py-2 border rounded text-pwgreen-500 border-pwgreen-500 hover:text-pwpurple-400 hover:border-pwpurple-400
+          hover:border-2
 
-      <div className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700">
-        <h2 className="text-white mb-4 pl-2">Filtrar por Categoria</h2>
-        <select
-          name="category"
-          onChange={(e) => handleOptions(e)}
-          className="bg-pwpurple-500 p-2.5 w-[75%] text-sm text-white border-2 border-pwpurple-700 rounded-2xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black "
-        >
-          {options.category === "" && <option value="">Categoria...</option>}
-          <option value="TOY">Juguete</option>
-          <option value="FOOD">Comida</option>
-          <option value="SNACK">Snack</option>
-          <option value="ACCESORIES">Accesorios</option>
-          <option value="HYGIENE">Higiene</option>
-          <option value="HEALTH">Salud</option>
-          <option value="OTHER">Otros</option>
-        </select>
+          hover:animate-pulse
+          ">
+          <svg className="fill-current h-3 w-3" viewBox="2 2 14 12" xmlns="http://www.w3.org/2000/svg"><title>Filter</title><path/><AiFillFilter size={18}/></svg>
+          </button>
       </div>
-      <div className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700">
-        <h2 className="text-white mb-4 pl-2">Filtrar por Tamaño</h2>
-        <select
-          name="size"
-          onChange={(e) => handleOptions(e)}
-          className="bg-pwpurple-500 p-2.5 w-[75%] text-sm text-white border-2 border-pwpurple-700 rounded-2xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black"
-        >
-          {options.size === "" && <option value="">Tamaño...</option>}
-          <option value="UNIQUE">Unico</option>
-          <option value="BIG">Grande</option>
-          <option value="MEDIUM">Mediano</option>
-          <option value="SMALL">Pequeño</option>
-        </select>
-      </div>
+      <div id='filters' className="hidden lg:relative lg:block w-auto h-auto px-4 py-1 rounded-lg bg-pwgreen-600 mt-2 mb-16 drop-shadow-lg shadow-lg shadow-pwpurple-200">
+        <form className="bg-pwpurple-500 border-2 text-center border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-auto py-2 mt-2 shadow-md shadow-pwpurple-700 ">
+          <h2 className="mb-2 pl-2">Filtrar por Nombre</h2>
+          <input
+            type="text"
+            id="search"
+            placeholder="Buscar por Nombre"
+            className=" border-pwpurple-600 bg-pwpurple-600 text-sm placeholder:text-white
+            hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black rounded-xl block w-auto py-1 text-center m-auto focus:border-solid focus:border-pwpurple-700 "
+            value={name}
+            onChange={handleInputChange}
+          />
+        </form>
+        <div className="bg-pwpurple-500 border-2 text-center border-pwpurple-600 text-white text-sm rounded-lg focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-auto p-2 mt-2 lg:mt-4 shadow-md shadow-pwpurple-700">
+          <h2 className="mb-2">Ordenar por Precio</h2>
+          <button className="border-2 border-pwpurple-700 w-[40%] rounded-xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black delay-200 hover:animate-pulse hover:opacity-65" onClick={handleSortMax}>
+            ▲
+          </button>
+          <button className="border-2 border-pwpurple-700 w-[40%] rounded-xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black delay-200 hover:animate-pulse hover:opacity-65" onClick={handleSortMin}>
+            ▼
+          </button>
+        </div>
 
-      <form className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-full p-2.5 mt-4 pl-8 shadow-md shadow-pwpurple-700">
-        <h2 className="text-white mb-4 pl-2">Filtrar por Precio</h2>
-        <input
-          name="price"
-          type="text"
-          id="price"
-          placeholder="Precio Maximo"
-          className="border-pwpurple-600 bg-pwpurple-600 p-1 text-sm w-[85%] placeholder:text-white
-          hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black rounded-xl block w-full p-2.5 pr-4 focus:border-solid focus:border-pwpurple-700 "
-          value={options.price ? options.price : ""}
-          onChange={(e) => handleOptions(e)}
-        />
-      </form>
+        <div className="bg-pwpurple-500 border-2 py-2 text-center border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-auto mt-2 lg:mt-4 shadow-md shadow-pwpurple-700">
+          <h2 className="text-white mb-2">Filtrar por Categoria</h2>
+          <select
+            name="category"
+            onChange={(e) => handleOptions(e)}
+            className="bg-pwpurple-500 py-1 px-2 w-auto text-sm text-white border-2 border-pwpurple-700 rounded-2xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black "
+          >
+            {options.category === "" && <option value="">Categoria...</option>}
+            <option value="TOY">Juguete</option>
+            <option value="FOOD">Comida</option>
+            <option value="SNACK">Snack</option>
+            <option value="ACCESORIES">Accesorios</option>
+            <option value="HYGIENE">Higiene</option>
+            <option value="HEALTH">Salud</option>
+            <option value="OTHER">Otros</option>
+          </select>
+        </div>
+        <div className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm text-center rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-auto py-2 mt-2 lg:mt-4 shadow-md shadow-pwpurple-700">
+          <h2 className="text-white mb-2">Filtrar por Tamaño</h2>
+          <select
+            name="size"
+            onChange={(e) => handleOptions(e)}
+            className="bg-pwpurple-500 py-1 px-2.5 w-auto text-sm text-white border-2 border-pwpurple-700 rounded-2xl hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black"
+          >
+            {options.size === "" && <option value="">Tamaño...</option>}
+            <option value="UNIQUE">Unico</option>
+            <option value="BIG">Grande</option>
+            <option value="MEDIUM">Mediano</option>
+            <option value="SMALL">Pequeño</option>
+          </select>
+        </div>
 
-      <div>
-        <button className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-[50%] p-2.5 ml-12 mt-8 shadow-md shadow-pwpurple-700 delay-200  hover:animate-bounce   hover:opacity-65" onClick={handleReset}>
-          Reiniciar
-        </button>
+        <form className="bg-pwpurple-500 border-2 border-pwpurple-600 text-white text-sm text-center rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-auto py-2 mt-2 lg:mt-4 shadow-md shadow-pwpurple-700">
+          <h2 className="text-white mb-2">Filtrar por Precio</h2>
+          <input
+            name="price"
+            type="text"
+            id="price"
+            placeholder="Precio Maximo"
+            className="border-pwpurple-600 bg-pwpurple-600 text-sm w-auto placeholder:text-white
+            hover:border-pwpurple-100 hover:shadow-sm hover:shadow-black rounded-xl block my-0 mx-auto py-1 px-2 text-center focus:border-solid focus:border-pwpurple-700 "
+            value={options.price ? options.price : ""}
+            onChange={(e) => handleOptions(e)}
+          />
+        </form>
+
+        <div className="pb-1 lg:pb-3">
+          <button className="bg-pwpurple-500 border-2 border-pwpurple-600 m-auto text-white text-sm rounded-xl focus:ring-pwpurple-700 focus:border-pwpurple-700 block w-auto p-2 mt-2 lg:mt-4 shadow-md shadow-pwpurple-700 delay-200  hover:animate-bounce   hover:opacity-65" onClick={handleReset}>
+            Reiniciar
+          </button>
+        </div>
       </div>
     </div>
   );

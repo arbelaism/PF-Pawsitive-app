@@ -107,13 +107,6 @@ const Adoptions: NextPage = () => {
             </div>
 
             <div className="flex">
-                <div className="w-64">
-                    <Filters
-                        setData={setData}
-                        data={data}
-                        setCurrentPage={setCurrentPage}
-                    />
-                </div>
                 <div className="flex grow flex-col justify-center items-center bg-transparent">
                     {!isLoading && currentItems ? (
                         <AlternativePagination
@@ -154,7 +147,15 @@ const Adoptions: NextPage = () => {
                         )}
                     </div>
                 </div>
+                <div className="w-auto ml-4 fixed left-0 top-[20%] lg:sticky lg:right-10 lg:top-10">
+                    <Filters
+                        setData={setData}
+                        data={data}
+                        setCurrentPage={setCurrentPage}
+                    />
+                </div>
             </div>
+            
         </MainLayout>
     )
 }

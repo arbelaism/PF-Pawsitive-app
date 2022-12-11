@@ -83,17 +83,11 @@ const Products: NextPage = () => {
 
     return (
         <MainLayout title="Pawsitive - Productos">
-            <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100">
+            <div className="px-4 py-2 w-full flex justify-between items-center bg-transparent">
                 <h1 className="text-3xl font-bold p-4 bg-pwpurple-50 rounded-xl border-pwgreen-700 shadow-xl lg:text-5xl">Productos</h1>
             </div>
             <div className="flex">
-                <div className="w-64">
-                    <Filtersproducts
-                        setData={setData}
-                        setCurrentPage={setCurrentPage}
-                    />
-                </div>
-                <div className="flex grow flex-col justify-center items-center bg-pwgreen-100">
+                <div className="flex grow flex-col justify-center items-center bg-transparent">
                     {!isLoading && currentItems ? (
                         <AlternativePagination
                             totalItems={(data ? data : products)?.length}
@@ -101,7 +95,7 @@ const Products: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="flex flex-wrap justify-center items-center bg-pwgreen-100">
+                    <div className="flex flex-wrap justify-center items-center bg-transparent">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (
@@ -129,6 +123,12 @@ const Products: NextPage = () => {
                             })
                         )}
                     </div>
+                </div>
+                <div className="w-auto ml-4 fixed left-1 top-[20%] lg:sticky lg:right-10 lg:top-10">
+                    <Filtersproducts
+                        setData={setData}
+                        setCurrentPage={setCurrentPage}
+                    />
                 </div>
             </div>
         </MainLayout>

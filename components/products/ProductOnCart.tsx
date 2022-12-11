@@ -11,27 +11,26 @@ type Props = {
 const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
     
   return (
-    <div className={styles.body}>
-        <div className={styles.image}>
+    <div className='grid grid-cols-6 items-center text-center'>
+        <div>
         <Image
                     src={product.photo}
                     alt="No image to display"
-                    width={90}
-                    height={65}
-                    className={styles.cardImage}
+                    width='60%'
+                    height='50%'
                 />
         </div>
         <p>{product.name}</p>        
         <p>${product.price}</p>
         <p>{product.amount}</p>
         
-        <div className={styles.buttons}>
-            <button          
+        <div className="w-auto text-md flex justify-center flex-col lg:flex-row">
+            <button className="w-auto h-auto bg-transparent border border-black rounded-md py-0 px-1 lg:mr-2"        
             onClick={() => removeFromCart(product.id)}
             >
             -
             </button>            
-            <button
+            <button className="w-auto h-auto bg-transparent border border-black rounded-md py-0 px-1"
             disabled={product.stock<=1 && true}    
             onClick={() => addToCart(product)}
             >
