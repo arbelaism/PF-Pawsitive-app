@@ -161,7 +161,7 @@ export interface Users {
   active:       boolean;
   createdAt:    string;
   updatedAt:    string;
-  businessPost: BusinessPost[];
+  businessPost?: BusinessPost[];
 }
 
 export interface BusinessPost {

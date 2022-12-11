@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AdoptFormInput, ContactForm, CheckIn, IUserForm,Users, ReviewFormInput } from "app/types";
+import { AdoptFormInput, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput } from "app/types";
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
@@ -37,17 +37,19 @@ export const getProductById = async (id: string) => {
 };
 
 export const getTransactionByUserId = async (id: string) => {
-  const response = await axios.get("/api/transaction/"+id);
+  const response = await axios.get("/api/transaction/" + id);
   const user = await response.data;
 
   if (!user) throw new Error("Data not found");
   return user;
 };
 
-export const getProductsByCategory = async (foodCategory: string) => {  
-  const response = await axios.get("/api/product/", { params:{
-    categoria : foodCategory
-  } } );
+export const getProductsByCategory = async (foodCategory: string) => {
+  const response = await axios.get("/api/product/", {
+    params: {
+      categoria: foodCategory
+    }
+  });
 
   const products = await response.data;
 
@@ -118,20 +120,27 @@ export const getUsers = async () => {
   return users;
 };
 export const putUsers = async (id: string, data: Object) => {
-  console.log('bd',id,data)
- 
+  console.log('bd', id, data)
+
   const response = await axios.put(`/api/user/${id}`, data);
 
-  if (!response) { 
+  if (!response) {
     throw new Error("Data not found");
   }
   return response;
 };
 
 export const registerUser = async (data: IUserForm) => {
-    const newUser = await axios
-        .post('/api/auth/register', data)
-        .catch(error => console.log(error))
-    return newUser
+  const newUser = await axios
+    .post('/api/auth/register', data)
+    .catch(error => console.log(error))
+  return newUser
+}
+export const createUser = async (data: Users) => {
+  console.log(data)
+  const newUser = await axios
+    .post('/api/user', data)
+    .catch(error => console.log(error))
+  return newUser
 }
 
