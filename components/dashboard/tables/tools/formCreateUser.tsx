@@ -1,9 +1,29 @@
 import React, { useState } from 'react'
 import { alerts } from 'utils/alerts';
-import { useMutation, useQueryClient } from 'react-query';
-import { createUser, getUsers } from 'utils/dbFetching';
+// import { useMutation, useQuery, useQueryClient } from 'react-query';
+// import { useGetUserById, getUsers } from 'utils/dbFetching';
+
+interface FormEstructure {
+  firstName: string,
+  lastName: string,
+  email: string,
+  gender: string,
+  birthday: string,
+  address: string,
+  phone: string,
+  city: string,
+  province: string,
+  postCode: string,
+  photo: string,
+  role: string,
+  active: boolean
+}
+
+
 
 const FormCreateUser = (mutationCreate: any) => {
+
+
   const formEstructure = {
     firstName: '',
     lastName: '',
@@ -19,16 +39,15 @@ const FormCreateUser = (mutationCreate: any) => {
     role: 'BASIC',
     active: true
   }
-  const [form, setForm] = useState({ ...formEstructure })
-
+ 
   //Manejar form
+
+  const [form, setForm] = useState<FormEstructure>({ ...formEstructure })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     e.preventDefault()
     const name = e.target.name as string
     const value = e.target.value as string
-
-
     if (name === 'active' && value === "true") setForm({ ...form, [name]: true })
     if (name === 'active' && value === "false") setForm({ ...form, [name]: false })
     if (name === 'birthday') setForm({ ...form, [name]: value.toString() })
@@ -38,15 +57,18 @@ const FormCreateUser = (mutationCreate: any) => {
   }
 
   //Collapse/Expand Form
+
   const [condition, setCondition] = useState(false)
+
 
   function toggleCondition(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     if (condition === false) setForm({ ...formEstructure })
     setCondition(!condition)
   }
+
   //Submit Form
- 
+
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     if (form.lastName && form.firstName && form.email) {
@@ -67,6 +89,9 @@ const FormCreateUser = (mutationCreate: any) => {
       toast: true
     })
   }
+
+
+
   return (
     <div className=' w-3/4'>
 
