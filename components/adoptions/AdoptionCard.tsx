@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import LinkAdoption from './LinkAdoption'
-import placeholder from "public/256px-Black_Paw.svg.png"
+import placeholder from "public/iso-green.svg"
 type Adoption = {
     id: string
     name: string

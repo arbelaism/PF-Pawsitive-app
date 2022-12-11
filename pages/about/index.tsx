@@ -1,7 +1,6 @@
 import React from 'react'
 import { MainLayout } from 'components'
 import Image from 'next/image'
-import styles from 'styles/About.module.css'
 import placeholder from 'public/placeholder.jpg'
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai'
 
