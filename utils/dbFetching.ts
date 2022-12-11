@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AdoptFormInput, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput } from "app/types";
+import { useQuery } from 'react-query';
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
@@ -144,3 +145,14 @@ export const createUser = async (data: Users) => {
   return newUser
 }
 
+export const getUserById = async (id: string) => {
+  const response = await axios.get(
+    `/api/user/${id}`
+  );
+  const user = await response.data;
+  if (!user) throw new Error("Data not found");
+  return user;
+};
+export const useGetUserById =(id:any)=>{
+  return useQuery(['user' , id],()=> getUserById(id),{enabled:( typeof id === "string")})
+}
