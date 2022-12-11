@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import { getUsers, putUsers } from 'utils/dbFetching';
+import { getUsers, putUsers,createUser } from 'utils/dbFetching';
 import { Users } from 'app/types'
 import { useSortableData, useSearchData, FormCreateUser } from '../tools'; //sort function
 import Image from 'next/image';
 import AlternativePagination from 'components/layout/AlternativePagination'
+import { alerts } from 'utils/alerts';
 
 interface Data {
   id: string,
@@ -26,6 +27,13 @@ const TableUser = () => {
   const queryClient = useQueryClient()
   const mutation = useMutation(({ id, data }: any) => putUsers(id, data), {
     onSuccess: () => {
+      queryClient.prefetchQuery("users", getUsers)
+    }
+  })
+
+  const mutationCreate = useMutation((data: any) => createUser(data), {
+    onSuccess: () => {
+      
       queryClient.prefetchQuery("users", getUsers)
     }
   })
@@ -92,7 +100,7 @@ const TableUser = () => {
   return (
     <div className='w-full'>
       <div className='container mx-auto'>
-        <FormCreateUser />
+        <FormCreateUser {...mutationCreate} />
       </div>
       <div className='flex flex-row justify-around w-full'>
         {!isLoading && currentItems ? (
@@ -200,7 +208,7 @@ const TableUser = () => {
                         alt={u.lastName || "no image"}
                         width={100}
                         height={100}
-                      /> :  <span className='text-center ml-2 font-semibold'>No image</span>}
+                      /> : <span className='text-center ml-2 font-semibold'>No image</span>}
                   </div>
                   <div className='flex flex-col items-center content-center' >
                     <button
@@ -220,7 +228,7 @@ const TableUser = () => {
                     </button>
                     <span className='text-center text-ellipsis overflow-hidden ml-2 font-semibold'>
                       {u.id}
-                      </span>
+                    </span>
                   </div>
 
 

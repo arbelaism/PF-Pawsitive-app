@@ -1,9 +1,9 @@
-import { E } from 'chart.js/dist/chunks/helpers.core';
 import React, { useState } from 'react'
+import { alerts } from 'utils/alerts';
 import { useMutation, useQueryClient } from 'react-query';
 import { createUser, getUsers } from 'utils/dbFetching';
 
-const FormCreateUser = () => {
+const FormCreateUser = (mutationCreate: any) => {
   const formEstructure = {
     firstName: '',
     lastName: '',
@@ -46,20 +46,26 @@ const FormCreateUser = () => {
     setCondition(!condition)
   }
   //Submit Form
-  // const [enable, setEnable] = useState(false)
-
-
-  const queryClient = useQueryClient()
-  const mutation = useMutation((data: any) => createUser(data), {
-    onSuccess: () => {
-      queryClient.prefetchQuery("users", getUsers)
-    }
-  })
+ 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-    if (form.firstName && form.lastName && form.email && form.address && form.phone)
-      mutation.mutate(form)
-    else return
+    if (form.lastName && form.firstName && form.email) {
+      setCondition(!condition)
+      mutationCreate.mutate(form)
+      return alerts({
+        icon: 'info',
+        title: '<strong>Se registro el Usuario Exitosamente </strong>',
+        text: 'Registered User',
+        toast: true
+      })
+    }
+
+    else return alerts({
+      icon: 'error',
+      title: '<strong>Falta completar datos</strong>',
+      text: "Can't Register User",
+      toast: true
+    })
   }
   return (
     <div className=' w-3/4'>
