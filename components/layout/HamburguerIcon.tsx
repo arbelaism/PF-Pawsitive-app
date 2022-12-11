@@ -8,7 +8,7 @@ const HamburguerIcon = () => {
 
         if (!leftNav) return
         if (leftNav.style.left === '0px') {
-            leftNav.style.left = '-13rem'
+            leftNav.style.left = '-15rem'
             setIsOpen(false)
             return
         }
