@@ -17,9 +17,9 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="bg-pwgreen-100" >
+            <div className="bg-pwgreen-100 h-full" >
             <Navbar />
-            <main className='max-w-7xl mx-auto'>{children}</main>
+            <main className='max-w-7xl mx-auto h-full'>{children}</main>
             <Footer />
             </div>
         </>

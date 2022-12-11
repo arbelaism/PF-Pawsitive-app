@@ -4,7 +4,6 @@ import { useState, useEffect} from 'react';
 import { MainLayout} from 'components';
 import ModalPayment from 'components/products/payments/ModalPayment';
 import ProductOnCart from 'components/products/ProductOnCart'
-import styles from 'styles/ShoppingCart.module.css'
 import useLocalStorage from 'use-local-storage';
 import Image from 'next/image';
 import EmptyCart from "public/xempty-cart.png"
@@ -89,24 +88,24 @@ const Cart : NextPage = withPageAuthRequired(() => {
     
     return (
         <MainLayout title="Pawsitive - Carrito">
-            <div className={styles.cartContainer}>
+            <div className='flex items-center flex-col  p-auto mt-8 h-screen rounded-xl'>
                 <h1 className="text-3xl font-bold">Carrito de compras</h1>
                 <br />
-                <div className={styles.container}>
+                <div className='w-full p-4 text-center'>
                     {cartProducts.length === 0 ? (
                         <Image
                             src={EmptyCart}
                             alt="not found"
                         />
                     ) : (
-                        <div className="body">
-                            <div className={styles.header}>
-                                <div>Imagen</div>
-                                <div>Producto</div>
-                                <div>Precio unitario</div>
-                                <div>Cantidad</div>
-                                <div>Agregar/Remover</div>
-                                <div>Precio total producto</div>
+                        <div className="grid grid-flow-row items-center text-center rounded-xl border-2 border-black">
+                            <div className='grid grid-cols-6 mt-4 justify-between'>
+                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Imagen</div>
+                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Producto</div>
+                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Precio unitario</div>
+                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Cantidad</div>
+                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Agregar/Remover</div>
+                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Precio total producto</div>
                             </div>
                             {cartProducts.map((product: Product) => (
                                 <ProductOnCart
@@ -119,12 +118,11 @@ const Cart : NextPage = withPageAuthRequired(() => {
                         </div>
                     )}
                     <hr />
-                    <div className={styles.total}>
-                        <h3>Total compra: $ </h3>
-                        <h3>{getTotalPrice()}</h3>
+                    <div className='flex justify-between text-sm font-bold border-2 border-black w-auto px-8'>
+                        <h3 className='text-md lg:text-lg'>Total compra: $ </h3>
+                        <h3 className='text-md lg:text-lg'>{getTotalPrice()}</h3>
                     </div>
-                    <ModalPayment price={priceToPay} />
-                    {/* <button className={styles.paybutton}>Pagar</button>                                                */}
+                    <ModalPayment price={priceToPay} />                                            
                 </div>
             </div>
         </MainLayout>

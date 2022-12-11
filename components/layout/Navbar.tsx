@@ -91,7 +91,7 @@ const Navbar: NextComponentType = () => {
           </div>
           <div
               id="menu"
-              className="w-full block  justify-between font-medium lg:flex lg:items-center lg:w-auto">
+              className="w-full hidden  justify-between font-medium lg:flex lg:items-center lg:w-auto">
               <div>
                   <Link href={'/'}>
                       <a
@@ -133,7 +133,7 @@ const Navbar: NextComponentType = () => {
               </div>
           </div>
           <div
-              className="block mr-4 mt-4 lg:flex lg:flex-row lg:mt-1"
+              className="hidden mr-4 mt-4 lg:flex lg:flex-row lg:mt-1"
               id="menu-cart">
               <div className="my-2 mr-4 lg:my-0">
                   <Link href={'/shoppingCart'}>

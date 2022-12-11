@@ -13,7 +13,7 @@ type Adoption = {
 
 const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
     return (
-        <div className="flex flex-col justify-between items-center m-5 bg-white shadow-2xl rounded-xl w-60 h-auto " key={id}>
+        <div className="flex flex-col justify-between w-3/4 py-4 px-6 items-center m-5 bg-white shadow-2xl rounded-xl lg:w-60 lg:p-0 h-auto " key={id}>
             <div className='h-1/8'>
                 <Image
                     src={photo ? photo : placeholder}
@@ -22,8 +22,8 @@ const AdoptionCard = ({id, name, size, age, breed, photo }: Adoption) => {
                     height='30%'
                     layout='responsive'
                     objectFit='cover'
-                    className="rounded-full"
-                    loading='lazy'
+                    objectPosition={'static'}
+                    className="rounded-full static"
                 />
                 <h2 className="text-gray-900 font-Rubik text-xl font-medium capitalize">{name}</h2>
                 <p className="text-gray-900 font-Rubik">Tamaño: {size}</p>

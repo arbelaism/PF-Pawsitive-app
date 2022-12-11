@@ -4,16 +4,7 @@ import styles from "styles/Footer.module.css";
 import { BsGithub } from "react-icons/bs";
 
 const Footer: NextComponentType = () => {
-    // .icons a {
-    //     background-color: rgb(255, 255, 121);
-    //     padding: 10px;
-    //     font-size: 20px;
-    //     font-weight: bolder;
-    //     border-radius: 100%;
-    //     display: flex;
-    //     transition: color 0.5s ease-in-out;
-    // }
-
+   
   return (
     <>
       <footer className="w-[100%] text-center text-pwgreen-50 bg-pwgreen-500 sticky left-0 bottom-0">
@@ -29,7 +20,7 @@ const Footer: NextComponentType = () => {
           <div className="capitalize text-pwgreen-50 w-[45%]">
             <p>@ Copyright 2022 Pawsitive App. Todos los derechos reservados</p>
           </div>
-          <div className="flex justify-end items-center w-[20%] p-4">
+          <div className="flex justify-end items-center w-[20%] py-2 lg:p-4">
             <ul className="text-pwgreen-50 capitalize flex flex-col lg:flex-row lg:gap-4">
               <li className="hover:text-pwpurple-700 ease-in duration-200 lg:hover:font-bold ">
                 <Link href={"/contact"}>
