@@ -5,7 +5,6 @@ import { Users } from 'app/types'
 import { useSortableData, useSearchData, FormCreateUser } from '../tools'; //sort function
 import Image from 'next/image';
 import AlternativePagination from 'components/layout/AlternativePagination'
-import { alerts } from 'utils/alerts';
 
 interface Data {
   id: string,
@@ -105,7 +104,7 @@ const TableUser = () => {
       <div className='flex flex-row justify-around w-full'>
         {!isLoading && currentItems ? (
           <AlternativePagination
-            totalItems={(items ? items : users)?.length}
+            totalItems={(filteredData ? filteredData : users)?.length}
             itemsPerPage={itemsPerPage}
             setCurrentPage={setCurrentPage}
           />
