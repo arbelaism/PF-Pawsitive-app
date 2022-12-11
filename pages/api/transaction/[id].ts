@@ -20,6 +20,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                                 quantity: true,
                                 product: {
                                     select: {
+                                        id: true,
                                         name: true,
                                         category: true,
                                         brand: true,

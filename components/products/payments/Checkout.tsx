@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { CheckIn, Product } from 'app/types';
 import useLocalStorage from 'use-local-storage';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { checkEmail } from 'utils/checkEmail';
 
 const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -76,9 +77,9 @@ const Checkout  = ({price, setOpen}:Props)=>{
             setMessage(message)
             
             if (user?.name && user.nickname && user.sub){
-              let email: string = ""
-              if(/google/gi.test(user?.sub)){
-                email=`${user?.nickname}@gmail.com`
+              let email: string = checkEmail(user.sub, user.nickname)
+              if(email && email === 'auth0') {
+                email= user.name
               }
               let paymentData: CheckIn = {
               name: user!.name,

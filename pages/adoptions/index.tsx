@@ -41,7 +41,7 @@ const Adoptions: NextPage = () => {
         <MainLayout title="Pawsitive - Adopciones">
             <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100 mt-4">
                 <h1 className="text-3xl font-bold p-4 bg-pwpurple-50 rounded-xl border-pwgreen-700 shadow-xl lg:text-5xl">Adopciones</h1>
-                <Link href={'/create'}>
+                <Link href={'/adoptions/create'}>
                 <a
             href="#"
             className="inline-flex justify-center items-center p-5 text-base font-medium text-white bg-pwgreen-700 rounded-lg hover:text-white hover:bg-pwpurple-800 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"

@@ -34,7 +34,9 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // POST(CREATE) THE REVIEW
 
         case "POST":
-            const { rating, review, productId, userId } = req.body;
+            const { review, productId, userId } = req.body;
+            const rating = parseInt(req.body.rating)
+            
             try {
                 const newReview = await prisma.review.create({
                     data: {
@@ -50,7 +52,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                     res.status(400).json({ message: "could not create review" })
 
             } catch (error) {
-                res.status(400).json({ message: "Error" })
+                res.status(400).json(error)                
             }
             break;
         default:

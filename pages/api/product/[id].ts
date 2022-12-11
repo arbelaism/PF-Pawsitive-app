@@ -17,7 +17,17 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                             id: id.toString()
                         },
                         include: {
-                            review: true,
+                            review: {
+                                include:{
+                                    user: {
+                                        select: {
+                                            id: true,
+                                            firstName: true,
+                                            lastName: true
+                                        }
+                                    }
+                                }
+                            },
                         }
                     })
                     res.status(200).json(item)
