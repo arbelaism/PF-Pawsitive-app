@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getUsers, putUsers } from 'utils/dbFetching';
 import { Users } from 'app/types'
-import { useSortableData, useSearchData,FormCreateUser } from '../tools'; //sort function
+import { useSortableData, useSearchData, FormCreateUser } from '../tools'; //sort function
 import Image from 'next/image';
 import AlternativePagination from 'components/layout/AlternativePagination'
 
@@ -66,14 +66,12 @@ const TableUser = () => {
   function toggleExpander(e: any) {
     // e.preventDefault()
     const key = e as string
-    console.log(key)
     if (key !== rowExpande) {
       setRowExpande(key)
     } else { setRowExpande(null) }
   }
 
   // Searach Values
-
   const [searchVal, setSearchVal] = React.useState(null);
 
   const { filteredData, loading } = useSearchData({
@@ -94,7 +92,7 @@ const TableUser = () => {
   return (
     <div className='w-full'>
       <div className='container mx-auto'>
-     <FormCreateUser />
+        <FormCreateUser />
       </div>
       <div className='flex flex-row justify-around w-full'>
         {!isLoading && currentItems ? (
@@ -107,7 +105,7 @@ const TableUser = () => {
         <form>
           <div className="relative w-full">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
             <input type="search" id="search" className="block w-full p-4 pl-10 text-sm text-gray-900 border bg-gray-50 border-pwpurple-300 rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500"
               placeholder="Search"
@@ -195,14 +193,14 @@ const TableUser = () => {
 
               <tr key={u.id} className='bg-pawgreen-50 text-center'>
                 <td className='px-16 py-2 flex flex-col items-center'>
-
                   <div>
-                    <Image
-                      src={u.photo || "#"}
-                      alt={u.id}
-                      width={100}
-                      height={100}
-                    />
+                    {u.photo.length ?
+                      <Image
+                        src={u.photo}
+                        alt={u.lastName || "no image"}
+                        width={100}
+                        height={100}
+                      /> :  <span className='text-center ml-2 font-semibold'>No image</span>}
                   </div>
                   <div className='flex flex-col items-center content-center' >
                     <button
@@ -213,14 +211,16 @@ const TableUser = () => {
                     >
                       {rowExpande === u.id
                         ? <span className='text-pwgreen-50'>
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
                         </span>
                         : <span className='text-pwgreen-50'>
-                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
                         </span>
                       }
                     </button>
-                    <span className='text-center ml-2 font-semibold'>{u.id}</span>
+                    <span className='text-center text-ellipsis overflow-hidden ml-2 font-semibold'>
+                      {u.id}
+                      </span>
                   </div>
 
 
@@ -231,16 +231,36 @@ const TableUser = () => {
                 <td className='px-5 py-2'>{u.gender || "No hay Datos"}</td>
                 <td className='px-5 py-2'>{u.birthday || "No hay Datos"}</td>
                 <td className='px-5 py-2'>
-                  <select className='bg-gray-50 border border-pwpurple-300 text-gray-900 text-xs rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500 block w-full p-2.5' name="role" id={u.id} value={u.role} onChange={handleRoleChange} >
+                  <select
+                    className='bg-gray-50 border border-pwpurple-300 text-gray-900 text-xs rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500 block w-full p-2.5'
+                    name="role"
+                    value={u.role}
+                    onChange={handleRoleChange}
+                  >
                     <option value="BASIC">BASICO</option>
                     <option value="PROFESSIONAL">PROFESIONAL</option>
                     <option value="ADMIN">ADMINISTRADOR</option>
                   </select>
                 </td>
                 <td className='px-5 py-2'>
-                  <select className='bg-gray-50 border border-pwpurple-300 text-gray-900 text-xs rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500 block w-full p-2.5    ' name="active" id={u.id} value={u.active.toString()} onChange={(e) => handleActiveChange(e)} >
-                    <option value="true" className='bg-pwgreen-500 text-pwgreen-50 font-bold' >ACTIVO</option>
-                    <option value="false" className='bg-pwpurple-500 text-pwpurple-50 font-bold'>DESACTIVADO</option>
+                  <select
+                    className='bg-gray-50 border border-pwpurple-300 text-gray-900 text-xs rounded-lg focus:ring-pwpurple-500 focus:border-pwpurple-500 block w-full p-2.5    '
+                    name="active"
+                    value={u.active.toString()}
+                    onChange={(e) => handleActiveChange(e)}
+                  >
+                    <option
+                      value="true"
+                      className='bg-pwgreen-500 text-pwgreen-50 font-bold'
+                    >
+                      ACTIVO
+                    </option>
+                    <option
+                      value="false"
+                      className='bg-pwpurple-500 text-pwpurple-50 font-bold'
+                    >
+                      DESACTIVADO
+                    </option>
                   </select>
                 </td>
                 <td className='px-5 py-2'>{u.createdAt}</td>
@@ -248,7 +268,7 @@ const TableUser = () => {
               {(rowExpande === u.id)
                 ?
                 <>
-                  <tr className='bg-pwgreen-800 text-base font-bold'>
+                  <tr key={u.email} className='bg-pwgreen-800 text-base font-bold'>
                     <th className='px-5 py-2 '>
                       <span className='text-pwgreen-50'>
                         PROVINCIA
@@ -275,7 +295,7 @@ const TableUser = () => {
                       </span>
                     </th>
                   </tr>
-                  <tr>
+                  <tr key={u.createdAt}>
 
                     <td className='px-5 py-2'>{u.province || "No hay Datos"}</td>
                     <td className='px-5 py-2'>{u.city || "No hay Datos"}</td>
@@ -284,9 +304,6 @@ const TableUser = () => {
                     <td className='px-5 py-2'>{u.postCode || "No hay Datos"}</td>
 
                   </tr>
-
-
-
                 </>
 
                 : null

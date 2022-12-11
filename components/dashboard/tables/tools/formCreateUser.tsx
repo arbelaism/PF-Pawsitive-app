@@ -1,9 +1,10 @@
+import { E } from 'chart.js/dist/chunks/helpers.core';
 import React, { useState } from 'react'
-import { Users } from 'app/types'
-
+import { useMutation, useQueryClient } from 'react-query';
+import { createUser, getUsers } from 'utils/dbFetching';
 
 const FormCreateUser = () => {
-  const [form, setForm] = useState({
+  const formEstructure = {
     firstName: '',
     lastName: '',
     email: '',
@@ -17,10 +18,8 @@ const FormCreateUser = () => {
     photo: '',
     role: 'BASIC',
     active: true
-
-  })
-  console.log(form)
-
+  }
+  const [form, setForm] = useState({ ...formEstructure })
 
   //Manejar form
 
@@ -33,9 +32,9 @@ const FormCreateUser = () => {
     if (name === 'active' && value === "true") setForm({ ...form, [name]: true })
     if (name === 'active' && value === "false") setForm({ ...form, [name]: false })
     if (name === 'birthday') setForm({ ...form, [name]: value.toString() })
-    if (name && value) {
+    else {
       setForm({ ...form, [name]: value })
-    } else return
+    }
   }
 
   //Collapse/Expand Form
@@ -43,20 +42,35 @@ const FormCreateUser = () => {
 
   function toggleCondition(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
+    if (condition === false) setForm({ ...formEstructure })
     setCondition(!condition)
   }
+  //Submit Form
+  // const [enable, setEnable] = useState(false)
 
 
+  const queryClient = useQueryClient()
+  const mutation = useMutation((data: any) => createUser(data), {
+    onSuccess: () => {
+      queryClient.prefetchQuery("users", getUsers)
+    }
+  })
+  function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault()
+    if (form.firstName && form.lastName && form.email && form.address && form.phone)
+      mutation.mutate(form)
+    else return
+  }
   return (
     <div className=' w-3/4'>
 
       <div className='container mx-auto flex justify-between py-5 border-b'>
         <div className='left flex gap-3'>
-          <button 
-          className='text-center inline-flex items-center mr-2 w-full p-2 focus:outline-none border-4 bg-pwgreen-800 border-pwpurple-600 text-white hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg'
-          onClick={toggleCondition}
+          <button
+            className='text-center inline-flex items-center mr-2 w-full p-2 focus:outline-none border-4 bg-pwgreen-800 border-pwpurple-600 text-white hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg'
+            onClick={toggleCondition}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
             Agregar Usuario
           </button>
 
@@ -310,7 +324,8 @@ const FormCreateUser = () => {
 
           <button
             className='w-full p-2 focus:outline-none border-4 bg-pwgreen-800 border-pwpurple-600 text-white hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg'
-            type='submit'>
+            type='submit'
+            onClick={handleSubmit}>
             Registrar
           </button>
         </form>)
