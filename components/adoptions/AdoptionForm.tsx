@@ -1,12 +1,12 @@
 import { NextComponentType } from "next";
 import { useForm, SubmitHandler } from "react-hook-form";
-import styles from "styles/AdoptionForm.module.css";
 import React, { useState } from "react";
 import { mediaUploader } from "utils/mediaUploader";
 import { useMutation, useQueryClient } from "react-query";
 import { createPost } from "utils/dbFetching"
 import { AdoptFormInput } from "app/types";
 import { useRouter } from "next/router"
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const AdoptionForm: NextComponentType = () => {
   const {
@@ -22,6 +22,7 @@ const AdoptionForm: NextComponentType = () => {
         queryClient.invalidateQueries("adoptions")
     }
   })
+  const {user, error: errorU, isLoading: isLoadingU} = useUser()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -41,7 +42,7 @@ const AdoptionForm: NextComponentType = () => {
         photo : urlPhoto ? urlPhoto[0] : null,
         active: true,
         age: data.age + " " + data.monthOrYear,
-        userId: "1",
+        userId: user?.sub as string,
     }
     mutate(data)
     router.push("/adoptions")   
@@ -52,21 +53,21 @@ const AdoptionForm: NextComponentType = () => {
     <>
       <form
         name="adopt"
-        className={styles.formContainer}
+        className='m-auto flex flex-col justify-around content-around rounded-lg items-center text-pwpurple-900 bg-pwgreen-500 p-5 w-fit my-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="block uppercase tracking-wide text-gray-700 text-s font-bold mb-">
+        <h2 className="block uppercase tracking-wide text-pwpurple-700 text-m font-bold my-4">
           Detalles de la publicacion de adopcion
         </h2>
-        <div className={styles.firstLine}>
+        <div className='m-auto flex flex-row justify-around content-around items-center w-full'>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-">
+            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
               *Nombre:
             </label>
             <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
               id="name"
-              placeholder="Name"
+              placeholder="Nombre"
               {...register("name", { required: true, maxLength: 20 })}
             />
             {(errors.name?.type === "required" && (
@@ -81,11 +82,11 @@ const AdoptionForm: NextComponentType = () => {
               ))}
           </div>
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-">
+            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
               *Tamaño:
             </label>
             <select
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
               id="size"
               placeholder="Size"
               {...register("size", { required: true })}
@@ -101,15 +102,15 @@ const AdoptionForm: NextComponentType = () => {
             )}
           </div>
         </div>
-        <div className={styles.firstLine}>
+        <div className='m-auto flex flex-row justify-around content-around items-center w-full'>
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
               *Edad:
             </label>
             <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
               id="age"
-              placeholder="Age"
+              placeholder="Edad"
               type="number"
               {...register("age", { required: true, min: 0, max: 50 })}
             />
@@ -129,7 +130,7 @@ const AdoptionForm: NextComponentType = () => {
           </div>
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <br />
-            <input
+            <input              
               type="radio"
               id="months"
               value="meses"
@@ -137,7 +138,7 @@ const AdoptionForm: NextComponentType = () => {
               {...register("monthOrYear")}
             />{" "}
             Meses <br />
-            <input
+            <input              
               type="radio"
               id="years"
               value="años"
@@ -146,13 +147,13 @@ const AdoptionForm: NextComponentType = () => {
             Años <br />
           </div>
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
               *Especie:
             </label>
             <select
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
               id="breed"
-              placeholder="Breed"
+              placeholder="Especie"
               {...register("breed", { required: true, maxLength: 20 })}
             >
               <option value="perro">Perro</option>
@@ -174,19 +175,18 @@ const AdoptionForm: NextComponentType = () => {
               ))}
           </div>
         </div>
-        <div className="mb-6">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        <div className="my-6">
+          <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
             Descripcion:
           </label>
-          <input
+          <textarea
             {...register("description")}
-            className="appearance-none block w-200 bg-gray-200 text-gray-700 border border-gray-200 rounded py-20 px-20 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="description"
-            type="textarea"            
+            className="appearance-none block w-96 h-32 bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
+            id="description"                        
           />
         </div>
         <div className="mb-6">
-          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
             Foto:
           </label>
           <input
@@ -202,7 +202,7 @@ const AdoptionForm: NextComponentType = () => {
           Los campos con * son obligatorios
         </p>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-pwpurple-700 hover:bg-pwpurple-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Register

@@ -9,11 +9,15 @@ import  UserButton  from "./UserButton";
 import { checkEmail } from "utils/checkEmail";
 import Image from "next/image";
 import IsoGreen from "public/iso-green.svg";
+import { redirectionAlert } from "utils/alerts";
+import { useRouter } from "next/router";
+import { AiFillCopyrightCircle } from "react-icons/ai";
 
 const Navbar: NextComponentType = () => {
   const [cartProducts, setCartProducts] = useState(0);
   const { user, error, isLoading } = useUser();
-
+  const router = useRouter()
+  
   let email: string = "";
   let name: string = "";
   let nickname: string = "";
@@ -43,7 +47,22 @@ const Navbar: NextComponentType = () => {
     var timerID = setInterval(() => updateProducts(), 50);
     return () => clearInterval(timerID);
   });
-
+  const alertShoppingCart = () => {
+    if(!user){
+      redirectionAlert({
+        icon: 'info',
+                title: '<strong>Inicio de sesion requerido</strong>',
+                html: 'Para acceder al carrito de compras y poder disfrutar de todas nuestras funcionalidades' +
+                ' te invitamos a iniciar sesion o crear una cuenta.',
+                confirmButtonText: 'Iniciar sesion',                
+                confirmButtonAriaLabel:  'Thumbs up, great!',
+                link : '/api/auth/login'
+      })
+    }
+    else{
+      router.push('/shoppingCart')
+    }
+  }
   const onClick = () => {
     const menu = document.querySelector("#menu");
     const menuCart = document.querySelector("#menu-cart");
@@ -146,7 +165,7 @@ const Navbar: NextComponentType = () => {
         id="menu-cart"
       >
         <div className="my-2 mr-4 lg:my-0">
-          <Link href={"/shoppingCart"}>
+          <button onClick={alertShoppingCart}>
             <a
               className="hover:text-pwpurple-600
                     hover:font-bold flex justify-between items-baseline"
@@ -154,7 +173,7 @@ const Navbar: NextComponentType = () => {
               <FaShoppingCart />
               <div className="mx-2">{cartProducts}</div>
             </a>
-          </Link>
+          </button>
         </div>
         <div className="w-1/6">
           {!user ? (
