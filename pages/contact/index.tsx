@@ -18,7 +18,6 @@ const Contact: NextComponentType = () => {
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(sendMail, {
     onSuccess: (data) => {
-      // console.log(data);
       alerts({
         icon: "info",
         title: "<strong>Email</strong>",
@@ -40,6 +39,7 @@ const Contact: NextComponentType = () => {
     },
   });
   const onSubmit: SubmitHandler<ContactForm> = async (data) => {
+    console.log(data);
     const mail = {
       ...data,
       action: "contact",
@@ -48,8 +48,22 @@ const Contact: NextComponentType = () => {
       ...data,
       action: "contactUs",
     };
-    mutate(email);
-    mutate(mail);
+    if(validate(data.email)){
+      mutate(email);
+      mutate(mail);
+    } else{
+      alerts({
+        icon: "info",
+        title: "<strong>Email</strong>",
+        text: "Email inválido",
+        toast: true,
+      });
+    } 
+  };
+  const validate = (email:string):boolean => {
+    const expression =
+      /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    return expression.test(String(email).toLowerCase());
   };
   return (
     <MainLayout title="Contact">
@@ -65,7 +79,13 @@ const Contact: NextComponentType = () => {
                 id=""
                 className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-white appearance-none  focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
                 placeholder=" "
-                {...register("name", { required: true, maxLength: 20 })}
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "Es necesario poner un nombre",
+                  },
+                  maxLength: 20,
+                })}
               />
               <label
                 htmlFor="floating_password"
@@ -73,13 +93,27 @@ const Contact: NextComponentType = () => {
               >
                 Nombre
               </label>
+              {errors?.name?.message && (
+                <div
+                  className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2"
+                  role="alert"
+                >
+                  <p>Es necesario poner un nombre</p>
+                </div>
+              )}
             </div>
             <div className="relative z-0 mb-6 w-full group">
               <input
                 type="text"
                 className="block py-2.5 px-0 w-full text-sm text-gray-700 bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 focus:border-pwgreen-600 peer"
                 placeholder=" "
-                {...register("email", { required: true, maxLength: 40 })}
+                {...register("email", {
+                  required: {
+                    value: true,
+                    message: "Es necesario poner un nombre",
+                  },
+                  maxLength: 40,
+                })}
               />
               <label
                 htmlFor="floating_email"
@@ -87,6 +121,14 @@ const Contact: NextComponentType = () => {
               >
                 Su email
               </label>
+              {errors?.email?.message && (
+                <div
+                  className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2"
+                  role="alert"
+                >
+                  <p>Es necesario poner un email válido</p>
+                </div>
+              )}
             </div>
             <div className="relative z-0 mb-6 w-full group">
               <input
@@ -103,11 +145,15 @@ const Contact: NextComponentType = () => {
                 Mensaje{" "}
               </label>
             </div>
-            {isLoading ?   (
-              <button type="button" className="text-white bg-pwgreen-500 hover:bg-pwgreen-800 focus:ring-4 focus:outline-none focus:ring-pwgreen-300 font-medium rounded-lg text-sm w-[15%] sm:w-[15%] px-5 py-2.5 text-center" disabled>
+            {isLoading ? (
+              <button
+                type="button"
+                className="text-white bg-pwgreen-500 hover:bg-pwgreen-800 focus:ring-4 focus:outline-none focus:ring-pwgreen-300 font-medium rounded-lg text-sm w-[15%] sm:w-[15%] px-5 py-2.5 text-center"
+                disabled
+              >
                 Enviando...
               </button>
-            ): (
+            ) : (
               <button
                 type="submit"
                 className="text-white bg-pwgreen-500 hover:bg-pwgreen-800 focus:ring-4 focus:outline-none focus:ring-pwgreen-300 font-medium rounded-lg text-sm w-full lg:w-[15%] sm:w-[15%] px-5 py-2.5 text-center"
