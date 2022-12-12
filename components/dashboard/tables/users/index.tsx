@@ -25,6 +25,7 @@ interface FormEstructure {
     phone: string
     city: string
     province: string
+    country: string
     postCode: string
     photo: string
 }
@@ -121,6 +122,7 @@ const TableUser = () => {
         phone: '',
         city: '',
         province: '',
+        country: '',
         postCode: '',
         photo: ''
     }
@@ -176,8 +178,7 @@ const TableUser = () => {
                     </div>
                 </form>
                 <FormCreateUser
-                    mutationCreate={mutationCreate}
-                    uploadUser={uploadUser}
+                    {...mutationCreate}
                 />
             </div>
 
@@ -471,13 +472,13 @@ const TableUser = () => {
                                                       key={u.email}
                                                       className="tr-head">
                                                       <th className="th-head">
+                                                          PAIS
+                                                      </th>
+                                                      <th className="th-head">
                                                           CIUDAD
                                                       </th>
                                                       <th className="th-head">
                                                           PROVINCIA
-                                                      </th>
-                                                      <th className="th-head">
-                                                          NACIONALIDAD
                                                       </th>
                                                       <th className="th-head">
                                                           DIRECCION
@@ -486,13 +487,29 @@ const TableUser = () => {
                                                           TELEFONO
                                                       </th>
                                                       <th className="th-head">
-                                                          CORREO
+                                                          CORREO POSTAL
                                                       </th>
                                                   </tr>
 
                                                   {/* DATOS DE LA TABLA EXPANDIBLE */}
                                                   {uploadUser === u.id ? (
                                                       <>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.country ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="country"
+                                                                  value={
+                                                                      userUpdate.country
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
                                                           <td className="td-body">
                                                               <input
                                                                   type="text"
@@ -578,6 +595,10 @@ const TableUser = () => {
                                                   ) : (
                                                       <>
                                                           <tr key={u.createdAt}>
+                                                              <td className="td-body">
+                                                                  {u.country ||
+                                                                      'n/a'}
+                                                              </td>
                                                               <td className="td-body">
                                                                   {u.province ||
                                                                       'n/a'}

@@ -111,6 +111,8 @@ export const getTransactions = async () => {
   return transaction;
 };
 
+// APIS PARA LA TABLA
+
 export const getUsers = async () => {
   const response = await axios.get("/api/user");
   const users = await response.data;
@@ -121,7 +123,6 @@ export const getUsers = async () => {
   return users;
 };
 export const putUsers = async (id: string, data: Object) => {
-  console.log('bd', id, data)
 
   const response = await axios.put(`/api/user/${id}`, data);
 
@@ -130,13 +131,17 @@ export const putUsers = async (id: string, data: Object) => {
   }
   return response;
 };
+export const putAdoption = async (id: string, data: Object) => {
+  console.log('bd', id, data)
 
-export const registerUser = async (data: IUserForm) => {
-  const newUser = await axios
-    .post('/api/auth/register', data)
-    .catch(error => console.log(error))
-  return newUser
-}
+  const response = await axios.put(`/api/adoptionpost/${id}`, data);
+
+  if (!response) {
+    throw new Error("Data not found");
+  }
+  return response;
+};
+
 export const createUser = async (data: Users) => {
   console.log(data)
   const newUser = await axios
@@ -144,6 +149,18 @@ export const createUser = async (data: Users) => {
     .catch(error => console.log(error))
   return newUser
 }
+
+
+
+//
+
+export const registerUser = async (data: IUserForm) => {
+  const newUser = await axios
+    .post('/api/auth/register', data)
+    .catch(error => console.log(error))
+  return newUser
+}
+
 
 export const getUserById = async (id: string) => {
   const response = await axios.get(
