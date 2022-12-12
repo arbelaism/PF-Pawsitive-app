@@ -169,7 +169,7 @@ const TableUser = () => {
     <div >
       <div className='container mx-auto'>
 
-        <FormCreateUser mutationCreate={mutationCreate} uploadUser={uploadUser} />
+        <FormCreateUser {...mutationCreate} />
 
       </div>
       <div className='flex flex-row justify-around w-full'>
