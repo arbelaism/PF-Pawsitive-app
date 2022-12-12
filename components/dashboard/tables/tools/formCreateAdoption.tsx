@@ -9,6 +9,7 @@ interface FormEstructure {
   breed: string;
   description: string;
   photo: string;
+  gender: string;
   active: boolean;
   userId:string
 }
@@ -21,6 +22,7 @@ const FormCreateUser = (mutationCreate: any) => {
     breed: "",
     description: "",
     photo: "",
+    gender: "UNKNOWN",
     active: true,
     userId:""
   };
