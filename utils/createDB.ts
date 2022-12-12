@@ -7,44 +7,72 @@ export default async function createDB() {
             data: [
                 {
                     id: "1",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     firstName: "Constanza",
                     lastName: "Guerrero",
                     email: "constanza_guerrero@test.com",
-                    birthday: "23/04/2000",
+                    gender: "Femenino",
+                    birthday: "05/01/1980",
+                    address: "Plácido Martínez 1223",
+                    phone: "0379 443-3001",
+                    city: "Corrientes",
+                    province: "Corrientes",
+                    country: "Argentina",
+                    postCode: "	3400",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/free-photo/beautiful-female-face-perfect-clean-skin-face-white_155003-32164.jpg?w=2000"
                 },
                 {
                     id: "2",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     firstName: "Florencio",
                     lastName: "Busquets",
                     email: "florencio_busquets@test.com",
+                    gender: "Masculino",
                     birthday: "23/04/2000",
+                    address: "Esmeralda 449",
+                    phone: "011 4315-7222",
+                    city: "Ciudad Autónoma de Buenos Aires",
+                    province: "Buenos Aires",
+                    country: "Argentina",
+                    postCode: "C1043AAH",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?w=2000"
                 },
                 {
                     id: "3",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     firstName: "Candela",
                     lastName: "Lozano",
                     email: "candela_lozano@test.com",
+                    gender: "Femenino",
                     birthday: "23/04/2000",
+                    address: "General Justo José de Urquiza 1971",
+                    phone: "0351 473-4660",
+                    city: "Córdoba",
+                    province: "Córdoba",
+                    country: "Argentina",
+                    postCode: "X5001",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/free-photo/worldface-american-woman-white-background_53876-146191.jpg?w=2000"
                 },
                 {
                     id: "4",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     firstName: "Rafael",
                     lastName: "Pedrosa",
                     email: "rafael_pedrosa@test.com",
-                    birthday: "23/04/2000",
+                    gender: "Masculino",
+                    birthday: "30/04/1993",
+                    address: "Buenos Aires 768",
+                    phone: "0351 554-8047",
+                    city: "Córdoba",
+                    province: "Córdoba",
+                    country: "Argentina",
+                    postCode: "X5000",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/premium-photo/take-good-look-this-face-youll-miss-it-later-shot-handsome-young-man-standing-against-grey-background_590464-57810.jpg?w=2000"
@@ -54,7 +82,14 @@ export default async function createDB() {
                     firstName: "Urbano",
                     lastName: "Quevedo",
                     email: "urbano_quevedo@test.com",
-                    birthday: "23/04/2000",
+                    gender: "Masculino",
+                    birthday: "23/04/1989",
+                    address: "Primitivo de la Reta 547",
+                    phone: "0261 429-1110",
+                    city: "Ciudad de Mendoza",
+                    province: "Mendoza",
+                    country: "Argentina",
+                    postCode: "M5500CJI",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/free-photo/shallow-focus-shot-young-black-male-grey-wall_181624-52039.jpg?w=2000"
@@ -64,7 +99,14 @@ export default async function createDB() {
                     firstName: "Cristian",
                     lastName: "Villalobos",
                     email: "cristian_villalobos@test.com",
-                    birthday: "23/04/2000",
+                    gender: "Masculino",
+                    birthday: "23/11/1977",
+                    address: "Entre Ríos 73",
+                    phone: "0261 425-4242",
+                    city: "Ciudad de Mendoza",
+                    province: "Mendoza",
+                    country: "Argentina",
+                    postCode: "M5500AGC",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/foto-gratis/chico-worldface-espanol-fondo-blanco_53876-137665.jpg?w=2000"
@@ -74,7 +116,14 @@ export default async function createDB() {
                     firstName: "Soledad",
                     lastName: "Acuña",
                     email: "soledad_acuna@test.com",
+                    gender: "Femenino",
                     birthday: "23/04/2000",
+                    address: "Calle 3 1307",
+                    phone: "02246 42-1077",
+                    city: "Santa Teresita",
+                    province: "Buenos Aires",
+                    country: "Argentina",
+                    postCode: "B7107BEK",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/free-photo/woman-with-confident-face-expression-dressed-hoodie-looks-directly-camera-poses-rests-after-strolling-city_273609-54736.jpg?w=2000"
@@ -84,7 +133,14 @@ export default async function createDB() {
                     firstName: "Guillermo",
                     lastName: "Godoy",
                     email: "guillermo_godoy@test.com",
+                    gender: "Masculino",
                     birthday: "23/04/2000",
+                    address: "La Plata 945",
+                    phone: "0221 421-1321",
+                    city: "La Plata",
+                    province: "Buenos Aires",
+                    country: "Argentina",
+                    postCode: "	B1900BHB",
                     role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/fotos-premium/apuesto-joven-empresario-camisa-anteojos_85574-6228.jpg?w=2000"
@@ -94,8 +150,15 @@ export default async function createDB() {
                     firstName: "Juan",
                     lastName: "Puerta",
                     email: "juan_puerta@test.com",
+                    gender: "Masculino",
                     birthday: "23/04/2000",
-                    role: "PROFESSIONAL",
+                    address: "BASIC",
+                    phone: "BASIC",
+                    city: "BASIC",
+                    province: "BASIC",
+                    country: "Argentina",
+                    postCode: "BASIC",
+                    role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/free-photo/portrait-shirtless-young-man-isolated-grey-studio-background-caucasian-healthy-male-model-looking-side-posing-concept-men-s-health-beauty-self-care-body-skin-care_155003-33864.jpg?w=2000"
                 },
@@ -104,11 +167,199 @@ export default async function createDB() {
                     firstName: "Jaime",
                     lastName: "Iñiguez",
                     email: "jaime_iniguez@test.com",
+                    gender: "Masculino",
                     birthday: "23/04/2000",
-                    role: "PROFESSIONAL",
+                    address: "Laprida 342",
+                    phone: "011 4248-7219",
+                    city: "Lomas de Zamora",
+                    province: "Buenos Aires",
+                    country: "Argentina",
+                    postCode: "B1832",
+                    role: "BASIC",
                     active: true,
                     photo: "https://img.freepik.com/fotos-premium/vista-frontal-hombre-cara-seria_23-2148364723.jpg?w=2000"
                 }
+                ,
+                {
+                    id: "11",
+                    firstName: "Indiana",
+                    lastName: "Cervántez",
+                    email: "indiana_cervantez@test.com",
+                    gender: "Femenino",
+                    birthday: "23/04/2000",
+                    address: "Cr.11 No.70-48",
+                    phone: "(57-1)312-8152",
+                    city: "Bogotá",
+                    province: "Cundinamarca",
+                    country: "Colombia",
+                    postCode: "110711",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-negra-sonriente_23-2149095667.jpg?w=2000"
+                }
+                ,
+                {
+                    id: "12",
+                    firstName: "Matilde",
+                    lastName: "Murillo ",
+                    email: "matilde_murillo @test.com",
+                    gender: "Femenino",
+                    birthday: "23/04/2000",
+                    address: "tr. cuarenta y nueve - c59-136",
+                    phone: "(57-4) 2319728",
+                    city: "Medellín",
+                    province: "Medellín",
+                    country: "Colombia",
+                    postCode: "110722",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/foto-gratis/mujer-joven-cafe-leyendo-mensaje-texto-su-telefono-mujer-latina-sentada-mesa-cafe-laptop-usando-telefonos-inteligentes_231208-5237.jpg?w=2000"
+                }
+                ,
+                {
+                    id: "13",
+                    firstName: "Humbert",
+                    lastName: "Ávila",
+                    email: "humbert_avila@test.com",
+                    gender: "Masculino",
+                    birthday: "23/04/2000",
+                    address: "Cl 50 No. 50A-16 COPACABANA, Medellín",
+                    phone: "44010664",
+                    city: "Medellín",
+                    province: "Medellín",
+                    country: "Colombia",
+                    postCode: "110741",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/fotos-premium/retrato-hombre-latino-fondo-negro_67651-1156.jpg?w=2000"
+                }
+                ,
+                {
+                    id: "14",
+                    firstName: "Norman",
+                    lastName: "Centeno",
+                    email: "norman_centeno@test.com",
+                    gender: "Masculino",
+                    birthday: "23/04/2000",
+                    address: "Cl 50 No. 39-52 L A 1, Medellín",
+                    phone: "42397742",
+                    city: "Medellín",
+                    province: "Medellín",
+                    country: "Colombia",
+                    postCode: "110788",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK98YaRurvoGcSaWRtIivk1NPMfpnBtEhtEQ&usqp=CAU"
+                }
+                ,
+                {
+                    id: "15",
+                    firstName: "Benicio",
+                    lastName: "Ornelas",
+                    email: "benicio_ornelas@test.com",
+                    gender: "Masculino",
+                    birthday: "23/04/2000",
+                    address: "Cl 13A No. 15-20, C.P 76001",
+                    phone: "25575521",
+                    city: "Cali",
+                    province: "Cali",
+                    country: "Colombia",
+                    postCode: "110790",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/fotos-premium/retrato-hombre-guapo-sonriente-rasgos-hispanos-latinos-mientras-lee-libro-al-aire-libre-concepto-estilo-vida-calle_210051-2.jpg?w=2000"
+                }
+                ,
+                {
+                    id: "16",
+                    firstName: "Ruben",
+                    lastName: "Cintrón",
+                    email: "ruben_cintron@test.com",
+                    gender: "Masculino",
+                    birthday: "23/04/2000",
+                    address: "Piso PB, Local 1A, Urbanización El Marqués",
+                    phone: "+58 241-5636661",
+                    city: "Caracas",
+                    province: "Distrito Capital",
+                    country: "Venezuela",
+                    postCode: "0875",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/fotos-premium/retrato-hombre-barbudo-sonriente-cerca-modelo-masculino-ojos-azules-expresion-facial-feliz-fondo-urbano-horizonte_164678-605.jpg?w=2000"
+                }
+                ,
+                {
+                    id: "17",
+                    firstName: "Nora",
+                    lastName: "Reina",
+                    email: "oliver.espinoza@villalobos.info.ve",
+                    gender: "Femenino",
+                    birthday: "23/04/2000",
+                    address: "Avenida Martin, 173, Apto 0",
+                    phone: "+58 227 854 9633",
+                    city: "Miramontes del Valle",
+                    province: "Delta Amacuro",
+                    country: "Venezuela",
+                    postCode: "6158",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/fotos-premium/imagen-vertical-vertical-mujer-latina-sonriendo-interior_330667-444.jpg?w=2000"
+                }
+                ,
+                {
+                    id: "18",
+                    firstName: "Miguel",
+                    lastName: "Soto",
+                    email: "fernando73@hotmail.com",
+                    gender: "Masculino",
+                    birthday: "23/04/2000",
+                    address: "Av. Mayorga, 1, Hab. 04",
+                    phone: "209-9649731",
+                    city: "Sanches de Altagracia",
+                    province: "Sucre",
+                    country: "Venezuela",
+                    postCode: "1690",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/foto-gratis/joven-empresario-exitoso-posando-sobre-pared-oscura_176420-52.jpg?w=2000"
+                }
+                ,
+                {
+                    id: "19",
+                    firstName: "Marcos",
+                    lastName: "Vazquez",
+                    email: "marcos_vazquez@test.com",
+                    gender: "Masculino",
+                    birthday: "23/04/2000",
+                    address: "Vereda Cervantes, Casa 40",
+                    phone: "+58 483 2742213",
+                    city: "El Almadel Valle",
+                    province: "Distrito Capital",
+                    country: "Venezuela",
+                    postCode: "8967",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/fotos-premium/hispano-arabe-apuesto-hombre-barbudo-confiado-tipo-brunet-anteojos-girar-cabeza-camara_717737-520.jpg?w=360"
+                }
+                ,
+                {
+                    id: "20",
+                    firstName: "Alma",
+                    lastName: "Castillo",
+                    email: "alma.castillo@yahoo.es",
+                    gender: "Femenino",
+                    birthday: "23/04/2000",
+                    address: "Avenida Carla Barraza, Apto 9",
+                    phone: "+58 480 283 6589",
+                    city: "Mar de Mata",
+                    province: "Mérida",
+                    country: "Venezuela",
+                    postCode: "1059",
+                    role: "BASIC",
+                    active: true,
+                    photo: "https://img.freepik.com/fotos-premium/retrato-joven-mujer-latina_58466-9036.jpg?w=2000"
+                }
+   
 
             ]
         })
@@ -117,7 +368,7 @@ export default async function createDB() {
             data: [
                 {
                     id: "1",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     name: "rayito",
                     size: "SMALL",
                     age: "1 años",
@@ -128,7 +379,7 @@ export default async function createDB() {
                 },
                 {
                     id: "2",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     name: "meteoro",
                     size: "BIG",
                     age: "5 años",
@@ -139,7 +390,7 @@ export default async function createDB() {
                 },
                 {
                     id: "3",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     name: "caos",
                     size: "SMALL",
                     age: "3 años",
@@ -150,7 +401,7 @@ export default async function createDB() {
                 },
                 {
                     id: "4",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     name: "roberto",
                     size: "MEDIUM",
                     age: "2 meses",
@@ -161,7 +412,7 @@ export default async function createDB() {
                 },
                 {
                     id: "5",
-                    createdAt:"2022-11-08T03:08:45.700Z",
+                    createdAt: "2022-11-08T03:08:45.700Z",
                     name: "no tiene",
                     size: "SMALL",
                     age: "3 meses",
@@ -178,7 +429,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/fotos-premium/hermoso-gato-ojos-azules_58409-14525.jpg?w=2000",
                     active: true,
-                    userId: "4"
+                    userId: "6"
                 },
                 {
                     id: "7",
@@ -188,7 +439,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/foto-gratis/lindo-perro-pastor-posando-aislado-sobre-fondo-blanco_155003-46179.jpg?w=2000",
                     active: true,
-                    userId: "4"
+                    userId: "7"
                 },
                 {
                     id: "8",
@@ -198,7 +449,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/fotos-premium/primer-plano-perro-raza-mixta-jadeando_191971-7459.jpg?w=2000",
                     active: true,
-                    userId: "5"
+                    userId: "8"
                 }
                 ,
                 {
@@ -209,7 +460,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/fotos-premium/foto-vertical-cachorro-labrador-marron-cachorro-pequeno-expresion-adulta-dulce-perrito_106652-1123.jpg?w=2000",
                     active: true,
-                    userId: "5"
+                    userId: "9"
                 }
                 ,
                 {
@@ -220,7 +471,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/foto-gratis/cerrar-propietario-sosteniendo-lindo-gato_23-2149339568.jpg?w=2000",
                     active: true,
-                    userId: "6"
+                    userId: "10"
                 }
                 ,
                 {
@@ -231,7 +482,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8vdq8XcrUFKWHTzBfK2taLeiumVdfWqy5KQ&usqp=CAU",
                     active: true,
-                    userId: "6"
+                    userId: "11"
                 }
                 ,
                 {
@@ -242,7 +493,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/foto-gratis/gatito_658691-474.jpg?w=2000",
                     active: true,
-                    userId: "6"
+                    userId: "12"
                 }
                 ,
                 {
@@ -253,7 +504,7 @@ export default async function createDB() {
                     breed: "gato",
                     photo: "https://img.freepik.com/fotos-premium/hermoso-gato-ojos-azules_58409-14525.jpg?w=2000",
                     active: true,
-                    userId: "6"
+                    userId: "13"
                 }
                 ,
                 {
@@ -264,7 +515,7 @@ export default async function createDB() {
                     breed: "roedor",
                     photo: "https://img.freepik.com/fotos-premium/hamster-dorado-alimentandose-delante-blanco_191971-22301.jpg?w=2000",
                     active: true,
-                    userId: "6"
+                    userId: "14"
                 }
                 ,
                 {
@@ -275,7 +526,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://img.freepik.com/foto-gratis/perro-pug-aislado-fondo-blanco_2829-11416.jpg?w=2000",
                     active: true,
-                    userId: "6"
+                    userId: "15"
                 }
                 ,
                 {
@@ -286,7 +537,7 @@ export default async function createDB() {
                     breed: "perro",
                     photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnnIJ1ZbQepvJM2JzSax86RA3o1LCEVSl0Xg&usqp=CAU",
                     active: true,
-                    userId: "6"
+                    userId: "16"
                 }
             ]
         })
@@ -624,7 +875,7 @@ export default async function createDB() {
                 userId: '1',
                 quantity: {
                     create: [
-                        { quantity: 10, productId: "1"},
+                        { quantity: 10, productId: "1" },
                     ]
                 }
 
