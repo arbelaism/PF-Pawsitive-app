@@ -5,6 +5,7 @@ export { default as HamburguerIcon } from './layout/HamburguerIcon'
 export { default as Filters } from './layout/Filters'
 export { default as Filtersproducts } from './layout/Filtersproducts'
 export { default as UserButton } from './layout/UserButton'
+export { default as AlternativePagination } from './layout/AlternativePagination'
 
 export { default as Login } from './auth/Login'
 export { default as SignUp } from './auth/SignUp'

@@ -8,11 +8,11 @@ type DashBoardLayoutProps = {
 
 const MainLayout = ({ children, title }: DashBoardLayoutProps) => {
     return (
-        <div className="w-full max-h-screen flex overflow-hidden">
+        <div className="w-full h-screen flex overflow-hidden">
             <div className="relative transition-all lg:overflow-y-scroll lg:w-1/5">
                 <div
                     id="leftNav"
-                    className="absolute shadow-2xl -left-60 top-12 inset-y-0 transition-all lg:shadow-none lg:static">
+                    className="absolute shadow-2xl -left-60 top-12 inset-y-0 transition-all z-20 lg:shadow-none lg:static">
                     <LeftNavbar />
                 </div>
             </div>

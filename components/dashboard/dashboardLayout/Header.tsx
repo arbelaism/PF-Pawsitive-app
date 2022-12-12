@@ -32,7 +32,7 @@ const Header = ({ title }: Props) => {
                 <div className="mx-3 lg:hidden">
                     <HamburguerIcon />
                 </div>
-                <h1 className="font-Rubik text-xl text-pwgreen-900 font-semibold p-2 lg:text-3xl">
+                <h1 className="font-Rubik text-2xl uppercase text-pwgreen-900 font-extrabold p-2 lg:text-3xl">
                     {title}
                 </h1>
             </div>
