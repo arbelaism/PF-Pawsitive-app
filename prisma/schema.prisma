@@ -20,6 +20,7 @@ model User {
   phone        String?
   city         String?
   province     String?
+  country      String?
   postCode     String?
   photo        String?
   role         Role           @default(BASIC)
