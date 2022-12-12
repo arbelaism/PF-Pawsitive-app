@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { alerts } from "utils/alerts";
-// import { useMutation, useQuery, useQueryClient } from 'react-query';
-// import { useGetUserById, getUsers } from 'utils/dbFetching';
+import { mediaUploader } from "utils/mediaUploader";
 import { useForm, SubmitHandler } from "react-hook-form";
 interface FormEstructure {
   firstName: string;
@@ -45,21 +44,13 @@ const FormCreateUser = (mutationCreate: any) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormEstructure>();
-
+  const [media, setMedia] = useState<File[]>([]);
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
-    e.preventDefault();
-    const name = e.target.name as string;
-    const value = e.target.value as string;
-    if (name === "active" && value === "true")
-      setForm({ ...form, [name]: true });
-    if (name === "active" && value === "false")
-      setForm({ ...form, [name]: false });
-    if (name === "birthday") setForm({ ...form, [name]: value.toString() });
-    else {
-      setForm({ ...form, [name]: value });
-    }
+    const target = e.target as HTMLInputElement;
+    const files = [...Object.values(target.files!)];
+    setMedia([...files]);
   }
 
   //Collapse/Expand Form
@@ -71,50 +62,51 @@ const FormCreateUser = (mutationCreate: any) => {
     if (condition === false) setForm({ ...formEstructure });
     setCondition(!condition);
   }
-
   const onSubmit: SubmitHandler<FormEstructure> = async (data) => {
-    console.log(data);
-    if (validate(data.email)) {
-      setCondition(!condition);
-      mutationCreate.mutate(form);
+    let urlPhoto: any = [];
+    if (media.length > 0) {
+      urlPhoto = await mediaUploader(media);
+    }
+    data = { ...data, photo: urlPhoto ? urlPhoto[0] : null };
+    data.phone = String(data.phone.match("[0-9]+"));
+    data.active = String(data.active) === "true" ? true : false;
+    if (underAgeValidate(data.birthday, 12)) {
+      if (validate(data.email)) {
+        setCondition(!condition);
+        mutationCreate.mutate(data);
+      } else {
+        alerts({
+          icon: "info",
+          title: "<strong>Email</strong>",
+          text: "Email inválido",
+          toast: true,
+        });
+      }
     } else {
       alerts({
         icon: "info",
         title: "<strong>Email</strong>",
-        text: "Email inválido",
+        text: "La Edad mínima es 12 años",
         toast: true,
       });
     }
   };
+  function underAgeValidate(birthday: string, minAge: number): boolean {
+    let optimizedBirthday = birthday.replace(/-/g, "/");
+    var myBirthday = Number(new Date(optimizedBirthday));
+    // calculate age comparing current date and birthday
+    var myAge = ~~((Date.now() - myBirthday) / 31557600000);
+    if (myAge < minAge) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   const validate = (email: string): boolean => {
     const expression =
       /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
     return expression.test(String(email).toLowerCase());
   };
-
-  //Submit Form
-
-  // function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
-  //   e.preventDefault()
-  //   if (form.lastName && form.firstName && form.email) {
-  //     setCondition(!condition)
-  //     mutationCreate.mutate(form)
-  //     return alerts({
-  //       icon: 'info',
-  //       title: '<strong>Se registro el Usuario Exitosamente </strong>',
-  //       text: 'Registered User',
-  //       toast: true
-  //     })
-  //   }
-
-  //   else return alerts({
-  //     icon: 'error',
-  //     title: '<strong>Falta completar datos</strong>',
-  //     text: "Can't Register User",
-  //     toast: true
-  //   })
-  // }
-
   return (
     <div className=" w-3/4">
       <div className="container mx-auto flex justify-between py-5 border-b">
@@ -144,10 +136,10 @@ const FormCreateUser = (mutationCreate: any) => {
 
       {condition ? (
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className="container w-full  flex flex-row gap-x-0.5 ">
+          <div className="container w-full  flex flex-col gap-x-0.5 md:flex-row">
             {/* COLUMNA 1 */}
 
-            <div className="w-2/4">
+            <div className="w-auto md:w-2/4">
               <div className="input-type">
                 <label
                   htmlFor="firstName"
@@ -187,7 +179,6 @@ const FormCreateUser = (mutationCreate: any) => {
                 <input
                   id="email"
                   type="text"
-                  value={form.email}
                   placeholder="Email"
                   className="border w-full px-5 py-3 focus:outline-none rounded-md"
                   {...register("email", {
@@ -217,7 +208,6 @@ const FormCreateUser = (mutationCreate: any) => {
                 <input
                   id="birthday"
                   type="date"
-                  value={form.birthday}
                   {...register("birthday", {
                     required: {
                       value: true,
@@ -239,7 +229,7 @@ const FormCreateUser = (mutationCreate: any) => {
               </div>
               <div className="input-type">
                 <label
-                  htmlFor="phone"
+                  htmlFor="number"
                   className="block mb-2 text-medium font-medium py-0 text-pwgreen-900 dark:text-white"
                 >
                   Telefono:
@@ -254,7 +244,6 @@ const FormCreateUser = (mutationCreate: any) => {
                     },
                     maxLength: 20,
                   })}
-                  value={form.phone}
                   placeholder="Telefono"
                   className="border w-full px-5 py-3 focus:outline-none rounded-md"
                 />
@@ -277,9 +266,10 @@ const FormCreateUser = (mutationCreate: any) => {
                 <input
                   id="province"
                   type="text"
-                  name="province"
-                  value={form.province}
-                  onChange={handleChange}
+                  {...register("province", {
+                    required: false,
+                    maxLength: 20,
+                  })}
                   placeholder="Provincia/Estado"
                   className="border w-full px-5 py-3 focus:outline-none rounded-md"
                 />
@@ -300,25 +290,16 @@ const FormCreateUser = (mutationCreate: any) => {
                       message: "Es necesario poner un rol",
                     },
                   })}
-                  value={form.role}
                 >
                   <option value="BASIC">BASICO</option>
                   <option value="PROFESSIONAL">PROFESIONAL</option>
                   <option value="ADMIN">ADMINISTRADOR</option>
                 </select>
-                {errors?.role?.message && (
-                  <div
-                    className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2"
-                    role="alert"
-                  >
-                    <p>Es necesario seleccionar un role</p>
-                  </div>
-                )}
               </div>
             </div>
             {/* COLUMNA 2 */}
 
-            <div className="w-2/4 ">
+            <div className="w-auto md:w-2/4">
               <div className="input-type">
                 <label
                   htmlFor="lastName"
@@ -329,11 +310,10 @@ const FormCreateUser = (mutationCreate: any) => {
                 <input
                   id="lastName"
                   type="text"
-                  value={form.lastName}
                   {...register("lastName", {
                     required: {
                       value: true,
-                      message: "Es necesario poner un rol",
+                      message: "Error",
                     },
                     maxLength: 20,
                   })}
@@ -362,11 +342,10 @@ const FormCreateUser = (mutationCreate: any) => {
                   {...register("gender", {
                     required: {
                       value: true,
-                      message: "Es necesario poner un rol",
+                      message: "Error",
                     },
                     maxLength: 20,
                   })}
-                  value={form.gender}
                   placeholder="Genero"
                   className="border w-full px-5 py-3 focus:outline-none rounded-md"
                 />
@@ -389,12 +368,8 @@ const FormCreateUser = (mutationCreate: any) => {
                 <input
                   id="address"
                   type="text"
-                  value={form.address}
                   {...register("address", {
-                    required: {
-                      value: false,
-                      message: "Es necesario poner una direccion",
-                    },
+                    required: false,
                     maxLength: 60,
                   })}
                   placeholder="Direccion"
@@ -414,11 +389,10 @@ const FormCreateUser = (mutationCreate: any) => {
                   {...register("city", {
                     required: {
                       value: true,
-                      message: "Es necesario poner una ciudad",
+                      message: "Error",
                     },
                     maxLength: 20,
                   })}
-                  value={form.city}
                   placeholder="Ciudad"
                   className="border w-full px-5 py-3 focus:outline-none rounded-md"
                 />
@@ -436,7 +410,7 @@ const FormCreateUser = (mutationCreate: any) => {
                   htmlFor="postCode"
                   className="block mb-2 text-medium font-medium py-0 text-pwgreen-900 dark:text-white"
                 >
-                  Correo Postal:
+                  Código Postal:
                 </label>
                 <input
                   id="postCode"
@@ -448,11 +422,10 @@ const FormCreateUser = (mutationCreate: any) => {
                     },
                     maxLength: 20,
                   })}
-                  value={form.postCode}
                   placeholder="Codigo Postal"
                   className="border w-full px-5 py-3 focus:outline-none rounded-md"
                 />
-                {errors?.city?.message && (
+                {errors?.postCode?.message && (
                   <div
                     className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2"
                     role="alert"
@@ -477,7 +450,6 @@ const FormCreateUser = (mutationCreate: any) => {
                       message: "Es necesario poner una ciudad",
                     },
                   })}
-                  value={form.active.toString()}
                 >
                   <option
                     value="true"
@@ -492,14 +464,6 @@ const FormCreateUser = (mutationCreate: any) => {
                     INACTIVO
                   </option>
                 </select>
-                {errors?.active?.message && (
-                  <div
-                    className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2"
-                    role="alert"
-                  >
-                    <p>Es necesario seleccionar un estado</p>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -514,13 +478,12 @@ const FormCreateUser = (mutationCreate: any) => {
                 Foto:
               </label>
               <input
+                onChange={(e) => handleChange(e)}
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="photo"
-                type="text"
-                name="photo"
-                value={form.photo}
-                onChange={handleChange}
-                placeholder="Imagen"
-                className="border w-full px-10 py-3 focus:outline-none rounded-md"
+                type="file"
+                multiple
+                accept="image/*"
               />
             </div>
           </div>
