@@ -43,7 +43,7 @@ const Adoptions: NextPage = () => {
         redirectionAlert({
           icon: 'info',
                   title: '<strong>Inicio de sesion requerido</strong>',
-                  html: 'Para acceder al carrito de compras y poder disfrutar de todas nuestras funcionalidades' +
+                  html: 'Para publicar un anuncio de adopcion y poder disfrutar de todas nuestras funcionalidades' +
                   ' te invitamos a iniciar sesion o crear una cuenta.',
                   confirmButtonText: 'Iniciar sesion',                
                   confirmButtonAriaLabel:  'Thumbs up, great!',
