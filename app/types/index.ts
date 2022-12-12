@@ -27,7 +27,7 @@ export interface AdoptFormInput {
     age: string
     active?: boolean
     description?: string
-    monthOrYear: string
+    monthOrYear?: string
     breed: string
     photo?: string
     userId: string
@@ -155,6 +155,7 @@ export interface Users {
   phone:        string;
   city:         string;
   province:     string;
+  country:      string;
   postCode:     string;
   photo:        string;
   role:         string;
@@ -187,8 +188,9 @@ export interface Adoptions {
   breed:       string;
   photo:       string;
   active:      boolean;
-  description: null;
+  description: string;
   createdAt:   string;
+  updatedAt:   string;
   user:        User2;
 }
 
@@ -202,6 +204,10 @@ export interface User2 {
   firstName: string;
   lastName:  string;
   email:     string;
+  city:       string;
+  province:   string;
+  country:    string;
+  address:    string;
 }
 
 export interface IUser {
