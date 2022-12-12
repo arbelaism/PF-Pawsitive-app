@@ -35,13 +35,44 @@ export default async function adoptionApply(req: NextApiRequest, res: NextApiRes
                 res.status(400).json({ message: "Missing values" }) 
             }   
             try {
+                let obj = {
+                    reason: reason,
+                    past: past,
+                    residence: residence,
+                    employee: employee,
+                    garden: garden,
+                    adoptionPostId: adoptionPostId,
+                    userId: userId
+                };
+                if(typeof obj.past == 'string'){
+                    if(obj.past=='true'){
+                        obj.past = true;
+                    }else{
+                        obj.past = false;
+                    };
+                };
+                if(typeof obj.employee == 'string'){
+                    if(obj.employee=='true'){
+                        obj.employee = true;
+                    }else{
+                        obj.employee = false;
+                    };
+                };
+                if(typeof obj.garden == 'string'){
+                    if(obj.garden=='true'){
+                        obj.garden = true;
+                    }else{
+                        obj.garden = false;
+                    };
+                };
+
                 const newApply = await prisma.apply.create({
                     data: {
                         reason,
-                        past,
+                        past: obj.past,
                         residence,
-                        employee,
-                        garden,
+                        employee: obj.employee,
+                        garden: obj.garden,
                         adoptionPostId,
                         userId
                     }
