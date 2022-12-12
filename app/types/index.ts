@@ -186,6 +186,7 @@ export interface Adoptions {
   size:        Size;
   age:         string;
   breed:       string;
+  gender:       string;
   photo:       string;
   active:      boolean;
   description: string;

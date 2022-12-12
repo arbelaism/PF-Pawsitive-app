@@ -21,6 +21,7 @@ interface FormEstructure {
     age: string;
     breed: string;
     photo: string;
+    gender: string;
     active: boolean;
     description: string;
     userId: string
@@ -49,6 +50,15 @@ const TableAdoption = () => {
     const { items, requestSort, sortConfig } = useSortableData(adoptions)
 
     //FUNCTIONS CHANGE DATA
+    function handleGenderChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const gender = e.target.value as string
+        const id = e.target.id as string
+        if (gender && id) {
+            mutation.mutate({ id, data: { gender } })
+            return
+        } else return
+    }
 
     function handleActiveChange(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
@@ -105,6 +115,7 @@ const TableAdoption = () => {
         age: '',
         breed: '',
         photo: '',
+        gender: '',
         active: true,
         description: '',
         userId: ''
@@ -217,6 +228,7 @@ const TableAdoption = () => {
                                     <FaSort />
                                 </button>
                             </th>
+                            <th className="th-head">GENERO</th>
                             <th className="th-head">ESTADO</th>
                             <th className="th-head">DESCRIPCION</th>
                             <th></th>
@@ -345,6 +357,27 @@ const TableAdoption = () => {
                                             <td className="td-body">
                                                 {a.createdAt}
                                             </td>
+                                            <td className="td-body">
+                                                  <select
+                                                      className="input w-max"
+                                                      name="gender"
+                                                      value={a.gender}
+                                                      id={a.id}
+                                                      onChange={
+                                                          handleGenderChange
+                                                      }>
+                                                      <option value="MALE">
+                                                          MACHO
+                                                      </option>
+                                                      <option value="FEMALE">
+                                                          HEMBRA
+                                                      </option>
+                                                      <option value="UNKNOWN">
+                                                          DESCONOCIDO
+                                                      </option>
+                                                  
+                                                  </select>
+                                              </td>
                                             <td className="td-body">
                                                 {a.active ? (
                                                     <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
