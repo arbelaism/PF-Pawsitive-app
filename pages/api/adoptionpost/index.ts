@@ -28,6 +28,10 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                                 firstName: true,
                                 lastName: true,
                                 email: true,
+                                country: true,
+                                city: true,
+                                province: true,
+                                address: true
                             }
                         }
                     }
@@ -41,7 +45,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
         // POST(CREATE) THE ADOPTIONPOST
 
-        case "POST":            
+        case "POST":
             const {
                 name,
                 age,
