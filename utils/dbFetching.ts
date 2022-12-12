@@ -155,4 +155,12 @@ export const getUserById = async (id: string) => {
 };
 export const useGetUserById =(id:any)=>{
   return useQuery(['user' , id],()=> getUserById(id),{enabled:( typeof id === "string")})
-}
+};
+
+export const apply = async (data: Form) => {
+  const newApply = await axios
+      .post('/api/adoptionapply', data)
+      .catch(error => console.log(error))
+
+  return newApply;
+};
