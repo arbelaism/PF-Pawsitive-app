@@ -2,9 +2,10 @@ import { NextComponentType } from 'next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query'
 import {apply} from 'utils/dbFetching';
-import { Form } from 'app/types';
+import { Apply, Form } from 'app/types';
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
+import useLocalStorage from 'use-local-storage';
 
 const AdoptionApply: NextComponentType = () => {
 
@@ -15,7 +16,10 @@ const AdoptionApply: NextComponentType = () => {
     //==>> MOSTRAR NOTIFICACION DE SUCCESS O FAILURE
 
     const { mutate } = useMutation(apply);
-    const ids = JSON.parse(window.localStorage.ids);
+    const [ids, _setIds] = useLocalStorage<Apply>('ids', {
+        petId: '',
+        userId: ''
+    })
     const {
         register,
         handleSubmit,

@@ -18,7 +18,7 @@ import Link from 'next/link'
 
 
 
-const AdoptionDetails : NextComponentType = ({id}:Props)=>{
+const AdoptionDetails = ({id}:Props)=>{
   
   const [ids, setIds] = useLocalStorage<Apply>("ids", {petId: "", userId:""});
   const [open, setOpen] = useState(false);
