@@ -115,7 +115,7 @@ const TableAdoption = () => {
         age: '',
         breed: '',
         photo: '',
-        gender: '',
+        gender: 'UNKNOWN',
         active: true,
         description: '',
         userId: ''
@@ -171,9 +171,9 @@ const TableAdoption = () => {
                         />
                     </div>
                 </form>
-                <FormCreateAdoption
+                {/* <FormCreateAdoption
                     {...mutationCreate}
-                />
+                /> */}
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
@@ -358,26 +358,25 @@ const TableAdoption = () => {
                                                 {a.createdAt}
                                             </td>
                                             <td className="td-body">
-                                                  <select
-                                                      className="input w-max"
-                                                      name="gender"
-                                                      value={a.gender}
-                                                      id={a.id}
-                                                      onChange={
-                                                          handleGenderChange
-                                                      }>
-                                                      <option value="MALE">
-                                                          MACHO
-                                                      </option>
-                                                      <option value="FEMALE">
-                                                          HEMBRA
-                                                      </option>
-                                                      <option value="UNKNOWN">
-                                                          DESCONOCIDO
-                                                      </option>
-                                                  
-                                                  </select>
-                                              </td>
+                                                <select
+                                                    className="input w-max"
+                                                    name="gender"
+                                                    value={a.gender}
+                                                    id={a.id}
+                                                    onChange={
+                                                        handleGenderChange
+                                                    }>
+                                                    <option value="UNKNOWN">
+                                                        DESCONOCIDO
+                                                    </option>
+                                                    <option value="MALE">
+                                                        MACHO
+                                                    </option>
+                                                    <option value="FEMALE">
+                                                        HEMBRA
+                                                    </option>
+                                                </select>
+                                            </td>
                                             <td className="td-body">
                                                 {a.active ? (
                                                     <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
