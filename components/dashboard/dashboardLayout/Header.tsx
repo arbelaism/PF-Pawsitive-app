@@ -27,12 +27,12 @@ const Header = ({ title }: Props) => {
     }
 
     return (
-        <div className="w-full bg-pwgreen-100 p-4 flex items-center justify-between sticky top-0 border border-b-pwgreen-800 border-opacity-30 lg:static lg:border-none">
+        <div className="w-full z-50 bg-pwgreen-100 p-4 flex items-center justify-between sticky top-0 border border-b-pwgreen-800 border-opacity-30 lg:static lg:border-none">
             <div className="flex items-center">
                 <div className="mx-3 lg:hidden">
                     <HamburguerIcon />
                 </div>
-                <h1 className="font-Rubik text-2xl uppercase text-pwgreen-900 font-extrabold p-2 lg:text-3xl">
+                <h1 className="font-Rubik text-2xl text-pwgreen-900 font-semibold p-2 lg:text-4xl">
                     {title}
                 </h1>
             </div>

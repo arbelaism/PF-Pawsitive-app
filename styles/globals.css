@@ -48,7 +48,7 @@
     }
 
     .dashboardLinks {
-        @apply md:text-sm;
+        @apply w-full md:text-sm;
     }
 
     .active {
@@ -59,7 +59,13 @@
         @apply w-max bg-pwgreen-700 text-pwgreen-50 text-sm text-center;
     }
     .th-head {
-        @apply w-max relative md:py-7;
+        @apply text-center w-max relative py-2 px-2 xl:py-4;
+    }
+    .td-body {
+        @apply w-max text-center px-2 py-2;
+    }
+    .tr-body {
+        @apply relative text-center px-2 py-2;
     }
     .button-head {
         @apply flex items-center justify-center gap-1
@@ -67,6 +73,13 @@
         left-[50%] -translate-x-2/4 
         top-[50%] -translate-y-2/4 
         text-pwgreen-50 font-bold;
+    }
+    .button-table {
+        @apply p-2 
+        text-xs 
+        focus:outline-none 
+        text-pwgreen-50 
+        hover:bg-pwgreen-900 focus:ring-4 font-medium rounded-lg bg-pwgreen-700;
     }
 }
 

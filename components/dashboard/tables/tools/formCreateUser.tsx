@@ -91,7 +91,7 @@ const FormCreateUser = (mutationCreate: any) => {
         <div className="w-max">
             <div className="left flex gap-3">
                 <button
-                    className="dashboardButton text-base font-base border border-transparent shadow-lg bg-pwgreen-800 text-pwgreen-50 hover:bg-pwgreen-100 hover:text-pwgreen-800 hover:border-pwgreen-800 transition-colors"
+                    className="dashboardButton my-0 text-base font-base border border-transparent shadow-lg bg-pwgreen-800 text-pwgreen-50 hover:bg-pwgreen-100 hover:text-pwgreen-800 hover:border-pwgreen-800 transition-colors"
                     onClick={toggleCondition}>
                     <FaUserPlus />
                     Agregar Usuario

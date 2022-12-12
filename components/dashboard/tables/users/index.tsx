@@ -6,7 +6,14 @@ import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort
 import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
-import { FaSort } from 'react-icons/fa'
+import {
+    FaSort,
+    FaEdit,
+    FaTrash,
+    FaArrowDown,
+    FaArrowUp,
+    FaSave
+} from 'react-icons/fa'
 
 interface FormEstructure {
     firstName: string
@@ -55,11 +62,11 @@ const TableUser = () => {
         } else return
     }
 
-    function handleActiveChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    function handleActiveChange(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
-        const active = e.target.value
-        const id = e.target.id as string
-        if (active === 'false' && id) {
+        const id = e.currentTarget.name
+        const user = users.find((u: Users) => u.id === id)
+        if (user.active && id) {
             mutation.mutate({ id, data: { active: false } })
             return
         } else {
@@ -88,12 +95,20 @@ const TableUser = () => {
 
     //Pagination
     const [currentPage, setCurrentPage] = React.useState<number>(1)
-    const [itemsPerPage, _setItemsPerPage] = React.useState<number>(6)
+    const [itemsPerPage, setItemsPerPage] = React.useState<number>(10)
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
     let currentItems: Users[] = []
     if (filteredData)
         currentItems = [...filteredData?.slice(firstItemIndex, lastItemIndex)]
+
+    const showItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = e.target.value
+
+        setItemsPerPage(Number(value))
+        setCurrentPage(1)
+        return
+    }
 
     // UPLOAD USER
     const dataEstructure = {
@@ -144,8 +159,8 @@ const TableUser = () => {
     }
 
     return (
-        <div className="w-full">
-            <div className="flex items-center justify-between mx-5">
+        <div className="w-full my-5 z-20">
+            <div className="flex items-center justify-between my-2 mx-5">
                 <form>
                     <div className="relative w-full">
                         <div className="text-slate-400 absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -164,17 +179,6 @@ const TableUser = () => {
                     mutationCreate={mutationCreate}
                     uploadUser={uploadUser}
                 />
-            </div>
-            <div className="flex flex-row justify-center w-full my-4">
-                {!isLoading && currentItems ? (
-                    <AlternativePagination
-                        totalItems={
-                            (filteredData ? filteredData : users)?.length
-                        }
-                        itemsPerPage={itemsPerPage}
-                        setCurrentPage={setCurrentPage}
-                    />
-                ) : null}
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
@@ -211,10 +215,10 @@ const TableUser = () => {
                                     <FaSort />
                                 </button>
                             </th>
-                            <th>GENERO</th>
-                            <th>FECHA DE NACIMIENTO</th>
-                            <th>ROL</th>
-                            <th>ESTADO</th>
+                            <th className="th-head">GENERO</th>
+                            <th className="th-head">FECHA DE NACIMIENTO</th>
+                            <th className="th-head">ROL</th>
+                            <th className="th-head">ESTADO</th>
                             <th className="th-head">
                                 <button
                                     className="button-head"
@@ -230,25 +234,25 @@ const TableUser = () => {
 
                     {/* DATOS DE LA TABLA */}
 
-                    <tbody className="bg-pwgreen-200 text-sm">
+                    <tbody className="text-sm">
                         {isSuccess
                             ? currentItems.map((u: Users) => {
                                   return (
                                       <>
                                           <tr
                                               key={u.id}
-                                              className="bg-pawgreen-50 text-center">
-                                              <td className="px-16 py-2 flex flex-col items-center">
-                                                  <div>
-                                                      {u.photo.length ? (
+                                              className="tr-body bg-pwgreen-50">
+                                              <td className="td-body">
+                                                  <div className="hidden lg:block">
+                                                      {u.photo ? (
                                                           <Image
                                                               src={u.photo}
                                                               alt={
                                                                   u.lastName ||
                                                                   'no image'
                                                               }
-                                                              width={100}
-                                                              height={100}
+                                                              width={64}
+                                                              height={64}
                                                           />
                                                       ) : (
                                                           <span className="text-center ml-2 font-semibold">
@@ -265,12 +269,12 @@ const TableUser = () => {
 
                                               {uploadUser === u.id ? (
                                                   <>
-                                                      <td className="px-5 py-2">
+                                                      <td className="td-body">
                                                           <input
                                                               type="text"
                                                               placeholder={
                                                                   u.firstName ||
-                                                                  'No hay datos'
+                                                                  'n/a'
                                                               }
                                                               name="firstName"
                                                               value={
@@ -281,13 +285,13 @@ const TableUser = () => {
                                                               }
                                                           />
                                                       </td>
-                                                      <td className="px-5 py-2">
+                                                      <td className="td-body">
                                                           <input
-                                                              className=" w-fit"
+                                                              className="w-fit"
                                                               type="text"
                                                               placeholder={
                                                                   u.lastName ||
-                                                                  'No hay datos'
+                                                                  'n/a'
                                                               }
                                                               name="lastName"
                                                               value={
@@ -298,12 +302,12 @@ const TableUser = () => {
                                                               }
                                                           />
                                                       </td>
-                                                      <td className="px-5 py-2">
+                                                      <td className="td-body">
                                                           <input
                                                               type="text"
                                                               placeholder={
                                                                   u.email ||
-                                                                  'No hay datos'
+                                                                  'n/a'
                                                               }
                                                               name="email"
                                                               value={
@@ -314,12 +318,12 @@ const TableUser = () => {
                                                               }
                                                           />
                                                       </td>
-                                                      <td className="px-5 py-2">
+                                                      <td className="td-body">
                                                           <input
                                                               type="text"
                                                               placeholder={
                                                                   u.gender ||
-                                                                  'No hay datos'
+                                                                  'n/a'
                                                               }
                                                               name="gender"
                                                               value={
@@ -330,12 +334,12 @@ const TableUser = () => {
                                                               }
                                                           />
                                                       </td>
-                                                      <td className="px-5 py-2">
+                                                      <td className="td-body">
                                                           <input
                                                               type="text"
                                                               placeholder={
                                                                   u.birthday ||
-                                                                  'No hay datos'
+                                                                  'n/a'
                                                               }
                                                               name="birthday"
                                                               value={
@@ -349,32 +353,27 @@ const TableUser = () => {
                                                   </>
                                               ) : (
                                                   <>
-                                                      <td className="px-5 py-2">
-                                                          {u.firstName ||
-                                                              'No hay Datos'}
+                                                      <td className="td-body min-w-[120px]">
+                                                          {u.firstName || 'n/a'}
                                                       </td>
-                                                      <td className="px-5 py-2">
-                                                          {u.lastName ||
-                                                              'No hay Datos'}
+                                                      <td className="td-body min-w-[120px]">
+                                                          {u.lastName || 'n/a'}
                                                       </td>
-                                                      <td className="px-5 py-2">
-                                                          {u.email ||
-                                                              'No hay Datos'}
+                                                      <td className="td-body">
+                                                          {u.email || 'n/a'}
                                                       </td>
-                                                      <td className="px-5 py-2">
-                                                          {u.gender ||
-                                                              'No hay Datos'}
+                                                      <td className="td-body">
+                                                          {u.gender || 'n/a'}
                                                       </td>
-                                                      <td className="px-5 py-2">
-                                                          {u.birthday ||
-                                                              'No hay Datos'}
+                                                      <td className="td-body">
+                                                          {u.birthday || 'n/a'}
                                                       </td>
                                                   </>
                                               )}
 
-                                              <td className="px-5 py-2">
+                                              <td className="td-body">
                                                   <select
-                                                      className="input"
+                                                      className="input w-max"
                                                       name="role"
                                                       value={u.role}
                                                       id={u.id}
@@ -392,57 +391,39 @@ const TableUser = () => {
                                                       </option>
                                                   </select>
                                               </td>
-                                              <td className="px-5 py-2">
-                                                  <select
-                                                      className="input"
-                                                      name="active"
-                                                      value={u.active.toString()}
-                                                      id={u.id}
-                                                      onChange={e =>
-                                                          handleActiveChange(e)
-                                                      }>
-                                                      <option value="true">
-                                                          ACTIVO
-                                                      </option>
-                                                      <option value="false">
-                                                          DESACTIVADO
-                                                      </option>
-                                                  </select>
+                                              <td className="td-body">
+                                                  {u.active ? (
+                                                      <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
+                                                          Activo
+                                                      </span>
+                                                  ) : (
+                                                      <span className="text-red-50 bg-red-700 px-3 py-1 rounded-full">
+                                                          Desactivado
+                                                      </span>
+                                                  )}
                                               </td>
-                                              <td className="px-5 py-2">
+                                              <td className="td-body">
                                                   {u.createdAt}
                                               </td>
 
                                               {/* BOTONES PARA MODIFICAR USUARIOS Y COLAPSE/EXPANDE TABLE */}
 
-                                              <td className="px-2 py-2 flex flex-row space-x-3">
+                                              <td className="td-body min-w-[130px] inline-flex space-x-2 lg:table-cell">
                                                   {/* BOTON UPLOAD */}
-
                                                   <button
-                                                      className="p-1 text-xs focus:outline-none border-4 border-pwpurple-600 text-pwgreen-50 hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg bg-pwgreen-700 "
+                                                      className="button-table"
                                                       type="button"
                                                       name={u.id}
                                                       onClick={() =>
                                                           toggleUpload(u.id)
                                                       }>
-                                                      <svg
-                                                          className="w-6 h-6"
-                                                          fill="none"
-                                                          stroke="currentColor"
-                                                          viewBox="0 0 24 24"
-                                                          xmlns="http://www.w3.org/2000/svg">
-                                                          <path
-                                                              strokeLinecap="round"
-                                                              strokeLinejoin="round"
-                                                              strokeWidth="2"
-                                                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                                      </svg>
+                                                      <FaEdit />
                                                   </button>
 
                                                   {/* BOTON GUARDAR */}
                                                   {uploadUser === u.id ? (
                                                       <button
-                                                          className="p-1 text-xs focus:outline-none border-4 border-pwpurple-600 text-pwgreen-50 hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg bg-pwgreen-700 "
+                                                          className="button-table"
                                                           type="button"
                                                           name={u.id}
                                                           onClick={e =>
@@ -450,56 +431,33 @@ const TableUser = () => {
                                                                   e
                                                               )
                                                           }>
-                                                          <svg
-                                                              className="w-6 h-6"
-                                                              fill="none"
-                                                              stroke="currentColor"
-                                                              viewBox="0 0 24 24"
-                                                              xmlns="http://www.w3.org/2000/svg">
-                                                              <path
-                                                                  strokeLinecap="round"
-                                                                  strokeLinejoin="round"
-                                                                  strokeWidth="2"
-                                                                  d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
-                                                          </svg>
+                                                          <FaSave />
                                                       </button>
                                                   ) : null}
+
+                                                  <button
+                                                      className="button-table"
+                                                      type="button"
+                                                      name={u.id}
+                                                      onClick={e =>
+                                                          handleActiveChange(e)
+                                                      }>
+                                                      <FaTrash />
+                                                  </button>
 
                                                   {/* BOTON COLLAPSE/EXPANDE */}
 
                                                   <button
-                                                      className="p-1 text-xs focus:outline-none border-4 border-pwpurple-600 text-pwgreen-50 hover:bg-pwpurple-600 focus:ring-4 font-medium rounded-lg bg-pwgreen-700 "
+                                                      className="button-table"
                                                       type="submit"
                                                       value={u.id}
                                                       onClick={e =>
                                                           toggleExpander(u.id)
                                                       }>
                                                       {rowExpande === u.id ? (
-                                                          <svg
-                                                              className="w-6 h-6"
-                                                              fill="none"
-                                                              stroke="currentColor"
-                                                              viewBox="0 0 24 24"
-                                                              xmlns="http://www.w3.org/2000/svg">
-                                                              <path
-                                                                  strokeLinecap="round"
-                                                                  strokeLinejoin="round"
-                                                                  strokeWidth="2"
-                                                                  d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path>
-                                                          </svg>
+                                                          <FaArrowDown />
                                                       ) : (
-                                                          <svg
-                                                              className="w-6 h-6"
-                                                              fill="none"
-                                                              stroke="currentColor"
-                                                              viewBox="0 0 24 24"
-                                                              xmlns="http://www.w3.org/2000/svg">
-                                                              <path
-                                                                  strokeLinecap="round"
-                                                                  strokeLinejoin="round"
-                                                                  strokeWidth="2"
-                                                                  d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path>
-                                                          </svg>
+                                                          <FaArrowUp />
                                                       )}
                                                   </button>
                                               </td>
@@ -511,43 +469,36 @@ const TableUser = () => {
                                               <>
                                                   <tr
                                                       key={u.email}
-                                                      className="bg-pwgreen-800 text-base font-bold">
-                                                      <th className="px-5 py-2 ">
-                                                          <span className="text-pwgreen-50">
-                                                              PROVINCIA
-                                                          </span>
+                                                      className="tr-head">
+                                                      <th className="th-head">
+                                                          CIUDAD
                                                       </th>
-                                                      <th className="px-5 py-2">
-                                                          <span className="text-pwgreen-50">
-                                                              CIUDAD
-                                                          </span>
+                                                      <th className="th-head">
+                                                          PROVINCIA
                                                       </th>
-                                                      <th className="px-5 py-2">
-                                                          <span className="text-pwgreen-50">
-                                                              DIRECCION
-                                                          </span>
+                                                      <th className="th-head">
+                                                          NACIONALIDAD
                                                       </th>
-                                                      <th className="px-5 py-2">
-                                                          <span className="text-pwgreen-50">
-                                                              TELEFONO
-                                                          </span>
+                                                      <th className="th-head">
+                                                          DIRECCION
                                                       </th>
-                                                      <th className="px-5 py-2">
-                                                          <span className="text-pwgreen-50">
-                                                              CORREO
-                                                          </span>
+                                                      <th className="th-head">
+                                                          TELEFONO
+                                                      </th>
+                                                      <th className="th-head">
+                                                          CORREO
                                                       </th>
                                                   </tr>
 
                                                   {/* DATOS DE LA TABLA EXPANDIBLE */}
                                                   {uploadUser === u.id ? (
                                                       <>
-                                                          <td className="px-5 py-2">
+                                                          <td className="td-body">
                                                               <input
                                                                   type="text"
                                                                   placeholder={
                                                                       u.province ||
-                                                                      'No hay datos'
+                                                                      'n/a'
                                                                   }
                                                                   name="province"
                                                                   value={
@@ -558,13 +509,13 @@ const TableUser = () => {
                                                                   }
                                                               />
                                                           </td>
-                                                          <td className="px-5 py-2">
+                                                          <td className="td-body">
                                                               <input
                                                                   className=" w-fit"
                                                                   type="text"
                                                                   placeholder={
                                                                       u.city ||
-                                                                      'No hay datos'
+                                                                      'n/a'
                                                                   }
                                                                   name="city"
                                                                   value={
@@ -575,12 +526,12 @@ const TableUser = () => {
                                                                   }
                                                               />
                                                           </td>
-                                                          <td className="px-5 py-2">
+                                                          <td className="td-body">
                                                               <input
                                                                   type="text"
                                                                   placeholder={
                                                                       u.address ||
-                                                                      'No hay datos'
+                                                                      'n/a'
                                                                   }
                                                                   name="address"
                                                                   value={
@@ -591,12 +542,12 @@ const TableUser = () => {
                                                                   }
                                                               />
                                                           </td>
-                                                          <td className="px-5 py-2">
+                                                          <td className="td-body">
                                                               <input
                                                                   type="text"
                                                                   placeholder={
                                                                       u.phone ||
-                                                                      'No hay datos'
+                                                                      'n/a'
                                                                   }
                                                                   name="phone"
                                                                   value={
@@ -607,12 +558,12 @@ const TableUser = () => {
                                                                   }
                                                               />
                                                           </td>
-                                                          <td className="px-5 py-2">
+                                                          <td className="td-body">
                                                               <input
                                                                   type="text"
                                                                   placeholder={
                                                                       u.postCode ||
-                                                                      'No hay datos'
+                                                                      'n/a'
                                                                   }
                                                                   name="postCode"
                                                                   value={
@@ -627,25 +578,25 @@ const TableUser = () => {
                                                   ) : (
                                                       <>
                                                           <tr key={u.createdAt}>
-                                                              <td className="px-5 py-2">
+                                                              <td className="td-body">
                                                                   {u.province ||
-                                                                      'No hay Datos'}
+                                                                      'n/a'}
                                                               </td>
-                                                              <td className="px-5 py-2">
+                                                              <td className="td-body">
                                                                   {u.city ||
-                                                                      'No hay Datos'}
+                                                                      'n/a'}
                                                               </td>
-                                                              <td className="px-5 py-2">
+                                                              <td className="td-body">
                                                                   {u.address ||
-                                                                      'No hay Datos'}
+                                                                      'n/a'}
                                                               </td>
-                                                              <td className="px-5 py-2">
+                                                              <td className="td-body">
                                                                   {u.phone ||
-                                                                      'No hay Datos'}
+                                                                      'n/a'}
                                                               </td>
-                                                              <td className="px-5 py-2">
+                                                              <td className="td-body">
                                                                   {u.postCode ||
-                                                                      'No hay Datos'}
+                                                                      'n/a'}
                                                               </td>
                                                           </tr>
                                                       </>
@@ -658,6 +609,29 @@ const TableUser = () => {
                             : isLoading}
                     </tbody>
                 </table>
+            </div>
+            <div className="flex justify-between my-2 mx-5">
+                <div>
+                    <select className="input" name="items" onChange={showItems}>
+                        <option value="5">5</option>
+                        <option value="10" selected>
+                            10
+                        </option>
+                        <option value="15">15</option>
+                        <option value="25">25</option>
+                    </select>
+                </div>
+                <div className="">
+                    {!isLoading && currentItems ? (
+                        <AlternativePagination
+                            totalItems={
+                                (filteredData ? filteredData : users)?.length
+                            }
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    ) : null}
+                </div>
             </div>
         </div>
     )
