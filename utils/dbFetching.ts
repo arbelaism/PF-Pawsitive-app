@@ -159,22 +159,51 @@ export const getAllProducts = async () => {
 }
 
 export const createProduct = async (data: Product) => {
-  console.log(data)
   const newProduct = await axios
     .post('/api/product', data)
     .catch(error => console.log(error))
   return newProduct
 }
+
 export const putProduct = async (id: string, data: Object) => {
-
   const response = await axios.put(`/api/product/${id}`, data);
-
   if (!response) {
     throw new Error("Data not found");
   }
   return response;
 };
 
+// TRANSACCIONES DE LA TABLA
+
+export const getAllTransactions = async () => {
+  const response = await axios.get("/api/transaction");
+  const transactions = await response.data;
+
+  const res = transactions.map((e:any)=> { 
+    return{...e ,  
+      ['userFirstName'] : [e.user.firstName],
+      ['userLastName'] : [e.user.lastName],
+      ['userEmail'] : [e.user.email],
+    }
+  })
+
+
+  if (!transactions) throw new Error("Data not found");
+  return res;
+}
+export const createTransaction = async (data: Product) => {
+  const newProduct = await axios
+    .post('/api/transaction', data)
+    .catch(error => console.log(error))
+  return newProduct
+}
+export const putTransaction = async (id: string, data: Object) => {
+  const response = await axios.put(`/api/transaction/${id}`, data);
+  if (!response) {
+    throw new Error("Data not found");
+  }
+  return response;
+};
 
 
 //
