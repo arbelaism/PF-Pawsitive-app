@@ -19,7 +19,7 @@
     }
 
     .label {
-        @apply font-medium;
+        @apply text-sm font-medium md:text-base;
     }
 
     .dashboardButton {
