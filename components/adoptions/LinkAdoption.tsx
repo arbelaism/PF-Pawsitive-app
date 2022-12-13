@@ -3,7 +3,11 @@ import styles from 'styles/LinkAdoption.module.css';
 import AdoptionDetails from "./AdoptionDetails";
 import { Props } from "pages/adoptions";
 
-const LinkAdoption = ({id}:Props) => {
+type Prop = {
+  id: string
+}
+
+const LinkAdoption = ({id}:Prop) => {
   return (
     <div className={styles.containerMain}>
       <div className={styles.container}>
@@ -31,7 +35,7 @@ const LinkAdoption = ({id}:Props) => {
               <div className={styles.right}></div>
             </div>
           </div>
-          <AdoptionDetails {...id}/>         
+          <AdoptionDetails id={id}/>         
           <div className={styles.paw}></div>
           <div className={styles.top}></div>
         </div>

@@ -16,9 +16,11 @@ import { useQuery } from 'react-query';
 import { AiOutlineClose, AiOutlineArrowRight } from 'react-icons/ai';
 import Link from 'next/link'
 
+type Prop = {
+  id: string
+}
 
-
-const AdoptionDetails : NextComponentType = ({id}:Props)=>{
+const AdoptionDetails = ({id}:Prop)=>{
   
   const [ids, setIds] = useLocalStorage<Apply>("ids", {petId: "", userId:""});
   const [open, setOpen] = useState(false);
