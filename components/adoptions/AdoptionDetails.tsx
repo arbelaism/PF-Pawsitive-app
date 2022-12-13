@@ -98,7 +98,7 @@ const AdoptionDetails = ({id}:Prop)=>{
                       Mi nombre es <span className='capitalize font-bold'>{pet.name}</span>.
                       Soy un cariñoso y amoroso {pet.breed}, tengo {pet.age} y me encuentro buscando
                       mi hogar soñado, una familia que me dé todo el amor del mundo y cuide de mi...
-                      Si deseas adoptarme, por favor presiona el botón "¡Adóptame!" y el <span className='font-bold'>Pawsitive Team </span>
+                      Si deseas adoptarme, por favor presiona el botón &quot;¡Adóptame!&quot; y el <span className='font-bold'>Pawsitive Team </span>
                       se contactará contigo.
 
                     </p>
