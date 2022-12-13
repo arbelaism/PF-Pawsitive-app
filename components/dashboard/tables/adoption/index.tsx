@@ -200,15 +200,7 @@ const TableAdoption = () => {
                                     <FaSort />
                                 </button>
                             </th>
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('size')}>
-                                    TAMAÑO
-                                    <FaSort />
-                                </button>
-                            </th>
+
 
                             <th className="th-head">
                                 <button
@@ -237,6 +229,16 @@ const TableAdoption = () => {
                                     <FaSort />
                                 </button>
                             </th>
+                            <th className="th-head">
+                                <button
+                                    className="button-head"
+                                    type="button"
+                                    onClick={() => requestSort('size')}>
+                                    TAMAÑO
+                                    <FaSort />
+                                </button>
+                            </th>
+
                             <th className="th-head">GENERO</th>
                             <th className="th-head">ESTADO</th>
                             <th className="th-head">DESCRIPCION</th>
