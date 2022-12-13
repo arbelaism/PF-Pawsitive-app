@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { getUsers, putUsers, createUser } from 'utils/dbFetching'
 import { Users } from 'app/types'
-import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
+import { useSortableData, useSearchData } from '../tools' //sort function
 import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
@@ -177,9 +177,9 @@ const TableUser = () => {
                         />
                     </div>
                 </form>
-                <FormCreateUser
+                {/* <FormCreateTransaction
                     {...mutationCreate}
-                />
+                /> */}
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
