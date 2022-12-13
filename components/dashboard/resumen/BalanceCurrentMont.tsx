@@ -13,7 +13,7 @@ const BalanceCurrentMont: NextPage = () => {
   } = useQuery(['transactions'], getTransactions)
 
   const fecha = new Date();
-  const mesaActual = (fecha.getMonth() + 1 > 9 ? (fecha.getMonth() + 1) : `0${fecha.getMonth() + 1}`)
+  const mesActual = (fecha.getMonth() + 1 > 9 ? (fecha.getMonth() + 1) : `0${fecha.getMonth() + 1}`)
 
   const añoActual = fecha.getFullYear()
   function getAmountByMont() {
@@ -21,19 +21,18 @@ const BalanceCurrentMont: NextPage = () => {
     const info: number[] = [];
     const info2: number[] = [];
     if (isSuccess) {
-      const montTransaction = transactions.filter((t: Transaction) => t.createdAt.includes(`${añoActual}-${mesaActual}`))
+      const montTransaction = transactions.filter((t: Transaction) => t.createdAt.includes(`${añoActual}-${mesActual}`))
 
       montTransaction.map((t: Transaction) => {
         info2.push(Number(t.amount))
       })
-      console.log(info2)
       montTransaction.map((t: Transaction) => {
         t.quantity.map(({ quantity, product }: Quantity) => {
           info.push((product.price * quantity))
         })
       })
-      const salesResult = info2.reduce((acc: number, current: number) => acc + current)
-      const expensesResult = info.reduce((acc: number, current: number) => acc + current)
+      const salesResult = info2.length ? info2.reduce((acc: number, current: number) => acc + current) : 0
+      const expensesResult =info.length ? info.reduce((acc: number, current: number) => acc + current) : 0
       return [salesResult, expensesResult]
     }
   }

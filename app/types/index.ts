@@ -27,7 +27,7 @@ export interface AdoptFormInput {
     age: string
     active?: boolean
     description?: string
-    monthOrYear: string
+    monthOrYear?: string
     breed: string
     photo?: string
     userId: string
@@ -52,6 +52,8 @@ export interface Product {
     category: string
     brand: string
     size: string
+    createdAt: string
+    updatedAt: string
     active?: boolean
     user: UserProduct
     amount?: number
@@ -156,6 +158,7 @@ export interface Users {
   phone:        string;
   city:         string;
   province:     string;
+  country:      string;
   postCode:     string;
   photo:        string;
   role:         string;
@@ -186,10 +189,12 @@ export interface Adoptions {
   size:        Size;
   age:         string;
   breed:       string;
+  gender:       string;
   photo:       string;
   active:      boolean;
-  description: null;
+  description: string;
   createdAt:   string;
+  updatedAt:   string;
   user:        User2;
 }
 
@@ -203,6 +208,10 @@ export interface User2 {
   firstName: string;
   lastName:  string;
   email:     string;
+  city:       string;
+  province:   string;
+  country:    string;
+  address:    string;
 }
 
 export interface IUser {
@@ -219,4 +228,74 @@ export interface IUser {
 export interface IUserForm extends IUser {
     password: string
     confirmPassword: string
+}
+
+export interface Apply{
+  petId: string;
+  userId: string
+}
+export interface Form{
+  reason: string,
+  past: string,
+  residence: string,
+  employee: string,
+  garden: string,
+  adoptionPostId: string,
+  userId: string
+}
+
+
+export interface TransactionT {
+  id:        string;
+  amount:    number;
+  createdAt: string;
+  updatedAt: string;
+  userId:    string;
+  status:    Status;
+  user:      UserT;
+  quantity:  Quantity[];
+}
+
+export interface Quantity {
+  id:       string;
+  quantity: number;
+  product:  Product;
+}
+
+export interface Product {
+  id:           string;
+  name:         string;
+  price:        number;
+  displayPrice: number;
+  category:     string;
+}
+
+export enum Status {
+  REFUND = "REFUND",
+  INCOMPLETE_PAYMENT = "INCOMPLETE_PAYMENT ",
+  PROCESSING_PAYMENT = "PROCESSING_PAYMENT",
+  PROCESSING_SHIPPING = "PROCESSING_SHIPPING",
+  SHIPPING = "SHIPPING",
+  PAYMENT_COMPLETE = "PAYMENT_COMPLETE",
+}
+
+export interface UserT {
+  id:        string;
+  firstName: string;
+  lastName:  string;
+  email:     string;
+  birthday:  Birthday;
+  active:    boolean;
+  role:      Role;
+}
+
+export enum Birthday {
+  The05011980 = "05/01/1980",
+  The23042000 = "23/04/2000",
+  The23111977 = "23/11/1977",
+  The30041993 = "30/04/1993",
+}
+
+export enum Role {
+  Basic = "BASIC",
 }

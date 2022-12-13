@@ -10,12 +10,6 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         case "GET":
             try {
                 const Items = await prisma.product.findMany({
-                    where: {
-                        active: true,
-                        stock : {
-                            gt: 0
-                        }
-                    },
                     include: {
                         review: true,
                     },

@@ -19,7 +19,7 @@
     }
 
     .label {
-        @apply font-medium;
+        @apply text-sm font-medium;
     }
 
     .dashboardButton {
@@ -29,7 +29,7 @@
         text-pwgreen-800
         font-Rubik
         text-sm
-        rounded-xl flex items-center gap-2
+        rounded-md flex items-center gap-2
         cursor-pointer
         font-medium
         hover:bg-pwgreen-800 hover:text-pwgreen-50
@@ -48,11 +48,49 @@
     }
 
     .dashboardLinks {
-        @apply md:text-sm;
+        @apply w-full md:text-sm;
+    }
+
+    .navbarLink {
+        @apply block 
+        mt-4 mr-4
+        transition-all
+        font-Rubik
+        uppercase
+        font-medium
+        hover:text-pwgreen-800
+        lg:inline-block lg:mt-0;
     }
 
     .active {
         @apply bg-pwgreen-800 text-pwgreen-50;
+    }
+
+    .tr-head {
+        @apply w-max bg-pwgreen-700 text-pwgreen-50 text-sm text-center;
+    }
+    .th-head {
+        @apply text-center w-max relative py-2 px-2 xl:py-4;
+    }
+    .td-body {
+        @apply w-max text-center px-2 py-2;
+    }
+    .tr-body {
+        @apply relative text-center px-2 py-2;
+    }
+    .button-head {
+        @apply flex items-center justify-center gap-1
+        absolute 
+        left-[50%] -translate-x-2/4 
+        top-[50%] -translate-y-2/4 
+        text-pwgreen-50 font-bold;
+    }
+    .button-table {
+        @apply p-2 
+        text-xs 
+        focus:outline-none 
+        text-pwgreen-50 
+        hover:bg-pwgreen-900 focus:ring-4 font-medium rounded-lg bg-pwgreen-700;
     }
 }
 

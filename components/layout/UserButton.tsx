@@ -10,13 +10,28 @@ type Props = {
 
 const UserButton = ({ userName, userEmail, userPicture }: Props) => {
     const [dropdown, setDropdown] = useState(false)
+
+    const showMenu = () => {
+        const menu = document.getElementById('dropdown')
+
+        if (!menu) return
+        if (dropdown) {
+            menu.classList.add('opacity-0')
+            menu.classList.remove('opacity-1')
+            setDropdown(false)
+            return
+        }
+
+        menu.classList.add('opacity-1')
+        menu.classList.remove('opacity-0')
+        setDropdown(true)
+    }
+
     return (
         <div className="w-max relative">
             <button
-                onClick={() => {
-                    setDropdown(!dropdown)
-                }}
-                className="w-max text-pwgreen-100 bg-pwgreen-800 hover:bg-green-50 hover:text-pwgreen-800 font-medium rounded-lg text-sm px-4 py-2.5 flex gap-2 items-center"
+                onClick={showMenu}
+                className="w-max text-pwgreen-50 bg-pwgreen-600 hover:bg-pwgreen-800 font-medium rounded-lg text-sm px-4 py-2.5 flex gap-2 items-center transition-all"
                 type="button">
                 <Image
                     src={userPicture}
@@ -25,40 +40,40 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                     height={24}
                     className="rounded-full"
                 />
-                <span className='hidden md:block'>{userName}</span>
+                <span className="hidden md:block">{userName}</span>
             </button>
-            {dropdown ? (
-                <div className="absolute top-14 right-0 z-10 w-max bg-pwgreen-700 rounded divide-y divide-slate-100 shadow-lg">
-                    <div className="py-3 px-4 text-sm text-gray-900 dark:text-white">
-                        <div className="font-medium truncate">{userEmail}</div>
-                    </div>
-                    <ul
-                        className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                        aria-labelledby="dropdownInformationButton">
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Perfil
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Configuración
-                            </a>
-                        </li>
-                    </ul>
-                    <div className="py-1">
-                        <Link href={'/api/auth/logout'}>
-                            <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                Cerrar sesión
-                            </a>
-                        </Link>
-                    </div>
+            <div
+                id="dropdown"
+                className="absolute top-14 border border-pwgreen-500 opacity-0 right-0 z-40 w-max bg-pwgreen-50 rounded divide-y divide-slate-200 shadow-lg transition-all">
+                <div className="py-3 px-4 text-sm text-pwgreen-800">
+                    <div className="font-medium truncate">{userEmail}</div>
                 </div>
-            ) : null}
+                <ul
+                    className="text-sm text-pwgreen-800"
+                    aria-labelledby="dropdownInformationButton">
+                    <li>
+                        <a
+                            href="#"
+                            className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                            Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#"
+                            className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                            Configuración
+                        </a>
+                    </li>
+                </ul>
+                <div className="text-sm text-pwgreen-800">
+                    <Link href={'/api/auth/logout'}>
+                        <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                            Cerrar sesión
+                        </a>
+                    </Link>
+                </div>
+            </div>
         </div>
     )
 }

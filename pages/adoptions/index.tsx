@@ -5,9 +5,12 @@ import { IAdoption } from 'app/types'
 import { MainLayout, AdoptionCard, Filters } from 'components'
 import { useQuery } from 'react-query'
 import { getAdoptions } from 'utils/dbFetching'
+import { redirectionAlert } from "utils/alerts";
 import AlternativePagination from 'components/layout/AlternativePagination'
 import NotFound from 'public/mong03b.gif'
 import Image from 'next/image'
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { useRouter } from 'next/router'
 
 export type Props = {
     [key: string]: any
@@ -21,6 +24,10 @@ const Adoptions: NextPage = () => {
         isSuccess
     } = useQuery(['adoptions'], getAdoptions)
 
+    //hooks para mostrar alerta o redireccionar
+    const { user, error: errorU, isLoading: isLoadingU } = useUser()
+    const router = useRouter()
+
     //Pagination with Data o Adoptions
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, _setItemsPerPage] = useState<number>(6)
@@ -30,6 +37,23 @@ const Adoptions: NextPage = () => {
     const firstItemIndex = lastItemIndex - itemsPerPage
     let currentItems: IAdoption[] = []
     if (data) currentItems = [...data.slice(firstItemIndex, lastItemIndex)]
+
+    const alertAdoptionForm = ()=>{
+      if(!user){
+        redirectionAlert({
+          icon: 'info',
+                  title: '<strong>Inicio de sesion requerido</strong>',
+                  html: 'Para publicar un anuncio de adopcion y poder disfrutar de todas nuestras funcionalidades' +
+                  ' te invitamos a iniciar sesion o crear una cuenta.',
+                  confirmButtonText: 'Iniciar sesion',                
+                  confirmButtonAriaLabel:  'Thumbs up, great!',
+                  link : '/api/auth/login'
+        })
+      }
+      else{
+        router.push('/adoptions/create')
+      }
+    }
 
     useEffect(() => {
         if (isSuccess) {
@@ -41,7 +65,7 @@ const Adoptions: NextPage = () => {
         <MainLayout title="Pawsitive - Adopciones">
             <div className="px-4 py-2 w-full flex justify-between items-center bg-pwgreen-100 mt-4">
                 <h1 className="text-3xl font-bold p-4 bg-pwpurple-50 rounded-xl border-pwgreen-700 shadow-xl lg:text-5xl">Adopciones</h1>
-                <Link href={'/adoptions/create'}>
+                <button onClick={alertAdoptionForm}>
                 <a
             href="#"
             className="inline-flex justify-center items-center p-5 text-base font-medium text-white bg-pwgreen-700 rounded-lg hover:text-white hover:bg-pwpurple-800 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -53,7 +77,7 @@ const Adoptions: NextPage = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_4151_63004)">
+              <g clipPath="url(#clip0_4151_63004)">
                 <path
                   d="M5.50085 30.1242C8.53625 30.1242 10.9998 27.8749 10.9998 25.1035V20.0828H5.50085C2.46546 20.0828 0.00195312 22.332 0.00195312 25.1035C0.00195312 27.8749 2.46546 30.1242 5.50085 30.1242Z"
                   fill="#58c184"
@@ -97,13 +121,13 @@ const Adoptions: NextPage = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </a>
-                </Link>
+                </button>
             </div>
 
             <div className="flex">

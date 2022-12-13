@@ -10,24 +10,27 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         case "GET":
             try {
                 const posts = await prisma.adoptionPost.findMany({
-                    where: {
-                        active: true
-                    },
                     select: {
                         id: true,
                         name: true,
                         size: true,
                         age: true,
                         breed: true,
+                        gender: true,
                         photo: true,
                         active: true,
                         description: true,
                         createdAt: true,
+                        updatedAt: true,
                         user: {
                             select: {
                                 firstName: true,
                                 lastName: true,
                                 email: true,
+                                country: true,
+                                city: true,
+                                province: true,
+                                address: true
                             }
                         }
                     }

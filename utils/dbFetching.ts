@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AdoptFormInput, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput } from "app/types";
+import { AdoptFormInput, Product, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput, Form } from "app/types";
 import { useQuery } from 'react-query';
 
 export const getAdoptions = async () => {
@@ -25,9 +25,10 @@ export const getMinAdoptions = async () => {
 export const getProducts = async () => {
   const response = await axios.get("/api/product");
   const products = await response.data;
+  const res = products.filter((p: Product) => p.active === true)
 
   if (!products) throw new Error("Data not found");
-  return products;
+  return res;
 };
 export const getProductById = async (id: string) => {
   const response = await axios.get("/api/product/" + id);
@@ -111,6 +112,8 @@ export const getTransactions = async () => {
   return transaction;
 };
 
+// APIS PARA LA TABLA
+
 export const getUsers = async () => {
   const response = await axios.get("/api/user");
   const users = await response.data;
@@ -121,7 +124,6 @@ export const getUsers = async () => {
   return users;
 };
 export const putUsers = async (id: string, data: Object) => {
-  console.log('bd', id, data)
 
   const response = await axios.put(`/api/user/${id}`, data);
 
@@ -130,13 +132,17 @@ export const putUsers = async (id: string, data: Object) => {
   }
   return response;
 };
+export const putAdoption = async (id: string, data: Object) => {
+  console.log('bd', id, data)
 
-export const registerUser = async (data: IUserForm) => {
-  const newUser = await axios
-    .post('/api/auth/register', data)
-    .catch(error => console.log(error))
-  return newUser
-}
+  const response = await axios.put(`/api/adoptionpost/${id}`, data);
+
+  if (!response) {
+    throw new Error("Data not found");
+  }
+  return response;
+};
+
 export const createUser = async (data: Users) => {
   console.log(data)
   const newUser = await axios
@@ -144,6 +150,71 @@ export const createUser = async (data: Users) => {
     .catch(error => console.log(error))
   return newUser
 }
+//  PRODUCTOS DE LA TABLA
+export const getAllProducts = async () => {
+  const response = await axios.get("/api/product");
+  const products = await response.data;
+  if (!products) throw new Error("Data not found");
+  return products;
+}
+
+export const createProduct = async (data: Product) => {
+  const newProduct = await axios
+    .post('/api/product', data)
+    .catch(error => console.log(error))
+  return newProduct
+}
+
+export const putProduct = async (id: string, data: Object) => {
+  const response = await axios.put(`/api/product/${id}`, data);
+  if (!response) {
+    throw new Error("Data not found");
+  }
+  return response;
+};
+
+// TRANSACCIONES DE LA TABLA
+
+export const getAllTransactions = async () => {
+  const response = await axios.get("/api/transaction");
+  const transactions = await response.data;
+
+  const res = transactions.map((e:any)=> { 
+    return{...e ,  
+      ['userFirstName'] : [e.user.firstName],
+      ['userLastName'] : [e.user.lastName],
+      ['userEmail'] : [e.user.email],
+    }
+  })
+
+
+  if (!transactions) throw new Error("Data not found");
+  return res;
+}
+export const createTransaction = async (data: Product) => {
+  const newProduct = await axios
+    .post('/api/transaction', data)
+    .catch(error => console.log(error))
+  return newProduct
+}
+export const putTransaction = async (id: string, data: Object) => {
+  const response = await axios.put(`/api/transaction/${id}`, data);
+  if (!response) {
+    throw new Error("Data not found");
+  }
+  return response;
+};
+
+
+//
+
+export const registerUser = async (data: IUserForm) => {
+  const newUser = await axios
+    .post('/api/auth/register', data)
+    .catch(error => console.log(error))
+  return newUser
+}
+
 
 export const getUserById = async (id: string) => {
   const response = await axios.get(
@@ -153,6 +224,14 @@ export const getUserById = async (id: string) => {
   if (!user) throw new Error("Data not found");
   return user;
 };
-export const useGetUserById =(id:any)=>{
-  return useQuery(['user' , id],()=> getUserById(id),{enabled:( typeof id === "string")})
-}
+export const useGetUserById = (id: any) => {
+  return useQuery(['user', id], () => getUserById(id), { enabled: (typeof id === "string") })
+};
+
+export const apply = async (data: Form) => {
+  const newApply = await axios
+    .post('/api/adoptionapply', data)
+    .catch(error => console.log(error))
+
+  return newApply;
+};
