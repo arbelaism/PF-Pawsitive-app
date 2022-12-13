@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { getAllTransactions, putTransaction, createTransaction } from 'utils/dbFetching'
-import { Quantity, TransactionT } from 'app/types'
+import { getAllTransactions, putTransaction, createTransaction, sendMail, getUserById } from 'utils/dbFetching'
+import { Quantity, TransactionT, ContactForm,Users } from 'app/types'
 import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
-import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
+import { alerts } from 'utils/alerts';
 import {
     FaSort,
     FaEdit,
@@ -42,6 +42,17 @@ const TableTransaction = () => {
             queryClient.prefetchQuery('transactions', getAllTransactions)
         }
     })
+    const mutationSendEmail = useMutation(sendMail, {
+        onSuccess: data => {
+            alerts({ icon: 'info', title: '<strong>Email</strong>', text: 'Se envio un email sobre es estado de la compra.', toast: true })
+        },
+        onError: () => {
+            alerts({ icon: 'error', title: '<strong>Email</strong>', text: 'No se envio el email', toast: true })
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('create');
+        }
+    });
 
     //Sort Table
 
@@ -53,7 +64,17 @@ const TableTransaction = () => {
         e.preventDefault()
         const status = e.target.value as string
         const id = e.target.id as string
+        const user:any = getUserById(id)
+        let paymentData = {
+            name: user.firstName as string,
+            email: user.email as string,
+            estado: status,
+            action: 'sendStatus',
+            message: "estado enviado",
+        }
+
         if (status && id) {
+            mutationSendEmail.mutate(paymentData)
             mutation.mutate({ id, data: { status } })
             return
         } else return
