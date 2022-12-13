@@ -180,9 +180,9 @@ const TableAdoption = () => {
                         />
                     </div>
                 </form>
-                <FormCreateAdoption
+                {/* <FormCreateAdoption
                     {...mutationCreate}
-                />
+                /> */}
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
