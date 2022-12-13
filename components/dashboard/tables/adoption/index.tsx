@@ -59,6 +59,15 @@ const TableAdoption = () => {
             return
         } else return
     }
+    function handleSizeChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const size = e.target.value as string
+        const id = e.target.id as string
+        if (size && id) {
+            mutation.mutate({ id, data: { size } })
+            return
+        } else return
+    }
 
     function handleActiveChange(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
@@ -146,7 +155,7 @@ const TableAdoption = () => {
         e.preventDefault()
         const newObj: any = {}
         for (const [key, value] of Object.entries(userUpdate)) {
-            if (value !== '') {
+            if (value) {
                 newObj[key] = value
             }
         }
@@ -171,9 +180,9 @@ const TableAdoption = () => {
                         />
                     </div>
                 </form>
-                {/* <FormCreateAdoption
+                <FormCreateAdoption
                     {...mutationCreate}
-                /> */}
+                />
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
@@ -292,22 +301,6 @@ const TableAdoption = () => {
                                                         <input
                                                             type="text"
                                                             placeholder={
-                                                                a.size ||
-                                                                'n/a'
-                                                            }
-                                                            name="size"
-                                                            value={
-                                                                userUpdate.size
-                                                            }
-                                                            onChange={
-                                                                handleInputDataChange
-                                                            }
-                                                        />
-                                                    </td>
-                                                    <td className="td-body">
-                                                        <input
-                                                            type="text"
-                                                            placeholder={
                                                                 a.age ||
                                                                 'n/a'
                                                             }
@@ -342,9 +335,6 @@ const TableAdoption = () => {
                                                     <td className="td-body min-w-[120px]">
                                                         {a.name || 'n/a'}
                                                     </td>
-                                                    <td className="td-body min-w-[120px]">
-                                                        {a.size || 'n/a'}
-                                                    </td>
                                                     <td className="td-body">
                                                         {a.age || 'n/a'}
                                                     </td>
@@ -356,6 +346,29 @@ const TableAdoption = () => {
                                             }
                                             <td className="td-body">
                                                 {a.createdAt}
+                                            </td>
+                                            <td className="td-body">
+                                                <select
+                                                    className="input w-max"
+                                                    name="size"
+                                                    value={a.size}
+                                                    id={a.id}
+                                                    onChange={
+                                                        handleSizeChange
+                                                    }>
+                                                    <option value="UNIQUE">
+                                                        DESCONOCIDO
+                                                    </option>
+                                                    <option value="SMALL">
+                                                        PEQUEÑO
+                                                    </option>
+                                                    <option value="MEDIUM">
+                                                        MEDIANO
+                                                    </option>
+                                                    <option value="BIG">
+                                                        GRANDE
+                                                    </option>
+                                                </select>
                                             </td>
                                             <td className="td-body">
                                                 <select

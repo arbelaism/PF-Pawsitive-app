@@ -3,28 +3,36 @@ import { alerts } from "utils/alerts";
 import { mediaUploader } from "utils/mediaUploader";
 import { useForm, SubmitHandler } from "react-hook-form";
 interface FormEstructure {
-  name: string;
-  size: string;
-  age: string;
-  breed: string;
-  description: string;
-  photo: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   gender: string;
+  birthday: string;
+  address: string;
+  phone: string;
+  city: string;
+  province: string;
+  postCode: string;
+  photo: string;
+  role: string;
   active: boolean;
-  userId:string
 }
 
-const FormCreateAdoption = (mutationCreate: any) => {
+const FormCreateProduct = (mutationCreate: any) => {
   const formEstructure = {
-    name: "",
-    size: "",
-    age: "",
-    breed: "",
-    description: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    gender: "",
+    birthday: "",
+    address: "",
+    phone: "",
+    city: "",
+    province: "",
+    postCode: "",
     photo: "",
-    gender: "UNKNOWN",
+    role: "BASIC",
     active: true,
-    userId:""
   };
 
   //Manejar form
@@ -492,4 +500,4 @@ const FormCreateAdoption = (mutationCreate: any) => {
   );
 };
 
-export default FormCreateAdoption;
+export default FormCreateProduct;

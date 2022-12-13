@@ -152,7 +152,7 @@ const TableUser = () => {
         e.preventDefault()
         const newObj: any = {}
         for (const [key, value] of Object.entries(userUpdate)) {
-            if (value !== '') {
+            if (value ) {
                 newObj[key] = value
             }
         }

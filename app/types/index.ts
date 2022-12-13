@@ -52,6 +52,8 @@ export interface Product {
     category: string
     brand: string
     size: string
+    createdAt: string
+    updatedAt: string
     active?: boolean
     user: UserProduct
     amount?: number
