@@ -85,28 +85,26 @@ const Cart : NextPage = withPageAuthRequired(() => {
     }, [cartProducts]);
 
     const priceToPay = getTotalPrice();  
+
+    let screen = window.screen
+    
     
     return (
         <MainLayout title="Pawsitive - Carrito">
-            <div className='flex items-center flex-col  p-auto mt-8 h-screen rounded-xl'>
-                <h1 className="text-3xl font-bold">Carrito de compras</h1>
-                <br />
-                <div className='w-full p-4 text-center'>
-                    {cartProducts.length === 0 ? (
+            <div className='flex items-center flex-col h-full p-auto mt-8 rounded-xl'>
+                <div>
+                    <h1 className="text-3xl font-bold">Carrito de compras</h1>
+                </div>
+                {cartProducts.length === 0 ? (
                         <Image
                             src={EmptyCart}
                             alt="not found"
                         />
-                    ) : (
-                        <div className="grid grid-flow-row items-center text-center rounded-xl border-2 border-black">
-                            <div className='grid grid-cols-6 mt-4 justify-between'>
-                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Imagen</div>
-                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Producto</div>
-                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Precio unitario</div>
-                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Cantidad</div>
-                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Agregar/Remover</div>
-                                <div className='flex-auto text-center text-sm lg:text-lg font-bold pb-2 uppercase border-b-2 border-black mb-2'>Precio total producto</div>
-                            </div>
+                    ) :
+                <>
+                <div className='w-full p-4 text-center lg:flex'>
+                     
+                        <div className='w-full lg:flex lg:flex-row lg:justify-around'>
                             {cartProducts.map((product: Product) => (
                                 <ProductOnCart
                                     key={product.id}
@@ -116,14 +114,16 @@ const Cart : NextPage = withPageAuthRequired(() => {
                                 />
                             ))}
                         </div>
-                    )}
-                    <hr />
-                    <div className='flex justify-between text-sm font-bold border-2 border-black w-auto px-8'>
-                        <h3 className='text-md lg:text-lg'>Total compra: $ </h3>
-                        <h3 className='text-md lg:text-lg'>{getTotalPrice()}</h3>
-                    </div>
-                    <ModalPayment price={priceToPay} />                                            
+                                                           
                 </div>
+                <div className=' w-full text-center text-xl font-bold border bg-pwgreen-200 border-t-black p-8'>
+                        <div className='flex flex-row justify-between font-Rubik lg:justify-around w-full'>
+                            <h3 className='text-md lg:text-lg'>Total</h3>
+                            <h3 className='text-md lg:text-lg'>${getTotalPrice()}</h3> 
+                        </div>
+                        <ModalPayment price={priceToPay} />
+                </div>
+                </>} 
             </div>
         </MainLayout>
     )
