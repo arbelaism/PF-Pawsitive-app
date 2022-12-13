@@ -19,7 +19,7 @@
     }
 
     .label {
-        @apply text-sm font-medium md:text-base;
+        @apply text-sm font-medium;
     }
 
     .dashboardButton {
@@ -49,6 +49,17 @@
 
     .dashboardLinks {
         @apply w-full md:text-sm;
+    }
+
+    .navbarLink {
+        @apply block 
+        mt-4 mr-4
+        transition-all
+        font-Rubik
+        uppercase
+        font-medium
+        hover:text-pwgreen-800
+        lg:inline-block lg:mt-0;
     }
 
     .active {
