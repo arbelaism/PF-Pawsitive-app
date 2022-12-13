@@ -102,6 +102,15 @@ export interface CheckIn {
     action: string
 }
 
+export interface EmailT {
+  name: string
+  email: string
+  status: string
+  idT: any
+  message: string
+  action: string
+}
+
 export enum Role {
     ADMIN = 'ADMIN',
     USER = 'USER'
