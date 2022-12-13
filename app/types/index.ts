@@ -52,6 +52,8 @@ export interface Product {
     category: string
     brand: string
     size: string
+    createdAt: string
+    updatedAt: string
     active?: boolean
     user: UserProduct
     amount?: number
@@ -186,6 +188,7 @@ export interface Adoptions {
   size:        Size;
   age:         string;
   breed:       string;
+  gender:       string;
   photo:       string;
   active:      boolean;
   description: string;

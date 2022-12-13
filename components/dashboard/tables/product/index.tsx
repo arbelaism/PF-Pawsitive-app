@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { getUsers, putUsers, createUser } from 'utils/dbFetching'
-import { Users } from 'app/types'
-import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
+import { getAllProducts, putProduct, createProduct } from 'utils/dbFetching'
+import { Product, Review } from 'app/types'
+import { useSortableData, useSearchData, FormCreateProduct } from '../tools' //sort function
 import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
@@ -16,49 +16,53 @@ import {
 } from 'react-icons/fa'
 
 interface FormEstructure {
-    firstName: string
-    lastName: string
-    email: string
-    gender: string
-    birthday: string
-    address: string
-    phone: string
-    city: string
-    province: string
-    country: string
-    postCode: string
+    name: string
+    price: number
+    displayPrice: number
+    description: string
+    stock: number
     photo: string
+    brand: string
 }
 
-const TableUser = () => {
+const TableProduct = () => {
     //QUERY DATA GET AND PUT
-    const { data: users, isLoading, isSuccess } = useQuery(['users'], getUsers)
+    const { data: products, isLoading, isSuccess } = useQuery(['products'], getAllProducts)
 
     const queryClient = useQueryClient()
 
-    const mutation = useMutation(({ id, data }: any) => putUsers(id, data), {
+    const mutation = useMutation(({ id, data }: any) => putProduct(id, data), {
         onSuccess: () => {
-            queryClient.prefetchQuery('users', getUsers)
+            queryClient.prefetchQuery('products', getAllProducts)
         }
     })
 
-    const mutationCreate = useMutation((data: any) => createUser(data), {
+    const mutationCreate = useMutation((data: any) => createProduct(data), {
         onSuccess: () => {
-            queryClient.prefetchQuery('users', getUsers)
+            queryClient.prefetchQuery('products', getAllProducts)
         }
     })
 
     //Sort Table
 
-    const { items, requestSort, sortConfig } = useSortableData(users)
+    const { items, requestSort, sortConfig } = useSortableData(products)
 
     //FUNCTIONS CHANGE DATA
-    function handleRoleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    function handleSizeChange(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
-        const role = e.target.value as string
+        const size = e.target.value as string
         const id = e.target.id as string
-        if (role && id) {
-            mutation.mutate({ id, data: { role } })
+        if (size && id) {
+            mutation.mutate({ id, data: { size } })
+            return
+        } else return
+    }
+    function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const category = e.target.value as string
+        const id = e.target.id as string
+        if (category && id) {
+            mutation.mutate({ id, data: { category } })
             return
         } else return
     }
@@ -66,8 +70,8 @@ const TableUser = () => {
     function handleActiveChange(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
         const id = e.currentTarget.name
-        const user = users.find((u: Users) => u.id === id)
-        if (user.active && id) {
+        const product = products.find((u: Product) => u.id === id)
+        if (product.active && id) {
             mutation.mutate({ id, data: { active: false } })
             return
         } else {
@@ -99,7 +103,7 @@ const TableUser = () => {
     const [itemsPerPage, setItemsPerPage] = React.useState<number>(10)
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
-    let currentItems: Users[] = []
+    let currentItems: Product[] = []
     if (filteredData)
         currentItems = [...filteredData?.slice(firstItemIndex, lastItemIndex)]
 
@@ -113,18 +117,14 @@ const TableUser = () => {
 
     // UPLOAD USER
     const dataEstructure = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        gender: '',
-        birthday: '',
-        address: '',
-        phone: '',
-        city: '',
-        province: '',
-        country: '',
-        postCode: '',
-        photo: ''
+        name: '',
+        price: 0,
+        displayPrice: 0,
+        description: '',
+        stock: 0,
+        photo: '',
+        brand: '',
+
     }
     const [uploadUser, setUploadUser] = React.useState(null)
     const [userUpdate, setUserUpdate] = React.useState<FormEstructure>({
@@ -144,7 +144,15 @@ const TableUser = () => {
         e.preventDefault()
         const name = e.target.name
         const value = e.target.value
-        setUserUpdate({ ...userUpdate, [name]: value })
+        if (name === 'stock') {
+            setUserUpdate({ ...userUpdate, [name]: parseInt(value) })
+            return
+        }
+        if (name === 'price' || name === 'displayPrice') {
+            setUserUpdate({ ...userUpdate, [name]: parseFloat(value) })
+            return
+        }
+        else { setUserUpdate({ ...userUpdate, [name]: value }) }
         return
     }
 
@@ -177,9 +185,9 @@ const TableUser = () => {
                         />
                     </div>
                 </form>
-                <FormCreateUser
+                {/* <FormCreateProduct
                     {...mutationCreate}
-                />
+                /> */}
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
@@ -192,7 +200,7 @@ const TableUser = () => {
                                 <button
                                     className="button-head"
                                     type="button"
-                                    onClick={() => requestSort('firstName')}>
+                                    onClick={() => requestSort('name')}>
                                     NOMBRE
                                     <FaSort />
                                 </button>
@@ -201,8 +209,8 @@ const TableUser = () => {
                                 <button
                                     className="button-head"
                                     type="button"
-                                    onClick={() => requestSort('lastName')}>
-                                    APELLIDO
+                                    onClick={() => requestSort('price')}>
+                                    COSTO
                                     <FaSort />
                                 </button>
                             </th>
@@ -211,13 +219,32 @@ const TableUser = () => {
                                 <button
                                     className="button-head"
                                     type="button"
-                                    onClick={() => requestSort('email')}>
-                                    EMAIL
+                                    onClick={() => requestSort('displayPrice')}>
+                                    PRECIO
                                     <FaSort />
                                 </button>
                             </th>
-
-                            <th className="th-head">ROL</th>
+                            <th className="th-head">
+                                <button
+                                    className="button-head"
+                                    type="button"
+                                    onClick={() => requestSort('stock')}>
+                                    STOCK
+                                    <FaSort />
+                                </button>
+                            </th>
+                            <th className="th-head">
+                                <button
+                                    className="button-head"
+                                    type="button"
+                                    onClick={() => requestSort('brand')}>
+                                    MARCA
+                                    <FaSort />
+                                </button>
+                            </th>
+                            {/* <th className="th-head">DESCRIPCION DEL PRODUCTO</th> */}
+                            <th className="th-head">TAMAÑO</th>
+                            <th className="th-head">CATEGORIA</th>
                             <th className="th-head">ESTADO</th>
                             <th className="th-head">
                                 <button
@@ -236,7 +263,7 @@ const TableUser = () => {
 
                     <tbody className="text-sm">
                         {isSuccess
-                            ? currentItems.map((u: Users) => {
+                            ? currentItems.map((u: Product) => {
                                 return (
                                     <>
                                         <tr
@@ -248,7 +275,7 @@ const TableUser = () => {
                                                         <Image
                                                             src={u.photo}
                                                             alt={
-                                                                u.lastName ||
+                                                                u.name ||
                                                                 'no image'
                                                             }
                                                             width={64}
@@ -273,12 +300,12 @@ const TableUser = () => {
                                                         <input
                                                             type="text"
                                                             placeholder={
-                                                                u.firstName ||
+                                                                u.name ||
                                                                 'n/a'
                                                             }
-                                                            name="firstName"
+                                                            name="name"
                                                             value={
-                                                                userUpdate.firstName
+                                                                userUpdate.name
                                                             }
                                                             onChange={
                                                                 handleInputDataChange
@@ -288,14 +315,24 @@ const TableUser = () => {
                                                     <td className="td-body">
                                                         <input
                                                             className="w-fit"
-                                                            type="text"
-                                                            placeholder={
-                                                                u.lastName ||
-                                                                'n/a'
-                                                            }
-                                                            name="lastName"
+                                                            type="number"
+                                                            min='0'
+                                                            name="price"
                                                             value={
-                                                                userUpdate.lastName
+                                                                userUpdate.price
+                                                            }
+                                                            onChange={
+                                                                handleInputDataChange
+                                                            }
+                                                        />
+                                                    </td>
+                                                    <td className="td-body">
+                                                        <input
+                                                            type="number"
+                                                            min='0'
+                                                            name="displayPrice"
+                                                            value={
+                                                                userUpdate.displayPrice
                                                             }
                                                             onChange={
                                                                 handleInputDataChange
@@ -306,50 +343,126 @@ const TableUser = () => {
                                                         <input
                                                             type="text"
                                                             placeholder={
-                                                                u.email ||
+                                                                u.stock.toString() ||
                                                                 'n/a'
                                                             }
-                                                            name="email"
+                                                            name="stock"
                                                             value={
-                                                                userUpdate.email
+                                                                userUpdate.stock
                                                             }
                                                             onChange={
                                                                 handleInputDataChange
                                                             }
                                                         />
                                                     </td>
-
+                                                    <td className="td-body">
+                                                        <input
+                                                            type="text"
+                                                            placeholder={
+                                                                u.brand ||
+                                                                'n/a'
+                                                            }
+                                                            name="brand"
+                                                            value={
+                                                                userUpdate.brand
+                                                            }
+                                                            onChange={
+                                                                handleInputDataChange
+                                                            }
+                                                        />
+                                                    </td>
+                                                    {/* <td className="td-body">
+                                                        <input
+                                                            type="text"
+                                                            placeholder={
+                                                                u.description ||
+                                                                'n/a'
+                                                            }
+                                                            name="description"
+                                                            value={
+                                                                userUpdate.description
+                                                            }
+                                                            onChange={
+                                                                handleInputDataChange
+                                                            }
+                                                        />
+                                                    </td> */}
                                                 </>
                                             ) : (
                                                 <>
                                                     <td className="td-body min-w-[120px]">
-                                                        {u.firstName || 'n/a'}
+                                                        {u.name || 'n/a'}
                                                     </td>
                                                     <td className="td-body min-w-[120px]">
-                                                        {u.lastName || 'n/a'}
+                                                        {u.price || 'n/a'}
                                                     </td>
                                                     <td className="td-body">
-                                                        {u.email || 'n/a'}
+                                                        {u.displayPrice || 'n/a'}
                                                     </td>
+                                                    <td className="td-body">
+                                                        {u.stock || 'n/a'}
+                                                    </td>
+                                                    <td className="td-body">
+                                                        {u.brand || 'n/a'}
+                                                    </td>
+                                                    {/* <td className="td-body">
+                                                        {u.description || 'n/a'}
+                                                    </td> */}
                                                 </>
                                             )}
+
                                             <td className="td-body">
                                                 <select
                                                     className="input w-max"
-                                                    name="role"
-                                                    value={u.role}
+                                                    name="size"
+                                                    value={u.size}
                                                     id={u.id}
                                                     onChange={
-                                                        handleRoleChange
+                                                        handleSizeChange
                                                     }>
-                                                    <option value="BASIC">
-                                                        BASICO
+                                                    <option value="UNIQUE">
+                                                        UNICO
                                                     </option>
-                                                    <option value="PROFESSIONAL">
-                                                        PROFESIONAL
+                                                    <option value="SMALL">
+                                                        PEQUEÑO
                                                     </option>
-                                                    <option value="ADMIN">
-                                                        ADMINISTRADOR
+                                                    <option value="MEDIUM">
+                                                        MEDIANO
+                                                    </option>
+                                                    <option value="BIG">
+                                                        GRANDE
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td className="td-body">
+                                                <select
+                                                    className="input w-max"
+                                                    name="size"
+                                                    value={u.category}
+                                                    id={u.id}
+                                                    onChange={
+                                                        handleCategoryChange
+                                                    }>
+                                                    <option value="TOY">
+                                                        JUGUETE
+                                                    </option>
+                                                    <option value="FOOD">
+                                                        COMIDA
+                                                    </option>
+                                                    <option value="SNACK">
+                                                        BOCADILLO
+                                                    </option>
+                                                    <option value="ACCESORIES">
+                                                        ACCESORIO
+                                                    </option>
+                                                    <option value="HYGIENE">
+                                                        HIGIENE
+                                                    </option>
+                                                    <option value="HEALTH">
+                                                        SALUD
+                                                    </option>
+                                                    <option value="OTHER">
+                                                        OTRO
                                                     </option>
                                                 </select>
                                             </td>
@@ -427,207 +540,59 @@ const TableUser = () => {
 
                                         {/* NOMBRES DE LA TABLA EXPANDIBLE */}
 
-                                        {rowExpande === u.id ? (
-                                            <>
-                                                <tr
-                                                    key={u.email}
-                                                    className="tr-head">
-                                                    <th className="th-head">
-                                                        GENERO
-                                                    </th>
-                                                    <th className="th-head">
-                                                        FECHA DE NACIMIENTO
-                                                    </th>
-                                                    <th className="th-head">
-                                                        PAIS
-                                                    </th>
-                                                    <th className="th-head">
-                                                        CIUDAD
-                                                    </th>
-                                                    <th className="th-head">
-                                                        PROVINCIA
-                                                    </th>
-                                                    <th className="th-head">
-                                                        DIRECCION
-                                                    </th>
-                                                    <th className="th-head">
-                                                        TELEFONO
-                                                    </th>
-                                                    <th className="th-head">
-                                                        CORREO POSTAL
-                                                    </th>
-                                                </tr>
+                                        {rowExpande === u.id ? (u.review.length ? u.review.map((r: Review) => {
+                                            return (
+                                                <>
+                                                    <tr
+                                                        key={u.updatedAt}
+                                                        className="tr-head">
+                                                        <th className="th-head">
+                                                            ID
+                                                        </th>
+                                                        <th className="th-head">
+                                                            RATING
+                                                        </th>
+                                                        <th className="th-head">
+                                                            RESEÑA
+                                                        </th>
+                                                        <th className="th-head">
+                                                            REGISTRADA
+                                                        </th>
+                                                        <th className="th-head">
+                                                            MODIFICADA
+                                                        </th>
+                                                    </tr>
+                                                    <tr key={u.createdAt}>
+                                                        <td className="td-body">
+                                                            {r.id ||
+                                                                'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {r.rating ||
+                                                                'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {r.review ||
+                                                                'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {r.createdAt.toString() ||
+                                                                'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {r.updatedAt.toString() ||
+                                                                'n/a'}
+                                                        </td>
 
-                                                {/* DATOS DE LA TABLA EXPANDIBLE */}
-                                                {uploadUser === u.id ? (
-                                                    <>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.gender ||
-                                                                    'n/a'
-                                                                }
-                                                                name="gender"
-                                                                value={
-                                                                    userUpdate.gender
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.birthday ||
-                                                                    'n/a'
-                                                                }
-                                                                name="birthday"
-                                                                value={
-                                                                    userUpdate.birthday
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.country ||
-                                                                    'n/a'
-                                                                }
-                                                                name="country"
-                                                                value={
-                                                                    userUpdate.country
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.province ||
-                                                                    'n/a'
-                                                                }
-                                                                name="province"
-                                                                value={
-                                                                    userUpdate.province
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                className=" w-fit"
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.city ||
-                                                                    'n/a'
-                                                                }
-                                                                name="city"
-                                                                value={
-                                                                    userUpdate.city
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.address ||
-                                                                    'n/a'
-                                                                }
-                                                                name="address"
-                                                                value={
-                                                                    userUpdate.address
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.phone ||
-                                                                    'n/a'
-                                                                }
-                                                                name="phone"
-                                                                value={
-                                                                    userUpdate.phone
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.postCode ||
-                                                                    'n/a'
-                                                                }
-                                                                name="postCode"
-                                                                value={
-                                                                    userUpdate.postCode
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <tr key={u.createdAt}>
-                                                            <td className="td-body">
-                                                                {u.gender || 'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.birthday || 'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.country ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.province ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.city ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.address ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.phone ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.postCode ||
-                                                                    'n/a'}
-                                                            </td>
-                                                        </tr>
-                                                    </>
-                                                )}
-                                            </>
+                                                    </tr>
+
+
+                                                </>
+                                            )
+                                        }
+                                        )
+
+                                            : <tr><td>{"No hay reseñas"}</td></tr>
                                         ) : null}
                                     </>
                                 )
@@ -651,7 +616,7 @@ const TableUser = () => {
                     {!isLoading && currentItems ? (
                         <AlternativePagination
                             totalItems={
-                                (filteredData ? filteredData : users)?.length
+                                (filteredData ? filteredData : products)?.length
                             }
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
@@ -662,4 +627,4 @@ const TableUser = () => {
         </div>
     )
 }
-export default TableUser
+export default TableProduct
