@@ -5,8 +5,8 @@ import useLocalStorage from 'use-local-storage';
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal/index';
-import Fade from '@mui/material/Fade/index';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
 import styles from 'styles/AdoptionDetails.module.css'
 import Image from 'next/image';
 import {getPetById} from 'utils/dbFetching'
@@ -88,58 +88,33 @@ const AdoptionDetails : NextComponentType = ({id}:Props)=>{
                     </div>
                   </div>
                   
-                <div className="p-5">
-                  <h5 className="capitalize mb-2 text-2xl font-Rubik font-bold tracking-tight text-gray-900">
-                    {pet.name}
-                  </h5>
-                  <p className="mb-3 font-Rubik text-gray-700">
-                    Mi nombre es <span className='capitalize font-bold'>{pet.name}</span>.
-                    Soy un cariñoso y amoroso {pet.breed}, tengo {pet.age} y me encuentro buscando
-                    mi hogar soñado, una familia que me dé todo el amor del mundo y cuide de mi...
-                    Si deseas adoptarme, por favor presiona el botón "¡Adóptame!" y el <span className='font-bold'>Pawsitive Team </span>
-                     se contactará contigo.
+                  <div className="p-5">
+                    <h5 className="capitalize mb-2 text-2xl font-Rubik font-bold tracking-tight text-gray-900">
+                      {pet.name}
+                    </h5>
+                    <p className="mb-3 font-Rubik text-gray-700">
+                      Mi nombre es <span className='capitalize font-bold'>{pet.name}</span>.
+                      Soy un cariñoso y amoroso {pet.breed}, tengo {pet.age} y me encuentro buscando
+                      mi hogar soñado, una familia que me dé todo el amor del mundo y cuide de mi...
+                      Si deseas adoptarme, por favor presiona el botón "¡Adóptame!" y el <span className='font-bold'>Pawsitive Team </span>
+                      se contactará contigo.
 
-                  </p>
-                <div className='flex flex-row justify-center items-center'>
-                  <Link href="/adoptions/apply">
-                    <div className="cursor-pointer w-1/2 font-Rubik text-lg rounded-lg px-1 py-1 border-2 border-pwpurple-600 bg-pwpurple-600 text-white hover:bg-white hover:text-pwgreen-600 hover:border-pwgreen-600 duration-300 flex flex-row justify-center items-center">
-                      <div>
-                        ¡Adóptame!
+                    </p>
+                      <div className='flex flex-row justify-center items-center'>
+                        <Link href="/adoptions/apply">
+                          <div className="cursor-pointer w-1/2 font-Rubik text-lg rounded-lg px-1 py-1 border-2 border-pwpurple-600 bg-pwpurple-600 text-white hover:bg-white hover:text-pwgreen-600 hover:border-pwgreen-600 duration-300 flex flex-row justify-center items-center">
+                            <div>
+                              ¡Adóptame!
+                            </div>
+                            <div>
+                              <AiOutlineArrowRight className="text-lg pl-1"/>
+                            </div>
+                          </div>
+                        </Link>
                       </div>
-                      <div>
-                        <AiOutlineArrowRight className="text-lg pl-1"/>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
+                  </div>
           </div>
-                  // <>
-                  // <div className={styles.headerContainer}>
-                  //   <div className={styles.titleContainer}>                    
-                  //     <h1>¡Adopt me!</h1>                   
-                  //   </div>
-                    // <div className={styles.buttonContainer}>
-                    //   <button onClick={handleClose}><AiOutlineClose/></button>
-                    // </div>
-                  // </div>
-                  // <div className={styles.descriptionContainer}>
-                  //   <p>
-                  //   My name is <span>{pet.name}</span>, Im a very kind and friendly <span>{pet.breed}</span>. Im <span>{pet.age}</span>. 
-                  //   Im looking for my dreamed home (family), somebody who can love me and take care of me.
-                  //   </p>
-                  // </div>
-                  // <div className={styles.imgContainer}>
-                  //   <Image src={pet.photo} alt={`Adopt me: ${pet.name}`} layout="fill"/>                
-                  // </div>
-                  // <div className='text-center pt-5'>
-                    // <Link href="/adoptions/apply">
-                    //     <button className="font-Rubik text-l font-bold rounded-lg px-1 py-1 border-2 border-pwpurple-700 text-pwpurple-700 hover:bg-pwpurple-700 hover:text-pwpurple-100 duration-300">
-                    //         ¡Adoptar!
-                    //     </button>
-                    // </Link>
-                  // </div>
-                  // </>
+                  
                 }
             </div>
           </Box>
