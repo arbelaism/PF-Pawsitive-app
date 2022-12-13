@@ -1,9 +1,9 @@
 import { DashboardLayout } from 'components/dashboard'
-
+import{TableProduct} from 'components/dashboard'
 const Products = () => {
     return (
         <DashboardLayout title="Productos">
-            <h1>Productos</h1>
+          <TableProduct />
         </DashboardLayout>
     )
 }

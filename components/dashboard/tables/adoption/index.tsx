@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { putAdoption, createPost as createAdoption, getAdoptions } from 'utils/dbFetching'
 import { Adoptions } from 'app/types'
-import { useSortableData, useSearchData  } from '../tools' //sort function
+import { useSortableData, useSearchData, FormCreateAdoption } from '../tools' //sort function
 import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
@@ -23,6 +23,7 @@ interface FormEstructure {
     age: string;
     breed: string;
     photo: string;
+    gender: string;
     active: boolean;
     description: string;
     userId: string
@@ -50,6 +51,24 @@ const TableAdoption = () => {
     const { items, requestSort, sortConfig } = useSortableData(adoptions)
 
     //FUNCTIONS CHANGE DATA
+    function handleGenderChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const gender = e.target.value as string
+        const id = e.target.id as string
+        if (gender && id) {
+            mutation.mutate({ id, data: { gender } })
+            return
+        } else return
+    }
+    function handleSizeChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        e.preventDefault()
+        const size = e.target.value as string
+        const id = e.target.id as string
+        if (size && id) {
+            mutation.mutate({ id, data: { size } })
+            return
+        } else return
+    }
 
     function handleActiveChange(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
@@ -106,6 +125,7 @@ const TableAdoption = () => {
         age: '',
         breed: '',
         photo: '',
+        gender: 'UNKNOWN',
         active: true,
         description: '',
         userId: ''
@@ -136,7 +156,7 @@ const TableAdoption = () => {
         e.preventDefault()
         const newObj: any = {}
         for (const [key, value] of Object.entries(userUpdate)) {
-            if (value !== '') {
+            if (value) {
                 newObj[key] = value
             }
         }
@@ -179,15 +199,7 @@ const TableAdoption = () => {
                                     <FaSort />
                                 </button>
                             </th>
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('size')}>
-                                    TAMAÑO
-                                    <FaSort />
-                                </button>
-                            </th>
+
 
                             <th className="th-head">
                                 <button
@@ -216,6 +228,17 @@ const TableAdoption = () => {
                                     <FaSort />
                                 </button>
                             </th>
+                            <th className="th-head">
+                                <button
+                                    className="button-head"
+                                    type="button"
+                                    onClick={() => requestSort('size')}>
+                                    TAMAÑO
+                                    <FaSort />
+                                </button>
+                            </th>
+
+                            <th className="th-head">GENERO</th>
                             <th className="th-head">ESTADO</th>
                             <th className="th-head">DESCRIPCION</th>
                             <th></th>
@@ -279,22 +302,6 @@ const TableAdoption = () => {
                                                         <input
                                                             type="text"
                                                             placeholder={
-                                                                a.size ||
-                                                                'n/a'
-                                                            }
-                                                            name="size"
-                                                            value={
-                                                                userUpdate.size
-                                                            }
-                                                            onChange={
-                                                                handleInputDataChange
-                                                            }
-                                                        />
-                                                    </td>
-                                                    <td className="td-body">
-                                                        <input
-                                                            type="text"
-                                                            placeholder={
                                                                 a.age ||
                                                                 'n/a'
                                                             }
@@ -329,9 +336,6 @@ const TableAdoption = () => {
                                                     <td className="td-body min-w-[120px]">
                                                         {a.name || 'n/a'}
                                                     </td>
-                                                    <td className="td-body min-w-[120px]">
-                                                        {a.size || 'n/a'}
-                                                    </td>
                                                     <td className="td-body">
                                                         {a.age || 'n/a'}
                                                     </td>
@@ -343,6 +347,49 @@ const TableAdoption = () => {
                                             }
                                             <td className="td-body">
                                                 {a.createdAt}
+                                            </td>
+                                            <td className="td-body">
+                                                <select
+                                                    className="input w-max"
+                                                    name="size"
+                                                    value={a.size}
+                                                    id={a.id}
+                                                    onChange={
+                                                        handleSizeChange
+                                                    }>
+                                                    <option value="UNIQUE">
+                                                        DESCONOCIDO
+                                                    </option>
+                                                    <option value="SMALL">
+                                                        PEQUEÑO
+                                                    </option>
+                                                    <option value="MEDIUM">
+                                                        MEDIANO
+                                                    </option>
+                                                    <option value="BIG">
+                                                        GRANDE
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td className="td-body">
+                                                <select
+                                                    className="input w-max"
+                                                    name="gender"
+                                                    value={a.gender}
+                                                    id={a.id}
+                                                    onChange={
+                                                        handleGenderChange
+                                                    }>
+                                                    <option value="UNKNOWN">
+                                                        DESCONOCIDO
+                                                    </option>
+                                                    <option value="MALE">
+                                                        MACHO
+                                                    </option>
+                                                    <option value="FEMALE">
+                                                        HEMBRA
+                                                    </option>
+                                                </select>
                                             </td>
                                             <td className="td-body">
                                                 {a.active ? (

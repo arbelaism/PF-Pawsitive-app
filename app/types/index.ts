@@ -52,6 +52,8 @@ export interface Product {
     category: string
     brand: string
     size: string
+    createdAt: string
+    updatedAt: string
     active?: boolean
     user: UserProduct
     amount?: number
@@ -186,6 +188,7 @@ export interface Adoptions {
   size:        Size;
   age:         string;
   breed:       string;
+  gender:       string;
   photo:       string;
   active:      boolean;
   description: string;
@@ -238,4 +241,60 @@ export interface Form{
   garden: string,
   adoptionPostId: string,
   userId: string
+}
+
+
+export interface TransactionT {
+  id:        string;
+  amount:    number;
+  createdAt: string;
+  updatedAt: string;
+  userId:    string;
+  status:    Status;
+  user:      UserT;
+  quantity:  Quantity[];
+}
+
+export interface Quantity {
+  id:       string;
+  quantity: number;
+  product:  Product;
+}
+
+export interface Product {
+  id:           string;
+  name:         string;
+  price:        number;
+  displayPrice: number;
+  category:     string;
+}
+
+export enum Status {
+  REFUND = "REFUND",
+  INCOMPLETE_PAYMENT = "INCOMPLETE_PAYMENT ",
+  PROCESSING_PAYMENT = "PROCESSING_PAYMENT",
+  PROCESSING_SHIPPING = "PROCESSING_SHIPPING",
+  SHIPPING = "SHIPPING",
+  PAYMENT_COMPLETE = "PAYMENT_COMPLETE",
+}
+
+export interface UserT {
+  id:        string;
+  firstName: string;
+  lastName:  string;
+  email:     string;
+  birthday:  Birthday;
+  active:    boolean;
+  role:      Role;
+}
+
+export enum Birthday {
+  The05011980 = "05/01/1980",
+  The23042000 = "23/04/2000",
+  The23111977 = "23/11/1977",
+  The30041993 = "30/04/1993",
+}
+
+export enum Role {
+  Basic = "BASIC",
 }

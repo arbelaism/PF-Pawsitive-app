@@ -84,7 +84,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                     }
                 })
                 newTransaction ?
-                    res.status(200).json({ message: "created" })
+                    res.status(200).json(newTransaction)
                     :
                     res.status(400).json({ message: "could not create user" })
 

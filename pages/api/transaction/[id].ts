@@ -47,13 +47,13 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // PUT(UPDATE) THE TRANSACTION BY ID
 
         case "PUT":
-            const { status } = req.body
+            const data = req.body
             try {
                 const transactionUpdated = await prisma.transaction.update({
                     where: {
                         id: id
                     },
-                    data: { status }
+                    data
                 })
                 transactionUpdated ?
                     res.status(200).json({ message: "Updated" })

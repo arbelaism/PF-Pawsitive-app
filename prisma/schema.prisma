@@ -47,6 +47,7 @@ model AdoptionPost {
   age         String
   breed       String
   photo       String?
+  gender      Gender? @default(UNKNOWN)
   active      Boolean
   description String?
   createdAt   DateTime @default(now())
@@ -54,6 +55,11 @@ model AdoptionPost {
   user        User?    @relation(fields: [userId], references: [id])
   userId      String?
   apply       Apply[]
+}
+enum Gender{
+  MALE
+  FEMALE
+  UNKNOWN
 }
 
 enum Size {
