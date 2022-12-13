@@ -31,7 +31,7 @@ const LinkAdoption = ({id}:Props) => {
               <div className={styles.right}></div>
             </div>
           </div>
-          <AdoptionDetails id={id}/>         
+          <AdoptionDetails {...id}/>         
           <div className={styles.paw}></div>
           <div className={styles.top}></div>
         </div>
