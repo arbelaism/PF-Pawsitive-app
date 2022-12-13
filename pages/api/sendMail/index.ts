@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { transporter } from "../../../utils/mailer";
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
-  const { action, email, name, products, total,message,estado } = req.body;
+
+  const { action, email, name, products, total,message,idT,estado } = req.body;
+
     //items y total serían para que creen un formato para el correo que te muestre lo que compraste
   switch (action) {
     case "contact":
@@ -43,7 +45,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           <body>
           <header><h1>Gracias por su compra!</h1></header>
           <p>----------------------------------------------------------------------------</p>
-          <p>En este correo se adjunta la compra #${Math.random()*100} con fecha ${day}/${month}/${year}, le agradecemos por usar los servicios de nuestra empresa</p>
+          <p>En este correo se adjunta la compra #${idT} con fecha ${day}/${month}/${year}, le agradecemos por usar los servicios de nuestra empresa</p>
           <div>A continuacion le detallamos que productos adquirio en esta oportunidad
               <h3>Los productos que compro son:</h3>
               <ul className='list'>

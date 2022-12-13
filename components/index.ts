@@ -8,7 +8,6 @@ export { default as UserButton } from './layout/UserButton'
 export { default as AlternativePagination } from './layout/AlternativePagination'
 export { default as Modal } from './layout/Modal'
 
-export { default as Login } from './auth/Login'
 export { default as SignUp } from './auth/SignUp'
 
 export { default as ProductsScreen } from './products/productsScreen/ProductsScreen'

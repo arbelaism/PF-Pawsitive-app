@@ -110,6 +110,7 @@ export enum Role {
 
 export interface CheckIn {
   name: string;
+  idT: any;
   email: string;
   products: Product[];
   total: string;
