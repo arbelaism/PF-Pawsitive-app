@@ -231,6 +231,7 @@ const FormTransaction = (mutationCreate: any) => {
                                             >
                                                 {products.map((product : any) => <option
                                                 value={product.id}
+                                                key={product.id}
                                                 >{product.name}</option>)}  
                                             </select>
                                             <div className='grid grid-cols-1 gap-1 md:grid-cols-6'>
