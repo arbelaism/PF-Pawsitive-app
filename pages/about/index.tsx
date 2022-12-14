@@ -18,7 +18,7 @@ const team = [
         id: 2,
         name: 'Eric Isnado',
         description:
-            'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+            'Desarrollador full stack, con gran habilidad analítica y lógica capaz de encontrar soluciones a los problemas que se plantean y con alto interés en explorar los caminos de la programación',
         image: '',
         linkedin:
             'https://www.linkedin.com/in/eric-denis-laura-isnado-8a1027245/',
