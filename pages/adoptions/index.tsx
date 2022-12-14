@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { FaArrowRight, FaDog } from 'react-icons/fa'
 import { useMediaQuery } from 'react-responsive'
+import Loading from 'public/loading.gif'
 
 export type Props = {
     [key: string]: any
@@ -77,7 +78,15 @@ const Adoptions: NextPage = () => {
                 setItemsPerPage(10)
             }
         }
-    }, [isSuccess, adoptions, isBigScreen, isMobile, isTablet, isLaptop, isMediumScreen])
+    }, [
+        isSuccess,
+        adoptions,
+        isBigScreen,
+        isMobile,
+        isTablet,
+        isLaptop,
+        isMediumScreen
+    ])
 
     return (
         <MainLayout title="Pawsitive - Adopciones">
@@ -109,7 +118,14 @@ const Adoptions: NextPage = () => {
                     ) : null}
                     <div className="grid grid-cols-2 gap-x-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                         {isLoading ? (
-                            <h1>Loading...</h1>
+                            <div className="flex justify-center items-center my-16">
+                                <Image
+                                    src={Loading}
+                                    alt="not found"
+                                    width={100}
+                                    height={100}
+                                />
+                            </div>
                         ) : currentItems.length === 0 ? (
                             <div className="flex flex-col justify-center items-center">
                                 <h1 className="font-bold text-3xl">
