@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image'
 import pretitleImg from '../../public/img/hero/pretitle-img.svg'
+import Link from 'next/link'
 
 const Hero = () => {
   return (
@@ -15,7 +16,9 @@ const Hero = () => {
             />
           </div>
           <h1 className='text-5xl lg:text-8xl uppercase font-bold -tracking-[0.05em] mb-10'>Un primer<br /> <span className='text-pwgreen-500 font-normal'>acercamiento de la mascota</span> <br /> al bienestar</h1>
-          <button className='h-[62px] flex justify-center items-center py-3 px-8 rounded-full text-[20px] transition-all bg-pwgreen-300 text-pwgreen-50 hover:bg-pwgreen-500 mx-auto lg:mx-0'>Ver mas</button>
+          <Link href={'/adoptions'}>
+            <button className='h-[62px] flex justify-center items-center py-3 px-8 rounded-full text-[20px] transition-all bg-pwgreen-300 text-pwgreen-50 hover:bg-pwgreen-500 mx-auto lg:mx-0'>Ver mas</button>
+          </Link>
         </div>
       </div>
     </section>

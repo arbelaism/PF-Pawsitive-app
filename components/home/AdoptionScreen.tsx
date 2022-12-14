@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 import Img1 from 'public/img/adoption/img1.png'
+import Link from 'next/link'
+
 
 const AdoptionScreen = () => {
   return (
@@ -22,7 +24,9 @@ const AdoptionScreen = () => {
             <li>Frozen Raw</li>
             <li>Next Day Delivery</li>
           </ul>
-          <button className='h-[62px] flex justify-center items-center py-3 px-8 rounded-full text-[20px] transition-all bg-pwgreen-200 text-white hover:bg-pwgreen-500 mx-auto lg:mx-0'>Explore</button>
+          <Link href={'/adoptions'}>
+            <button className='h-[62px] flex justify-center items-center py-3 px-8 rounded-full text-[20px] transition-all bg-pwgreen-200 text-white hover:bg-pwgreen-500 mx-auto lg:mx-0'>Explorar</button>
+          </Link>
         </div>
       </div>
     </section>
