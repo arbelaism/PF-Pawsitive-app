@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../lib/prisma'
 
@@ -46,10 +47,10 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             } = req.body
             try {
                 const newUser = await prisma.user.upsert({
-                    where: { id: id },
+                    where: { id: id || '' },
                     update: {},
                     create: {
-                        id,
+                        id: id || randomUUID(),
                         firstName,
                         lastName,
                         email,
@@ -70,6 +71,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                     ? res.status(200).json({ message: 'created' })
                     : res.status(400).json({ message: 'could not create user' })
             } catch (error) {
+                console.log(error)
                 res.status(400).json({ message: 'Error' })
             }
             break
