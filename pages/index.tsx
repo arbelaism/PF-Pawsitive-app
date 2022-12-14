@@ -3,7 +3,6 @@ import { MainLayout, AdoptionsScreen, ProductsScreen } from 'components'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { createUser, getAuth0UserById, getAuth0Users } from 'utils/dbFetching'
-import { checkEmail } from 'utils/checkEmail'
 import { useEffect } from 'react'
 // import createDB from '../utils/createDB'
 

@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import { AiFillAppstore } from 'react-icons/ai'
 import { FaUser, FaPaw, FaBalanceScale } from 'react-icons/fa'
 import { useRouter } from 'next/router'
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { useGetUserById } from 'utils/dbFetching'
 
 const LeftNavbar = () => {
     const router = useRouter()
+    const { user } = useUser()
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    let id: string = ''
+    if (user && user.sub) {
+        id = user.sub
+    }
+    const dbUser = useGetUserById(id)
+
+    if (dbUser.data) {
+        if (dbUser.data.role === 'ADMIN') {
+            setIsAdmin(true)
+            return
+        }
+    }
 
     return (
         <div className="h-full bg-white p-5 min-w-[15rem] lg:p-8">
@@ -24,7 +41,9 @@ const LeftNavbar = () => {
                         className={
                             router.pathname === '/dashboard'
                                 ? 'dashboardButton active'
-                                : 'dashboardButton'
+                                : 'dashboardButton' && isAdmin
+                                ? ''
+                                : 'hidden'
                         }>
                         <AiFillAppstore />
                         <Link href={'/dashboard'}>

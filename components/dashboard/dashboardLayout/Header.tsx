@@ -27,7 +27,7 @@ const Header = ({ title }: Props) => {
     }
 
     return (
-        <div className="w-full z-20 bg-pwgreen-100 p-4 flex items-center justify-between sticky top-0 border border-b-pwgreen-800 border-opacity-30 lg:static lg:border-none">
+        <div className="w-full z-50 bg-pwgreen-100 p-4 flex items-center justify-between sticky top-0 border border-b-pwgreen-800 border-opacity-30 shadow-md lg:static lg:border-none">
             <div className="flex items-center">
                 <div className="mx-3 lg:hidden">
                     <HamburguerIcon />
