@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { getAllTransactions, putTransaction, createTransaction, sendMailT, getUserById } from 'utils/dbFetching'
-import { Quantity, TransactionT, ContactForm,Users, EmailT } from 'app/types'
-import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
+import { getAllApply, deleteApply, createUser } from 'utils/dbFetching'
+import { Aplies } from 'app/types'
+import { useSortableData, useSearchData } from '../tools' //sort function
+import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
-import { alerts } from 'utils/alerts';
 import {
     FaSort,
     FaEdit,
@@ -15,72 +15,35 @@ import {
     FaSave
 } from 'react-icons/fa'
 
-interface FormEstructure {
-    amount: number
-    userId: string
-    status: string
-    array: EstructureArray[]
-}
-interface EstructureArray {
-    quantity: string
-    productId: string
-}
-const TableTransaction = () => {
+
+
+const TableApply = () => {
     //QUERY DATA GET AND PUT
-    const { data: transactions, isLoading, isSuccess } = useQuery(['transactions'], getAllTransactions)
+    const { data: applies, isLoading, isSuccess } = useQuery(['applies'], getAllApply)
 
     const queryClient = useQueryClient()
 
-    const mutation = useMutation(({ id, data }: any) => putTransaction(id, data), {
+    const mutation = useMutation(({ id, data }: any) => deleteApply(id, data), {
         onSuccess: () => {
-            queryClient.prefetchQuery('transactions', getAllTransactions)
+            queryClient.prefetchQuery('applies', getAllApply)
         }
     })
-
-    const mutationCreate = useMutation((data: any) => createTransaction(data), {
-        onSuccess: () => {
-            queryClient.prefetchQuery('transactions', getAllTransactions)
-        }
-    })
-    const mutationSendEmail = useMutation(sendMailT, {
-        onSuccess: data => {
-            alerts({ icon: 'info', title: '<strong>Email</strong>', text: 'Se envio un email sobre es estado de la compra.', toast: true })
-        },
-        onError: () => {
-            alerts({ icon: 'error', title: '<strong>Email</strong>', text: 'No se envio el email', toast: true })
-        },
-        onSettled: () => {
-            queryClient.invalidateQueries('create');
-        }
-    });
 
     //Sort Table
 
-    const { items, requestSort, sortConfig } = useSortableData(transactions)
+    const { items, requestSort, sortConfig } = useSortableData(applies)
 
     //FUNCTIONS CHANGE DATA
-
-    function handleStatusChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    function handleRoleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
-        const status = e.target.value as string
+        const role = e.target.value as string
         const id = e.target.id as string
-
-        const user:any = transactions.filter((e:any)=>e.id===id)
-        
-        let data: EmailT = {
-            name: user[0].userFirstName as string,
-            email: user[0].userEmail as string,
-            idT: id,
-            status: status,
-            action: 'sendStatus',
-            message: "estado enviado",
-        }
-        if (status && id) {
-            mutationSendEmail.mutate(data)
-            mutation.mutate({ id, data: { status } })
+        if (role && id) {
+            mutation.mutate({ id, data: { role } })
             return
         } else return
     }
+
 
 
     //Collapsing table
@@ -106,7 +69,7 @@ const TableTransaction = () => {
     const [itemsPerPage, setItemsPerPage] = React.useState<number>(10)
     const lastItemIndex = currentPage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
-    let currentItems: TransactionT[] = []
+    let currentItems: Aplies[] = []
     if (filteredData)
         currentItems = [...filteredData?.slice(firstItemIndex, lastItemIndex)]
 
@@ -117,7 +80,6 @@ const TableTransaction = () => {
         setCurrentPage(1)
         return
     }
-
 
 
 
@@ -139,9 +101,7 @@ const TableTransaction = () => {
                         />
                     </div>
                 </form>
-                {/* <FormCreateTransaction
-                    {...mutationCreate}
-                /> */}
+
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
@@ -149,7 +109,6 @@ const TableTransaction = () => {
                     {/* NOMBRES DE LA TABLA */}
                     <thead>
                         <tr className="tr-head">
-                            <th>ID</th>
                             <th className="th-head">
                                 <button
                                     className="button-head"
@@ -168,7 +127,6 @@ const TableTransaction = () => {
                                     <FaSort />
                                 </button>
                             </th>
-
                             <th className="th-head">
                                 <button
                                     className="button-head"
@@ -178,25 +136,28 @@ const TableTransaction = () => {
                                     <FaSort />
                                 </button>
                             </th>
+                            <th className="th-head">
+                                <button
+                                    className="button-head"
+                                    type="button"
+                                    onClick={() => requestSort('userPhone')}>
+                                    TELEFONO
+                                    <FaSort />
+                                </button>
+                            </th>
+                            <th className="th-head">
+                                <button
+                                    className="button-head"
+                                    type="button"
+                                    onClick={() => requestSort('reason')}>
+                                    RAZON
+                                    <FaSort />
+                                </button>
+                            </th>
 
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('amount')}>
-                                    TOTAL
-                                    <FaSort />
-                                </button>
-                            </th>
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('status')}>
-                                    ESTADO
-                                    <FaSort />
-                                </button>
-                            </th>
+                            <th className="th-head">EXPERIENCIA</th>
+                            <th className="th-head">EMPLEADO</th>
+                            <th className="th-head">JARDIN</th>
                             <th className="th-head">
                                 <button
                                     className="button-head"
@@ -214,60 +175,62 @@ const TableTransaction = () => {
 
                     <tbody className="text-sm">
                         {isSuccess
-                            ? currentItems.map((u: TransactionT) => {
+                            ? currentItems.map((u: Aplies) => {
                                 return (
                                     <>
                                         <tr
                                             key={u.id}
                                             className="tr-body bg-pwgreen-50">
+                                            <td className="td-body min-w-[120px]">
+                                                {u.userFirstName || 'n/a'}
+                                            </td>
+                                            <td className="td-body min-w-[120px]">
+                                                {u.userLastName || 'n/a'}
+                                            </td>
                                             <td className="td-body">
-                                                <div className="flex flex-col items-center content-center">
-                                                    <span className="text-center text-ellipsis overflow-hidden ml-2 font-semibold">
-                                                        {u.id}
+                                                {u.userEmail || 'n/a'}
+                                            </td>
+                                            <td className="td-body">
+                                                {u.userPhone || 'n/a'}
+                                            </td>
+                                            <td className="td-body">
+                                                {u.reason || 'n/a'}
+                                            </td>
+                                            <td className="td-body">
+                                                {u.past ? (
+                                                    <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
+                                                        SI
                                                     </span>
-                                                </div>
+                                                ) : (
+                                                    <span className="text-red-50 bg-red-700 px-3 py-1 rounded-full">
+                                                        NO
+                                                    </span>
+                                                )}
                                             </td>
                                             <td className="td-body">
-                                                {u.user.firstName}
+                                                {u.employee ? (
+                                                    <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
+                                                        SI
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-red-50 bg-red-700 px-3 py-1 rounded-full">
+                                                        NO
+                                                    </span>
+                                                )}
                                             </td>
                                             <td className="td-body">
-                                                {u.user.lastName}
+                                                {u.garden ? (
+                                                    <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
+                                                        SI
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-red-50 bg-red-700 px-3 py-1 rounded-full">
+                                                        NO
+                                                    </span>
+                                                )}
                                             </td>
-                                            <td className="td-body">
-                                                {u.user.email}
-                                            </td>
-                                            <td className="td-body">
-                                                {u.amount}
-                                            </td>
-                                            <td className="td-body">
-                                                <select
-                                                    className="input w-max"
-                                                    name="role"
-                                                    value={u.status}
-                                                    id={u.id}
-                                                    onChange={
-                                                        handleStatusChange
-                                                    }>
-                                                    <option value="REFUND">
-                                                        REEMBOLSO
-                                                    </option>
-                                                    <option value="INCOMPLETE_PAYMENT">
-                                                        PAGO INCOMPLETO
-                                                    </option>
-                                                    <option value="PROCESSING_PAYMENT">
-                                                        PROCESANDO PAGO
-                                                    </option>
-                                                    <option value="PROCESSING_SHIPPING">
-                                                        PROCESANDO ENVIO
-                                                    </option>
-                                                    <option value="SHIPPING">
-                                                        ENVIADO
-                                                    </option>
-                                                    <option value="PAYMENT_COMPLETE">
-                                                        PAGO COMPLETO
-                                                    </option>
-                                                </select>
-                                            </td>
+
+
                                             <td className="td-body">
                                                 {u.createdAt}
                                             </td>
@@ -275,6 +238,7 @@ const TableTransaction = () => {
                                             {/* BOTONES PARA MODIFICAR USUARIOS Y COLAPSE/EXPANDE TABLE */}
 
                                             <td className="td-body min-w-[130px] inline-flex space-x-2 lg:table-cell">
+
 
                                                 {/* BOTON COLLAPSE/EXPANDE */}
 
@@ -299,56 +263,66 @@ const TableTransaction = () => {
                                         {rowExpande === u.id ? (
                                             <>
                                                 <tr
-                                                    key={u.updatedAt}
+                                                    key={u.createdAt}
                                                     className="tr-head">
                                                     <th className="th-head">
-                                                        Categoria
+                                                        Nombre de la mascota
                                                     </th>
                                                     <th className="th-head">
-                                                        Nombre del Producto
+                                                        Raza
                                                     </th>
                                                     <th className="th-head">
-                                                        Cantidad
+                                                        Genero
                                                     </th>
                                                     <th className="th-head">
-                                                        Costo
+                                                        Estado
                                                     </th>
                                                     <th className="th-head">
-                                                        Vendido
+                                                        Apoderado
+                                                    </th>
+                                                    <th className="th-head">
+                                                        Correo
                                                     </th>
                                                 </tr>
 
                                                 {/* DATOS DE LA TABLA EXPANDIBLE */}
-                                                {u.quantity ? u.quantity.map((q: Quantity) => {
-                                                    return (
-                                                        <>
-                                                            <tr
-                                                                key={q.id}
-                                                                className="td-body">
-                                                                <td className="td-body">
-                                                                    {q.product.category || 'n/a'}
-                                                                </td>
-                                                                <td className="td-body">
-                                                                    {q.product.name || 'n/a'}
-                                                                </td>
-                                                                <td className="td-body">
-                                                                    {q.quantity || 'n/a'}
-                                                                </td>
-                                                                <td className="td-body">
-                                                                    {q.product.price * q.quantity || 'n/a'}
-                                                                </td>
-                                                                <td className="td-body">
-                                                                    {q.product.displayPrice * q.quantity || 'n/a'}
-                                                                </td>
-                                                            </tr>
 
-                                                        </>
-                                                    )
-                                                }) : <></>}
+                                                <>
+                                                    <tr key={u.updatedAt}>
+                                                        <td className="td-body">
+                                                            {u.adoptionPost?.name || 'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {u.adoptionPost?.breed || 'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {u.adoptionPost?.gender ||
+                                                                'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {u.adoptionPost?.active ? (
+                                                                <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
+                                                                    Activo
+                                                                </span>
+                                                            ) : (
+                                                                <span className="text-red-50 bg-red-700 px-3 py-1 rounded-full">
+                                                                    Desactivado
+                                                                </span>
+                                                            )}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {`${u.adoptionPost?.user?.firstName}, ${u.adoptionPost?.user?.lastName}` ||
+                                                                'n/a'}
+                                                        </td>
+                                                        <td className="td-body">
+                                                            {u.user?.email ||
+                                                                'n/a'}
+                                                        </td>
+                                                    </tr>
+                                                </>
+
                                             </>
-                                        )
-
-                                            : null}
+                                        ) : null}
                                     </>
                                 )
                             })
@@ -371,7 +345,7 @@ const TableTransaction = () => {
                     {!isLoading && currentItems ? (
                         <AlternativePagination
                             totalItems={
-                                (filteredData ? filteredData : transactions)?.length
+                                (filteredData ? filteredData : applies)?.length
                             }
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
@@ -382,4 +356,4 @@ const TableTransaction = () => {
         </div>
     )
 }
-export default TableTransaction
+export default TableApply
