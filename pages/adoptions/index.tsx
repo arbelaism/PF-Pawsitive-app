@@ -31,7 +31,7 @@ const Adoptions: NextPage = () => {
 
     //Pagination with Data o Adoptions
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const [itemsPerPage, setItemsPerPage] = useState<number>(8)
+    const [itemsPerPage, setItemsPerPage] = useState<number>(10)
     const [data, setData] = useState<IAdoption[]>()
 
     const lastItemIndex = currentPage * itemsPerPage
@@ -90,7 +90,7 @@ const Adoptions: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="grid grid-cols-1 gap-x-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-x-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (
