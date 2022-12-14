@@ -33,7 +33,7 @@ interface FormEstructure {
     PAYMENT_COMPLETE
   }
 
-const FormTransaction = (mutationCreate: any) => {
+const FormCreateTransaction = (mutationCreate: any) => {
     const formEstructure = {
         id : "",
         amount : 0,        
@@ -279,4 +279,4 @@ const FormTransaction = (mutationCreate: any) => {
     )
 }
 
-export default FormTransaction
+export default FormCreateTransaction
