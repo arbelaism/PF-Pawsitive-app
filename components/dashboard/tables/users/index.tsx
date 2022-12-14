@@ -258,8 +258,8 @@ const TableUser = () => {
                                                           </span>
                                                       )}
                                                   </div>
-                                                  <div className="flex flex-col items-center content-center">
-                                                      <span className="text-center text-ellipsis overflow-hidden ml-2 font-semibold">
+                                                  <div className="flex flex-col items-center content-center w-14 overflow-hidden hover:w-max">
+                                                      <span className="text-center truncate text-ellipsis overflow-hidden ml-2 font-semibold">
                                                           {u.id}
                                                       </span>
                                                   </div>

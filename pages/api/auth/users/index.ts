@@ -30,7 +30,6 @@ export default async function auth0Users(
                         id: u.user_id,
                         email: u.email,
                         email_verified: u.email_verified,
-                        username: u.username,
                         photo: u.picture,
                         createdAt: u.created_at,
                         updatedAt: u.updated_at
