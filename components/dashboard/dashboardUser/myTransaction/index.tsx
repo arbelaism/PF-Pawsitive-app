@@ -247,9 +247,8 @@ const TableMyTransaction = () => {
                                                     </>
                                                 )
 
-                                                    : <tr>
-                                                        <td>NO HAY DATOS</td>
-                                                    </tr>}
+                                                    : null
+                                                }
                                             </>
                                         )
                                     })
