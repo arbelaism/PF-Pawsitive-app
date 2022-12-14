@@ -6,6 +6,9 @@
 @tailwind utilities;
 
 @layer components {
+    .title {
+        @apply font-Rubik text-3xl font-bold text-pwpurple-900 lg:text-5xl xl:text-6xl;
+    }
     .input {
         @apply py-2 
         px-4 
@@ -213,5 +216,48 @@
     body {
         color: black;
         background: white;
+    }
+}
+
+.swiper-container {
+    width: 400px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50%;
+    color: #153823 !important;
+    background-color: #ecf8f1 !important;
+    opacity: 0.4;
+    box-shadow: none;
+    transform: translateY(-15px);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    background-color: #3ea76a !important;
+    color: #ecf8f1 !important;
+    opacity: 1;
+}
+
+@media screen and (min-width: 400px) {
+    .swiper-container {
+        width: 400px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .swiper-container {
+        width: 768px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .swiper-container {
+        width: 1024px;
     }
 }
