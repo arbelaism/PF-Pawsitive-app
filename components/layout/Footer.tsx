@@ -6,6 +6,7 @@ import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 
 const Footer: NextComponentType = () => {
+
     return (
         <>
             <footer className="w-full font-Rubik text-sm text-pwgreen-50 bg-pwgreen-500 flex flex-col mt-4">

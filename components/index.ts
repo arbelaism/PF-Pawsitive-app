@@ -13,7 +13,9 @@ export { default as SignUp } from './auth/SignUp'
 export { default as ProductsScreen } from './products/productsScreen/ProductsScreen'
 
 export { default as AdoptionCard } from './adoptions/AdoptionCard'
-export { default as AdoptionsScreen } from './adoptions/AdoptionsScreen'
 export { default as LinkAdoption } from './adoptions/LinkAdoption'
 export { default as AdoptionForm } from './adoptions/AdoptionForm'
 export { default as AdoptionApply } from './adoptions/AdoptionApply'
+
+
+
