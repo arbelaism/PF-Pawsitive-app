@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { MainLayout, AdoptionsScreen, ProductsScreen } from 'components'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { createUser, getAuth0Users } from 'utils/dbFetching'
+import { createUser, getAuth0UserById, getAuth0Users } from 'utils/dbFetching'
 import { checkEmail } from 'utils/checkEmail'
 import { useEffect } from 'react'
 // import createDB from '../utils/createDB'
@@ -10,12 +10,15 @@ import { useEffect } from 'react'
 const Home: NextPage = () => {
     // createDB()
 
-    const { user, error, isLoading } = useUser()
-    // const queryClient = useQueryClient()
-    const { mutate } = useMutation((data: any) => createUser(data))
+    const { user, error } = useUser()
+    const { mutate } = useMutation((data: any) => createUser(data), {
+        onSettled: () => {
+            queryClient.invalidateQueries('auth0User')
+        }
+    })
+    const queryClient = useQueryClient()
 
     // const { data: auth0Users } = useQuery(['auth0Users'], getAuth0Users)
-
     // if (auth0Users) {
     //     auth0Users.forEach((u: any) => {
     //         const data = {
@@ -32,29 +35,41 @@ const Home: NextPage = () => {
     //     })
     // }
 
-    let email: string = ''
-    let nickname: string = ''
-    if (user && user.sub && user.nickname && user.name) {
-        email = checkEmail(user.sub, user.nickname)
-
-        if (email && email === 'auth0') {
-            email = user.name
-        }
+    let id: string = ''
+    if (user && user.sub) {
+        id = user.sub
     }
 
+    const { data: auth0User, isLoading } = useQuery(['auth0User', id], () =>
+        getAuth0UserById(id)
+    )
+
+    // let email: string = ''
+    // let nickname: string = ''
+    // if (user && user.sub && user.nickname && user.name) {
+    //     email = checkEmail(user.sub, user.nickname)
+
+    //     if (email && email === 'auth0') {
+    //         email = user.name
+    //     }
+    // }
+
     useEffect(() => {
-        if (user && email) {
+        if (!isLoading && user && auth0User) {
             const data = {
-                id: user?.sub,
-                firstName: user?.given_name || '',
-                lastName: user?.family_name || '',
-                email: email,
-                photo: user?.picture
+                id: auth0User.user_id,
+                firstName: auth0User.given_name || '',
+                lastName: auth0User.family_name || '',
+                email: auth0User.email,
+                email_verified: auth0User.email_verified,
+                photo: auth0User.picture
             }
+
+            console.log(data)
 
             mutate(data)
         }
-    }, [email, user?.sub])
+    }, [auth0User, id])
 
     return (
         <MainLayout title="Pawsitive - Home">
