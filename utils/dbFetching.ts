@@ -297,3 +297,12 @@ export const apply = async (data: Form) => {
 
   return newApply;
 };
+
+export const getTransactionsByUserId = async (id: string) => {
+  const response = await axios.get(
+    `/api/transaction/${id}`
+  );
+  const user = await response.data;
+  if (!user) throw new Error("Data not found");
+  return user;
+};
