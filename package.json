@@ -28,6 +28,7 @@
     "react-hook-form": "^7.39.6",
     "react-icons": "^4.6.0",
     "react-query": "^3.39.2",
+    "react-responsive": "^9.0.2",
     "stripe": "^11.1.0",
     "sweetalert2": "^11.6.15",
     "swiper": "^8.4.5",
