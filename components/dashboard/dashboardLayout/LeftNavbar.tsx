@@ -118,30 +118,30 @@ const LeftNavbar: any = () => {
                                     : 'dashboardButton'
                             }>
                             <FaPaw />
-                            <Link href={'/dashboard/adoptions'}>
+                            <Link href={'/profile/adoption'}>
                                 <a className="dashboardLinks">Mis adopciones</a>
                             </Link>
                         </li>
                         <li
                             className={
-                                router.pathname === '/dashboard/applies'
+                                router.pathname === '/profile/apply'
                                     ? 'dashboardButton active'
                                     : 'dashboardButton'
                             }>
                             <FaPaw />
-                            <Link href={'/dashboard/applies'}>
+                            <Link href={'/profile/apply'}>
                                 <a className="dashboardLinks">Aplicantes</a>
                             </Link>
                         </li>
                         <h3 className="dashboardSideTitle">Productos</h3>
                         <li
                             className={
-                                router.pathname === '/dashboard/products'
+                                router.pathname === '/profile/transaction'
                                     ? 'dashboardButton active'
                                     : 'dashboardButton'
                             }>
                             <FaPaw />
-                            <Link href={'/dashboard/products'}>
+                            <Link href={'/profile/transaction'}>
                                 <a className="dashboardLinks">
                                     Historial de compras
                                 </a>

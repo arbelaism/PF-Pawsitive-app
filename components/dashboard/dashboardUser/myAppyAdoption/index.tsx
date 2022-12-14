@@ -13,9 +13,14 @@ const MyApplyAdoption = () => {
         error,
         isLoading,
         isSuccess,
-    } = useQuery(["user", id], () => getApplyById(id));
+    } = useQuery(["applyData", id], () => getApplyById(id));
+
+    console.log(applyData,'hola')
+
   return (
-    <div>MyApplyAdoption</div>
+
+
+    <div>{}</div>
   )
 }
 

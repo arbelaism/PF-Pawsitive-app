@@ -1,7 +1,7 @@
 import React from 'react'
 import { DashboardLayout } from 'components/dashboard'
 import{TableMyTransaction} from 'components/dashboard'
-const Profile = () => {
+const MyTransaction = () => {
     return (
         <DashboardLayout title="Perfil">
             <TableMyTransaction />
@@ -9,4 +9,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default MyTransaction

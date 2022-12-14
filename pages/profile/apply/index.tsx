@@ -1,12 +1,14 @@
 import React from 'react'
 import { DashboardLayout } from 'components/dashboard'
-import{TableMyAdoptionPets} from 'components/dashboard'
-const MyAdoption = () => {
+import{MyApplyAdoption} from 'components/dashboard'
+
+
+const MyApply = () => {
     return (
         <DashboardLayout title="Perfil">
-           <TableMyAdoptionPets />
+            <MyApplyAdoption />
         </DashboardLayout>
     )
 }
 
-export default MyAdoption
+export default MyApply
