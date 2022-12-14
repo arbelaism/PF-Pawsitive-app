@@ -12,6 +12,7 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { FaArrowRight, FaDog } from 'react-icons/fa'
+import { useMediaQuery } from 'react-responsive'
 
 export type Props = {
     [key: string]: any
@@ -28,10 +29,15 @@ const Adoptions: NextPage = () => {
     //hooks para mostrar alerta o redireccionar
     const { user, error: errorU, isLoading: isLoadingU } = useUser()
     const router = useRouter()
+    const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
+    const isTablet = useMediaQuery({ query: '(max-width: 768px)' })
+    const isLaptop = useMediaQuery({ query: '(max-width: 1024px)' })
+    const isMediumScreen = useMediaQuery({ query: '(max-width: 1280px)' })
+    const isBigScreen = useMediaQuery({ query: '(min-width: 1536px)' })
 
     //Pagination with Data o Adoptions
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const [itemsPerPage, setItemsPerPage] = useState<number>(10)
+    const [itemsPerPage, setItemsPerPage] = useState<number>(4)
     const [data, setData] = useState<IAdoption[]>()
 
     const lastItemIndex = currentPage * itemsPerPage
@@ -59,8 +65,19 @@ const Adoptions: NextPage = () => {
     useEffect(() => {
         if (isSuccess) {
             setData(adoptions)
+            if (isMobile) {
+                setItemsPerPage(4)
+            } else if (isTablet) {
+                setItemsPerPage(4)
+            } else if (isLaptop) {
+                setItemsPerPage(6)
+            } else if (isMediumScreen) {
+                setItemsPerPage(9)
+            } else if (isBigScreen) {
+                setItemsPerPage(10)
+            }
         }
-    }, [isSuccess, adoptions])
+    }, [isSuccess, adoptions, isBigScreen, isMobile, isTablet, isLaptop, isMediumScreen])
 
     return (
         <MainLayout title="Pawsitive - Adopciones">
@@ -90,7 +107,7 @@ const Adoptions: NextPage = () => {
                             setCurrentPage={setCurrentPage}
                         />
                     ) : null}
-                    <div className="grid grid-cols-1 gap-x-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                    <div className="grid grid-cols-2 gap-x-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                         {isLoading ? (
                             <h1>Loading...</h1>
                         ) : currentItems.length === 0 ? (
