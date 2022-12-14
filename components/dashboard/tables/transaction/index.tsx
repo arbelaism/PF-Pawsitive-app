@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { getAllTransactions, putTransaction, createTransaction } from 'utils/dbFetching'
 import { Quantity, TransactionT } from 'app/types'
 import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
-import FormCreateTransaction from 'components/dashboard/tables/tools/FormCreateTransaction'
+import FormCreateTransaction from 'components/dashboard/tables/tools/formCreateTransaction'
 import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
