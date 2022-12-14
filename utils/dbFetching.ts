@@ -158,6 +158,10 @@ export const putUsers = async (id: string, data: Object) => {
   }
   return response;
 };
+
+
+
+
 export const putAdoption = async (id: string, data: Object) => {
   console.log('bd', id, data)
 

@@ -1,11 +1,10 @@
 import React from 'react'
 import { DashboardLayout } from 'components/dashboard'
-
+import{TableMyAdoptionPets} from 'components/dashboard'
 const Profile = () => {
     return (
         <DashboardLayout title="Perfil">
-            <h1>Adoption</h1>
-            <div>hola</div>
+           <TableMyAdoptionPets />
         </DashboardLayout>
     )
 }
