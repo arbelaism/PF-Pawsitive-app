@@ -6,7 +6,7 @@ import { mediaUploader } from 'utils/mediaUploader'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useQuery } from 'react-query'
 import { FaUserPlus, FaFileImage } from 'react-icons/fa'
-import { IoClose } from 'react-icons/io5'
+import { IoClose, IoCloseCircle } from 'react-icons/io5'
 import { Modal } from 'components'
 
 interface FormEstructure {
@@ -133,7 +133,14 @@ const FormTransaction = (mutationCreate: any) => {
         })
         data.status = "PROCESSING_PAYMENT"
         mutationCreate.mutate(data)       
-
+        setCondition(!condition)
+        setInputList([
+            {
+              productId: '',
+              quantity: 1,
+              price: 0
+            }
+        ])
     }
     useEffect(() => {
         if (inputList.length > 0) {
@@ -142,7 +149,7 @@ const FormTransaction = (mutationCreate: any) => {
             : setIsDisabled(false)
         }
       })
-    
+    const totalPrice = getTotalPrice()
     return (
         <div>
             <div>
@@ -225,20 +232,20 @@ const FormTransaction = (mutationCreate: any) => {
                                                 value={product.id}
                                                 >{product.name}</option>)}  
                                             </select>
-                                            <div className='grid grid-cols-1 gap-1 md:grid-cols-4'>
+                                            <div className='grid grid-cols-1 gap-1 md:grid-cols-6'>
                                                 <input
                                                 name='quantity'
-                                                className="input col-span-3"
+                                                className="input col-span-5"
                                                 onChange={(e)=>handleInputChange(e, i)}
                                                 type='number'
                                                 defaultValue='1'
                                                 ></input>
                                                 <button 
-                                                    className='col-span-1'
+                                                    className='top-5 left-5 text-3xl text-pwgreen-800 cursor-pointer hover:text-pwgreen-600 transition-all hover:rounded-full justify-self-center'
                                                     onClick={() => handleRemoveItem(i)}
                                                     >
                                                     <span role="img" aria-label="x emoji">
-                                                    ❌
+                                                    <IoCloseCircle />
                                                     </span>
                                                 </button>
                                             </div>
@@ -253,7 +260,9 @@ const FormTransaction = (mutationCreate: any) => {
                                     >
                                     Agregar otro producto
                                 </button>
-                                
+                                <div className='font-bold font-Rubik py-3 text-pwgreen-700 justify-self-center'>
+                                    <h2>Valor total transaccion: ${getTotalPrice()}</h2>
+                                </div>
                                 <button
                                     className="w-full font-Rubik py-3 bg-pwgreen-700 text-pwgreen-50 hover:bg-pwgreen-800 font-semibold uppercase rounded-lg shadow-2xl"
                                     type="submit">
