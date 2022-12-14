@@ -241,7 +241,7 @@ export interface IUserForm extends IUser {
 
 export interface Apply{
   petId: string;
-  userId: string
+  userId: string | null | undefined
 }
 export interface Form{
   reason: string,
@@ -250,7 +250,7 @@ export interface Form{
   employee: string,
   garden: string,
   adoptionPostId: string,
-  userId: string
+  userId: string | null | undefined
 }
 
 

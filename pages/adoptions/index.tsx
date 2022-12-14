@@ -1,5 +1,4 @@
 import { NextPage } from 'next'
-import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { IAdoption } from 'app/types'
 import { MainLayout, AdoptionCard, Filters } from 'components'
@@ -10,7 +9,8 @@ import AlternativePagination from 'components/layout/AlternativePagination'
 import NotFound from 'public/mong03b.gif'
 import Image from 'next/image'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export type Props = {
     [key: string]: any
