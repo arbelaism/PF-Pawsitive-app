@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AdoptFormInput, Product, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput, Form } from "app/types";
+import { AdoptFormInput, Product, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput, Form, EmailT } from "app/types";
 import { useQuery } from 'react-query';
 
 export const getAdoptions = async () => {
@@ -86,6 +86,14 @@ export const createReview = async (data: ReviewFormInput) => {
 };
 
 export const sendMail = async (data: ContactForm) => {
+  const newPost = await axios
+    .post("/api/sendMail", data)
+    .catch((error) => console.log(error));
+
+  return "email send";
+};
+
+export const sendMailT = async (data: EmailT) => {
   const newPost = await axios
     .post("/api/sendMail", data)
     .catch((error) => console.log(error));

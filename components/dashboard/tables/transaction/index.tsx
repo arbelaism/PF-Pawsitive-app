@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { getAllTransactions, putTransaction, createTransaction, sendMail, getUserById } from 'utils/dbFetching'
-import { Quantity, TransactionT, ContactForm, Users } from 'app/types'
+import { getAllTransactions, putTransaction, createTransaction, sendMailT, getUserById } from 'utils/dbFetching'
+import { Quantity, TransactionT, ContactForm,Users, EmailT } from 'app/types'
 import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
@@ -42,7 +42,7 @@ const TableTransaction = () => {
             queryClient.prefetchQuery('transactions', getAllTransactions)
         }
     })
-    const mutationSendEmail = useMutation(sendMail, {
+    const mutationSendEmail = useMutation(sendMailT, {
         onSuccess: data => {
             alerts({ icon: 'info', title: '<strong>Email</strong>', text: 'Se envio un email sobre es estado de la compra.', toast: true })
         },
@@ -64,18 +64,20 @@ const TableTransaction = () => {
         e.preventDefault()
         const status = e.target.value as string
         const id = e.target.id as string
-        const user: any = transactions.filter((e:any)=>e.id===id)
+
+        const user:any = transactions.filter((e:any)=>e.id===id)
         
-        let paymentData = {
+        let data: EmailT = {
             name: user[0].userFirstName as string,
             email: user[0].userEmail as string,
-            estado: status,
+            idT: id,
+            status: status,
             action: 'sendStatus',
             message: "estado enviado",
         }
         console.log(paymentData)
         if (status && id) {
-            mutationSendEmail.mutate(paymentData)
+            mutationSendEmail.mutate(data)
             mutation.mutate({ id, data: { status } })
             return
         } else return
