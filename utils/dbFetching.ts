@@ -131,6 +131,17 @@ export const getUsers = async () => {
   }
   return users;
 };
+
+export const getAuth0Users = async () => {
+    const response = await axios.get('/api/auth/users')
+    const users = await response.data
+
+    if (!users) {
+        throw new Error('Data not found')
+    }
+    return users
+}
+
 export const putUsers = async (id: string, data: Object) => {
 
   const response = await axios.put(`/api/user/${id}`, data);

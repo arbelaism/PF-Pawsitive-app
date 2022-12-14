@@ -1,18 +1,36 @@
 import type { NextPage } from 'next'
 import { MainLayout, AdoptionsScreen, ProductsScreen } from 'components'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { useMutation, useQueryClient } from 'react-query'
-import { createUser } from 'utils/dbFetching'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { createUser, getAuth0Users } from 'utils/dbFetching'
 import { checkEmail } from 'utils/checkEmail'
 import { useEffect } from 'react'
 // import createDB from '../utils/createDB'
 
 const Home: NextPage = () => {
-    //    createDB()
+    // createDB()
 
     const { user, error, isLoading } = useUser()
     // const queryClient = useQueryClient()
     const { mutate } = useMutation((data: any) => createUser(data))
+
+    // const { data: auth0Users } = useQuery(['auth0Users'], getAuth0Users)
+
+    // if (auth0Users) {
+    //     auth0Users.forEach((u: any) => {
+    //         const data = {
+    //             id: u.id,
+    //             firstName: '',
+    //             lastName: '',
+    //             email: u.email,
+    //             email_verified: u.email_verified,
+    //             photo: u.photo,
+    //             createdAt: u.createdAt,
+    //             updatedAt: u.updatedAt
+    //         }
+    //         // mutate(data)
+    //     })
+    // }
 
     let email: string = ''
     let nickname: string = ''
@@ -34,7 +52,6 @@ const Home: NextPage = () => {
                 photo: user?.picture
             }
 
-            console.log(data)
             mutate(data)
         }
     }, [email, user?.sub])
