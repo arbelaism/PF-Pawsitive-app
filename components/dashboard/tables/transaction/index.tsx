@@ -73,7 +73,6 @@ const TableTransaction = () => {
             action: 'sendStatus',
             message: "estado enviado",
         }
-        console.log(paymentData)
         if (status && id) {
             mutationSendEmail.mutate(paymentData)
             mutation.mutate({ id, data: { status } })
