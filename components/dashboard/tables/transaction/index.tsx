@@ -3,6 +3,8 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { getAllTransactions, putTransaction, createTransaction, sendMailT, getUserById } from 'utils/dbFetching'
 import { Quantity, TransactionT, ContactForm,Users, EmailT } from 'app/types'
 import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
+import FormCreateTransaction from 'components/dashboard/tables/tools/formCreateTransaction'
+import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
 import { alerts } from 'utils/alerts';
@@ -139,9 +141,9 @@ const TableTransaction = () => {
                         />
                     </div>
                 </form>
-                {/* <FormCreateTransaction
+                <FormCreateTransaction
                     {...mutationCreate}
-                /> */}
+                />
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">

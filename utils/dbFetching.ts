@@ -220,7 +220,7 @@ export const getAllTransactions = async () => {
 export const createTransaction = async (data: Product) => {
   const newProduct = await axios
     .post('/api/transaction', data)
-    .catch(error => console.log(error))
+    .catch(error => console.log(error.message))
   return newProduct
 }
 export const putTransaction = async (id: string, data: Object) => {
