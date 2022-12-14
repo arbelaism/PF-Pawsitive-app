@@ -16,14 +16,12 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
 
         if (!menu) return
         if (dropdown) {
-            menu.classList.add('opacity-0')
-            menu.classList.remove('opacity-1')
+            menu.classList.add('hidden')
             setDropdown(false)
             return
         }
 
-        menu.classList.add('opacity-1')
-        menu.classList.remove('opacity-0')
+        menu.classList.remove('hidden')
         setDropdown(true)
     }
 
@@ -44,7 +42,7 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
             </button>
             <div
                 id="dropdown"
-                className="absolute top-14 border border-pwgreen-500 opacity-0 right-0 z-40 w-max bg-pwgreen-50 rounded divide-y divide-slate-200 shadow-lg transition-all">
+                className="absolute top-14 border border-pwgreen-500 hidden right-0 z-40 w-max bg-pwgreen-50 rounded divide-y divide-slate-200 shadow-lg transition-all">
                 <div className="py-3 px-4 text-sm text-pwgreen-800">
                     <div className="font-medium truncate">{userEmail}</div>
                 </div>
@@ -52,18 +50,25 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                     className="text-sm text-pwgreen-800"
                     aria-labelledby="dropdownInformationButton">
                     <li>
-                        <a
-                            href="#"
-                            className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
-                            Perfil
-                        </a>
+                        <Link href={'/profile'}>
+                            <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                                Perfil
+                            </a>
+                        </Link>
                     </li>
                     <li>
-                        <a
-                            href="#"
-                            className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
-                            Configuración
-                        </a>
+                        <Link href={'/profile/transaction'}>
+                            <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                                Historial de compras
+                            </a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href={'/profile/settings'}>
+                            <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                                Configuración
+                            </a>
+                        </Link>
                     </li>
                 </ul>
                 <div className="text-sm text-pwgreen-800">
