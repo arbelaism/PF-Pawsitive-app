@@ -38,7 +38,7 @@ const Navbar: NextComponentType = () => {
         )
         setCartProducts(() => {
             let total: number = 0
-            if (totalProducts.length) {
+            if (totalProducts?.length) {
                 totalProducts.map(
                     (product: Product) => (total += product.amount!)
                 )
@@ -99,19 +99,17 @@ const Navbar: NextComponentType = () => {
             </div>
             <div
                 id="menu"
-                className="w-full block justify-between font-medium uppercase font-Rubik lg:flex lg:items-center lg:w-auto">
+                className="w-full hidden justify-between font-medium uppercase font-Rubik lg:flex lg:items-center lg:w-auto">
                 <div>
                     <Link href={'/'}>
                         <a className="navbarLink">Home</a>
                     </Link>
-
                     <Link href={'/adoptions'}>
                         <a className="navbarLink">Adopciones</a>
                     </Link>
                     <Link href={'/products'}>
                         <a className="navbarLink">Productos</a>
                     </Link>
-
                     <Link href={'/contact'}>
                         <a className="navbarLink">Contacto</a>
                     </Link>

@@ -2,45 +2,50 @@ import React, { useState } from "react";
 import { alerts } from "utils/alerts";
 import { mediaUploader } from "utils/mediaUploader";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FaFileImage, FaUserPlus } from "react-icons/fa";
+import { getUsers } from "utils/dbFetching";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Modal } from "components";
+import { FaFileImage, FaUserPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-interface FormStructure {
+export interface AdoptFormInput {
   name: string;
-  price: number;
-  displayPrice: number;
-  description: string;
-  stock: number;
-  photo: string;
-  category: string;
-  brand: string;
   size: string;
-  active: boolean;
+  age: string;
+  active?: boolean;
+  description?: string;
+  monthOrYear?: string;
+  breed: string;
+  photo?: string;
+  userId?: string;
+  email: string;
 }
 
-const FormCreateProduct = (mutationCreate: any) => {
-  const formEstructure = {
+const CreateAdoptionForm = (mutationCreateAdoption: any) => {
+  const formStructure = {
     name: "",
-    price: 0,
-    displayPrice: 0,
-    description: "",
-    stock: 0,
-    photo: "",
-    category: "",
-    brand: "",
     size: "",
+    age: "",
     active: true,
+    description: "",
+    monthOrYear: "",
+    breed: "",
+    photo: "",
+    userId: "",
+    email: "",
   };
 
   //Manejar form
 
-  const [form, setForm] = useState<FormStructure>({ ...formEstructure });
+  const [form, setForm] = useState<AdoptFormInput>({ ...formStructure });
+  const queryClient = useQueryClient();
 
+  const { data: users, isLoading, isSuccess } = useQuery(["users"], getUsers);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormStructure>();
+  } = useForm<AdoptFormInput>();
+
   const [media, setMedia] = useState<File[]>([]);
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -51,35 +56,42 @@ const FormCreateProduct = (mutationCreate: any) => {
   }
 
   //Collapse/Expand Form
-
+  function checkEmail(email: string): string {
+    let user: string = "";
+    users.map((u: any) => {
+      if (u.email === email) return (user = u.id);
+    });
+    return user;
+  }
   const [condition, setCondition] = useState(false);
 
   function toggleCondition(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    if (condition === false) setForm({ ...formEstructure });
+    if (condition === false) setForm({ ...formStructure });
     setCondition(!condition);
   }
-  const onSubmit: SubmitHandler<FormStructure> = async (data) => {
+  const onSubmit: SubmitHandler<AdoptFormInput> = async (data) => {
+    console.log(form);
+    data.userId = checkEmail(data.email);
+
+    if (data.userId === "") {
+      alerts({
+        icon: "info",
+        title: "<strong>Email</strong>",
+        text: "El email no coincide con ningún usuario",
+        toast: true,
+      });
+    }
+    data.active = true;
     let urlPhoto: any = [];
     if (media.length > 0) {
       urlPhoto = await mediaUploader(media);
     }
-    data = { ...data, active: true };
     data = { ...data, photo: urlPhoto ? urlPhoto[0] : null };
-    data.price = Number(data.price);
-    data.stock = Number(data.stock);
-    data.displayPrice = Number(data.displayPrice);
-    if (data.price > data.displayPrice) {
-      alerts({
-        icon: "info",
-        title: "<strong>Email</strong>",
-        text: "El costo debe ser menor que el precio de venta",
-        toast: true,
-      });
-    } else {
-      setCondition(!condition);
-      mutationCreate.mutate(data);
-    }
+    data.age = String(data.age.match("[0-9]+"));
+    console.log(data);
+    setCondition(!condition);
+    mutationCreateAdoption.mutate(data);
   };
   return (
     <div>
@@ -90,7 +102,7 @@ const FormCreateProduct = (mutationCreate: any) => {
             onClick={toggleCondition}
           >
             <FaUserPlus />
-            Crear Producto
+            Crear adopcion
           </button>
         </div>
       </div>
@@ -98,7 +110,7 @@ const FormCreateProduct = (mutationCreate: any) => {
       {condition ? (
         <Modal>
           <h1 className="text-2xl mb-3 font-semibold lg:text-3xl">
-            Crear nuevo usuario
+            Crear un nuevo adopcion post
           </h1>
           <button
             onClick={toggleCondition}
@@ -109,15 +121,13 @@ const FormCreateProduct = (mutationCreate: any) => {
           <div className="overflow-y-visible">
             <form action="" onSubmit={handleSubmit(onSubmit)}>
               <div className="grid grid-cols-1 gap-1 md:grid-cols-2">
-                {/* COLUMNA 1 */}
-
                 <div className="input-type">
-                  <label htmlFor="firstName" className="label">
-                    Nombre del producto:
+                  <label htmlFor="name" className="label">
+                    Nombre:
                   </label>
                   <input
-                    id="firstName"
                     type="text"
+                    id="name"
                     placeholder="Nombre"
                     className="input"
                     {...register("name", {
@@ -128,155 +138,141 @@ const FormCreateProduct = (mutationCreate: any) => {
                       maxLength: 20,
                     })}
                   />
-                  {errors?.name?.message && (
+                  {(errors?.name?.message && (
                     <div
                       className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2"
                       role="alert"
                     >
                       <p>Es necesario poner un nombre</p>
                     </div>
-                  )}
-                </div>
-                <div className="input-type">
-                  <label htmlFor="price" className="label">
-                    Costo:
-                  </label>
-                  <input
-                    id="price"
-                    type="number"
-                    placeholder="El costo debe ser mayor que 0"
-                    className="input"
-                    {...register("price", {
-                      required: true,
-                      min: 0,
-                    })}
-                  />
-                  {(errors.price?.type === "required" && (
-                    <p className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2">
-                      Es necesario poner un Costo
-                    </p>
                   )) ||
-                    (errors.price?.type === "min" && (
+                    (errors.name?.type === "maxLength" && (
                       <p className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2">
-                        El Costo debe ser mayor que 0
+                        Nombre no puede contener mas de 20 caracteres
                       </p>
                     ))}
                 </div>
                 <div className="input-type">
                   <label htmlFor="email" className="label">
-                    Precio de venta:
+                    Email del Adoptante:
                   </label>
                   <input
                     id="email"
-                    type="number"
-                    placeholder="El precio debe ser mayor a 0"
+                    type="text"
+                    placeholder="Email"
                     className="input"
-                    {...register("displayPrice", {
-                      required: true,
-                      min: 0,
+                    {...register("email", {
+                      required: {
+                        value: true,
+                        message: "Es necesario poner un email",
+                      },
+                      maxLength: 60,
                     })}
                   />
-                  {(errors.price?.type === "required" && (
-                    <p className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2">
-                      Es necesario poner un precio
-                    </p>
-                  )) ||
-                    (errors.price?.type === "min" && (
-                      <p className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2">
-                        El precio debe ser mayor que 0
-                      </p>
-                    ))}
+                  {errors?.email?.message && (
+                    <div
+                      className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2"
+                      role="alert"
+                    >
+                      <p>Es necesario poner un email</p>
+                    </div>
+                  )}
                 </div>
-                
-                {/* COLUMNA 2 */}
-
                 <div className="input-type">
                   <label htmlFor="number" className="label">
-                    Stock:
+                    Edad:
                   </label>
                   <input
-                    id="stock"
-                    type="number"
-                    {...register("stock", {
+                    id="phone"
+                    type="text"
+                    {...register("age", {
                       required: true,
-                      min: -1,
+                      min: 0,
+                      max: 50,
                     })}
-                    placeholder="Stock"
+                    placeholder="Edad"
                     className="input"
                   />
-                  {(errors.stock?.type === "required" && (
+                  {(errors.age?.type === "required" && (
                     <p className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2">
-                      Es necesario poner un precio
+                      La edad es obligatoria
                     </p>
                   )) ||
-                    (errors.stock?.type === "min" && (
+                    (errors.age?.type === "min" && (
                       <p className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2">
-                        El stock no puede ser negativo
+                        La edad debe ser mayor que 0
+                      </p>
+                    )) ||
+                    (errors.age?.type === "max" && (
+                      <p className="bg-pwgreen-800 border-l-2 border-r-2  border4 border-white text-white p-2">
+                        La edad debe ser menor que 50
                       </p>
                     ))}
                 </div>
                 <div className="input-type">
-                  <label htmlFor="lastName" className="label">
-                    Marca:
-                  </label>
-                  <input
-                    id="brand"
-                    type="text"
-                    {...register("brand", {
-                      required: false,
-                    })}
-                    placeholder="Pawsitive"
-                    className="input"
-                  />
-                </div>
-                <div className="input-type">
-                  <label htmlFor="active" className="label">
-                    Categoría:
+                  <label htmlFor="birthday" className="label mt-2">
+                    Metrica:
                   </label>
                   <select
                     className="input"
-                    id="firstName"
-                    {...register("category", {
-                      required: {
-                        value: true,
-                        message: "Es necesario pone",
-                      },
-                    })}
+                    id="size"
+                    placeholder="Size"
+                    {...register("monthOrYear")}
                   >
-                    <option value="TOY">Juguete</option>
-                    <option value="FOOD">Comida</option>
-                    <option value="SNACK">Snack</option>
-                    <option value="ACCESORIES">Accesorios</option>
-                    <option value="HYGIENE">Higiene</option>
-                    <option value="HEALTH">Health</option>
-                    <option value="OTHER">Other</option>
+                    <option value="SMALL">Años</option>
+                    <option value="MEDIUM">Meses</option>
                   </select>
                 </div>
+
+                {/* COLUMNA 2 */}
+
                 <div className="input-type">
-                  <label htmlFor="active" className="label">
+                  <label className="label">Especie:</label>
+                  <select
+                    className="input"
+                    id="breed"
+                    placeholder="Especie"
+                    {...register("breed", { required: true, maxLength: 20 })}
+                  >
+                    <option value="perro">Perro</option>
+                    <option value="gato">Gato</option>
+                    <option value="ave">Ave</option>
+                    <option value="tortuga">Tortuga</option>
+                    <option value="roedor">Roedor</option>
+                    <option value="otros">Otros</option>
+                  </select>
+                  {(errors.breed?.type === "required" && (
+                    <p className="text-red-500 text-xs italic">
+                      Especie es obligatoria
+                    </p>
+                  )) ||
+                    (errors.breed?.type === "maxLength" && (
+                      <p className="text-red-500 text-xs italic">
+                        Especie no puede contener mas de 20 caracteres
+                      </p>
+                    ))}
+                </div>
+               
+                <div className="input-type">
+                  <label htmlFor="birthday" className="label">
                     Tamaño:
                   </label>
                   <select
                     className="input"
-                    id="firstName"
-                    {...register("size", {
-                      required: {
-                        value: true,
-                        message: "Es necesario poner una ciudad",
-                      },
-                    })}
+                    id="size"
+                    placeholder="Size"
+                    {...register("size", { required: true })}
                   >
                     <option value="SMALL">Pequeño</option>
                     <option value="MEDIUM">Mediano</option>
                     <option value="BIG">Grande</option>
-                    <option value="UNIQUE">Unico</option>
                   </select>
                 </div>
                 <div className="input-type">
                   <label className="label">Descripcion:</label>
                   <textarea
                     {...register("description")}
-                    className="input h-32 mt-0"
+                    className="input h-32 mt-1"
                     id="description"
                   />
                 </div>
@@ -289,8 +285,7 @@ const FormCreateProduct = (mutationCreate: any) => {
                     htmlFor="photo"
                     className="w-full bg-white my-3 py-3 flex items-center justify-center gap-3 text-base text-pwgreen-800 rounded-lg cursor-pointer border border-pwgreen-400 shadow-xl hover:bg-pwgreen-700 hover:text-pwgreen-50 transition-all"
                   >
-                    <FaFileImage />
-                    Foto:
+                    <FaFileImage /> Seleccionar
                   </label>
                   <input
                     onChange={(e) => handleChange(e)}
@@ -317,4 +312,4 @@ const FormCreateProduct = (mutationCreate: any) => {
   );
 };
 
-export default FormCreateProduct;
+export default CreateAdoptionForm;

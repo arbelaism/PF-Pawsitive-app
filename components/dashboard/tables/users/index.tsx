@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { getUsers, putUsers, createUser } from 'utils/dbFetching'
 import { Users } from 'app/types'
-import { useSortableData, useSearchData } from '../tools' //sort function
+import { useSortableData, useSearchData, FormCreateUser } from '../tools' //sort function
 import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
@@ -177,9 +177,7 @@ const TableUser = () => {
                         />
                     </div>
                 </form>
-                {/* <FormCreateTransaction
-                    {...mutationCreate}
-                /> */}
+                <FormCreateUser {...mutationCreate} />
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">
@@ -237,401 +235,402 @@ const TableUser = () => {
                     <tbody className="text-sm">
                         {isSuccess
                             ? currentItems.map((u: Users) => {
-                                return (
-                                    <>
-                                        <tr
-                                            key={u.id}
-                                            className="tr-body bg-pwgreen-50">
-                                            <td className="td-body">
-                                                <div className="hidden lg:block">
-                                                    {u.photo ? (
-                                                        <Image
-                                                            src={u.photo}
-                                                            alt={
-                                                                u.lastName ||
-                                                                'no image'
-                                                            }
-                                                            width={64}
-                                                            height={64}
-                                                        />
-                                                    ) : (
-                                                        <span className="text-center ml-2 font-semibold">
-                                                            No image
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <div className="flex flex-col items-center content-center">
-                                                    <span className="text-center text-ellipsis overflow-hidden ml-2 font-semibold">
-                                                        {u.id}
-                                                    </span>
-                                                </div>
-                                            </td>
+                                  return (
+                                      <>
+                                          <tr
+                                              key={u.id}
+                                              className="tr-body bg-pwgreen-50">
+                                              <td className="td-body">
+                                                  <div className="hidden lg:block">
+                                                      {u.photo ? (
+                                                          <Image
+                                                              src={u.photo}
+                                                              alt={
+                                                                  u.lastName ||
+                                                                  'no image'
+                                                              }
+                                                              width={64}
+                                                              height={64}
+                                                          />
+                                                      ) : (
+                                                          <span className="text-center ml-2 font-semibold">
+                                                              No image
+                                                          </span>
+                                                      )}
+                                                  </div>
+                                                  <div className="flex flex-col items-center content-center w-14 overflow-hidden hover:w-max">
+                                                      <span className="text-center truncate text-ellipsis overflow-hidden ml-2 font-semibold">
+                                                          {u.id}
+                                                      </span>
+                                                  </div>
+                                              </td>
 
-                                            {uploadUser === u.id ? (
-                                                <>
-                                                    <td className="td-body">
-                                                        <input
-                                                            type="text"
-                                                            placeholder={
-                                                                u.firstName ||
-                                                                'n/a'
-                                                            }
-                                                            name="firstName"
-                                                            value={
-                                                                userUpdate.firstName
-                                                            }
-                                                            onChange={
-                                                                handleInputDataChange
-                                                            }
-                                                        />
-                                                    </td>
-                                                    <td className="td-body">
-                                                        <input
-                                                            className="w-fit"
-                                                            type="text"
-                                                            placeholder={
-                                                                u.lastName ||
-                                                                'n/a'
-                                                            }
-                                                            name="lastName"
-                                                            value={
-                                                                userUpdate.lastName
-                                                            }
-                                                            onChange={
-                                                                handleInputDataChange
-                                                            }
-                                                        />
-                                                    </td>
-                                                    <td className="td-body">
-                                                        <input
-                                                            type="text"
-                                                            placeholder={
-                                                                u.email ||
-                                                                'n/a'
-                                                            }
-                                                            name="email"
-                                                            value={
-                                                                userUpdate.email
-                                                            }
-                                                            onChange={
-                                                                handleInputDataChange
-                                                            }
-                                                        />
-                                                    </td>
+                                              {uploadUser === u.id ? (
+                                                  <>
+                                                      <td className="td-body">
+                                                          <input
+                                                              type="text"
+                                                              placeholder={
+                                                                  u.firstName ||
+                                                                  'n/a'
+                                                              }
+                                                              name="firstName"
+                                                              value={
+                                                                  userUpdate.firstName
+                                                              }
+                                                              onChange={
+                                                                  handleInputDataChange
+                                                              }
+                                                          />
+                                                      </td>
+                                                      <td className="td-body">
+                                                          <input
+                                                              className="w-fit"
+                                                              type="text"
+                                                              placeholder={
+                                                                  u.lastName ||
+                                                                  'n/a'
+                                                              }
+                                                              name="lastName"
+                                                              value={
+                                                                  userUpdate.lastName
+                                                              }
+                                                              onChange={
+                                                                  handleInputDataChange
+                                                              }
+                                                          />
+                                                      </td>
+                                                      <td className="td-body">
+                                                          <input
+                                                              type="text"
+                                                              placeholder={
+                                                                  u.email ||
+                                                                  'n/a'
+                                                              }
+                                                              name="email"
+                                                              value={
+                                                                  userUpdate.email
+                                                              }
+                                                              onChange={
+                                                                  handleInputDataChange
+                                                              }
+                                                          />
+                                                      </td>
+                                                  </>
+                                              ) : (
+                                                  <>
+                                                      <td className="td-body min-w-[120px]">
+                                                          {u.firstName || 'n/a'}
+                                                      </td>
+                                                      <td className="td-body min-w-[120px]">
+                                                          {u.lastName || 'n/a'}
+                                                      </td>
+                                                      <td className="td-body">
+                                                          {u.email || 'n/a'}
+                                                      </td>
+                                                  </>
+                                              )}
+                                              <td className="td-body">
+                                                  <select
+                                                      className="input w-max"
+                                                      name="role"
+                                                      value={u.role}
+                                                      id={u.id}
+                                                      onChange={
+                                                          handleRoleChange
+                                                      }>
+                                                      <option value="BASIC">
+                                                          BASICO
+                                                      </option>
+                                                      <option value="PROFESSIONAL">
+                                                          PROFESIONAL
+                                                      </option>
+                                                      <option value="ADMIN">
+                                                          ADMINISTRADOR
+                                                      </option>
+                                                  </select>
+                                              </td>
+                                              <td className="td-body">
+                                                  {u.active ? (
+                                                      <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
+                                                          Activo
+                                                      </span>
+                                                  ) : (
+                                                      <span className="text-red-50 bg-red-700 px-3 py-1 rounded-full">
+                                                          Desactivado
+                                                      </span>
+                                                  )}
+                                              </td>
+                                              <td className="td-body">
+                                                  {u.createdAt}
+                                              </td>
 
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <td className="td-body min-w-[120px]">
-                                                        {u.firstName || 'n/a'}
-                                                    </td>
-                                                    <td className="td-body min-w-[120px]">
-                                                        {u.lastName || 'n/a'}
-                                                    </td>
-                                                    <td className="td-body">
-                                                        {u.email || 'n/a'}
-                                                    </td>
-                                                </>
-                                            )}
-                                            <td className="td-body">
-                                                <select
-                                                    className="input w-max"
-                                                    name="role"
-                                                    value={u.role}
-                                                    id={u.id}
-                                                    onChange={
-                                                        handleRoleChange
-                                                    }>
-                                                    <option value="BASIC">
-                                                        BASICO
-                                                    </option>
-                                                    <option value="PROFESSIONAL">
-                                                        PROFESIONAL
-                                                    </option>
-                                                    <option value="ADMIN">
-                                                        ADMINISTRADOR
-                                                    </option>
-                                                </select>
-                                            </td>
-                                            <td className="td-body">
-                                                {u.active ? (
-                                                    <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
-                                                        Activo
-                                                    </span>
-                                                ) : (
-                                                    <span className="text-red-50 bg-red-700 px-3 py-1 rounded-full">
-                                                        Desactivado
-                                                    </span>
-                                                )}
-                                            </td>
-                                            <td className="td-body">
-                                                {u.createdAt}
-                                            </td>
+                                              {/* BOTONES PARA MODIFICAR USUARIOS Y COLAPSE/EXPANDE TABLE */}
 
-                                            {/* BOTONES PARA MODIFICAR USUARIOS Y COLAPSE/EXPANDE TABLE */}
+                                              <td className="td-body min-w-[130px] inline-flex space-x-2 lg:table-cell">
+                                                  {/* BOTON UPLOAD */}
+                                                  <button
+                                                      className="button-table"
+                                                      type="button"
+                                                      name={u.id}
+                                                      onClick={() =>
+                                                          toggleUpload(u.id)
+                                                      }>
+                                                      <FaEdit />
+                                                  </button>
 
-                                            <td className="td-body min-w-[130px] inline-flex space-x-2 lg:table-cell">
-                                                {/* BOTON UPLOAD */}
-                                                <button
-                                                    className="button-table"
-                                                    type="button"
-                                                    name={u.id}
-                                                    onClick={() =>
-                                                        toggleUpload(u.id)
-                                                    }>
-                                                    <FaEdit />
-                                                </button>
+                                                  {/* BOTON GUARDAR */}
+                                                  {uploadUser === u.id ? (
+                                                      <button
+                                                          className="button-table"
+                                                          type="button"
+                                                          name={u.id}
+                                                          onClick={e =>
+                                                              handlerSubmitUserUpdate(
+                                                                  e
+                                                              )
+                                                          }>
+                                                          <FaSave />
+                                                      </button>
+                                                  ) : null}
 
-                                                {/* BOTON GUARDAR */}
-                                                {uploadUser === u.id ? (
-                                                    <button
-                                                        className="button-table"
-                                                        type="button"
-                                                        name={u.id}
-                                                        onClick={e =>
-                                                            handlerSubmitUserUpdate(
-                                                                e
-                                                            )
-                                                        }>
-                                                        <FaSave />
-                                                    </button>
-                                                ) : null}
+                                                  <button
+                                                      className="button-table"
+                                                      type="button"
+                                                      name={u.id}
+                                                      onClick={e =>
+                                                          handleActiveChange(e)
+                                                      }>
+                                                      <FaTrash />
+                                                  </button>
 
-                                                <button
-                                                    className="button-table"
-                                                    type="button"
-                                                    name={u.id}
-                                                    onClick={e =>
-                                                        handleActiveChange(e)
-                                                    }>
-                                                    <FaTrash />
-                                                </button>
+                                                  {/* BOTON COLLAPSE/EXPANDE */}
 
-                                                {/* BOTON COLLAPSE/EXPANDE */}
+                                                  <button
+                                                      className="button-table"
+                                                      type="submit"
+                                                      value={u.id}
+                                                      onClick={e =>
+                                                          toggleExpander(u.id)
+                                                      }>
+                                                      {rowExpande === u.id ? (
+                                                          <FaArrowDown />
+                                                      ) : (
+                                                          <FaArrowUp />
+                                                      )}
+                                                  </button>
+                                              </td>
+                                          </tr>
 
-                                                <button
-                                                    className="button-table"
-                                                    type="submit"
-                                                    value={u.id}
-                                                    onClick={e =>
-                                                        toggleExpander(u.id)
-                                                    }>
-                                                    {rowExpande === u.id ? (
-                                                        <FaArrowDown />
-                                                    ) : (
-                                                        <FaArrowUp />
-                                                    )}
-                                                </button>
-                                            </td>
-                                        </tr>
+                                          {/* NOMBRES DE LA TABLA EXPANDIBLE */}
 
-                                        {/* NOMBRES DE LA TABLA EXPANDIBLE */}
+                                          {rowExpande === u.id ? (
+                                              <>
+                                                  <tr
+                                                      key={u.email}
+                                                      className="tr-head">
+                                                      <th className="th-head">
+                                                          GENERO
+                                                      </th>
+                                                      <th className="th-head">
+                                                          FECHA DE NACIMIENTO
+                                                      </th>
+                                                      <th className="th-head">
+                                                          PAIS
+                                                      </th>
+                                                      <th className="th-head">
+                                                          CIUDAD
+                                                      </th>
+                                                      <th className="th-head">
+                                                          PROVINCIA
+                                                      </th>
+                                                      <th className="th-head">
+                                                          DIRECCION
+                                                      </th>
+                                                      <th className="th-head">
+                                                          TELEFONO
+                                                      </th>
+                                                      <th className="th-head">
+                                                          CORREO POSTAL
+                                                      </th>
+                                                  </tr>
 
-                                        {rowExpande === u.id ? (
-                                            <>
-                                                <tr
-                                                    key={u.email}
-                                                    className="tr-head">
-                                                    <th className="th-head">
-                                                        GENERO
-                                                    </th>
-                                                    <th className="th-head">
-                                                        FECHA DE NACIMIENTO
-                                                    </th>
-                                                    <th className="th-head">
-                                                        PAIS
-                                                    </th>
-                                                    <th className="th-head">
-                                                        CIUDAD
-                                                    </th>
-                                                    <th className="th-head">
-                                                        PROVINCIA
-                                                    </th>
-                                                    <th className="th-head">
-                                                        DIRECCION
-                                                    </th>
-                                                    <th className="th-head">
-                                                        TELEFONO
-                                                    </th>
-                                                    <th className="th-head">
-                                                        CORREO POSTAL
-                                                    </th>
-                                                </tr>
-
-                                                {/* DATOS DE LA TABLA EXPANDIBLE */}
-                                                {uploadUser === u.id ? (
-                                                    <>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.gender ||
-                                                                    'n/a'
-                                                                }
-                                                                name="gender"
-                                                                value={
-                                                                    userUpdate.gender
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.birthday ||
-                                                                    'n/a'
-                                                                }
-                                                                name="birthday"
-                                                                value={
-                                                                    userUpdate.birthday
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.country ||
-                                                                    'n/a'
-                                                                }
-                                                                name="country"
-                                                                value={
-                                                                    userUpdate.country
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.province ||
-                                                                    'n/a'
-                                                                }
-                                                                name="province"
-                                                                value={
-                                                                    userUpdate.province
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                className=" w-fit"
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.city ||
-                                                                    'n/a'
-                                                                }
-                                                                name="city"
-                                                                value={
-                                                                    userUpdate.city
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.address ||
-                                                                    'n/a'
-                                                                }
-                                                                name="address"
-                                                                value={
-                                                                    userUpdate.address
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.phone ||
-                                                                    'n/a'
-                                                                }
-                                                                name="phone"
-                                                                value={
-                                                                    userUpdate.phone
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td className="td-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder={
-                                                                    u.postCode ||
-                                                                    'n/a'
-                                                                }
-                                                                name="postCode"
-                                                                value={
-                                                                    userUpdate.postCode
-                                                                }
-                                                                onChange={
-                                                                    handleInputDataChange
-                                                                }
-                                                            />
-                                                        </td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <tr key={u.createdAt}>
-                                                            <td className="td-body">
-                                                                {u.gender || 'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.birthday || 'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.country ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.province ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.city ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.address ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.phone ||
-                                                                    'n/a'}
-                                                            </td>
-                                                            <td className="td-body">
-                                                                {u.postCode ||
-                                                                    'n/a'}
-                                                            </td>
-                                                        </tr>
-                                                    </>
-                                                )}
-                                            </>
-                                        ) : null}
-                                    </>
-                                )
-                            })
+                                                  {/* DATOS DE LA TABLA EXPANDIBLE */}
+                                                  {uploadUser === u.id ? (
+                                                      <>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.gender ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="gender"
+                                                                  value={
+                                                                      userUpdate.gender
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.birthday ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="birthday"
+                                                                  value={
+                                                                      userUpdate.birthday
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.country ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="country"
+                                                                  value={
+                                                                      userUpdate.country
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.province ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="province"
+                                                                  value={
+                                                                      userUpdate.province
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  className=" w-fit"
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.city ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="city"
+                                                                  value={
+                                                                      userUpdate.city
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.address ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="address"
+                                                                  value={
+                                                                      userUpdate.address
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.phone ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="phone"
+                                                                  value={
+                                                                      userUpdate.phone
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                          <td className="td-body">
+                                                              <input
+                                                                  type="text"
+                                                                  placeholder={
+                                                                      u.postCode ||
+                                                                      'n/a'
+                                                                  }
+                                                                  name="postCode"
+                                                                  value={
+                                                                      userUpdate.postCode
+                                                                  }
+                                                                  onChange={
+                                                                      handleInputDataChange
+                                                                  }
+                                                              />
+                                                          </td>
+                                                      </>
+                                                  ) : (
+                                                      <>
+                                                          <tr key={u.createdAt}>
+                                                              <td className="td-body">
+                                                                  {u.gender ||
+                                                                      'n/a'}
+                                                              </td>
+                                                              <td className="td-body">
+                                                                  {u.birthday ||
+                                                                      'n/a'}
+                                                              </td>
+                                                              <td className="td-body">
+                                                                  {u.country ||
+                                                                      'n/a'}
+                                                              </td>
+                                                              <td className="td-body">
+                                                                  {u.province ||
+                                                                      'n/a'}
+                                                              </td>
+                                                              <td className="td-body">
+                                                                  {u.city ||
+                                                                      'n/a'}
+                                                              </td>
+                                                              <td className="td-body">
+                                                                  {u.address ||
+                                                                      'n/a'}
+                                                              </td>
+                                                              <td className="td-body">
+                                                                  {u.phone ||
+                                                                      'n/a'}
+                                                              </td>
+                                                              <td className="td-body">
+                                                                  {u.postCode ||
+                                                                      'n/a'}
+                                                              </td>
+                                                          </tr>
+                                                      </>
+                                                  )}
+                                              </>
+                                          ) : null}
+                                      </>
+                                  )
+                              })
                             : isLoading}
                     </tbody>
                 </table>

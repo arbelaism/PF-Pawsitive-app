@@ -16,7 +16,6 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         size: true,
                         age: true,
                         breed: true,
-                        gender: true,
                         photo: true,
                         active: true,
                         description: true,

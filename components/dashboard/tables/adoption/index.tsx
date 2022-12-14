@@ -6,6 +6,7 @@ import { useSortableData, useSearchData, FormCreateAdoption } from '../tools' //
 import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
+import CreateAdoptionForm from '../tools/createAdoptionForm'
 import {
     FaSort,
     FaEdit,
@@ -14,6 +15,7 @@ import {
     FaArrowUp,
     FaSave
 } from 'react-icons/fa'
+
 
 interface FormEstructure {
     name: string;
@@ -38,8 +40,7 @@ const TableAdoption = () => {
             queryClient.prefetchQuery('adoptions', getAdoptions)
         }
     })
-
-    const mutationCreate = useMutation((data: any) => createAdoption(data), {
+    const mutationCreateAdoption = useMutation((data: any) => createAdoption(data), {
         onSuccess: () => {
             queryClient.prefetchQuery('adoptions', getAdoptions)
         }
@@ -180,9 +181,7 @@ const TableAdoption = () => {
                         />
                     </div>
                 </form>
-                {/* <FormCreateAdoption
-                    {...mutationCreate}
-                /> */}
+                <CreateAdoptionForm {...mutationCreateAdoption}/>
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">

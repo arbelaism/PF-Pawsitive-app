@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { transporter } from "../../../utils/mailer";
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
-  const { action, email, name, products, total,message } = req.body;
+
+  const { action, email, name, products, total,message,idT,status } = req.body;
+
     //items y total serían para que creen un formato para el correo que te muestre lo que compraste
   switch (action) {
     case "contact":
@@ -43,7 +45,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           <body>
           <header><h1>Gracias por su compra!</h1></header>
           <p>----------------------------------------------------------------------------</p>
-          <p>En este correo se adjunta la compra #${Math.random()*100} con fecha ${day}/${month}/${year}, le agradecemos por usar los servicios de nuestra empresa</p>
+          <p>En este correo se adjunta la compra #${idT} con fecha ${day}/${month}/${year}, le agradecemos por usar los servicios de nuestra empresa</p>
           <div>A continuacion le detallamos que productos adquirio en esta oportunidad
               <h3>Los productos que compro son:</h3>
               <ul className='list'>
@@ -76,5 +78,33 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         res.status(401).json({ message: `cant send email to ${email}` })
       }
       break;
+
+      case "sendStatus":
+        try {
+          let today = new Date();
+          let day = today.getDate();
+          let month = today.getMonth() + 1;
+          let year = today.getFullYear();
+          
+          await transporter.sendMail({
+            from: `Pawsitive Team ${process.env.EMAIL_PAWSITIVE}`, // sender address
+            to: email, // list of receivers
+            subject: `Hola ${name}`, // Subject line
+            html: `
+            <body>
+            <header><h1>Gracias por su compra!</h1></header>
+            <p>----------------------------------------------------------------------------</p>
+            <p>En este correo se le indica que el estado de su transaccion con id #${idT} con fecha ${day}/${month}/${year},es ${status}, le agradecemos por usar los servicios de nuestra empresa</p>
+            <footer><h4>Atentamente,</h4>
+                <br/>
+                <h3>Pawsitive Team</h3>
+            </footer>
+            </body>`
+          });
+          res.status(200).json({ message: "email sent" })
+        } catch (error) {
+          res.status(401).json({ message: `cant send email to ${email}` })
+        }
+        break;
   }
 }

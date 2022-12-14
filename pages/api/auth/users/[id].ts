@@ -13,6 +13,24 @@ export default async function auth0User(
     const { method } = req
     const id = req.query.id as string
     switch (method) {
+        case 'GET':
+            try {
+                const options = {
+                    method: 'GET',
+                    url: `${URL}/api/v2/users/${id}`,
+                    headers: { authorization: `Bearer ${TOKEN}` }
+                }
+                const response = await axios.request(options)
+                const user = await response.data
+                user
+                    ? res.status(200).json(user)
+                    : res.status(404).json({ message: 'user not found' })
+            } catch (error) {
+                console.log(error)
+                res.status(400).json({ message: 'error' })
+            }
+
+            break
         case 'PATCH':
             const { name, lastName, username, email, password, photo } =
                 req.body
