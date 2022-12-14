@@ -3,7 +3,7 @@ import { transporter } from "../../../utils/mailer";
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
-  const { action, email, name, products, total,message,idT,estado } = req.body;
+  const { action, email, name, products, total,message,idT,status } = req.body;
 
     //items y total serían para que creen un formato para el correo que te muestre lo que compraste
   switch (action) {
@@ -85,9 +85,6 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           let day = today.getDate();
           let month = today.getMonth() + 1;
           let year = today.getFullYear();
-          let maping = products.map((product: any)=>{
-              return `<li>${product.name} ${product.price}</li>`
-            })        
           
           await transporter.sendMail({
             from: `Pawsitive Team ${process.env.EMAIL_PAWSITIVE}`, // sender address
@@ -97,14 +94,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             <body>
             <header><h1>Gracias por su compra!</h1></header>
             <p>----------------------------------------------------------------------------</p>
-            <p>En este correo se adjunta la compra #${Math.random()*100} con fecha ${day}/${month}/${year}, le agradecemos por usar los servicios de nuestra empresa</p>
-            <div>A continuacion le detallamos que productos adquirio en esta oportunidad
-                <h3>Los productos que compro son:</h3>
-                <ul className='list'>
-                  ${maping.map((li:any)=> li)}
-                </ul>
-                <h3>Total: ${total}$</h3>
-            </div>
+            <p>En este correo se le indica que el estado de su transaccion con id #${idT} con fecha ${day}/${month}/${year},es ${status}, le agradecemos por usar los servicios de nuestra empresa</p>
             <footer><h4>Atentamente,</h4>
                 <br/>
                 <h3>Pawsitive Team</h3>
