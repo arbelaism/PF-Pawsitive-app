@@ -3,12 +3,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import { AiFillAppstore } from 'react-icons/ai'
-import { FaUser, FaPaw, FaBalanceScale } from 'react-icons/fa'
+import { FaUser, FaPaw } from 'react-icons/fa'
 import { useRouter } from 'next/router'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useGetUserById } from 'utils/dbFetching'
 
-const LeftNavbar = () => {
+const LeftNavbar: any = () => {
     const router = useRouter()
     const { user } = useUser()
     const [isAdmin, setIsAdmin] = useState(false)
