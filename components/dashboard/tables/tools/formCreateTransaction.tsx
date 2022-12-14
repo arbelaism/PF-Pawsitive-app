@@ -94,7 +94,8 @@ const FormTransaction = (mutationCreate: any) => {
         )
     }
     //funcion para agregar inputProduct
-    const handleListAdd = () => {
+    const handleListAdd = (e :React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
         setInputList([
           ...inputList,
           {
@@ -133,7 +134,7 @@ const FormTransaction = (mutationCreate: any) => {
         })
         data.status = "PROCESSING_PAYMENT"
         mutationCreate.mutate(data)       
-        setCondition(!condition)
+        setCondition(!condition)        
         setInputList([
             {
               productId: '',
@@ -255,7 +256,7 @@ const FormTransaction = (mutationCreate: any) => {
                                 </div>
                                 <button 
                                     className="w-1/2 ml-32 font-Rubik py-3 bg-pwgreen-700 text-pwgreen-50 hover:bg-pwgreen-800 font-semibold uppercase rounded-lg shadow-2xl"
-                                    onClick={handleListAdd} 
+                                    onClick={(e)=>handleListAdd(e)} 
                                     disabled={isDisabled}
                                     >
                                     Agregar otro producto
