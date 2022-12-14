@@ -15,7 +15,7 @@ import ProductsScreenCard from 'components/products/productsScreen/ProductsScree
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
 
-const ProductsScreen: NextComponentType = () => {
+const ProductsScreen = () => {
     const {
         data: products,
         error,
@@ -27,6 +27,7 @@ const ProductsScreen: NextComponentType = () => {
     if (products) productsList = [...products.slice(1, 16)]
 
     return (
+
         <div className="p-10 w-full bg-pwgreen-100 h-screen flex flex-col justify-center shadow-xl">
             <div className="flex flex-col justify-center gap-3">
                 <h1 className="title">Productos</h1>
