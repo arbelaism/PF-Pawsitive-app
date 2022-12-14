@@ -185,9 +185,9 @@ const TableProduct = () => {
                         />
                     </div>
                 </form>
-                {/* <FormCreateProduct
+                <FormCreateProduct
                     {...mutationCreate}
-                /> */}
+                />
             </div>
 
             <div className="overflow-x-auto mx-5 rounded-md relative shadow-lg">

@@ -1,53 +1,108 @@
-import { NextComponentType } from "next";
-import Link from "next/link";
-import styles from "styles/Footer.module.css";
-import { BsGithub } from "react-icons/bs";
+import { NextComponentType } from 'next'
+import Link from 'next/link'
+import { BsGithub } from 'react-icons/bs'
+import { MdEmail } from 'react-icons/md'
+import Image from 'next/image'
+import IsoGreen from 'public/iso-green.svg'
 
 const Footer: NextComponentType = () => {
-   
-  return (
-    <>
-      <footer className="w-[100%] text-center text-pwgreen-50 bg-pwgreen-500">
-        <div className="w-[100%] flex justify-between items-center m-0 py-0 px-4">
-          <div className="flex items-center flex-shrink-0 text-2xl ease-in">
-            <Link href={"/"}>
-              <a >
-                <span className="font-thin hover:text-pwpurple-700 ease-in duration-400">Paw</span>
-                <span className="font-black hover:text-pwpurple-400 ease-in duration-200">sitive</span>
-              </a>
-            </Link>
-          </div>
-          <div className="capitalize text-pwgreen-50 w-[45%]">
-            <p>@ Copyright 2022 Pawsitive App. Todos los derechos reservados</p>
-          </div>
-          <div className="flex justify-end items-center w-[20%] py-2 lg:p-4">
-            <ul className="text-pwgreen-50 capitalize flex flex-col lg:flex-row lg:gap-4">
-              <li className="hover:text-pwpurple-700 ease-in duration-200 lg:hover:font-bold ">
-                <Link href={"/contact"}>
-                  <a>Contacto</a>
-                </Link>
-              </li>
-              <li className="hover:text-pwpurple-700 ease-in duration-200 lg:hover:font-bold">
-                <Link href={"/about"}>
-                  <a>About</a>
-                </Link>
-              </li>
-              <li className="bg-pwgreen-700 py-1 rounded-full px-2 hover:bg-pwpurple-700 ease-in duration-200 hover:pl-9 lg:w-16 lg:hover:pl-10">
-                <Link
-                  href="https://github.com/arbelais/PF-Pawsitive-app.git"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <a>
-                    <BsGithub />
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
-    </>
-  );
-};
-export default Footer;
+
+    return (
+        <>
+            <footer className="w-full font-Rubik text-sm text-pwgreen-50 bg-pwgreen-500 flex flex-col mt-4">
+                <div className="flex justify-between px-2 py-4 lg:px-4 lg:py-10 xl:mx-14">
+                    <div className="flex ml-2 items-center gap-1 w-2/6 text-2xl lg:ml-10">
+                        <Link href={'/'}>
+                            <a className="flex items-center gap-1.5">
+                                <Image
+                                    src={IsoGreen}
+                                    alt="not found"
+                                    width={35}
+                                    height={35}
+                                />
+                                <div className="font-Rubik hidden transition-all hover:drop-shadow-md md:block hover:text-pwgreen-800">
+                                    Paw
+                                    <span className="font-bold">sitive</span>
+                                </div>
+                            </a>
+                        </Link>
+                    </div>
+                    <div className='w-4/6 flex flex-col text-end justify-between mr-2 md:flex-row md:text-start lg:mr-10'>
+                        <div className="flex flex-col">
+                            <h3 className="text-pwgreen-200 text-xs py-2">
+                                Servicios
+                            </h3>
+                            <ul className="text-pwgreen-50 capitalize flex flex-col gap-1">
+                                <li className="hover:text-pwgreen-800 transition-colors">
+                                    <Link href={'/adoptions'}>
+                                        <a>Adopciones</a>
+                                    </Link>
+                                </li>
+                                <li className="hover:text-pwgreen-800 transition-colors">
+                                    <Link href={'/Products'}>
+                                        <a>Productos</a>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="flex flex-col">
+                            <h3 className="text-pwgreen-200 text-xs py-2">
+                                Links utiles
+                            </h3>
+                            <ul className="text-pwgreen-50 capitalize flex flex-col gap-1">
+                                <li className="hover:text-pwgreen-800 transition-colors">
+                                    <Link href={'/profile'}>
+                                        <a>Tu perfil</a>
+                                    </Link>
+                                </li>
+                                <li className="hover:text-pwgreen-800 transition-colors">
+                                    <Link href={'/profile/transaction'}>
+                                        <a>Tu historial de compras</a>
+                                    </Link>
+                                </li>
+                                <li className="hover:text-pwgreen-800 transition-colors">
+                                    <Link href={'/profile/adoption'}>
+                                        <a>Tus adopciones</a>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="flex flex-col">
+                            <h3 className="text-pwgreen-200 text-xs py-2">
+                                Contacto
+                            </h3>
+                            <ul className="text-pwgreen-50 flex flex-col gap-1">
+                                <li className="hover:text-pwgreen-800 transition-colors">
+                                    <Link href={'/contact'}>
+                                        <a className="flex items-center justify-end gap-1 md:justify-start">
+                                            <MdEmail className="text-base" />
+                                            pawsitiveteam0@gmail.com
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li className="hover:text-pwgreen-800 transition-colors">
+                                    <Link href={'/about'}>
+                                        <a className="flex items-center justify-end gap-1 md:justify-start">
+                                            <BsGithub className="text-base" />
+                                            Github
+                                        </a>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className="text-pwgreen-50 bg-pwgreen-600 w-full py-4 text-center">
+                    <p>
+                        &#169; 2022.
+                        <span className="font-Rubik px-1">
+                            Paw
+                            <span className="font-bold">sitive.</span>
+                        </span>
+                    </p>
+                </div>
+            </footer>
+        </>
+    )
+}
+export default Footer

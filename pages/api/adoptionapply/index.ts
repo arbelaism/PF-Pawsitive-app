@@ -8,7 +8,42 @@ export default async function adoptionApply(req: NextApiRequest, res: NextApiRes
         // GET ALL ADOPTIONS APPLIES
         case "GET":
             try {
-                const applies = await prisma.apply.findMany()
+                const applies = await prisma.apply.findMany({
+                    select:{
+                        id: true,
+                        reason:true,
+                        past:true,
+                        employee:true,
+                        garden:true,
+                        createdAt:true,
+                        updatedAt:true,
+                        adoptionPostId:true,
+                        userId:true,
+                        user:{
+                            select:{
+                                firstName:true,
+                                lastName:true,
+                                email:true,
+                                phone:true
+                            }},
+                        adoptionPost:{
+                            select:{
+                                name:true,
+                                breed:true,
+                                active:true,
+                                photo:true,
+                                user:{
+                                    select:{
+                                        id:true,
+                                        firstName:true,
+                                        lastName:true,
+                                        email:true,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
                 if(applies){
                     applies.length > 0 ?
                     res.status(200).json(applies)
@@ -23,7 +58,15 @@ export default async function adoptionApply(req: NextApiRequest, res: NextApiRes
 
         // POST(CREATE) ADOPTION APPLY
         case "POST":
-            const { reason, past, residence, employee, garden, adoptionPostId, userId } = req.body;
+            const { 
+                reason, 
+                past, 
+                residence, 
+                employee, 
+                garden, 
+                adoptionPostId, 
+                userId 
+            } = req.body;
             const userApplies = await prisma.apply.findMany({
                 where: {
                     userId: userId

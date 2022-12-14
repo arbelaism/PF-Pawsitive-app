@@ -2,29 +2,42 @@ import { NextComponentType } from "next";
 import { useForm, SubmitHandler } from "react-hook-form";
 import React, { useState } from "react";
 import { mediaUploader } from "utils/mediaUploader";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { createPost } from "utils/dbFetching"
 import { AdoptFormInput } from "app/types";
 import { useRouter } from "next/router"
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Image from 'next/image';
+import IsoGreen from 'public/iso-green.svg'
 
 const AdoptionForm: NextComponentType = () => {
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AdoptFormInput>();
-  const [media, setMedia] = useState<File[]>([]);
-  const router = useRouter()
-  const queryClient = useQueryClient();
-  const {mutate, error, isLoading} = useMutation(createPost, {
-    onSuccess: () => {
-        queryClient.invalidateQueries("adoptions")
+    reset
+  } = useForm<AdoptFormInput>({
+    defaultValues:{
+      name: '',
+      size: '',
+      age: '',
+      active: true,
+      monthOrYear: '',
+      breed: '',
+      photo: '',
+      userId: ''
     }
-  })
+  });
+
+  const [media, setMedia] = useState<File[]>([]);
+
+  const { mutate } = useMutation(createPost);
+
   const {user, error: errorU, isLoading: isLoadingU} = useUser()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const target = e.target as HTMLInputElement;
     const files = [...Object.values(target.files!)];
     setMedia([...files]);
@@ -35,181 +48,251 @@ const AdoptionForm: NextComponentType = () => {
     if (media.length > 0) {
         urlPhoto = await mediaUploader(media);
     }
-    // console.log(data)
-    // data.age = data.age+" "+data.monthoryear;
-    // console.log(data)
-    data = {... data, 
-        photo : urlPhoto ? urlPhoto[0] : null,
-        active: true,
-        age: data.age + " " + data.monthOrYear,
-        userId: user?.sub as string,
+    data = {...data,
+      age: `${data.age} ${data.monthOrYear}`,
+      photo : urlPhoto ? urlPhoto[0] : null,
+      active: true,            
+      userId: '1',    
     }
-    mutate(data)
-    router.push("/adoptions")   
+    mutate(data);
+    console.log(data);
+    alert('mascota cargada con exito!');
+    reset({
+      name: '',
+      size: '',
+      age: '',
+      active: true,
+      monthOrYear: '',
+      breed: '',
+      photo: '',
+      userId: '',
+      description: ''
+    })
 
   };
 
   return (
     <>
-      <form
-        name="adopt"
-        className='m-auto flex flex-col justify-around content-around rounded-lg items-center text-pwpurple-900 bg-pwgreen-500 p-5 w-fit my-4'
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <h2 className="block uppercase tracking-wide text-pwpurple-700 text-m font-bold my-4">
-          Detalles de la publicacion de adopcion
+    <div className="p-8 flex flex-col justify-evenly items-center bg-pwgreen-100 rounded-lg md:flex-row">
+      <div className="w-full flex flex-col gap-3 justify-center items-center md:w-3/6">
+        <Image
+            src={IsoGreen}
+            alt="not found"
+            width={150}
+            height={150}
+        />
+        <h2 className="font-Rubik font-bold text-4xl lg:text-6xl">
+            ¡Adoptar!
         </h2>
-        <div className='m-auto flex flex-row justify-around content-around items-center w-full'>
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
-              *Nombre:
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
-              id="name"
-              placeholder="Nombre"
-              {...register("name", { required: true, maxLength: 20 })}
-            />
-            {(errors.name?.type === "required" && (
+        <p className="text-md mb-2 md:text-xl md:text-center">
+          Completa todos los datos de éste formulario con toda la información
+          solicitada para poder publicar una mascota en adopción.
+        </p>
+      </div>
+      <form className="w-full grid grid-cols-1 gap-2 items-center justify-center md:w-2/6 lg:gap-3"
+          onSubmit={handleSubmit(onSubmit)}
+      >
+        {/* NOMBRE */}
+        <div className="flex flex-col gap-1 items-start justify-center">
+          <label htmlFor="name" className="label">
+              Nombre:
+          </label>
+          <input
+              placeholder="Nombre..."
+              {...register("name", { 
+                required: true, 
+                maxLength: 20 
+              })}
+              className="input"
+          />
+          {
+            errors.name?.type === 'required' ?
               <p className="text-red-500 text-xs italic">
                 Nombre es obligatorio
               </p>
-            )) ||
-              (errors.name?.type === "maxLength" && (
-                <p className="text-red-500 text-xs italic">
-                  Nombre no puede contener mas de 20 caracteres
-                </p>
-              ))}
-          </div>
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
-              *Tamaño:
+              :
+              null
+          }
+          {
+            errors.name?.type === 'maxLength' ?
+            <p className="text-red-500 text-xs italic">
+              El nombre no puede contener mas de 20 caracteres
+            </p>
+            :
+            null
+          }
+        </div>
+
+        {/* TAMAÑO */}
+        <div className="flex gap-1 flex-col items-start justify-center">
+            <label htmlFor="size" className="label">
+                Tamaño:
             </label>
             <select
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
-              id="size"
-              placeholder="Size"
-              {...register("size", { required: true })}
-            >
-              <option value="SMALL">Pequeño</option>
-              <option value="MEDIUM">Mediano</option>
-              <option value="BIG">Grande</option>
-            </select>
-            {errors.size?.type === "required" && (
-              <p className="text-red-500 text-xs italic">
-                Tamaño es obligatorio
-              </p>
-            )}
+                  // className="input"
+                  placeholder="Tamaño..."
+                  {...register("size", { 
+                    required: true 
+                  })}
+              >
+                <option value="SMALL">Pequeño</option>
+                <option value="MEDIUM">Mediano</option>
+                <option value="BIG">Grande</option>
+              </select>
+            {
+              errors.size?.type === 'required' ?
+                <p className="text-red-500 text-xs italic">
+                  Tamaño es obligatorio
+                </p>
+                :
+                null
+            }               
           </div>
-        </div>
-        <div className='m-auto flex flex-row justify-around content-around items-center w-full'>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
-              *Edad:
+
+        {/* EDAD */}
+        <div className="flex gap-1 flex-col items-start justify-center">
+          <div>
+            <label htmlFor="age" className="label">
+              ¿Qué edad tiene la mascota?
             </label>
+          </div>
+          <div>
             <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
-              id="age"
-              placeholder="Edad"
+              className="input"
+              placeholder="Edad..."
               type="number"
-              {...register("age", { required: true, min: 0, max: 50 })}
+                {...register("age", { 
+                  required: true, 
+                  min: 0, 
+                  max: 50 
+                })}
             />
-            {(errors.age?.type === "required" && (
-              <p className="text-red-500 text-xs italic">Edad es obligatoria</p>
-            )) ||
-              (errors.age?.type === "min" && (
-                <p className="text-red-500 text-xs italic">
-                  Edad debe ser mayor que 0
-                </p>
-              )) ||
-              (errors.age?.type === "max" && (
-                <p className="text-red-500 text-xs italic">
-                  Edad debe ser menor que 50
-                </p>
-              ))}
+            <div className='flex flex-row justify-evenly'>
+              <input              
+                type="radio"
+                value="meses"
+                defaultChecked
+                {...register("monthOrYear")}
+              />{" "}
+              Meses
+              <input              
+                type="radio"
+                value="años"
+                {...register("monthOrYear")}
+              />{" "}
+              Años
+            </div>
+            {
+            errors.age?.type === 'required' ?
+              <p className="text-red-500 text-xs italic">
+                Edad es obligatoria
+              </p>
+              :
+              null
+          }
+          {
+            errors.age?.type === 'min' ?
+              <p className="text-red-500 text-xs italic">
+                La edad debe ser mayor a cero.
+              </p>
+              :
+              null
+          }
+          {
+            errors.age?.type === 'max' ?
+              <p className="text-red-500 text-xs italic">
+                La edad debe ser menor a cincuenta.
+              </p>
+              :
+              null
+          }
           </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <br />
-            <input              
-              type="radio"
-              id="months"
-              value="meses"
-              defaultChecked
-              {...register("monthOrYear")}
-            />{" "}
-            Meses <br />
-            <input              
-              type="radio"
-              id="years"
-              value="años"
-              {...register("monthOrYear")}
-            />{" "}
-            Años <br />
           </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
-              *Especie:
+
+        {/* ESPECIE */}
+        <div className="flex gap-1 flex-col items-start justify-center">
+            <label htmlFor="breed" className="label">
+                Especie:
             </label>
             <select
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
-              id="breed"
-              placeholder="Especie"
-              {...register("breed", { required: true, maxLength: 20 })}
+                className="input"
+                placeholder="Especie..."
+                {...register("breed", { 
+                  required: true 
+                })}
             >
-              <option value="perro">Perro</option>
               <option value="gato">Gato</option>
-              <option value="ave">Ave</option>
+              <option value="perro">Perro</option>
               <option value="tortuga">Tortuga</option>
-              <option value="roedor">Roedor</option>
-              <option value="otros">Otros</option>
+              <option value="ave">Ave</option>
+              <option value="otro">Otro...</option>
+
             </select>
-            {(errors.breed?.type === "required" && (
-              <p className="text-red-500 text-xs italic">
-                Especie es obligatoria
-              </p>
-            )) ||
-              (errors.breed?.type === "maxLength" && (
+            {
+              errors.breed?.type === 'required' ?
                 <p className="text-red-500 text-xs italic">
-                  Especie no puede contener mas de 20 caracteres
+                  Es obligatorio indicar una especie.
                 </p>
-              ))}
-          </div>
+                :
+                null
+            }                 
+            
         </div>
-        <div className="my-6">
-          <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
-            Descripcion:
+
+        {/* DESCRIPCION */}
+        <div className="flex flex-col gap-1 items-start justify-center">
+          <label htmlFor="description" className="label">
+            ¿Cómo es la mascota que deseas publicar?
           </label>
           <textarea
-            {...register("description")}
-            className="appearance-none block w-96 h-32 bg-gray-200 text-gray-700 border border-pwpurple-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pwpurple-500"
-            id="description"                        
-          />
+            placeholder="Escribe aquí una pequeña descripción de tu Paw-Mascota."
+            className="input"
+            {...register('description', {
+                required: true,
+                minLength: 100,
+                pattern: /[a-zA-Z\s:]/
+            })}
+        />
+            {
+              errors.description?.type === 'required' ?
+                <span className="text-red-500 text-xs">
+                  Debes completar éste campo.
+                </span>
+                :
+                null
+            }
+            {
+              errors.description?.type === 'minLength' ?
+                <span className="text-red-500 text-xs">
+                  Debes agregar una descripción de al menos 100 caracteres.
+                </span>
+                :
+                null
+            }
         </div>
-        <div className="mb-6">
-          <label className="block tracking-wide text-pwpurple-700 text-s font-bold">
+
+        {/* FOTO */}
+        <div className="flex flex-col gap-1 items-start justify-center">
+          <label className="label">
             Foto:
           </label>
           <input
             onChange={(e) => handleChange(e)}
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            className="input"
             id="photo"
             type="file"
             multiple
             accept="image/*"
           />
-        </div>
-        <p className="text-black-500 text-xs italic">
-          Los campos con * son obligatorios
-        </p>
-        <button
-          className="bg-pwpurple-700 hover:bg-pwpurple-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          Register
-        </button>
-      </form>
-    </>
-  );
-};
+        </div>                         
 
+          <button type='submit' className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-900 font-bold uppercase font-Rubik">
+              SOLICITAR ADOPCIÓN
+          </button>
+      </form>
+        </div>
+      </>
+        );
+      };
+ 
 export default AdoptionForm;

@@ -52,8 +52,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // POST(CREATE) THE TRANSACTION
 
         case "POST":
-            const { amount, userId, status, array } = req.body;
-
+            const { amount, userId, status, quantity } = req.body;            
             /*
             Formato del array
             array=[
@@ -79,17 +78,17 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         userId,
                         status,
                         quantity: {
-                            create: array
+                            create: quantity
                         }
                     }
                 })
                 newTransaction ?
                     res.status(200).json(newTransaction)
                     :
-                    res.status(400).json({ message: "could not create user" })
+                    res.status(400).json({ message: "could not create transaction" })
 
             } catch (error) {
-                res.status(400).json({ message: "Error" })
+                res.status(400).json(error)
             }
             break;
         default:
