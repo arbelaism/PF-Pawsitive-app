@@ -9,7 +9,7 @@ const team = [
         id: 1,
         name: 'Maximiliano Arbelais',
         description:
-            'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+            'Desarrollador full stack, con capacidades de liderazgo buen manejo del ingles y habilidad para dirigir y adapatarse a cualquier grupo de trabajo.',
         image: '',
         linkedin: 'https://www.linkedin.com/in/arbelaism/',
         github: 'https://www.github.com/arbelais'
@@ -28,7 +28,7 @@ const team = [
         id: 3,
         name: 'Nestor Quiñones',
         description:
-            'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+            'Desarrollador full stack, siempre en búsqueda de nuevos conocimientos, con buenas habilidades para tratar con personas y trabajar en equipo',
         image: '',
         linkedin:
             'https://www.linkedin.com/in/n%C3%A9stor-qui%C3%B1ones-838539238/',
@@ -38,7 +38,7 @@ const team = [
         id: 4,
         name: 'Cristian Posada',
         description:
-            'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+            'Desarrollador full stack, con experiencia en diseño de videojuegos en unity. Y conocimientos en campañas de marketing apolladas en videojuegos.',
         image: '',
         linkedin: '#',
         github: 'https://www.github.com/Cyacevedop'
@@ -47,7 +47,7 @@ const team = [
         id: 5,
         name: 'David Guzman',
         description:
-            'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+            'Desarrollador full stack, con alta capacidad de aprendizaje y habilidades para desarrollar de forma ágil y solucionar problemas con prontitud.',
         image: '',
         linkedin: '#',
         github: 'https://www.github.com/davGuzMal'
@@ -56,7 +56,7 @@ const team = [
         id: 6,
         name: 'Fernando Marquez',
         description:
-            'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+            'Desarrollador fulls stack, con preferencia por el front, siempre en busqueda de mejorar y en aprendizaje constante para mantenerse a la vanguardia de las teconologías',
         image: '',
         linkedin: 'https://www.linkedin.com/in/fernando-marquez-989a9824b/',
         github: 'https://www.github.com/ferdev2712'
@@ -66,7 +66,7 @@ const team = [
 const About = () => {
     return (
         <MainLayout title="Pawsitive - About">
-            <div className='w-full text-center'>
+            <div className='w-full py-4 text-center text-white rounded-xl bg-pwgreen-600 shadow-xl hover:shadow-xl hover:shadow-pwgreen-700'>
                 <h1 className='text-4xl font-bold font-Rubik my-8 underline-offset-1'>Sobre Nosotros</h1>
                 <div className='text-xl font-sans font-semibold tracking-wide mx-8'>
                 <p >
@@ -82,10 +82,7 @@ const About = () => {
                     desarrollar una aplicación en grupo.
                 </p>
                 <p>
-                    Lorem ipsum dolor sit amet, qui minim labore adipisicing
-                    minim sint cillum sint consectetur cupidatat. Lorem ipsum
-                    dolor sit amet, qui minim labore adipisicing minim sint
-                    cillum sint consectetur cupidatat.
+                    Esta aplicación web tiene como objetivo conectar personas con posibles mascotas en adopción, además de brindar la posibilidad de comprar utencilios para mejorar la calidad de vida de las mascotas.
                 </p>
 
                 </div>
@@ -93,7 +90,7 @@ const About = () => {
                 <div className='grid auto-cols-fr lg:grid-cols-2 gap-5 m-6 text-pwgreen-50'>
                     {team.map(user => {
                         return (
-                            <div className='flex flex-col lg:flex-row justify-content-center items-center gap-3 p-8 rounded-xl bg-pwgreen-500 shadow-xl' key={user.id}>
+                            <div className='flex flex-col lg:flex-row justify-content-center items-center gap-3 p-8 rounded-xl bg-pwgreen-500 shadow-xl hover:shadow-md hover:shadow-pwgreen-100' key={user.id}>
                                 <Image
                                     src={placeholder}
                                     alt="not found"
@@ -105,11 +102,16 @@ const About = () => {
                                     <h2 className='text-2xl font-semibold'>{user.name}</h2>
                                     <p>{user.description}</p>
                                     <div className='flex justify-end items-center'>
-                                        <a className='text-3xl' href={user.github}>
-                                            <AiFillGithub />
+                                        <a className='text-3xl ' href={user.github}>
+                                            <AiFillGithub className="hover:shadow-sm hover:shadow-pwpurple-100
+                                            hover:rounded-full
+                                            hover:border-2
+                                            hover:border-pwgreen-100 mr-4" />
                                         </a>
                                         <a className='text-3xl' href={user.linkedin}>
-                                            <AiFillLinkedin />
+                                            <AiFillLinkedin className="hover:shadow-sm hover:shadow-pwpurple-100 
+                                            hover:border-2
+                                            hover:border-pwgreen-100 mr-4"/>
                                         </a>
                                     </div>
                                 </div>
