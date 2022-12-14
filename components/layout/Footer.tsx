@@ -7,7 +7,7 @@ const Footer: NextComponentType = () => {
    
   return (
     <>
-      <footer className="w-[100%] text-center text-pwgreen-50 bg-pwgreen-500 sticky left-0 bottom-0">
+      <footer className="w-[100%] text-center text-pwgreen-50 bg-pwgreen-500">
         <div className="w-[100%] flex justify-between items-center m-0 py-0 px-4">
           <div className="flex items-center flex-shrink-0 text-2xl ease-in">
             <Link href={"/"}>

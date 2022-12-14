@@ -5,14 +5,20 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      Rubik: ["Rubik", "sans-serif"],
+    },
+    container: {
+      padding: {
+        DEFAULT: '1rem',
+        lg: '0',
+      },
+    },
     screens: {
       sm: "640px",
       md: "768px",
       lg: "1024px",
       xl: "1280px",
-    },
-    fontFamily: {
-      Rubik: ["Rubik", "sans-serif"],
     },
     extend: {
       colors: {
@@ -40,6 +46,15 @@ module.exports = {
           800: "#381529",
           900: "#13070e",
         },
+      },
+      backgroundImage: {
+        hero: "url('/img/hero/hero-bg.png')",
+        pets: "url('/img/pets/pets-bg.png')",
+        services: "url('/img/services/bg.png')",
+        adoption: "url('/img/adoption/bg.png')",
+        newsletterYellow: "url('/img/newsletter/bg-yellow.svg')",
+        newsletterOrange: "url('/img/newsletter/bg-orange.svg')",
+        footer: "url('/img/footer/bg.svg')",
       },
     },
   },

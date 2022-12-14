@@ -118,7 +118,7 @@ const Navbar: NextComponentType = () => {
                     </Link>
                 </div>
             </div>
-            <div className="flex justify-between items-center w-full lg:w-max" id="menu-cart">
+            <div className="hidden lg:flex justify-between items-center w-full lg:w-max" id="menu-cart">
                 <button onClick={alertShoppingCart}>
                     <a
                         className="flex items-center hover:text-pwgreen-800

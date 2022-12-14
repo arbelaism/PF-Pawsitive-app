@@ -13,7 +13,7 @@ import ProductsScreenCard from 'components/products/productsScreen/ProductsScree
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
 
-const ProductsScreen: NextComponentType = () => {
+const ProductsScreen = () => {
     const {
         data: products,
         error,
@@ -37,7 +37,7 @@ const ProductsScreen: NextComponentType = () => {
                     navigation
                     pagination={{ clickable: true }}
                     spaceBetween={20}
-                    slidesPerView={3}
+                    slidesPerView={window.screen.width < 1024 ? 1 : 3}
                     onSlideChange={() => console.log('slide change')}
                     onSwiper={(swiper) => console.log(swiper)}                
                 >
