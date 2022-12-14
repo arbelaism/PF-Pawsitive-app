@@ -1,7 +1,7 @@
 import React from 'react'
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useQuery } from 'react-query'
-import { getUserById, putAdoption, createPost as createAdoption } from 'utils/dbFetching'
+import { getApplyById } from 'utils/dbFetching'
 
 const MyApplyAdoption = () => {
     const { user, error: err, isLoading: load } = useUser();
@@ -9,11 +9,11 @@ const MyApplyAdoption = () => {
     //QUERY DATA GET AND PUT
 
     const {
-        data: myTransactions,
+        data: applyData,
         error,
         isLoading,
         isSuccess,
-    } = useQuery(["user", id], () => getUserById(id));
+    } = useQuery(["user", id], () => getApplyById(id));
   return (
     <div>MyApplyAdoption</div>
   )
