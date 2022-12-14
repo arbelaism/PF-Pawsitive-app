@@ -18,25 +18,19 @@ import Badge from 'public/img/pets/badge.svg'
 const pets = [
   {
     id:1,
-    category: 'cat',
+    category: 'gato',
     name: 'kyba',
     image: Pet1Img
   },
   {
     id:2,
-    category: 'bird',
+    category: 'pajaro',
     name: 'rotty',
     image: Pet2Img
   },
   {
-    id:3,
-    category: 'fox',
-    name: 'fexxie',
-    image: Pet3Img
-  },
-  {
     id:4,
-    category: 'cat',
+    category: 'gato',
     name: 'kirra',
     image: Pet4Img
   },
@@ -48,37 +42,31 @@ const pets = [
   },
   {
     id:6,
-    category: 'parrot',
+    category: 'pajaro',
     name: 'paco',
     image: Pet6Img
   },
   {
     id:7,
-    category: 'parrot',
+    category: 'pajaro',
     name: 'pavo',
     image: Pet7Img
   },
   {
     id:8,
-    category: 'cat',
+    category: 'gato',
     name: 'ynna',
     image: Pet8Img
   },
   {
-    id:9,
-    category: 'lion',
-    name: 'hera',
-    image: Pet9Img
-  },
-  {
     id:10,
-    category: 'bird',
+    category: 'pajaro',
     name: 'dimmi',
     image: Pet10Img
   },
   {
     id:11,
-    category: 'dog',
+    category: 'perro',
     name: 'jasper',
     image: Pet11Img
   },
@@ -91,8 +79,8 @@ const pets = [
 ]
 
 const Pets = () => {
-  const [petDetails, setPetDetails] = useState(pets[10])
-  const [petIndex, setPetIndex] = useState(10)
+  const [petDetails, setPetDetails] = useState(pets[8])
+  const [petIndex, setPetIndex] = useState(8)
   const getPetDetails = (id:any) =>{
     const pet:any = pets.find((pet)=>{
       return pet.id === id
@@ -121,8 +109,8 @@ const Pets = () => {
               </div>
             </div>
           </div>
-          <div className='relative lg:w-[60%] flex-1 flex items-center'>
-            <div className='flex flex-wrap gap-4 justify-center lg:justify-end lg:-mr-6'>
+          <div className='relative lg:w-[60%] flex-1 lg:flex items-center'>
+            <div className='flex flex-wrap gap-4 justify-center lg:justify-end lg:-mr-4'>
               {pets.map((pet,index) => {
                 return (
                 <div key={index} onClick={()=>{setPetIndex(index), getPetDetails(pet.id)}} className='cursor-pointer relative'>
