@@ -69,7 +69,7 @@ const AdoptionDetails = ({id}:Prop)=>{
   return (
     <>
     <button onClick={()=>{handleOpen()}      
-      }>Adopt me!</button>
+      }>Adoptame!</button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
