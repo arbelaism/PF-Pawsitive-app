@@ -257,7 +257,8 @@ export const putApply = async (id: string, data: Object) => {
   }
   return response;
 };
-export const deleteApply = async (id: string, data: Object) => {
+
+export const deleteApply= async (id: string, data: any) => {
   const response = await axios.delete(`/api/adoptionapply/${id}`);
   if (!response) {
     throw new Error("Data not found");
@@ -270,7 +271,7 @@ export const getApplyById = async (id: string) => {
   if (!response) {
     throw new Error("Data not found");
   }
-  return response;
+  return response.data;
 }
 
 //
