@@ -1,85 +1,183 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id                   String                 @id @default(uuid())
-  email                String                 @unique
-  name                 String
-  lastName             String
-  age                  Int
-  photo                String?
-  role                 Role                   @default(BASIC)
-  password             String
-  adoptionPost         AdoptionPost[]
-  professionalBusiness ProfessionalBusiness[]
-  item                 Item[]
+    id             String         @id @default(uuid())
+    firstName      String
+    lastName       String
+    email          String         @unique
+    email_verified Boolean?
+    gender         String?
+    birthday       String?
+    address        String?
+    phone          String?
+    city           String?
+    province       String?
+    country        String?
+    postCode       String?
+    photo          String?
+    role           Role           @default(BASIC)
+    active         Boolean        @default(true)
+    createdAt      DateTime       @default(now())
+    updatedAt      DateTime       @updatedAt
+    adoptionPost   AdoptionPost[]
+    businessPost   BusinessPost[]
+    transaction    Transaction[]
+    review         Review[]
+    apply          Apply?
 }
 
 enum Role {
-  BASIC
-  PROFESIONAL
-  ADMIN
-  INACTIVE
+    BASIC
+    PROFESSIONAL
+    ADMIN
 }
 
 model AdoptionPost {
-  id         String   @id @default(uuid())
-  name       String?
-  size       Size
-  age        String
-  breed      String
-  photo      String?
-  active     Boolean
-  createdAt  DateTime @default(now())
-  userAdop   User     @relation(fields: [userAdopId], references: [id])
-  userAdopId String
+    id          String   @id @default(uuid())
+    name        String?
+    size        Size
+    age         String
+    breed       String
+    photo       String?
+    gender      Gender?  @default(UNKNOWN)
+    active      Boolean
+    description String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    user        User?    @relation(fields: [userId], references: [id])
+    userId      String?
+    apply       Apply[]
+}
+
+enum Gender {
+    MALE
+    FEMALE
+    UNKNOWN
 }
 
 enum Size {
-  small
-  medium
-  big
+    SMALL
+    MEDIUM
+    BIG
+    UNIQUE
 }
 
-model ProfessionalBusiness {
-  id              String  @id @default(uuid())
-  businessName    String
-  contact         String
-  address         String?
-  description     String
-  photo           String
-  dni             BigInt  @unique
-  type            Type
-  qualification   Float
-  ownerBusiness   User    @relation(fields: [ownerBusinessId], references: [id])
-  ownerBusinessId String
-  item            Item[]
+model Apply {
+    id             String        @id @default(uuid())
+    reason         String
+    past           Boolean       @default(false)
+    residence      Residence
+    employee       Boolean       @default(false)
+    garden         Boolean       @default(false)
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+    adoptionPost   AdoptionPost? @relation(fields: [adoptionPostId], references: [id])
+    adoptionPostId String?
+    user           User?         @relation(fields: [userId], references: [id])
+    userId         String?       @unique
+}
+
+enum Residence {
+    DEPARTAMENTO
+    CASA
+    PISO
+}
+
+model BusinessPost {
+    id              String  @id @default(uuid())
+    name            String
+    contact         String
+    address         String?
+    description     String
+    photo           String
+    type            Type
+    active          Boolean
+    ownerBusiness   User?   @relation(fields: [ownerBusinessId], references: [id])
+    ownerBusinessId String?
 }
 
 enum Type {
-  VETERINARY
-  SELLER
-  BARBER
-  KEEPER
+    VETERINARY
+    SELLER
+    BARBER
+    KEEPER
 }
 
-model Item {
-  id                   String                 @id @default(uuid())
-  name                 String
-  price                Float                  @default(0)
-  description          String
-  amount               Int
-  photo                String
-  active               Boolean
-  professionalBusiness ProfessionalBusiness[]
-  user                 User[]
+model Product {
+    id           String     @id @default(uuid())
+    name         String
+    price        Float
+    displayPrice Float
+    description  String
+    stock        Int
+    photo        String
+    category     Category
+    brand        String?
+    size         Size?
+    active       Boolean
+    createdAt    DateTime   @default(now())
+    updatedAt    DateTime   @updatedAt
+    review       Review[]
+    quantity     Quantity[]
+}
+
+enum Category {
+    TOY
+    FOOD
+    SNACK
+    ACCESORIES
+    HYGIENE
+    HEALTH
+    OTHER
+}
+
+model Transaction {
+    id        String     @id @default(uuid())
+    amount    Float
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    user      User       @relation(fields: [userId], references: [id])
+    userId    String
+    quantity  Quantity[]
+    status    STATUS     @default(PROCESSING_PAYMENT)
+}
+
+enum STATUS {
+    REFUND
+    INCOMPLETE_PAYMENT
+    PROCESSING_PAYMENT
+    PROCESSING_SHIPPING
+    SHIPPING
+    PAYMENT_COMPLETE
+}
+
+model Quantity {
+    id          String        @id @default(uuid())
+    quantity    Int
+    transaction Transaction[]
+    product     Product?      @relation(fields: [productId], references: [id])
+    productId   String?
+}
+
+model Review {
+    id        String   @id @default(uuid())
+    rating    Int
+    review    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User?    @relation(fields: [userId], references: [id])
+    userId    String?
+    product   Product? @relation(fields: [productId], references: [id])
+    productId String?
+
+    @@unique([userId, productId])
 }
