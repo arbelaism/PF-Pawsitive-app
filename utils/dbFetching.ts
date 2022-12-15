@@ -133,20 +133,20 @@ export const getUsers = async () => {
 };
 
 export const getAuth0Users = async () => {
-    const response = await axios.get('/api/auth/users')
-    const users = await response.data
+  const response = await axios.get('/api/auth/users')
+  const users = await response.data
 
-    if (!users) {
-        throw new Error('Data not found')
-    }
-    return users
+  if (!users) {
+    throw new Error('Data not found')
+  }
+  return users
 }
 
 export const getAuth0UserById = async (id: string) => {
-    const response = await axios.get(`/api/auth/users/${id}`)
-    const user = await response.data
-    if (!user) throw new Error('Data not found')
-    return user
+  const response = await axios.get(`/api/auth/users/${id}`)
+  const user = await response.data
+  if (!user) throw new Error('Data not found')
+  return user
 }
 
 export const putUsers = async (id: string, data: Object) => {
@@ -158,6 +158,10 @@ export const putUsers = async (id: string, data: Object) => {
   }
   return response;
 };
+
+
+
+
 export const putAdoption = async (id: string, data: Object) => {
   console.log('bd', id, data)
 
@@ -205,22 +209,23 @@ export const getAllTransactions = async () => {
   const response = await axios.get("/api/transaction");
   const transactions = await response.data;
 
-  const res = transactions.map((e:any)=> { 
-    return{...e ,  
-      ['userFirstName'] : [e.user.firstName],
-      ['userLastName'] : [e.user.lastName],
-      ['userEmail'] : [e.user.email],
+  const res = transactions.map((e: any) => {
+    return {
+      ...e,
+      ['userFirstName']: [e.user.firstName],
+      ['userLastName']: [e.user.lastName],
+      ['userEmail']: [e.user.email],
     }
   })
 
 
-  if (!transactions) throw new Error("Data not found");
+  if (!res) throw new Error("Data not found");
   return res;
 }
 export const createTransaction = async (data: Product) => {
   const newProduct = await axios
     .post('/api/transaction', data)
-    .catch(error => console.log(error))
+    .catch(error => console.log(error.message))
   return newProduct
 }
 export const putTransaction = async (id: string, data: Object) => {
@@ -234,39 +239,40 @@ export const putTransaction = async (id: string, data: Object) => {
 //SOLICITANTE DE LA ADOPCION
 export const getAllApply = async () => {
   const response = await axios.get("/api/adoptionapply");
-  const transactions = await response.data;
-
-  const res = transactions.map((e:any)=> { 
-    return{...e ,  
-      ['userFirstName'] : [e.user.firstName],
-      ['userLastName'] : [e.user.lastName],
-      ['userEmail'] : [e.user.email],
-      ['userPhone'] : [e.user.phone],
-    }
-  })
-  if (!transactions) throw new Error("Data not found");
-  return res;
+  const apply = await response.data;
+  if (!apply) throw new Error("Data not found");
+  return apply;
 }
+
 export const createApply = async (data: Product) => {
   const newProduct = await axios
     .post('/api/adoptionapply', data)
     .catch(error => console.log(error))
   return newProduct
 }
-export const putApply= async (id: string, data: Object) => {
+export const putApply = async (id: string, data: Object) => {
   const response = await axios.put(`/api/adoptionapply/${id}`, data);
   if (!response) {
     throw new Error("Data not found");
   }
   return response;
 };
-export const deleteApply= async (id: string, data: Object) => {
+
+export const deleteApply= async (id: string, data: any) => {
   const response = await axios.delete(`/api/adoptionapply/${id}`);
   if (!response) {
     throw new Error("Data not found");
   }
   return response;
 };
+export const getApplyById = async (id: string) => {
+
+  const response = await axios.get(`/api/adoptionapply/${id}`);
+  if (!response) {
+    throw new Error("Data not found");
+  }
+  return response.data;
+}
 
 //
 
@@ -296,4 +302,13 @@ export const apply = async (data: Form) => {
     .catch(error => console.log(error))
 
   return newApply;
+};
+
+export const getTransactionsByUserId = async (id: string) => {
+  const response = await axios.get(
+    `/api/transaction/${id}`
+  );
+  const user = await response.data;
+  if (!user) throw new Error("Data not found");
+  return user;
 };

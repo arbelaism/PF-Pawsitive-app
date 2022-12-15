@@ -1,43 +1,47 @@
-import { Review } from "app/types";
+import { Review } from 'app/types'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
 import styles from 'styles/ProductDetail.module.css'
 
 type Props = {
-    review: Review;    
-    id : string;   
-  };
-  
-  const ProductReviews = ({ id, review }: Props) => {
-    
-    let stars= [];
-    for(let i = 0; i<5; i++){
-        if(i<review.rating) stars.push(true);
-        if(i>=review.rating) stars.push(false);
-    }
-    
+    review: Review
+    id: string
+}
 
-    return(
-        <div key={id} className="flex flex-row justify-between items-center m-2 bg-pwgreen-200 rounded-xl w-3/4 h-32 shadow-2xl">     
-            <h2 className="text-gray-900 font-Rubik text-l font-medium m-0.5">{review.user?.firstName+" "+review.user?.lastName}</h2>
-            <div className="flex flex-col items-start mr-2.5 w-3/4">                
-                <p>{review.review}</p>
-                <div className="flex items-center mb-2.5">
-                    {stars.map((star, idx)=>{
-                        if(star===true){
-                            return <AiFillStar key={idx}/>
-                        } 
-                        if(star===false){
-                            return <AiOutlineStar key={idx}/>
-                        } 
+const ProductReviews = ({ id, review }: Props) => {
+    let stars = []
+    for (let i = 0; i < 5; i++) {
+        if (i < review.rating) stars.push(true)
+        if (i >= review.rating) stars.push(false)
+    }
+
+    return (
+        <div
+            key={id}
+            className="flex justify-between items-center rounded-md w-full px-4 py-6 bg-pwgreen-50 shadow-md">
+            <h2 className="text-pwgreen-900 font-Rubik text-lg font-medium w-1/4">
+                {review.user?.firstName + ' ' + review.user?.lastName}
+            </h2>
+            <div className="flex flex-col gap-2 items-start w-3/4">
+                <div className="flex items-center text-pwpurple-700">
+                    {stars.map((star, idx) => {
+                        if (star === true) {
+                            return <AiFillStar key={idx} />
+                        }
+                        if (star === false) {
+                            return <AiOutlineStar key={idx} />
+                        }
                     })}
                 </div>
+                <p>{review.review}</p>
                 <div className="justify-self-center w-full">
-                    <p className="text-right">{String(review.createdAt).slice(0, 10)}</p>
+                    <p className="text-right font-bold text-pwpurple-700">
+                        {String(review.createdAt).slice(0, 10)}
+                    </p>
                 </div>
             </div>
         </div>
     )
-  }
+}
 
-  export default ProductReviews
+export default ProductReviews

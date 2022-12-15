@@ -11,7 +11,7 @@ import Fade from '@mui/material/Fade';
 import styles from 'styles/AdoptionDetails.module.css'
 import Image from 'next/image';
 import {getPetById} from 'utils/dbFetching';
-import { Apply } from 'app/types';
+import { ApplyAdAp } from 'app/types';
 import { useQuery } from 'react-query';
 import { AiOutlineClose, AiOutlineArrowRight } from 'react-icons/ai';
 import { useRouter } from 'next/router';
@@ -24,7 +24,7 @@ const AdoptionDetails = ({id}:Prop)=>{
 
   const { user, error: errorU, isLoading: isLoadingU } = useUser();
   const router = useRouter();  
-  const [ids, setIds] = useLocalStorage<Apply>("ids", {petId: "", userId:""});
+  const [ids, setIds] = useLocalStorage<ApplyAdAp>("ids", {petId: "", userId:""});
   const [open, setOpen] = useState(false);
   const handleClose = () =>setOpen(false);
 
@@ -69,7 +69,7 @@ const AdoptionDetails = ({id}:Prop)=>{
   return (
     <>
     <button onClick={()=>{handleOpen()}      
-      }>Adopt me!</button>
+      }>Adoptame!</button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

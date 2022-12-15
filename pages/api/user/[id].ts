@@ -15,7 +15,41 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         id: String(id),
                     },
                     include: {
-                        adoptionPost: true,
+                        adoptionPost: {
+                            select:{
+                                id:true,
+                                createdAt:true,
+                                active:true,
+                                name:true,
+                                size:true,
+                                age:true,
+                                breed:true,
+                                photo:true,
+                                gender:true,
+                                description:true,
+                                apply:{
+                                    select:{
+                                        createdAt:true,
+                                        employee:true,
+                                        garden:true,
+                                        past:true,
+                                        reason:true,
+                                        residence:true,
+                                        user:{
+                                            select:{
+                                                firstName:true,
+                                                lastName:true,
+                                                email:true,
+                                                phone:true,
+                                                city:true,
+                                                province:true,
+                                                country:true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         businessPost: true,
                         transaction: true,
                         review: true,
@@ -52,26 +86,35 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                 active
             } = req.body
             try {
+                const obj ={
+                    firstName,
+                    lastName,
+                    email,
+                    gender,
+                    birthday,
+                    address,
+                    phone,
+                    city,
+                    province,
+                    postCode,
+                    photo,
+                    role,
+                    active
+                };
+                let datos ={};
+                for(const [key, value] of Object.entries(obj)){
+                    let mini = {[key]: value};
+                    if(value !== ''){                        
+                        datos = {...datos, ...mini}
+                    }
+                };
                 const user = await prisma.user.update({
                     where: { id: String(id) },
-                    data: {
-                        firstName,
-                        lastName,
-                        email,
-                        gender,
-                        birthday,
-                        address,
-                        phone,
-                        city,
-                        province,
-                        postCode,
-                        photo,
-                        role,
-                        active
-                    }
+                    data: {...datos}
                 })
+
                 user ?
-                    res.status(200).json({ message: "Updated" })
+                    res.status(200).json(user)
                     :
                     res.status(400).json({ message: "the user does not exist." })
 

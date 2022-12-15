@@ -25,7 +25,7 @@ const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
   }
 
   return (
-    <div className='flex flex-row lg:flex-col py-3 font-Rubik w-full lg:w-auto justify-evenly items-center text-center border border-t-pwgreen-200 border-b-pwgreen-200'>
+    <div className='flex flex-row lg:flex-col py-3 font-Rubik w-full lg:w-auto justify-evenly items-center text-center border border-pwgreen-300  text-pwgreen-800'>
         <div>
           <Image
                     src={product.photo}
@@ -41,14 +41,14 @@ const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
             <button onClick={onClick} id={idBoton} className="lg:hidden">...</button>
           </div> 
           <div className="w-auto text-md flex  justify-around items-center flex-row font-bold">
-            <div className="justify-center border border-black flex gap-2 flex-row items-center text-center w-auto rounded-l-xl rounded-r-xl">
-              <button className="w-6 lg:w-10 h-auto bg-transparent text-black py-0"        
+            <div className="dashboardButton p-1">
+              <button className="w-6 lg:w-10 h-auto bg-transparent text-pwgreen-800 hover:text-pwgreen-50 py-0"        
               onClick={() => removeFromCart(product.id)}
               >
               -
               </button>  
-              <p>{product.amount}</p>          
-              <button className="w-6 lg:w-10  h-auto bg-transparent text-black py-0"
+              <p >{product.amount}</p>          
+              <button className="w-6 lg:w-10  h-auto bg-transparent text-pwgreen-800 hover:text-pwgreen-50 py-0"
               disabled={product.stock<=1 && true}    
               onClick={() => addToCart(product)}
               >

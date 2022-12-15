@@ -1,9 +1,12 @@
 import type { NextPage } from 'next'
-import { MainLayout, AdoptionsScreen, ProductsScreen } from 'components'
+import { MainLayout, ProductsScreen } from 'components'
+import Hero from 'components/home/Hero'
+import Pets from 'components/home/Pets'
+import AdoptionScreen from 'components/home/AdoptionScreen'
+import Newsletter from 'components/home/Newsletter'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { createUser, getAuth0UserById, getAuth0Users } from 'utils/dbFetching'
-import { checkEmail } from 'utils/checkEmail'
 import { useEffect } from 'react'
 // import createDB from '../utils/createDB'
 
@@ -73,8 +76,11 @@ const Home: NextPage = () => {
 
     return (
         <MainLayout title="Pawsitive - Home">
-            <AdoptionsScreen />
-            <ProductsScreen />
+            <Hero/>
+            <Pets/>
+            <ProductsScreen/>
+            <AdoptionScreen/>
+            <Newsletter/>
         </MainLayout>
     )
 }

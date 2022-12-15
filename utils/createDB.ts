@@ -2,7 +2,7 @@ import { prisma } from "lib/prisma";
 
 export default async function createDB() {
 
-    try {
+    try {    
         await prisma.user.createMany({
             data: [
                 {
@@ -588,7 +588,7 @@ export default async function createDB() {
                     ownerBusinessId: "5"
                 }
             ]
-        })
+        })    
         await prisma.product.createMany({
             data: [
                 {
@@ -616,7 +616,7 @@ export default async function createDB() {
                     brand: "puppis",
                     size: "UNIQUE",
                     active: true,
-                },
+                },            
                 {
                     id: "3",
                     name: "Peluche Zeus Mojo Spider Ball",
@@ -864,250 +864,1592 @@ export default async function createDB() {
                     brand: "puppis",
                     size: "MEDIUM",
                     active: true,
+                }                
+                ,
+                {
+                    id: "22",
+                    name: "Antipulgas Y Garrapatas Bravecto Para Perros - 2 a 4,5 Kg",
+                    price: 4000,
+                    displayPrice: 5200,
+                    description: "Antipulgas y Garrapatas para perros pequeños",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/167383-1000-1000/366255.jpg?v=637014017122630000",
+                    category: "HEALTH",
+                    brand: "bravecto",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "23",
+                    name: "Nexgard Spectra Para Perros - 2 a 3,5 Kg",
+                    price: 1500,
+                    displayPrice: 1980,
+                    description: "Tableta masticable sabor carne, mata parasitos y garrapatas.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/170186-1000-1000/337013.png?v=637142658788130000",
+                    category: "HEALTH",
+                    brand: "frontline vet labs",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "24",
+                    name: "Nexgard Para Perros Extra Grandes En Comprimidos - 25-50kg",
+                    price: 2100,
+                    displayPrice: 2955,
+                    description: "Comedero para que tu mascota coma mas lento.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/170185-1000-1000/300057.png?v=637142654515000000",
+                    category: "HEALTH",
+                    brand: "frontline vet labs",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "25",
+                    name: "Antiparasitario Externo Ecthol Para Perro Y Ambiente - 100Cc",
+                    price: 900,
+                    displayPrice: 1280,
+                    description: "Antiparasitario externo para perros y ambientes.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/158377-1000-1000/382048.jpg?v=635993660628100000",
+                    category: "HEALTH",
+                    brand: "ambiental perros",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "26",
+                    name: "Antiparasitario Externo Ecthol 5 - 70ml",
+                    price: 110,
+                    displayPrice: 640,
+                    description: "Antiparasitario externo.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/159827-1000-1000/ecthol-5-fco-x-120-cc-ho.jpg?v=636264854251800000",
+                    category: "HEALTH",
+                    brand: "ecthol",
+                    size: "SMALL",
+                    active: true,
+                }
+                ,
+                {
+                    id: "27",
+                    name: "Antiparasitario Revolution 12% 0,25ml - 2,6-5Kg",
+                    price: 1500,
+                    displayPrice: 2290,
+                    description: "Desparasitante, endectocida para perros. Solucion de uso topico.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/188680-1000-1000/382098.jpg?v=637951333289800000",
+                    category: "HEALTH",
+                    brand: "zoetis",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "28",
+                    name: "Antiparasitario Revolution 6% 0,25ml - Hasta 2,5Kg",
+                    price: 2100,
+                    displayPrice: 2070,
+                    description: "Comedero para que tu mascota coma mas lento.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/188683-1000-1000/382102.jpg?v=637951336662300000",
+                    category: "HEALTH",
+                    brand: "zoetis",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "29",
+                    name: "Peluche Kong Dr. Noyz Pato - XS",
+                    price: 900,
+                    displayPrice: 1305,
+                    description: "El Peluche Kong Pato ,es un juguete de peluche suave y con un diseño amigable, ideal para divertirse, especialmente los cachorros. Está fabricado con una capa adicional de material para mayor resistencia, menos relleno para menor desorden y está recomendado para uso en interiores. Además cuenta con un sonido que a los perros les encanta que se puede extraer para un juego silencioso.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/175010-1000-1000/224328.jpg?v=637461400979200000",
+                    category: "TOY",
+                    brand: "kong",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "30",
+                    name: "Hueso Lazy Dog con Pelota Animal Print - 10cm",
+                    price: 1000,
+                    displayPrice: 1250,
+                    description: "El Juguete Lazy Dog Hueso con Pelota combina el rebote errático de una pelota con la diversión de tironear de una soga. Está fabricado con materiales de alta calidad que aseguran que el juguete dure y que tu perro se divierta.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/183633-1000-1000/275117.jpg?v=637710847828100000",
+                    category: "TOY",
+                    brand: "lazy dog",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "31",
+                    name: "Mordillo Cancat Pescado Ice",
+                    price: 2500,
+                    displayPrice: 3170,
+                    description: "El Pescado Ice Cancat, está fabricado con goma TPR no tóxica, es un juguete resistente, seguro y extremadamente duradero. Está diseñado para que su mascota mastique, juegue y se refresque a pura diversión.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/169168-1000-1000/221188.jpg?v=637122023367600000",
+                    category: "TOY",
+                    brand: "cancat",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "32",
+                    name: "Juguete CanCat Soga Con Doble Nudo - 13'",
+                    price: 1000,
+                    displayPrice: 1755,
+                    description: "La Soga con doble nudo Cancat pertenece a la línea de sogas FUN, diseñada especialmente para que tu mascota libere su stress mientras juega en el clásico “tira y afloje”. Ideal para interactuar con nuestro perro. También se usan para que tu mejor amigo pueda morder y fortalecer sus dientes.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/168607-1000-1000/221102.jpg?v=637084102178200000",
+                    category: "TOY",
+                    brand: "cancat",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "34",
+                    name: "Juguete M-Pets Ecológico Thor Verde",
+                    price: 4500,
+                    displayPrice: 6355,
+                    description: "Peluche ecologico para morder.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/187584-1000-1000/237717.jpg?v=637908257963570000",
+                    category: "TOY",
+                    brand: "thor",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "35",
+                    name: "Juguete M-Pets Ecológico Leif Verde",
+                    price: 3500,
+                    displayPrice: 5000,
+                    description: "Peluche ecologico para morder.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/187421-1000-1000/237719.jpg?v=637897100116030000",
+                    category: "TOY",
+                    brand: "leif",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "36",
+                    name: "Juguete M-Pets Ecológico Lars Verde",
+                    price: 4500,
+                    displayPrice: 6355,
+                    description: "Peluche ecologico para morder.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/187581-1000-1000/237716.jpg?v=637908256242100000",
+                    category: "TOY",
+                    brand: "lars",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "37",
+                    name: "Juguete Rascals Anillo Dispenser Amarillo",
+                    price: 2000,
+                    displayPrice: 3355,
+                    description: "El Juguete Rascals Anillo Dispenser Amarillo, está pensado para que tu perro pueda divertirse y jugar en todo momento, logrando así una vida alegre y libre de estrés. Además, el juguete se puede rellenar con snacks saludables, haciendo que tu mascota utilice la curiosidad y el ingenio para encontrarlos. Esto lo vuelve una gran opción para estimular el desarrollo mental de tu perro y lograr un nivel de actividad óptimo.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/180400-1000-1000/237559.jpg?v=637590641461200000",
+                    category: "TOY",
+                    brand: "rascals",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "38",
+                    name: "Soga Rascals Ecológica Dos Nudos con Juguete",
+                    price: 2000,
+                    displayPrice: 3155,
+                    description: "La Soga Rascals Ecológica Dos Nudos con Juguete, está confeccionada con materiales reciclados y reutilizables. Pensada para que puedas jugar con tu mejor amigo tanto en tu casa como al aire libre. Es súper duradera y resistente.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/180398-1000-1000/237558.jpg?v=637590641454970000",
+                    category: "TOY",
+                    brand: "rascals",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "39",
+                    name: "Snack Mon Ami Trainee Sabor Pollo - 400 Gr",
+                    price: 1100,
+                    displayPrice: 1880,
+                    description: "Los Snacks Mon Ami Trainee, han sido diseñados especialmente para entrenadores profesionales y para aquellos que disfrutan de educar a su mascota. Su tamaño y calidad permiten la entrega de varias unidades a lo largo de una sesión de entrenamiento. Además, están fabricados con ingredientes 100% naturales para asegurar que tu perro tenga una dieta de alta calidad y saludable.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/171616-1000-1000/233057.png?v=637292779292170000",
+                    category: "SNACK",
+                    brand: "mon ami",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "40",
+                    name: "Palitos Pets Fortificados 3/8 - 10 Uni",
+                    price: 110,
+                    displayPrice: 370,
+                    description: "Los Palitos Pets Fortificados 3/8, son una excelente opción para premiar a tu perro con un rico snack, ya sea en entrenamientos o en un día de juego. Cuentan con una textura granulada para que tu mascota los disfrute mucho más.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/189005-1000-1000/488001.jpg?v=637965279065270000",
+                    category: "SNACK",
+                    brand: "pets",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "41",
+                    name: "Snack Eukanuba Active Trainers Chicken - 142 g",
+                    price: 500,
+                    displayPrice: 1035,
+                    description: "El Snack Eukanuba Active Trainers Chicken está diseñado para acompañar el entrenamiento regular de tu perro a partir de los 2 meses de edad. El entrenamiento es esencial para lograr el correcto desarrollo mental de tu mascota, por lo que el snack incluye DHA para lograr una función cerebral saludable. Además, ayudan a promover el ejercicio físico para que tu mascota tenga músculos magros y buena salud.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/185911-1000-1000/138152.png?v=637834883270270000",
+                    category: "SNACK",
+                    brand: "eukanuba",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "42",
+                    name: "Hueso Horneado Golocan Carne",
+                    price: 50,
+                    displayPrice: 110,
+                    description: "Hueso horneado, sabor carne, sin colorantes.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/174281-1000-1000/434071.jpg?v=637434938954600000",
+                    category: "SNACK",
+                    brand: "golocan",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "43",
+                    name: "Pet & Pop Dental Stick Vegan - 50 Gr",
+                    price: 100,
+                    displayPrice: 200,
+                    description: "Palitos dentales y veganos.",
+                    stock: 0,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/170968-1000-1000/233069.jpg?v=637237763745870000",
+                    category: "SNACK",
+                    brand: "pets",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "44",
+                    name: "Hueso Cancat Corbata - XS",
+                    price: 110,
+                    displayPrice: 330,
+                    description: "Los Palitos Pets Fortificados 3/8, son una excelente opción para premiar a tu perro con un rico snack, ya sea en entrenamientos o en un día de juego. Cuentan con una textura granulada para que tu mascota los disfrute mucho más.",
+                    stock: 0,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/189111-1000-1000/400016.jpg?v=637974604517430000",
+                    category: "SNACK",
+                    brand: "cancat",
+                    size: "BIG",
+                    active: true,
+                }
+                ,
+                {
+                    id: "45",
+                    name: "Dr. Zoo Sticks Max Sabor Carne Asada - 20 Gr",
+                    price: 40,
+                    displayPrice: 70,
+                    description: "Los Snacks de Dr. Zoo son ideales para cualquier mascota por su tamaño, calidad, consistencia y sabor. Hechos con ingredientes naturales, son deliciosos y nutritivos. Ya sea para premiarlo o entretenerlo, no dejes de probarlos.",
+                    stock: 0,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/163580-1000-1000/239341.jpg?v=636746890776870000",
+                    category: "SNACK",
+                    brand: "dr.zoo",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "46",
+                    name: "Dr. Zoo Sticks Max Sabor Costillitas - 20 Gr",
+                    price: 20,
+                    displayPrice: 65,
+                    description: "Los Snacks de Dr. Zoo son ideales para cualquier mascota por su tamaño, calidad, consistencia y sabor. Hechos con ingredientes naturales, son deliciosos y nutritivos. Ya sea para premiarlo o entretenerlo, no dejes de probarlos.",
+                    stock: 0,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/163579-1000-1000/239340.jpg?v=636746890774830000",
+                    category: "SNACK",
+                    brand: "dr.zoo",
+                    size: "UNIQUE",
+                    active: true,
+                }
+                ,
+                {
+                    id: "47",
+                    name: "Palitos Dr. Zoo Nuggets - 5Kg",
+                    price: 3000,
+                    displayPrice: 6230,
+                    description: "Palitos Dr.Zoo nugguets.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/174724-1000-1000/439060.jpg?v=637452603492570000",
+                    category: "SNACK",
+                    brand: "pets",
+                    size: "BIG",
+                    active: true,
+                }
+                ,
+                {
+                    id: "48",
+                    name: "Palitos Pets Fortificados 3/8 - 10 Uni",
+                    price: 110,
+                    displayPrice: 370,
+                    description: "Los Palitos Pets Fortificados 3/8, son una excelente opción para premiar a tu perro con un rico snack, ya sea en entrenamientos o en un día de juego. Cuentan con una textura granulada para que tu mascota los disfrute mucho más.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/189005-1000-1000/488001.jpg?v=637965279065270000",
+                    category: "SNACK",
+                    brand: "pets",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "49",
+                    name: "Zanahoria Deshidratada Zootec Veggie - 60gr",
+                    price: 1472,
+                    displayPrice: 1500,
+                    description: "La Zanahoria Deshidratada Zootec Veggie, es un snack 100% natural y saludable hecho de zanahoria deshidratada. Es ideal para dar como premio tanto a aves o roedores, ya que es alto en vitamina c y funciona como complemento vitamínico",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/TB_ICBC_HSBC.png?v=202112291907",
+                    category: "SNACK",
+                    brand: "pets",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "50",
+                    name: "Palitos Pets Fortificados 3/8 - 10 Uni",
+                    price: 110,
+                    displayPrice: 370,
+                    description: "Los Palitos Pets Fortificados 3/8, son una excelente opción para premiar a tu perro con un rico snack, ya sea en entrenamientos o en un día de juego. Cuentan con una textura granulada para que tu mascota los disfrute mucho más.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/189005-1000-1000/488001.jpg?v=637965279065270000",
+                    category: "SNACK",
+                    brand: "Zootec",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "51",
+                    name: "Whiskas Gato Pouch Soufle De Pescado - 85Gr",
+                    price: 127,
+                    displayPrice: 135,
+                    description: "Alimento humedo para gato",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/161727-1000-1000/Render-Whiskas-sobre-Soufle-pescado-copy.jpg?v=636434033665670000",
+                    category: "SNACK",
+                    brand: "whishkas",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "52",
+                    name: "Voraz Mix Adulto Carne-Pollo-Vegetales - 15 Kg",
+                    price: 2533,
+                    displayPrice: 2600,
+                    description: "El Alimento Voraz Mix Adulto Carne-Pollo-Vegetales  está diseñado para satisfacer las necesidades nutricionales de los perros de todos los tamaños a partir del año y hasta los 7 años de edad.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/189288-600-600/141020.jpg?v=637981565838100000",
+                    category: "FOOD",
+                    brand: "pets",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "53",
+                    name: "Vitalcan Therapy Canine Renal Care - 10kg",
+                    price: 11331,
+                    displayPrice: 12000,
+                    description: "VITALCAN THERAPY CANINE RENAL CARE es un alimento de prescripción para perros adultos con enfermedad renal crónica (ERC). Su bajo contenido de fósforo y moderada cantidad de proteínas de alto valor biológico y digestibilidad, contribuye al tratamiento de esta afección.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/160236-1000-1000/Vitalcan-Therapy-Canine-Renal-Care.jpg?v=636377132710500000",
+                    category: "HEALTH",
+                    brand: "Therapy",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "54",
+                    name: "Turtle Clean Exo Terra - 120ml",
+                    price: 2552,
+                    displayPrice: 2700,
+                    description: "El Turtle Clean Exo Terra, es un limpiador de hábitat de tortugas 100% biológico que, cuando se usa semanalmente, ayuda a controlar los olores y descomponer los desechos orgánicos sólidos. Además de mantener el hogar de tu mascota limpio y fresco, contribuye a establecer una flora biológica adecuada para garantizar que los desechos orgánicos se descompongan de forma regular.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/176324-1000-1000/253084.jpg?v=637534369655300000",
+                    category: "HYGIENE",
+                    brand: "Exo Terra",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "55",
+                    name: "Tunel Zootec De Tela - 50 Cm",
+                    price: 4836,
+                    displayPrice: 4950,
+                    description: "El Tunel Zootec De Tela, es una excelente opción para que tu gatito pase las mejores horas de juego. Está hecho en materiales resistentes, con colores que llaman su atención.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/173419-1000-1000/239356.jpg?v=637395982310500000",
+                    category: "TOY",
+                    brand: "Zootec",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "56",
+                    name: "Tunel Para Aves - 10x20",
+                    price: 1997,
+                    displayPrice: 2050,
+                    description: "Tunel para aves hecho en madera, disponible en distintos colores",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/166856-1000-1000/242107.jpg?v=636957681305730000",
+                    category: "ACCESORIES",
+                    brand: "pets",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "57",
+                    name: "Tunel Catit Vesper Para Gatos - 68x97x28 Cm",
+                    price: 6712,
+                    displayPrice: 6800,
+                    description: "Tunel de poliester de 50cm de diametro y 200cm de largo",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/169142-1000-1000/227221.jpg?v=637122023216200000",
+                    category: "TOY",
+                    brand: "pets",
+                    size: "BIG",
+                    active: true,
+                },
+                {
+                    id: "58",
+                    name: "Tubo Masticable De Alfalfa Para Roedores - Chico",
+                    price: 1008,
+                    displayPrice: 1100,
+                    description: "Tube de alfalfa de 70 gramos, ideal para roedores",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/166095-1000-1000/142067.png?v=636880949052830000",
+                    category: "HYGIENE",
+                    brand: "pets",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "59",
+                    name: "Transportadora Vari Kennel Compass (4 variantes) - Gigante",
+                    price: 41144,
+                    displayPrice: 42000,
+                    description: "Transportadora para perro extra grande, certificada , disponible en color blanco o gris",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/157420-1000-1000/compass_w0fk3t.jpg?v=635779129831270000",
+                    category: "ACCESORIES",
+                    brand: "pets",
+                    size: "BIG",
+                    active: true,
+                },
+                {
+                    id: "60",
+                    name: "TetraFin Goldfish Flakes - 28 Gr",
+                    price: 1248,
+                    displayPrice: 1300,
+                    description: "Alimento extra fino para peces",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/176727-1000-1000/imagen4.jpg?v=637556935418230000",
+                    category: "FOOD",
+                    brand: "Tetra",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "61",
+                    name: "Test De PH Tetra - Tamaño Único",
+                    price: 2448,
+                    displayPrice: 2500,
+                    description: "Test de pH para agua de pecera",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/168863-1000-1000/232167.png?v=637093489134800000",
+                    category: "HEALTH",
+                    brand: "Tetra",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "62",
+                    name: "Sticks Dr. Zoo Carne Asada - 5Kg",
+                    price: 7563,
+                    displayPrice: 7600,
+                    description: "Golosinas de carne para perro",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/174721-1000-1000/439057.jpg?v=637452603483000000",
+                    category: "SNACK",
+                    brand: "Dr. Zoo",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "63",
+                    name: "Rueda Para Roedores Ferplast Blanca - 20,5Cm",
+                    price: 8692,
+                    displayPrice: 8750,
+                    description: "Rueda de ejercicio para roedores color blanca",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/168136-1000-1000/297165.jpg?v=637051066973300000",
+                    category: "ACCESORIES",
+                    brand: "Ferplast",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "64",
+                    name: "Botitas Pawise Doggy Boots - L",
+                    price: 2025,
+                    displayPrice: 2100,
+                    description: "Botitas termicas para perro, talla grande",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/175567-1000-1000/237270-2.png?v=637499498231800000",
+                    category: "ACCESORIES",
+                    brand: "Pawise",
+                    size: "BIG",
+                    active: true,
+                },
+                {
+                    id: "65",
+                    name: "Abrigo Impermeable MPC con Corderito - XXS",
+                    price: 3940,
+                    displayPrice: 4100,
+                    description: "Abrigo termico para perro, talla pequeña",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/187241-600-600/216065.jpg?v=637896956318470000",
+                    category: "ACCESORIES",
+                    brand: "Ferplast",
+                    size: "SMALL",
+                    active: true,
+                },
+                {
+                    id: "66",
+                    name: "Chaleco MiAmore Matelasse Flores",
+                    price: 2645,
+                    displayPrice: 2700,
+                    description: "Chaleco impermeable para perro talla unica",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/187429-1000-1000/237770.jpg?v=637897100160830000",
+                    category: "ACCESORIES",
+                    brand: "MiAmore",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "67",
+                    name: "Comedero Food Tree Catit 2.0 Para Gatos - Blanco Y Verde",
+                    price: 6621,
+                    displayPrice: 6700,
+                    description: "El Catit Food Tree es la solución de alimentación para gatos que tienden a comer rápido. Este juguete es estimula a comer más lento y trabajar para conseguir su comida mientras juegan moviendo la comida con su pata a través de varias aberturas laterales. El alimento suelto se recoge en la bandeja en la parte inferior, evitando derrames. Su diseño poco profundo permite a los gatos disfrutar de su comida con comodidad, sin poner tensión en sus bigotes sensibles. También puedes ajustar diferentes niveles de dificultad girando el disco del medio y ajustando los tamaños de apertura. Añade más variedad cambiando periódicamente la cantidad de pienso que pones y/o la ubicación del juguete en la casa. El Catit Food Tree es fácil de desmontar y limpiar. Se recomienda lavar a mano cada parte con jabón natural, libre de productos químicos o soluciones abrasivas y enjuagar a fondo. Este comedero para gatos es excelente individualmente o en combinación con otros productos Catit Senses 2.0",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/159050-1000-1000/200987-01.jpg?v=636130962349370000",
+                    category: "ACCESORIES",
+                    brand: "Catit",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "68",
+                    name: "Comedero Zaara Puppis Celeste - 0.85 L",
+                    price: 2371,
+                    displayPrice: 2400,
+                    description: "Rueda de ejercicio para roedores color blanca",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/189235-1000-1000/269348.jpg?v=637979986955030000",
+                    category: "ACCESORIES",
+                    brand: "Puppis",
+                    size: "MEDIUM",
+                    active: true,
+                },
+                {
+                    id: "69",
+                    name: "Rueda Para Roedores Ferplast Blanca - 20,5Cm",
+                    price: 8692,
+                    displayPrice: 8750,
+                    description: "El Comedero de acero inoxidable, cuenta con una base de goma antideslizante para una mejor alimentación perruna.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/168136-1000-1000/297165.jpg?v=637051066973300000",
+                    category: "ACCESORIES",
+                    brand: "Ferplast",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "70",
+                    name: "Bandeja Hueso Animal Pet de Silicona Celeste",
+                    price: 2254,
+                    displayPrice: 2350,
+                    description: "Bandeja color azul celest hecha de silicona con forma de hueso",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/185771-1000-1000/246334.jpg?v=637832328245600000",
+                    category: "ACCESORIES",
+                    brand: "Ferplast",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "71",
+                    name: "Comedero Bebedero Animal Pet Curvo Naranja - Large",
+                    price: 6144,
+                    displayPrice: 6400,
+                    description: "Este Comedero Bebedero Animal Pet Curvo Naranja es sumamente práctico para tu mascota, ya que engloba las dos cosas en un solo elemento, brindando mayor comodidad y restringiendo el área de alimentación, lo cual brinda mayor limpieza.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/176782-1000-1000/246206.jpg?v=637556935676030000",
+                    category: "ACCESORIES",
+                    brand: "Ferplast",
+                    size: "BIG",
+                    active: true,
+                },
+                {
+                    id: "72",
+                    name: "Contenedor Puppis con Tapa Amarillo - 3kg",
+                    price: 1239,
+                    displayPrice: 1300,
+                    description: "El Contenedor Puppis con Tapa es una forma práctica y cómoda para guardar el alimento balanceado de tu mascota. Al tener tapa, se asegura que el alimento se mantenga fresco y se conserve por la mayor cantidad de tiempo posible.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/182520-1000-1000/269224.jpg?v=637667934326600000",
+                    category: "ACCESORIES",
+                    brand: "Puppis",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "73",
+                    name: "Comedero Rascals Comelento Blanco - 21x18x5cm",
+                    price: 3464,
+                    displayPrice: 3550,
+                    description: "El Comedero Rascals Comelento, está diseñado con ranuras que ayudan a que tu mascota coma de manera lenta y controlada. Esto previene posibles atragantamientos y vómitos, como también regula su alimentación y promueve un peso saludable.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/176475-1000-1000/237519.jpg?v=637546240057400000",
+                    category: "ACCESORIES",
+                    brand: "Rascals",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "74",
+                    name: "Alimento Excellent Gato Sterilized Pollo - 7,5 Kg",
+                    price: 10105,
+                    displayPrice: 11000,
+                    description: "El Alimento Excellent Gato Sterilized Pollo está especialmente diseñado para satisfacer las necesidades nutricionales específicas de los gatos castrados. Además, ofrece una combinación de ingredientes adecuada para que tu gato tenga una condición corporal ideal, ayudando en el control de bolas de pelo y manteniendo un tracto urinario saludable.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/184564-1000-1000/150067.png?v=637750189284800000",
+                    category: "FOOD",
+                    brand: "Excellent",
+                    size: "UNIQUE",
+                    active: true,
+                },
+                {
+                    id: "75",
+                    name: "Pro Plan Kitten Protection - 3 Kg",
+                    price: 7000,
+                    displayPrice: 7200,
+                    description: "Alimento balanceado para gatos en crecimiento de hasta 12 meses de edad y hembras gestantes o lactantes. Formulado con una mezcla innovadora de nutrientes, como el calostro rico en anticuerpos naturales. Esta mezcla única ayuda a extender la protección que empezó con la leche materna, reforzando la salud intestinal del gatito y ayudando a reducir el riesgo de trastornos digestivos.",
+                    stock: 100,
+                    photo: "https://puppis.vteximg.com.br/arquivos/ids/179624-1000-1000/7613039784914_2.png?v=637570859712630000",
+                    category: "FOOD",
+                    brand: "Pro Plan",
+                    size: "UNIQUE",
+                    active: true,
                 }
             ]
         })
-
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-12-08T03:08:45.700Z",
-                amount: 13000,
-                userId: '1',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "1" },
-                    ]
+        await prisma.review.createMany({
+                data: [
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "1",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "1",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "2",
+                        userId: "1"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "2",
+                        userId: "5"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "3",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "3",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "3",
+                        userId: "3"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "3",
+                        userId: "16"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "4",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "4",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "5",
+                        userId: "20"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "5",
+                        userId: "11"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "6",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "6",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "7",
+                        userId: "4"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "7",
+                        userId: "8"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "8",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "8",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "7",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "7",
+                        userId: "9"
+                    },                    
+                    //
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "9",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "9",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "10",
+                        userId: "1"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "10",
+                        userId: "5"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "11",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "11",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "12",
+                        userId: "3"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "12",
+                        userId: "16"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "13",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "13",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "14",
+                        userId: "20"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "14",
+                        userId: "11"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "15",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "15",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "16",
+                        userId: "4"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "16",
+                        userId: "8"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "17",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "17",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "18",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "18",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "19",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "19",
+                        userId: "9"
+                    },
+                    //
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "20",
+                        userId: "1"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "21",
+                        userId: "5"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "22",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "23",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "23",
+                        userId: "3"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "24",
+                        userId: "16"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "24",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "25",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "25",
+                        userId: "20"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "26",
+                        userId: "11"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "27",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "28",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "29",
+                        userId: "4"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "29",
+                        userId: "8"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "30",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "30",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "31",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "31",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "32",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "32",
+                        userId: "9"
+                    },
+                    //
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "35",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "35",
+                        userId: "1"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "34",
+                        userId: "5"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "35",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "35",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "36",
+                        userId: "3"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "36",
+                        userId: "16"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "37",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "37",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "38",
+                        userId: "20"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "38",
+                        userId: "11"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "39",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "39",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "40",
+                        userId: "4"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "40",
+                        userId: "8"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "41",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "41",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "42",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "42",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "43",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "43",
+                        userId: "9"
+                    },
+                    //
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "44",
+                        userId: "1"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "44",
+                        userId: "5"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "45",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "45",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "46",
+                        userId: "3"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "46",
+                        userId: "16"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es muy bueno y resistente, perfecto para mascotas juguetonas",
+                        productId: "47",
+                        userId: "7"
+                    },
+                    {    
+                        rating: 2,
+                        review: "La verdad no era lo que esperaba, se daño muy rapido y es mas pequeño de lo que muestran",
+                        productId: "47",
+                        userId: "10"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "48",
+                        userId: "20"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "48",
+                        userId: "11"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "49",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "49",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "50",
+                        userId: "4"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "50",
+                        userId: "8"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "51",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "51",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "52",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "52",
+                        userId: "9"
+                    },
+                    {    
+                        rating: 5,
+                        review: "Es un muy buen producto, cumple todo lo que promete",
+                        productId: "53",
+                        userId: "14"
+                    },
+                    {    
+                        rating: 3,
+                        review: "Esta muy regular, la verdad esperaba mas de acuerdo a lo que vi en las fotos",
+                        productId: "53",
+                        userId: "9"
+                    },
+                ]
+            })
+    
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-12-08T03:08:45.700Z",
+                    amount: 13000,
+                    userId: '1',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "1" },
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-11-08T03:08:45.700Z",
-                amount: 15000,
-                userId: '2',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "2" },
-
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-11-08T03:08:45.700Z",
+                    amount: 15000,
+                    userId: '2',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "2" },
+    
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                amount: 13550,
-                userId: '3',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "3" },
-
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    amount: 13550,
+                    userId: '3',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "3" },
+    
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-10-08T03:08:45.700Z",
-                amount: 155000,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "6" },
-
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-10-08T03:08:45.700Z",
+                    amount: 155000,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "6" },
+    
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-09-08T03:08:45.700Z",
-                amount: 96200,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "7" }
-
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-09-08T03:08:45.700Z",
+                    amount: 96200,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "7" }
+    
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-08-08T03:08:45.700Z",
-                amount: 125550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "9" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-08-08T03:08:45.700Z",
+                    amount: 125550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "9" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-07-08T03:08:45.700Z",
-                amount: 43550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "10" }
-
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-07-08T03:08:45.700Z",
+                    amount: 43550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "10" }
+    
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-06-08T03:08:45.700Z",
-                amount: 166050,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "11" }
-
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-06-08T03:08:45.700Z",
+                    amount: 166050,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "11" }
+    
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-05-08T03:08:45.700Z",
-                amount: 158550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "12" }
-
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-05-08T03:08:45.700Z",
+                    amount: 158550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "12" }
+    
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-04-08T03:08:45.700Z",
-                amount: 9550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "18" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-04-08T03:08:45.700Z",
+                    amount: 9550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "18" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-03-08T03:08:45.700Z",
-                amount: 36550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "19" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-03-08T03:08:45.700Z",
+                    amount: 36550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "19" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-02-08T03:08:45.700Z",
-                amount: 18550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "20" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-02-08T03:08:45.700Z",
+                    amount: 18550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "20" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-                createdAt: "2022-01-08T03:08:45.700Z",
-                amount: 23550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "21" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+                    createdAt: "2022-01-08T03:08:45.700Z",
+                    amount: 23550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "21" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-
-                amount: 3550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "17" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+    
+                    amount: 3550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "17" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-
-                amount: 9750,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "15" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+    
+                    amount: 9750,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "15" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-
-                amount: 158550,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 10, productId: "12" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+    
+                    amount: 158550,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 10, productId: "12" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-
-                amount: 21500,
-                userId: '4',
-                quantity: {
-                    create: [
-                        { quantity: 5, productId: "10" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+    
+                    amount: 21500,
+                    userId: '4',
+                    quantity: {
+                        create: [
+                            { quantity: 5, productId: "10" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
-        await prisma.transaction.create({
-            data: {
-
-                amount: 30000,
-                userId: '6',
-                quantity: {
-                    create: [
-                        { quantity: 20, productId: "2" }
-                    ]
+            })
+            await prisma.transaction.create({
+                data: {
+    
+                    amount: 30000,
+                    userId: '6',
+                    quantity: {
+                        create: [
+                            { quantity: 20, productId: "2" }
+                        ]
+                    }
+    
                 }
-
-            }
-        })
+            })
+     
 
     } catch (error) {
         console.log(error)

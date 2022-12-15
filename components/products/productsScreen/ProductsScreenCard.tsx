@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Product, UserProduct } from 'app/types';
-import styles from 'styles/ProductCard.module.css'
+import { Product } from 'app/types'
 import Link from 'next/link'
 
 type Props = {
@@ -10,39 +9,38 @@ type Props = {
 }
 
 const ProductsScreenCard = ({ id, product }: Props) => {
-
-    return(
-
-    <div className="bg-white py-5 w-250 h-60 rounded shadow-xl flex card text-grey-darkest my-10">
-            <div className="w-1/2 h-full rounded-l-sm">
-                <Image  src={product.photo} alt="Room Image" width={200} height={200}/> 
+    return (
+        <div className="bg-white py-5 w-full h-80 rounded-md shadow-md flex items-center justify-between text-pwgreen-800 my-14 lg:flex-col overflow-hidden lg:py-8 z-50 hover:shadow-2xl transition-all">
+            <div className="w-1/2 m-2">
+                <Image
+                    src={product.photo}
+                    alt="Room Image"
+                    width={200}
+                    height={200}
+                />
             </div>
-            
-            <div className="w-full flex flex-col ">
-                <h3 className="font-Rubik text-grey-darkest h-1/4 pt-1 pr-5">
-                    {product.name}
-                </h3>
-                <div className="p-2 pb-0 flex flex-col justify-end items-start h-3/4 pt-1">
+
+            <div className="w-full flex flex-col justify-between items-center h-1/2">
+                <div className="p-2 h-3/4 flex flex-col justify-evenly items-start gap-1">
                     <div>
-                        <span className="text-2xl text-pwpurple-500">
+                        <span className="text-2xl font-semibold text-pwpurple-500 mx-1">
                             ${product.displayPrice}
                         </span>
-                        <h4 className="text-grey-darker">
-                            Tamaño: {product.size}
-                        </h4>
                     </div>
-                    <div className="bg-grey-lighter p-3 flex items-center justify-between transition hover:bg-grey-light">
-                        <Link href="/products/:id">
-                            <a className="text-pwgreen-500  text-md font-semibold">
-                                Ver detalles
-                            </a>
-                        </Link>
-                    </div>
+                    <h3 className="font-Rubik text-slate-500 text-xs px-2">
+                        {product.name}
+                    </h3>
                 </div>
-
+                <div className="p-3 h-1/4 self-end">
+                    <Link href={`/products/${id}`}>
+                        <a className="text-pwgreen-600 text-md font-semibold hover:text-pwgreen-800 transition-colors">
+                            Ver detalles
+                        </a>
+                    </Link>
+                </div>
             </div>
         </div>
     )
 }
 
-export default ProductsScreenCard;
+export default ProductsScreenCard

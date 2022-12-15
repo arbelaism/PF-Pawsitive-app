@@ -2,7 +2,7 @@ import { NextComponentType } from 'next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query'
 import {apply} from 'utils/dbFetching';
-import { Apply, Form } from 'app/types';
+import { ApplyAdAp, Form } from 'app/types';
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import useLocalStorage from 'use-local-storage';
@@ -16,7 +16,7 @@ const AdoptionApply: NextComponentType = () => {
     //==>> MOSTRAR NOTIFICACION DE SUCCESS O FAILURE
 
     const { mutate } = useMutation(apply);
-    const [ids, _setIds] = useLocalStorage<Apply>('ids', {
+    const [ids, _setIds] = useLocalStorage<ApplyAdAp>('ids', {
         petId: '',
         userId: ''
     })
@@ -44,7 +44,7 @@ const AdoptionApply: NextComponentType = () => {
     }
 
     return (
-        <div className="p-8 flex flex-col justify-evenly items-center bg-pwgreen-100 rounded-lg md:flex-row">
+        <div className="h-screen p-8 flex flex-col justify-evenly items-center bg-pwgreen-100 rounded-lg md:flex-row">
             <div className="w-full flex flex-col gap-3 justify-center items-center md:w-3/6">
                 <Image
                     src={IsoGreen}
