@@ -37,7 +37,7 @@ const MyApplyAdoption = () => {
     isSuccess,
   } = useQuery(["apply", id], () => getApplyById(id));
 
-  const mutation = useMutation(({ id }: any) => deleteApply(id), {
+  const mutation = useMutation(( id : any) => deleteApply(id), {
     onSuccess: () => {
       alerts({
         icon: "info",
@@ -45,6 +45,7 @@ const MyApplyAdoption = () => {
         text: "Adopcion eliminada correctamente",
         toast: true,
       });
+      
     },
     onError: () => {
       alerts({

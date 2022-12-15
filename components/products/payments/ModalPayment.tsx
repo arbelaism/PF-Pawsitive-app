@@ -22,8 +22,8 @@ const ModalPayment = ({price}:Props)=>{
 
     return (
       <Elements stripe={stripePromise}>
-        <div>
-          <button onClick={handleOpen} className='font-Rubik text-2xl font-bold py-2 px-4 border border-black rounded-lg hover:bg-pwgreen-500 hover:text-pwgreen-50'>Pagar</button>
+        <div className="flex justify-center">
+          <button onClick={handleOpen} className='dashboardButton'>Pagar</button>
           <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"

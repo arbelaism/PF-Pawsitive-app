@@ -34,21 +34,21 @@ const CartProduct = ({ product, addToCart, removeFromCart }: Props) => {
                     height='100%'
                 />
         </div>
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col ">
           <div>
             <p className="font-">{screen.width < 1024 ? firstName : product.name}</p>
             <button onClick={onClick} id={idResName} className="hidden">{resName}</button>
             <button onClick={onClick} id={idBoton} className="lg:hidden">...</button>
           </div> 
-          <div className="w-auto text-md flex  justify-around items-center flex-row font-bold">
-            <div className="justify-center border border-black flex gap-2 flex-row items-center text-center w-auto rounded-l-xl rounded-r-xl">
-              <button className="w-6 lg:w-10 h-auto bg-transparent text-black py-0"        
+          <div className="w-auto text-md flex  justify-around items-center flex-row font-bold ">
+            <div className="justify-center text-white border border-pwgreen-500 flex gap-2 flex-row items-center text-center w-auto rounded-l-xl rounded-r-xl bg-pwgreen-700">
+              <button className="w-6 lg:w-10 h-auto bg-transparent text-white py-0 hover:bg-pwgreen-400 rounded-l-xl rounded-r-xl ease-in duration-300"        
               onClick={() => removeFromCart(product.id)}
               >
               -
               </button>  
               <p>{product.amount}</p>          
-              <button className="w-6 lg:w-10  h-auto bg-transparent text-black py-0"
+              <button className="w-6 lg:w-10  h-auto bg-transparent text-white py-0 hover:bg-pwgreen-400 rounded-l-xl rounded-r-xl ease-in duration-300"
               disabled={product.stock<=1 && true}    
               onClick={() => addToCart(product)}
               >

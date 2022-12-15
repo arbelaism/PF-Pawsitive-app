@@ -104,7 +104,7 @@ const Cart : NextPage = withPageAuthRequired(() => {
                 <>
                 <div className='w-full p-4 text-center lg:flex'>
                      
-                        <div className='w-full lg:flex lg:flex-row lg:justify-around'>
+                        <div className='w-full lg:flex lg:grid lg:grid-cols-3 lg:gap-3 lg:justify-around'>
                             {cartProducts.map((product: Product) => (
                                 <ProductOnCart
                                     key={product.id}

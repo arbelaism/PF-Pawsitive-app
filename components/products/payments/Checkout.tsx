@@ -44,7 +44,8 @@ const Checkout  = ({price, setOpen}:Props)=>{
     const myStorage =  window.localStorage
     const router = useRouter()
     const queryClient = useQueryClient();
-    const { user, error } = useUser()
+    const { user, error: err, isLoading: load } = useUser();
+    const id = user?.sub as string;
     const { mutate, isLoading } = useMutation(sendPaymentMail, {
       onSuccess: data => {
         alerts({icon: 'info', title: '<strong>Email</strong>', text: 'Email Sent', toast: true})
@@ -70,7 +71,7 @@ const Checkout  = ({price, setOpen}:Props)=>{
       return {quantity: product.amount , productId: product.id}
     })
     
-    const dataT = {amount: price, userId: '1', array: productsT}
+    const dataT = {amount: price, userId: id, array: productsT}
 
 
     let postTransaction = async ()=> {
