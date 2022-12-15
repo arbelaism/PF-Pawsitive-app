@@ -10,7 +10,7 @@ import IsoGreen from 'public/iso-green.svg'
 
 const UserUpdate: NextComponentType = () => {
     interface UserUpdate {};
-
+    const router = useRouter()
     const { user, error: err, isLoading: loading } = useUser();    
     const [media, setMedia] = useState<File[]>([]);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +48,7 @@ const UserUpdate: NextComponentType = () => {
                 console.log(error)
                 })
         reset({})
+        router.push('/dashboard/myprofile/')
         alert('Datos actualizados!')
     }
 
@@ -61,12 +62,11 @@ const UserUpdate: NextComponentType = () => {
                     height={150}
                 />
                 <h2 className="font-Rubik font-bold text-4xl lg:text-6xl">
-                    ¡Adoptar!
+                    ¡Actualiza tus datos!
                 </h2>
                 
                 <p className="text-md mb-2 md:text-xl md:text-center">
-                    Completa todos los datos de éste formulario para poder 
-                    aplicar a adoptar ésta mascota.
+                    Llena solo los campos que quieras actualizar, el resto de tu información seguirá guardada.
                 </p>
             </div>
 
