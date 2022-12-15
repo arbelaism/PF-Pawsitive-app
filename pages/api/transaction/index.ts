@@ -52,7 +52,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
         // POST(CREATE) THE TRANSACTION
 
         case "POST":
-            const { amount, userId, status, quantity } = req.body;            
+            const { amount, userId, status, array } = req.body;            
             /*
             Formato del array
             array=[
@@ -78,7 +78,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         userId,
                         status,
                         quantity: {
-                            create: quantity
+                            create: array
                         }
                     }
                 })
