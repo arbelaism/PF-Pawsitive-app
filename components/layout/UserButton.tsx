@@ -52,11 +52,12 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                     className="text-sm text-pwgreen-800"
                     aria-labelledby="dropdownInformationButton">
                     <li>
-                        <a
-                            href="#"
-                            className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
-                            Perfil
-                        </a>
+                        <Link href={'/dashboard/myprofile/'}>
+                            <a
+                                className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                                Perfil
+                            </a>
+                        </Link>
                     </li>
                     <li>
                         <a
