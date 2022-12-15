@@ -38,7 +38,7 @@ const Checkout = ({ price, setOpen }: Props) => {
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [cardError, setCardError] = useState("");
-  const [transactionId, setTransactionId] = useState("");
+  const [transactionId, setTransactionId] = useState("#");
   const [message, setMessage] = useState("");
   const [products, setProducts] = useLocalStorage<Product[]>(
     "cartProducts",
@@ -48,7 +48,7 @@ const Checkout = ({ price, setOpen }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { user, error: err, isLoading: load } = useUser();
-  const id = user?.sub as string;
+  const idU = user?.sub as string;
   const { mutate, isLoading } = useMutation(sendPaymentMail, {
     onSuccess: (data) => {
       alerts({
@@ -80,20 +80,6 @@ const Checkout = ({ price, setOpen }: Props) => {
   let hour = today.getHours();
   let minutes = today.getMinutes();
 
-  const productsT:any = products.map((product) => {
-    return { quantity:product.amount as number, productId: product.id as string};
-  });
-
-  const dataT = { amount: price, userId: id, array: productsT };
-  let postTransaction = async () => {
-    const { data } = await axios.post("/api/transaction", dataT);
-    const { id } = data;
-    setTransactionId(id);
-  };
-
-  useEffect(() => {
-    postTransaction();
-  }, []);
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,6 +91,16 @@ const Checkout = ({ price, setOpen }: Props) => {
     setLoading(true);
 
     if (!error) {
+
+      const productsT = products.map((product) => {
+        return { quantity: product.amount, productId: product.id };
+      });
+    
+      const dataT = { amount: price, userId: idU, quantity: productsT };
+    
+      const { data } = await axios.post("/api/transaction", dataT);
+      setTransactionId(data.id);
+    
       const { id } = paymentMethod;
       try {
         setCardError(``);
