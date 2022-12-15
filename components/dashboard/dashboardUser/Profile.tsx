@@ -10,13 +10,16 @@ import {getUserById} from 'utils/dbFetching';
 const MyProfile: NextComponentType = () => {
 
     const { user, isLoading: isLoadingU } = useUser();
-
+    let id:string;
+    if(!isLoadingU && typeof user?.sub === 'string'){
+        id = user?.sub;
+    }
     const {
         data: userProfile,
         error,
         isLoading,
         isSuccess,
-      } = useQuery(["userProfile", user?.sub], () => getUserById(user?.sub));
+      } = useQuery(["userProfile", user?.sub], () => getUserById(id));
       let photo: string;
       if(!isLoading){
         console.log(userProfile);
