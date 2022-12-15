@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {NextComponentType} from 'next';
+import Link from 'next/link';
+import { redirectionAlert } from "utils/alerts";
 import useLocalStorage from 'use-local-storage';
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Backdrop from '@mui/material/Backdrop';
@@ -9,24 +10,41 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import styles from 'styles/AdoptionDetails.module.css'
 import Image from 'next/image';
-import {getPetById} from 'utils/dbFetching'
-import { Props } from 'pages/adoptions';
+import {getPetById} from 'utils/dbFetching';
 import { Apply } from 'app/types';
 import { useQuery } from 'react-query';
 import { AiOutlineClose, AiOutlineArrowRight } from 'react-icons/ai';
-import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 type Prop = {
   id: string
 }
 
 const AdoptionDetails = ({id}:Prop)=>{
-  
+
+  const { user, error: errorU, isLoading: isLoadingU } = useUser();
+  const router = useRouter();  
   const [ids, setIds] = useLocalStorage<Apply>("ids", {petId: "", userId:""});
   const [open, setOpen] = useState(false);
   const handleClose = () =>setOpen(false);
 
-  const { user, error: err, isLoading: loading } = useUser();
+  const alertAdoptionForm = async()=>{
+    if(!user){
+      handleClose();
+      redirectionAlert({
+        icon: 'info',
+                title: '<strong>Inicio de sesion requerido</strong>',
+                html: 'Para solicitar una adopción y poder disfrutar de todas nuestras funcionalidades' +
+                ' te invitamos a iniciar sesion o crear una cuenta.',
+                confirmButtonText: 'Iniciar sesion',                
+                confirmButtonAriaLabel:  'Thumbs up, great!',
+                link : '/api/auth/login'
+      })
+    }
+    if(user !== undefined){
+            router.push('/adoptions/apply')
+    }
+  };
   
   const {
     data: pet,
@@ -35,25 +53,23 @@ const AdoptionDetails = ({id}:Prop)=>{
     isSuccess,
   } = useQuery(["pet", id], () => getPetById(id));
 
-
-//De momento se usa un USERID hardcodeado, hasta que se modifique el model correspondiente a los usuarios. Arriba, se ve como se accede
-//user que se necesita.
   const handleOpen = () => {
     
       const idToString: string = id.toString();
       const data = {
         petId: idToString,
-        userId: "2"
+        userId: user?.sub
       };
       setIds(data);
       setOpen(true);
-      
+      console.log(ids)
   }; 
   
 
   return (
     <>
-    <button onClick={handleOpen}>Adopt me!</button>
+    <button onClick={()=>{handleOpen()}      
+      }>Adopt me!</button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -103,16 +119,16 @@ const AdoptionDetails = ({id}:Prop)=>{
 
                     </p>
                       <div className='flex flex-row justify-center items-center'>
-                        <Link href="/adoptions/apply">
+                        {/* <Link href="/adoptions/apply"> */}
                           <div className="cursor-pointer w-1/2 font-Rubik text-lg rounded-lg px-1 py-1 border-2 border-pwpurple-600 bg-pwpurple-600 text-white hover:bg-white hover:text-pwgreen-600 hover:border-pwgreen-600 duration-300 flex flex-row justify-center items-center">
-                            <div>
+                            <button onClick={alertAdoptionForm}>
                               ¡Adóptame!
-                            </div>
+                            </button>
                             <div>
                               <AiOutlineArrowRight className="text-lg pl-1"/>
                             </div>
                           </div>
-                        </Link>
+                        {/* </Link> */}
                       </div>
                   </div>
           </div>

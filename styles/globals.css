@@ -6,6 +6,23 @@
 @tailwind utilities;
 
 @layer components {
+    .serviceSlider .swiper-button-prev,
+    .serviceSlider .swiper-button-next {
+        @apply bg-pwgreen-300 text-white top-[95%] w-[123px] h-[46px] rounded-[50%] z-20;
+    }
+    .serviceSlider .swiper-button-prev {
+        @apply left-[23%] md:left-[35%] lg:left-[40%];
+    }
+    .serviceSlider .swiper-button-next {
+        @apply right-[23%] md:right-[35%] lg:right-[40%];
+    }
+    .serviceSlider .swiper-button-prev:after,
+    .serviceSlider .swiper-button-next:after {
+        @apply text-lg;
+    }
+    .title {
+        @apply font-Rubik text-3xl font-bold text-pwpurple-900 lg:text-5xl xl:text-6xl;
+    }
     .input {
         @apply py-2 
         px-4 
@@ -93,6 +110,7 @@
         hover:bg-pwgreen-900 focus:ring-4 font-medium rounded-lg bg-pwgreen-700;
     }
 }
+
 
 /*************************** BUTTON CART ***************************/
 .cart-button {
@@ -213,5 +231,48 @@
     body {
         color: black;
         background: white;
+    }
+}
+
+.swiper-container {
+    width: 400px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50%;
+    color: #153823 !important;
+    background-color: #ecf8f1 !important;
+    opacity: 0.4;
+    box-shadow: none;
+    transform: translateY(-15px);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    background-color: #3ea76a !important;
+    color: #ecf8f1 !important;
+    opacity: 1;
+}
+
+@media screen and (min-width: 400px) {
+    .swiper-container {
+        width: 400px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .swiper-container {
+        width: 768px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .swiper-container {
+        width: 1024px;
     }
 }

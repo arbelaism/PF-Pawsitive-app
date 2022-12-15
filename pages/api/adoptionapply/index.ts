@@ -30,7 +30,6 @@ export default async function adoptionApply(req: NextApiRequest, res: NextApiRes
                             select:{
                                 name:true,
                                 breed:true,
-                                gender:true,
                                 active:true,
                                 photo:true,
                                 user:{
