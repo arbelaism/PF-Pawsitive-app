@@ -408,6 +408,7 @@ export interface AdoptionPost {
   photo:       string;
   gender:      string;
   description: string;
+  active: boolean;
   createdAt: string;
   apply:       Apply[];
 }
