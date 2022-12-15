@@ -1,9 +1,7 @@
-import styles from 'styles/Filters.module.css'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { IAdoption } from 'app/types'
-import { getAdoptions, getMinAdoptions } from 'utils/dbFetching'
+import { getMinAdoptions } from 'utils/dbFetching'
 import { useQuery } from 'react-query'
-import { AiFillFilter } from 'react-icons/ai'
 import { FaFilter } from 'react-icons/fa'
 
 type Props = {

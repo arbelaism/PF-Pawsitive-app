@@ -9,7 +9,7 @@ const Footer: NextComponentType = () => {
 
     return (
         <>
-            <footer className="w-full font-Rubik text-sm text-pwgreen-50 bg-pwgreen-500 flex flex-col mt-4">
+            <footer className="w-full font-Rubik text-sm text-pwgreen-50 bg-pwgreen-500 flex flex-col">
                 <div className="flex justify-between px-2 py-4 lg:px-4 lg:py-10 xl:mx-14">
                     <div className="flex ml-2 items-center gap-1 w-2/6 text-2xl lg:ml-10">
                         <Link href={'/'}>

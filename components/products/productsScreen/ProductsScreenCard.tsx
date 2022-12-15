@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Product, UserProduct } from 'app/types'
+import { Product } from 'app/types'
 import Link from 'next/link'
 
 type Props = {
@@ -32,7 +32,7 @@ const ProductsScreenCard = ({ id, product }: Props) => {
                     </h3>
                 </div>
                 <div className="p-3 h-1/4 self-end">
-                    <Link href="/products/:id">
+                    <Link href={`/products/${id}`}>
                         <a className="text-pwgreen-600 text-md font-semibold hover:text-pwgreen-800 transition-colors">
                             Ver detalles
                         </a>
