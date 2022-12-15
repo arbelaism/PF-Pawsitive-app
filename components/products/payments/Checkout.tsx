@@ -81,7 +81,7 @@ const Checkout = ({ price, setOpen }: Props) => {
   let minutes = today.getMinutes();
 
   const productsT = products.map((product) => {
-    return { quantity: product.amount, productId: product.id };
+    return { quantity:Number( product.amount )as number, productId: product.id as string};
   });
 
   const dataT = { amount: price, userId: id, array: productsT };
