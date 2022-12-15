@@ -151,7 +151,7 @@ const Checkout = ({ price, setOpen }: Props) => {
 
   return (
     <form onSubmit={handleSubmit} className="h-full font-medium">
-      <div className="w-full h-5/6 lg:h-auto flex flex-col justify-center items-center lg:flex-row rounded-lg bg-pwgreen-400 py-4 px-2">
+      <div className="w-full h-5/6 lg:h-auto flex flex-col justify-center items-center lg:flex-col rounded-lg bg-pwgreen-400 py-4 px-2">
         <div className="w-full lg:w-3/5">
           <h1 className="text-2xl mb-2">Datos de la compra</h1>
           <div className="flex flex-row font-Rubik bg-pwgreen-200 justify-between py-4 px-2">
@@ -200,7 +200,7 @@ const Checkout = ({ price, setOpen }: Props) => {
           </>
         )}
 
-        <button className="font-Rubik bg-pwgreen-200 text-2xl font-bold py-2 mt-4 px-4 border border-black rounded-lg hover:bg-pwgreen-600 hover:text-pwgreen-50">
+        <button className="dashboardButton mx-auto lg:mt-32">
           {loading ? <>Procesando...</> : <>Pagar</>}
         </button>
       </div>
