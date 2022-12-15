@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Product } from "app/types";
@@ -135,7 +134,7 @@ const Products: NextPage = () => {
   return (
     <MainLayout title="Pawsitive - Productos">
       <div className="px-4 py-2 w-full flex justify-between items-center bg-transparent">
-        <h1 className="text-3xl font-Rubik text-pwgreen-700 font-bold py-6 lg:py-8 lg:text-5xl">
+        <h1 className="text-3xl font-Rubik text-pwgreen-800 font-bold py-6 lg:py-8 lg:text-5xl">
           Productos
         </h1>
       </div>
@@ -177,7 +176,7 @@ const Products: NextPage = () => {
             )}
           </div>
         </div>
-        <div className="w-auto fixed flex justify-center items-center left-0 top-[20%] lg:sticky lg:right-5 bg-pwgreen-50">
+        <div className="w-auto fixed flex justify-center items-center left-0 inset-y-0 lg:sticky lg:right-5 bg-pwgreen-100">
           <Filtersproducts setData={setData} setCurrentPage={setCurrentPage} />
         </div>
       </div>

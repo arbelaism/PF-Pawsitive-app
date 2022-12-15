@@ -1,15 +1,13 @@
 import { NextPage } from 'next'
 import { MainLayout } from 'components'
-import AdoptionForm from 'components/adoptions/AdoptionForm';
+import AdoptionForm from 'components/adoptions/AdoptionForm'
 
 const Apply: NextPage = () => {
-    
-
     return (
         <MainLayout title="Pawsitive - Adoptions Apply">
-            <AdoptionForm/>
+            <AdoptionForm />
         </MainLayout>
     )
 }
 
-export default Apply;
+export default Apply

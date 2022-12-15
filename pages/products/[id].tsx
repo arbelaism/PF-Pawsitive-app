@@ -24,13 +24,14 @@ export type Props = {
 const ProductDetail: NextPage = () => {
     //get the idProduct from url
     const router = useRouter()
-    const { id } = router.query
+    const { id }  = router.query
     //Search product in db by id
-    const {
+    let {
         data: product,
         error,
         isLoading,
-        isSuccess
+        isSuccess,
+        refetch
     } = useQuery(['product'], () => getProductById(String(id)))
     //State to add product to shoppingCart
     const [cartProduct, setCartProduct] = useState<Product>(Object)
@@ -107,6 +108,9 @@ const ProductDetail: NextPage = () => {
             }, 2300)
         }
     }
+    useEffect(()=>{        
+        refetch()
+    }, [id])
     useEffect(() => {
         // storing input cartProducts
         if (cartProduct.hasOwnProperty('id')) {

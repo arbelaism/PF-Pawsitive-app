@@ -27,7 +27,53 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                 res.status(404).json({ message: "an error has occurred on the server" })
             }
             break
+        // PUT(UPDATE) THE USER BY ID
 
+        case "PUT":
+            const {
+                firstName,
+                lastName,
+                email,
+                gender,
+                birthday,
+                address,
+                phone,
+                city,
+                province,
+                postCode,
+                photo,
+                role,
+                active
+            } = req.body
+            try {
+                const user = await prisma.user.update({
+                    where: { id: String(id) },
+                    data: {
+                        firstName,
+                        lastName,
+                        email,
+                        gender,
+                        birthday,
+                        address,
+                        phone,
+                        city,
+                        province,
+                        postCode,
+                        photo,
+                        role,
+                        active
+                    }
+                })
+                user ?
+                    res.status(200).json({ message: "Updated" })
+                    :
+                    res.status(400).json({ message: "the user does not exist." })
+
+            } catch (error) {
+                console.log(error)
+                res.status(400).json({ message: "Error" })
+            }
+            break;
 
         // DELETE THE ADOPTIONPOST BY ID -> LOGIC DELETE
 
