@@ -239,7 +239,7 @@ export interface IUserForm extends IUser {
     confirmPassword: string
 }
 
-export interface Apply{
+export interface ApplyAdAp{
   petId: string;
   userId: string | null | undefined
 }
