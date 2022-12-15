@@ -61,7 +61,7 @@ const UserUpdate: NextComponentType = () => {
                     width={150}
                     height={150}
                 />
-                <h2 className="font-Rubik font-bold text-4xl lg:text-6xl">
+                <h2 className="font-Rubik text-center font-bold text-4xl lg:text-6xl">
                     ¡Actualiza tus datos!
                 </h2>
                 
