@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
@@ -6,7 +6,8 @@ import { AiFillAppstore } from 'react-icons/ai'
 import { FaUser, FaPaw } from 'react-icons/fa'
 import { useRouter } from 'next/router'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { useGetUserById } from 'utils/dbFetching'
+import { getUserById } from 'utils/dbFetching'
+import { useQuery } from 'react-query'
 
 const LeftNavbar: any = () => {
     const router = useRouter()
@@ -17,14 +18,18 @@ const LeftNavbar: any = () => {
     if (user && user.sub) {
         id = user.sub
     }
-    const dbUser = useGetUserById(id)
+    const { data: dbUser, isLoading } = useQuery(['user', id], () =>
+        getUserById(id)
+    )
 
-    if (dbUser.data) {
-        if (dbUser.data.role === 'ADMIN') {
-            setIsAdmin(true)
-            return
+    useEffect(() => {
+        if (!isLoading && dbUser) {
+            if (dbUser.role === 'ADMIN') {
+                setIsAdmin(true)
+                return
+            }
         }
-    }
+    }, [dbUser])
 
     return (
         <div className="h-full bg-white p-5 min-w-[15rem] lg:p-8">

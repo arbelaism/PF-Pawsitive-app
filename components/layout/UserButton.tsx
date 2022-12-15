@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { useQuery } from 'react-query'
+import { getUserById } from 'utils/dbFetching'
 
 type Props = {
     userName: string
@@ -10,6 +13,25 @@ type Props = {
 
 const UserButton = ({ userName, userEmail, userPicture }: Props) => {
     const [dropdown, setDropdown] = useState(false)
+    const { user } = useUser()
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    let id: string = ''
+    if (user && user.sub) {
+        id = user.sub
+    }
+    const { data: dbUser, isLoading } = useQuery(['user', id], () =>
+        getUserById(id)
+    )
+
+    useEffect(() => {
+        if (!isLoading && dbUser) {
+            if (dbUser.role === 'ADMIN') {
+                setIsAdmin(true)
+                return
+            }
+        }
+    }, [dbUser])
 
     const showMenu = () => {
         const menu = document.getElementById('dropdown')
@@ -49,6 +71,13 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                 <ul
                     className="text-sm text-pwgreen-800"
                     aria-labelledby="dropdownInformationButton">
+                    <li className={isAdmin ? '' : 'hidden'}>
+                        <Link href={'/dashboard'}>
+                            <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
+                                Dashboard
+                            </a>
+                        </Link>
+                    </li>
                     <li>
                         <Link href={'/profile'}>
                             <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
@@ -57,18 +86,9 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                         </Link>
                     </li>
                     <li>
-
                         <Link href={'/profile/transaction'}>
                             <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
                                 Historial de compras
-                            </a>
-                        </Link>
-                    </li>
-                    <li>
-
-                        <Link href={'/profile/settings'}>
-                            <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
-                                Configuración
                             </a>
                         </Link>
                     </li>
