@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image'
-import pretitleImg from '../../public/img/hero/pretitle-img-green.svg'
+import pretitleImg from '../../public/img/hero/pretitle-img-green.png'
 import Link from 'next/link'
 
 const Hero = () => {
