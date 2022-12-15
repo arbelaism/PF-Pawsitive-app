@@ -1,5 +1,5 @@
 import { DashboardLayout } from 'components/dashboard'
-import Profile from 'components/dashboard/dashboardUser/Profile'
+import Profile from 'components/dashboard/dashboardUser/profile'
 
 const MyProfile = () => {
     return (
