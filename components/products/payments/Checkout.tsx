@@ -80,12 +80,11 @@ const Checkout = ({ price, setOpen }: Props) => {
   let hour = today.getHours();
   let minutes = today.getMinutes();
 
-  const productsT = products.map((product) => {
-    return { quantity: product.amount, productId: product.id };
+  const productsT:any = products.map((product) => {
+    return { quantity:product.amount as number, productId: product.id as string};
   });
 
   const dataT = { amount: price, userId: id, array: productsT };
-
   let postTransaction = async () => {
     const { data } = await axios.post("/api/transaction", dataT);
     const { id } = data;

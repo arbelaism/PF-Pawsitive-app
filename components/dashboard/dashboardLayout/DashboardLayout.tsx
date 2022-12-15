@@ -22,7 +22,7 @@ const MainLayout = ({ children, title }: DashBoardLayoutProps) => {
                         <LeftNavbar />
                     </div>
                 </div>
-                <div className="w-full flex flex-col bg-pwgreen-100 overflow-y-scroll lg:w-4/5">
+                <div className="w-full flex flex-col bg-pwgreen-100 overflow-y-scroll z-30 lg:w-4/5">
                     <Header title={title} />
                     <main className="w-full flex justify-center items-center">
                         {children}
