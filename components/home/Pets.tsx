@@ -2,21 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 import Pet1Img from 'public/img/pets/1.png'
-import Pet2Img from 'public/img/pets/2.png'
-import Pet3Img from 'public/img/pets/3.png'
-import Pet4Img from 'public/img/pets/4.png'
-import Pet5Img from 'public/img/pets/5.png'
-import Pet6Img from 'public/img/pets/6.png'
-import Pet7Img from 'public/img/pets/7.png'
-import Pet8Img from 'public/img/pets/8.png'
-import Pet9Img from 'public/img/pets/9.png'
-import Pet10Img from 'public/img/pets/10.png'
-import Pet11Img from 'public/img/pets/11.png'
-import Pet12Img from 'public/img/pets/12.png'
-import Badge from 'public/img/pets/badge.svg'
 import { useQuery } from 'react-query'
 import { getAdoptions } from 'utils/dbFetching'
-import { IAdoption } from 'app/types'
 import Link from 'next/link'
 
 const pets = [
@@ -25,60 +12,6 @@ const pets = [
         category: 'gato',
         name: 'kyba',
         photo: Pet1Img
-    },
-    {
-        id: 2,
-        category: 'pajaro',
-        name: 'rotty',
-        image: Pet2Img
-    },
-    {
-        id: 4,
-        category: 'gato',
-        name: 'kirra',
-        image: Pet4Img
-    },
-    {
-        id: 5,
-        category: 'hamster',
-        name: 'dinno',
-        image: Pet5Img
-    },
-    {
-        id: 6,
-        category: 'pajaro',
-        name: 'paco',
-        image: Pet6Img
-    },
-    {
-        id: 7,
-        category: 'pajaro',
-        name: 'pavo',
-        image: Pet7Img
-    },
-    {
-        id: 8,
-        category: 'gato',
-        name: 'ynna',
-        image: Pet8Img
-    },
-    {
-        id: 10,
-        category: 'pajaro',
-        name: 'dimmi',
-        image: Pet10Img
-    },
-    {
-        id: 11,
-        category: 'perro',
-        name: 'jasper',
-        image: Pet11Img
-    },
-    {
-        id: 12,
-        category: 'hamster',
-        name: 'syu',
-        image: Pet12Img
     }
 ]
 
@@ -104,15 +37,9 @@ const Pets = () => {
     }
 
     return (
-        <section className="bg-pets bg-center py-12 overflow-hidden relative">
+        <section className="bg-pets bg-center py-12 overflow-hidden relative lg:py-16 xl:py-20">
             <div className="flex flex-col lg:flex-row">
                 <div className="hidden xl:flex xl:w-[30%] xl:pl-[160px]">
-                    {/* <Image  */}
-                    {/* src={Badge} */}
-                    {/* width={230} */}
-                    {/* height={227} */}
-                    {/* alt='' */}
-                    {/* /> */}
                     <h1 className="title">Algunas de nuestras mascotas</h1>
                 </div>
                 {isLoading ? (
@@ -167,9 +94,9 @@ const Pets = () => {
                     </div>
                 )}
             </div>
-            <div className="text-end absolute right-2 bottom-2">
+            <div className="text-end absolute right-4 bottom-4">
                 <Link href="/adoptions">
-                    <button className="font-Rubik uppercase text-base font-bold px-3 py-2 text-white hover:text-pwgreen-900 duration-300 lg:text-xl lg:py-4 lg:px-5">
+                    <button className="font-Rubik uppercase text-base font-bold px-3 text-white hover:text-pwgreen-900 duration-300 lg:text-xl">
                         Ver más
                     </button>
                 </Link>

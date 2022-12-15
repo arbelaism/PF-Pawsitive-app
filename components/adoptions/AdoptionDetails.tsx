@@ -10,7 +10,7 @@ import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 import styles from 'styles/AdoptionDetails.module.css'
 import Image from 'next/image'
-import { getPetById } from 'utils/dbFetching'
+import { getPetById, getUserById } from 'utils/dbFetching'
 import { ApplyAdAp } from 'app/types'
 import { useQuery } from 'react-query'
 import { AiOutlineClose, AiOutlineArrowRight } from 'react-icons/ai'
@@ -30,6 +30,10 @@ const AdoptionDetails = ({ id }: Prop) => {
     const [open, setOpen] = useState(false)
     const handleClose = () => setOpen(false)
 
+    const { data: dbUser, isLoading: uIsLoading } = useQuery(['user', id], () =>
+        getUserById(id)
+    )
+
     const alertAdoptionForm = async () => {
         if (!user) {
             handleClose()
@@ -43,6 +47,20 @@ const AdoptionDetails = ({ id }: Prop) => {
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 link: '/api/auth/login'
             })
+        }
+        if (!uIsLoading && dbUser) {
+            if (!dbUser.email_verified) handleClose()
+            redirectionAlert({
+                icon: 'info',
+                title: '<strong>Se requiere que verifiques tu email antes de aplicar a una adopción!</strong>',
+                html:
+                    'Para solicitar una adopción y poder disfrutar de todas nuestras funcionalidades' +
+                    ' te invitamos a verificar tu email por motivos de seguridad.',
+                confirmButtonText: 'Ir a mi perfil',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                link: '/dashboard/myProfile'
+            })
+            return
         }
         if (user !== undefined) {
             router.push('/adoptions/apply')

@@ -24,18 +24,18 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
 
         
 <div key={id} >
-    <div className="flex flex-col justify-between w-60 items-center bg-white shadow-md rounded-xl my-2 md:my-4 hover:shadow-xl transition-all h-full">
-        <div className='h-1/8'>
-            <Image className="rounded-t-lg p-8" src={product.photo} alt="product image" width={120} height={120}/>
+    <div className="flex flex-col justify-center w-60 items-center bg-white shadow-md rounded-xl my-2 md:my-4 hover:shadow-xl transition-all h-full">
+        <div className='py-4 flex justify-center items-center'>
+            <Image className="rounded-t-lg" src={product.photo} alt="product image" width={120} height={120}/>
         </div>          
-        <div className="flex flex-col justify-between items-center h-7/8 z-1000">
+        <div className="flex flex-col justify-between gap-2 items-center h-7/8">
             <div className='px-5'>
-                <h3 className="text-gray-900 font-Rubik">
+                <h3 className="text-pwgreen-900 font-Rubik">
                     {product.name}
                 </h3>
             </div>
             
-            <div className="flex items-center mb-2.5">
+            <div className="flex items-center self-start ml-4">
                 {stars.map((star, idx)=>{
                     if(star===true){
                         return <AiFillStar key={idx}/>
@@ -45,9 +45,9 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                     } 
                 })}
             </div>
-            <div className='flex flex-row justify-center items-center mb-1 mt-1 font-Rubik'>
+            <div className='flex flex-row justify-center gap-1 items-center mb-1 mt-1 font-Rubik'>
                 <div className='px-2.5'>
-                    <span className="text-lg text-pwpurple-700">
+                    <span className="text-xl font-semibold text-pwpurple-700">
                         ${product.displayPrice}
                     </span>
                 </div>
@@ -69,16 +69,12 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                                 <FaBox />
                             </span>
                       </button>
-
                     </div>
                 </div>
-
             </div>
             <div className='pb-5'>
-
                 <Link href={"/products/"+product.id}>
-
-                    <a className="text-pwgreen-500  text-md font-semibold">
+                    <a className="text-pwgreen-500 text-md font-semibold">
                         Ver detalles
                     </a>
                 </Link>
