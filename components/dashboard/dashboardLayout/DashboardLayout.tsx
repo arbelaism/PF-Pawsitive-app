@@ -18,7 +18,7 @@ const MainLayout = ({ children, title }: DashBoardLayoutProps) => {
                 <div className="relative transition-all lg:overflow-y-scroll lg:w-1/5">
                     <div
                         id="leftNav"
-                        className="absolute shadow-2xl -left-60 top-12 inset-y-0 transition-all z-50 lg:shadow-none lg:static">
+                        className="absolute shadow-2xl -left-60 top-12 inset-y-0 transition-all z-30 lg:shadow-none lg:static">
                         <LeftNavbar />
                     </div>
                 </div>
