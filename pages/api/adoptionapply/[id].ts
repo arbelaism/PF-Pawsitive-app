@@ -6,13 +6,36 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
     const id = req.query.id as string
     switch (method) {
 
+        case "GET":
+            try {
+                const review = await prisma.apply.findUnique({
+                    where: {
+                        userId: id as string
+                    },
+                    include: {
+                        adoptionPost: true,
+                        user: true
+                    }
+                })
+                review ?
+                    res.status(200).json(review)
+                    :
+                    res.status(404).json({ message: `cant found the user with the id:${id} or not exist.` })
+
+            } catch (error) {
+                console.log(error)
+                res.status(404).json({ message: "an error has occurred on the server" })
+            }
+            break
+
+
         // DELETE THE ADOPTIONPOST BY ID -> LOGIC DELETE
 
         case "DELETE":
             try {
                 const post = await prisma.apply.delete({
                     where: { id: String(id) },
-                                });
+                });
                 post
                     ? res.status(200).json({ message: "Apply deleted" })
                     : res.status(400).json({

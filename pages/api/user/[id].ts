@@ -15,7 +15,41 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         id: String(id),
                     },
                     include: {
-                        adoptionPost: true,
+                        adoptionPost: {
+                            select:{
+                                id:true,
+                                createdAt:true,
+                                active:true,
+                                name:true,
+                                size:true,
+                                age:true,
+                                breed:true,
+                                photo:true,
+                                gender:true,
+                                description:true,
+                                apply:{
+                                    select:{
+                                        createdAt:true,
+                                        employee:true,
+                                        garden:true,
+                                        past:true,
+                                        reason:true,
+                                        residence:true,
+                                        user:{
+                                            select:{
+                                                firstName:true,
+                                                lastName:true,
+                                                email:true,
+                                                phone:true,
+                                                city:true,
+                                                province:true,
+                                                country:true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
                         businessPost: true,
                         transaction: true,
                         review: true,

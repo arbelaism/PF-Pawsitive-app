@@ -57,6 +57,7 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                         </Link>
                     </li>
                     <li>
+
                         <Link href={'/profile/transaction'}>
                             <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
                                 Historial de compras
@@ -64,6 +65,7 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                         </Link>
                     </li>
                     <li>
+
                         <Link href={'/profile/settings'}>
                             <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
                                 Configuración

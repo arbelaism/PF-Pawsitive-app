@@ -15,6 +15,30 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         where: {
                             id: String(id),
                         },
+                        include:{
+                            apply:{
+                                select:{
+                                    createdAt:true,
+                                    reason:true,
+                                    past:true,
+                                    residence:true,
+                                    employee:true,
+                                    garden:true,
+                                    user:{
+                                        select:{
+                                            lastName:true,
+                                            firstName:true,
+                                            email:true,
+                                            phone:true,
+                                            address:true,
+                                            city:true,
+                                            province:true,
+                                            photo:true
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     });
                     if (post) res.status(200).json(post);
                     else
@@ -45,7 +69,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             }
             break;
         // DELETE THE ADOPTIONPOST BY ID -> LOGIC DELETE
-
+    
         case "DELETE":
             try {
                 const post = await prisma.adoptionPost.update({

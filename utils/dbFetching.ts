@@ -158,6 +158,10 @@ export const putUsers = async (id: string, data: Object) => {
   }
   return response;
 };
+
+
+
+
 export const putAdoption = async (id: string, data: Object) => {
   console.log('bd', id, data)
 
@@ -267,6 +271,14 @@ export const deleteApply= async (id: string, data: Object) => {
   }
   return response;
 };
+export const getApplyById = async (id: string) => {
+
+  const response = await axios.get(`/api/adoptionapply/${id}`);
+  if (!response) {
+    throw new Error("Data not found");
+  }
+  return response;
+}
 
 //
 
@@ -296,4 +308,13 @@ export const apply = async (data: Form) => {
     .catch(error => console.log(error))
 
   return newApply;
+};
+
+export const getTransactionsByUserId = async (id: string) => {
+  const response = await axios.get(
+    `/api/transaction/${id}`
+  );
+  const user = await response.data;
+  if (!user) throw new Error("Data not found");
+  return user;
 };
