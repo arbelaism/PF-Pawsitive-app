@@ -1,6 +1,6 @@
 import React from 'react'
 import { DashboardLayout } from 'components/dashboard'
-import UserUpdate from 'components/dashboard/dashboardUser/updateUser'
+import UserUpdate from 'components/dashboard/dashboardUser/UpdateUser'
 
 const UpdateUser = () => {
     return (
