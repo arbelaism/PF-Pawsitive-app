@@ -79,7 +79,7 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                         </Link>
                     </li>
                     <li>
-                        <Link href={'/profile'}>
+                        <Link href={'/dashboard/myProfile'}>
                             <a className="block py-3 px-4 hover:bg-pwgreen-600 hover:text-pwgreen-50 transition-colors">
                                 Perfil
                             </a>

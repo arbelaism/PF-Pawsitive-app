@@ -1,35 +1,8 @@
-.container{
-    transform: translate(100%, 10%);
+.container {
+    transform: translateY(0%);
+    margin: auto;
     width: 380px;
     height: 490px;
     border-radius: 10px;
     box-shadow: 24px;
- 
-  }
-  @media (max-width: 1024px) {
-    .container {
-      transform: translate(30%, 15%);
-      width: 380px;
-      height: 490px;
-      border-radius: 10px;
-      box-shadow: 24px;
-    }
-  }
-  @media (max-width: 750px) {
-    .container {
-      transform: translate(30%, 15%);
-      width: 380px;
-      height: 490px;
-      border-radius: 10px;
-      box-shadow: 24px;
-    }
-  }
-  @media (max-width: 450px) {
-    .container {
-      transform: translate(3%, 5%);
-      width: 380px;
-      height: 490px;
-      border-radius: 10px;
-      box-shadow: 24px;
-    }
-  }
+}

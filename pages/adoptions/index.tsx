@@ -91,7 +91,7 @@ const Adoptions: NextPage = () => {
     return (
         <MainLayout title="Pawsitive - Adopciones">
             <div className="w-full flex justify-between items-center px-4">
-                <h1 className="text-3xl text-pwgreen-700 font-Rubik font-bold py-6 lg:py-8 lg:text-5xl">
+                <h1 className="text-3xl text-pwgreen-800 font-Rubik font-bold py-6 lg:py-8 lg:text-5xl">
                     Adopciones
                 </h1>
                 <Link href="/adoptions/post">
