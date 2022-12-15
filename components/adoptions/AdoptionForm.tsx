@@ -8,6 +8,8 @@ import { AdoptFormInput } from 'app/types'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
+import { alerts } from 'utils/alerts'
+import router from 'next/router'
 
 const AdoptionForm: NextComponentType = () => {
     const {
@@ -30,7 +32,18 @@ const AdoptionForm: NextComponentType = () => {
 
     const [media, setMedia] = useState<File[]>([])
 
-    const { mutate } = useMutation(createPost)
+    const { mutate } = useMutation(createPost, {
+        onSuccess: () => {
+            alerts({
+                icon: 'success',
+                title: 'Felicidades.',
+                text: 'Tu mascota se creó correctamente. Podés ver más detalles del progreso en tu perfil de usuario.',
+                toast: true
+            })
+
+            router.push('/adoptions')
+        }
+    })
 
     const { user, error: errorU, isLoading: isLoadingU } = useUser()
 
@@ -54,8 +67,6 @@ const AdoptionForm: NextComponentType = () => {
             userId: '1'
         }
         mutate(data)
-        console.log(data)
-        alert('mascota cargada con exito!')
         reset({
             name: '',
             size: '',
@@ -121,7 +132,7 @@ const AdoptionForm: NextComponentType = () => {
                         <select
                             // className="input"
                             placeholder="Tamaño..."
-                            className='input'
+                            className="input"
                             {...register('size', {
                                 required: true
                             })}>
@@ -143,7 +154,7 @@ const AdoptionForm: NextComponentType = () => {
                                 ¿Qué edad tiene la mascota?
                             </label>
                         </div>
-                        <div className='flex justify-between items-center gap-4'>
+                        <div className="flex justify-between items-center gap-4">
                             <input
                                 className="input"
                                 placeholder="Edad..."
@@ -221,7 +232,7 @@ const AdoptionForm: NextComponentType = () => {
                             className="input"
                             {...register('description', {
                                 required: true,
-                                minLength: 100,
+                                minLength: 20,
                                 pattern: /[a-zA-Z\s:]/
                             })}
                         />
@@ -232,7 +243,7 @@ const AdoptionForm: NextComponentType = () => {
                         ) : null}
                         {errors.description?.type === 'minLength' ? (
                             <span className="text-red-500 text-xs">
-                                Debes agregar una descripción de al menos 100
+                                Debes agregar una descripción de al menos 20
                                 caracteres.
                             </span>
                         ) : null}
@@ -254,7 +265,7 @@ const AdoptionForm: NextComponentType = () => {
                     <button
                         type="submit"
                         className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-50 font-bold uppercase font-Rubik hover:bg-pwgreen-800 transition-all">
-                        SOLICITAR ADOPCIÓN
+                        CREAR ADOPCIÓN
                     </button>
                 </form>
             </div>

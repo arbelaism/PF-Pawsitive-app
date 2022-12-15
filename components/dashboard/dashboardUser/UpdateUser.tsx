@@ -1,55 +1,61 @@
-import { NextComponentType } from 'next';
-import React, { useState } from "react";
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { mediaUploader } from "utils/mediaUploader";
-import { useRouter } from "next/router"
-import axios from 'axios';
+import { NextComponentType } from 'next'
+import React, { useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { mediaUploader } from 'utils/mediaUploader'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
+import { alerts } from 'utils/alerts'
 
 const UserUpdate: NextComponentType = () => {
-    interface UserUpdate {};
+    interface UserUpdate {}
     const router = useRouter()
-    const { user, error: err, isLoading: loading } = useUser();    
-    const [media, setMedia] = useState<File[]>([]);
+    const { user, error: err, isLoading: loading } = useUser()
+    const [media, setMedia] = useState<File[]>([])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        const target = e.target as HTMLInputElement;
-        const files = [...Object.values(target.files!)];
-        setMedia([...files]);
-      };
+        e.preventDefault()
+        const target = e.target as HTMLInputElement
+        const files = [...Object.values(target.files!)]
+        setMedia([...files])
+    }
 
     const {
         register,
         reset,
         handleSubmit,
         formState: { errors }
-    } = useForm({});
- 
-    const onSubmit: SubmitHandler<UserUpdate> = async(data)=> {
+    } = useForm({})
+
+    const onSubmit: SubmitHandler<UserUpdate> = async data => {
         let urlPhoto: any = []
         if (media.length > 0) {
-            urlPhoto = await mediaUploader(media);
+            urlPhoto = await mediaUploader(media)
         }
-        if(urlPhoto !== null || urlPhoto !== undefined){
-            data = {...data,
-                photo: urlPhoto ? urlPhoto[0] : null
-            };
+        if (urlPhoto !== null || urlPhoto !== undefined) {
+            data = { ...data, photo: urlPhoto ? urlPhoto[0] : null }
         }
-        if(urlPhoto == null || urlPhoto == undefined){
-            data = {...data}
+        if (urlPhoto == null || urlPhoto == undefined) {
+            data = { ...data }
         }
 
-        axios.put(`/api/user/${user?.sub}`, data)
+        axios
+            .put(`/api/user/${user?.sub}`, data)
             .then(response => {
-                 console.log("Update SUCCESS!")
-            }).catch(error => {
+                console.log('Update SUCCESS!')
+            })
+            .catch(error => {
                 console.log(error)
-                })
+            })
         reset({})
-        router.push('/dashboard/myprofile/')
-        alert('Datos actualizados!')
+        alerts({
+            icon: 'success',
+            title: 'Perfil actualizado',
+            text: 'Tu perfil fue actualizado correctamente.',
+            toast: true
+        })
+        router.push('/dashboard/myProfile/')
     }
 
     return (
@@ -64,16 +70,16 @@ const UserUpdate: NextComponentType = () => {
                 <h2 className="font-Rubik text-center font-bold text-4xl lg:text-6xl">
                     ¡Actualiza tus datos!
                 </h2>
-                
+
                 <p className="text-md mb-2 md:text-xl md:text-center">
-                    Llena solo los campos que quieras actualizar, el resto de tu información seguirá guardada.
+                    Llena solo los campos que quieras actualizar, el resto de tu
+                    información seguirá guardada.
                 </p>
             </div>
 
-            <form className="w-full grid grid-cols-1 gap-2 items-center justify-center md:w-2/6 lg:gap-3"
-                onSubmit={handleSubmit(onSubmit)}
-            >
-
+            <form
+                className="w-full grid grid-cols-1 gap-2 items-center justify-center md:w-2/6 lg:gap-3"
+                onSubmit={handleSubmit(onSubmit)}>
                 {/* NOMBRE */}
                 <div className="flex flex-col gap-1 items-start justify-center">
                     <label htmlFor="firstName" className="label">
@@ -87,22 +93,16 @@ const UserUpdate: NextComponentType = () => {
                             pattern: /[a-zA-Z\s:]/
                         })}
                     />
-                    {
-                        errors.firstName?.type === 'maxLength' ?
+                    {errors.firstName?.type === 'maxLength' ? (
                         <span className="text-red-500 text-xs">
                             El nombre no puede tener más de 20 caracteres.
                         </span>
-                        :
-                        null                        
-                    }
-                    {
-                        errors.firstName?.type === 'pattern' ?
+                    ) : null}
+                    {errors.firstName?.type === 'pattern' ? (
                         <span className="text-red-500 text-xs">
                             El nombre no puede contener caracteres especiales.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
 
                 {/* APELLIDO */}
@@ -118,22 +118,16 @@ const UserUpdate: NextComponentType = () => {
                             pattern: /[a-zA-Z\s:]/
                         })}
                     />
-                    {
-                        errors.lastName?.type === 'maxLength' ?
+                    {errors.lastName?.type === 'maxLength' ? (
                         <span className="text-red-500 text-xs">
                             El apellido no puede tener más de 20 caracteres.
                         </span>
-                        :
-                        null                        
-                    }
-                    {
-                        errors.lastName?.type === 'pattern' ?
+                    ) : null}
+                    {errors.lastName?.type === 'pattern' ? (
                         <span className="text-red-500 text-xs">
                             El apellido no puede contener caracteres especiales.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
 
                 {/* EMAIL */}
@@ -145,17 +139,15 @@ const UserUpdate: NextComponentType = () => {
                         placeholder="Email..."
                         className="input"
                         {...register('email', {
-                               pattern: /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
+                            pattern:
+                                /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
                         })}
                     />
-                    {
-                        errors.email?.type === 'pattern' ?
+                    {errors.email?.type === 'pattern' ? (
                         <span className="text-red-500 text-xs">
                             El correo electrónico ingresado no es válido.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
 
                 {/* GENERO */}
@@ -163,16 +155,14 @@ const UserUpdate: NextComponentType = () => {
                     <label htmlFor="gender" className="label">
                         Género:
                     </label>
-                    <select
-                        className="input"
-                        {...register('gender')}
-                    >
-                        <option value="" >Género...</option>
+                    <select className="input" {...register('gender')}>
+                        <option value="">Género...</option>
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
-                        <option value="Prefiero no decir">Prefiero no decir</option>
-
-                    </select>                  
+                        <option value="Prefiero no decir">
+                            Prefiero no decir
+                        </option>
+                    </select>
                 </div>
 
                 <div className="flex flex-col gap-1 items-start justify-center">
@@ -181,7 +171,7 @@ const UserUpdate: NextComponentType = () => {
                     </label>
                     <input
                         placeholder="Fecha de nacimiento..."
-                        type='date'
+                        type="date"
                         className="input"
                         {...register('birthday')}
                     />
@@ -201,22 +191,16 @@ const UserUpdate: NextComponentType = () => {
                             pattern: /^[0-9]+$/
                         })}
                     />
-                    {
-                        errors.phone?.type === 'maxLength' ?
+                    {errors.phone?.type === 'maxLength' ? (
                         <span className="text-red-500 text-xs">
                             El teléfono debe tener máximo 15 caracteres.
                         </span>
-                        :
-                        null                        
-                    }
-                    {
-                        errors.phone?.type === 'pattern' ?
+                    ) : null}
+                    {errors.phone?.type === 'pattern' ? (
                         <span className="text-red-500 text-xs">
                             Ingresa solo datos numéricos.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
                 {/* DIRECCION */}
                 <div className="flex flex-col gap-1 items-start justify-center">
@@ -227,17 +211,14 @@ const UserUpdate: NextComponentType = () => {
                         placeholder="Dirección..."
                         className="input"
                         {...register('address', {
-                            maxLength: 100,
+                            maxLength: 100
                         })}
                     />
-                    {
-                        errors.address?.type === 'maxLength' ?
+                    {errors.address?.type === 'maxLength' ? (
                         <span className="text-red-500 text-xs">
                             Danos una descripción más corta de tu dirección.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
 
                 {/* CIUDAD */}
@@ -249,17 +230,15 @@ const UserUpdate: NextComponentType = () => {
                         placeholder="Ciudad..."
                         className="input"
                         {...register('city', {
-                            maxLength: 20,
+                            maxLength: 20
                         })}
                     />
-                    {
-                        errors.city?.type === 'maxLength' ?
+                    {errors.city?.type === 'maxLength' ? (
                         <span className="text-red-500 text-xs">
-                            El nombre de la ciudad no puede ser mayor a 20 caracteres.
+                            El nombre de la ciudad no puede ser mayor a 20
+                            caracteres.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
 
                 {/* PROVINCE */}
@@ -271,17 +250,15 @@ const UserUpdate: NextComponentType = () => {
                         placeholder="Provincia..."
                         className="input"
                         {...register('province', {
-                            maxLength: 20,
+                            maxLength: 20
                         })}
                     />
-                    {
-                        errors.province?.type === 'maxLength' ?
+                    {errors.province?.type === 'maxLength' ? (
                         <span className="text-red-500 text-xs">
-                            El nombre de la provincia no puede ser mayor a 20 caracteres.
+                            El nombre de la provincia no puede ser mayor a 20
+                            caracteres.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
 
                 {/* CODIGO POSTAL */}
@@ -293,39 +270,36 @@ const UserUpdate: NextComponentType = () => {
                         placeholder="Código postal..."
                         className="input"
                         {...register('postCode', {
-                            maxLength: 10,
+                            maxLength: 10
                         })}
                     />
-                    {
-                        errors.postCode?.type === 'maxLength' ?
+                    {errors.postCode?.type === 'maxLength' ? (
                         <span className="text-red-500 text-xs">
                             El código postal no puede ser mayor a 10 caracteres.
                         </span>
-                        :
-                        null                        
-                    }
+                    ) : null}
                 </div>
 
                 {/* FOTO */}
                 <div className="flex flex-col gap-1 items-start justify-center">
-                    <label className="label">
-                        Foto:
-                    </label>
+                    <label className="label">Foto:</label>
                     <input
-                        onChange={(e) => handleChange(e)}
+                        onChange={e => handleChange(e)}
                         className="input"
                         id="photo"
                         type="file"
                         multiple
                         accept="image/*"
                     />
-                </div> 
-                
-                <button type='submit' className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-900 font-bold uppercase font-Rubik">
+                </div>
+
+                <button
+                    type="submit"
+                    className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-900 font-bold uppercase font-Rubik">
                     ACTUALIZAR DATOS
                 </button>
             </form>
         </div>
     )
 }
-export default UserUpdate;
+export default UserUpdate

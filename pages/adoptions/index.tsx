@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { IAdoption } from 'app/types'
 import { MainLayout, AdoptionCard, Filters } from 'components'
 import { useQuery } from 'react-query'
-import { getAdoptions } from 'utils/dbFetching'
+import { getAdoptions, getUserById } from 'utils/dbFetching'
 import { redirectionAlert } from 'utils/alerts'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import NotFound from 'public/mong03b.gif'
@@ -30,6 +30,19 @@ const Adoptions: NextPage = () => {
     //hooks para mostrar alerta o redireccionar
     const { user, error: errorU, isLoading: isLoadingU } = useUser()
     const router = useRouter()
+
+    const [open, setOpen] = useState(false)
+    const handleClose = () => setOpen(false)
+
+    let id: string = ''
+    if (!isLoadingU && user && user.sub) {
+        id = user.sub
+    }
+
+    const { data: dbUser, isLoading: uIsLoading } = useQuery(['user', id], () =>
+        getUserById(id)
+    )
+
     const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' })
     const isLaptop = useMediaQuery({ query: '(max-width: 1024px)' })
@@ -58,6 +71,22 @@ const Adoptions: NextPage = () => {
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 link: '/api/auth/login'
             })
+        }
+        if (!isLoadingU && dbUser) {
+            if (!dbUser.email_verified) {
+                handleClose()
+                redirectionAlert({
+                    icon: 'info',
+                    title: '<strong>Se requiere que verifiques tu email antes de aplicar a una adopción!</strong>',
+                    html:
+                        'Para solicitar una adopción y poder disfrutar de todas nuestras funcionalidades' +
+                        ' te invitamos a verificar tu email por motivos de seguridad.',
+                    confirmButtonText: 'Ir a mi perfil',
+                    confirmButtonAriaLabel: 'Thumbs up, great!',
+                    link: '/dashboard/myProfile'
+                })
+                return
+            }
         } else {
             router.push('/adoptions/post')
         }

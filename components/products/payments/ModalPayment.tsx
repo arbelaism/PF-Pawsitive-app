@@ -58,18 +58,21 @@ const ModalPayment = ({ price }: Props) => {
             return
         }
         if (!uIsLoading && dbUser) {
-            if (!dbUser.email_verified) handleClose()
-            redirectionAlert({
-                icon: 'info',
-                title: '<strong>Se requiere que verifiques tu email antes de aplicar a una adopción!</strong>',
-                html:
-                    'Para solicitar una adopción y poder disfrutar de todas nuestras funcionalidades' +
-                    ' te invitamos a verificar tu email por motivos de seguridad.',
-                confirmButtonText: 'Ir a mi perfil',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                link: '/dashboard/myProfile'
-            })
-            return
+            if (dbUser.email_verified === false) {
+                handleClose()
+
+                redirectionAlert({
+                    icon: 'info',
+                    title: '<strong>Se requiere que verifiques tu email antes de poder comprar un producto!</strong>',
+                    html:
+                        'Para poder comprar en nuestra página y poder disfrutar de todas nuestras funcionalidades' +
+                        ' te invitamos a verificar tu email por motivos de seguridad.',
+                    confirmButtonText: 'Ir a mi perfil',
+                    confirmButtonAriaLabel: 'Thumbs up, great!',
+                    link: '/dashboard/myProfile'
+                })
+                return
+            }
         }
 
         handleOpen()

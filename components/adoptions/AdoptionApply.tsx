@@ -6,6 +6,8 @@ import { ApplyAdAp, Form } from 'app/types'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import useLocalStorage from 'use-local-storage'
+import { alerts } from 'utils/alerts'
+import { useRouter } from 'next/router'
 
 const AdoptionApply: NextComponentType = () => {
     //TODO:
@@ -13,8 +15,21 @@ const AdoptionApply: NextComponentType = () => {
     //==>> ENVIAR MAIL INTERNO Y AL CLIENTE UNA VEZ HECHO EL SUBMIT.
     //==>> EVUALUAR QUE NO SE PUEDA HACER MAS DE UNA APLICACION A ADOPCION
     //==>> MOSTRAR NOTIFICACION DE SUCCESS O FAILURE
+    //
+    const router = useRouter()
 
-    const { mutate } = useMutation(apply)
+    const { mutate } = useMutation(apply, {
+        onSuccess: () => {
+            alerts({
+                icon: 'success',
+                title: 'Felicidades.',
+                text: 'Tu solicitud se envió correctamente. Podés ver más detalles del progreso en tu perfil de usuario.',
+                toast: true
+            })
+
+            router.push("/adoptions")
+        }
+    })
     const [ids, _setIds] = useLocalStorage<ApplyAdAp>('ids', {
         petId: '',
         userId: ''
@@ -39,8 +54,6 @@ const AdoptionApply: NextComponentType = () => {
     const onSubmit: SubmitHandler<Form> = async data => {
         data = { ...data }
         mutate(data)
-        console.log(data)
-        alert('TODO')
     }
 
     return (
@@ -72,7 +85,7 @@ const AdoptionApply: NextComponentType = () => {
                         className="input"
                         {...register('reason', {
                             required: true,
-                            minLength: 50,
+                            minLength: 20,
                             pattern: /[a-zA-Z\s:]/
                         })}
                     />
@@ -83,7 +96,7 @@ const AdoptionApply: NextComponentType = () => {
                     )) ||
                         (errors.reason?.type === 'minLength' && (
                             <span className="text-red-500 text-xs">
-                                Detalla con al menos 50 caracteres porqué
+                                Detalla con al menos 20 caracteres porqué
                                 quieres adoptar esta mascota.
                             </span>
                         ))}
