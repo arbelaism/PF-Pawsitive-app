@@ -38,7 +38,7 @@ const team = [
         id: 4,
         name: 'Cristian Posada',
         description:
-            'Desarrollador full stack, con experiencia en diseño de videojuegos en unity. Y conocimientos en campañas de marketing apolladas en videojuegos.',
+            'Desarrollador full stack, con experiencia en diseño de videojuegos en unity. Y conocimientos en campañas de marketing apoyadas en videojuegos.',
         image: '',
         linkedin: '#',
         github: 'https://www.github.com/Cyacevedop'
