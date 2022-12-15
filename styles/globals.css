@@ -6,7 +6,6 @@
 @tailwind utilities;
 
 @layer components {
-    
     .title {
         @apply font-Rubik text-3xl font-bold text-pwpurple-900 lg:text-5xl xl:text-6xl;
     }
@@ -98,6 +97,27 @@
     }
 }
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #308253 #ecf8f1;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ecf8f1;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #308253;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
 
 /*************************** BUTTON CART ***************************/
 .cart-button {

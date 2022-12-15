@@ -93,7 +93,7 @@ const Cart : NextPage = withPageAuthRequired(() => {
         <MainLayout title="Pawsitive - Carrito">
             <div className='flex items-center flex-col h-full p-auto mt-8 rounded-xl'>
                 <div>
-                    <h1 className="text-3xl font-bold">Carrito de compras</h1>
+                    <h1 className="title text-pwgreen-700 text-3xl">Carrito de compras</h1>
                 </div>
                 {cartProducts.length === 0 ? (
                         <Image
@@ -104,7 +104,7 @@ const Cart : NextPage = withPageAuthRequired(() => {
                 <>
                 <div className='w-full p-4 text-center lg:flex'>
                      
-                        <div className='w-full lg:flex lg:flex-row lg:justify-around'>
+                        <div className='w-full lg:flex lg:grid lg:grid-cols-3 lg:gap-3 lg:justify-around'>
                             {cartProducts.map((product: Product) => (
                                 <ProductOnCart
                                     key={product.id}
@@ -118,8 +118,8 @@ const Cart : NextPage = withPageAuthRequired(() => {
                 </div>
                 <div className=' w-full text-center text-xl font-bold border bg-pwgreen-200 border-t-black p-8'>
                         <div className='flex flex-row justify-between font-Rubik lg:justify-around w-full'>
-                            <h3 className='text-md lg:text-lg'>Total</h3>
-                            <h3 className='text-md lg:text-lg'>${getTotalPrice()}</h3> 
+                            <h3 className='text-md lg:text-lg text-pwgreen-800'>Total</h3>
+                            <h3 className='text-md lg:text-lg text-pwgreen-800'>${getTotalPrice()}</h3> 
                         </div>
                         <ModalPayment price={priceToPay} />
                 </div>

@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { getAllApply, deleteApply, createUser } from 'utils/dbFetching'
+import { useQuery } from 'react-query'
+import { getAllApply } from 'utils/dbFetching'
 import { Aplies } from 'app/types'
 import { useSortableData, useSearchData } from '../tools' //sort function
-import Image from 'next/image'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import { TbSearch } from 'react-icons/tb'
 import {
@@ -21,28 +20,14 @@ const TableApply = () => {
     //QUERY DATA GET AND PUT
     const { data: applies, isLoading, isSuccess } = useQuery(['applies'], getAllApply)
 
-    const queryClient = useQueryClient()
 
-    const mutation = useMutation(({ id, data }: any) => deleteApply(id, data), {
-        onSuccess: () => {
-            queryClient.prefetchQuery('applies', getAllApply)
-        }
-    })
+
+
 
     //Sort Table
 
     const { items, requestSort, sortConfig } = useSortableData(applies)
 
-    //FUNCTIONS CHANGE DATA
-    function handleRoleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-        e.preventDefault()
-        const role = e.target.value as string
-        const id = e.target.id as string
-        if (role && id) {
-            mutation.mutate({ id, data: { role } })
-            return
-        } else return
-    }
 
 
 
@@ -109,42 +94,9 @@ const TableApply = () => {
                     {/* NOMBRES DE LA TABLA */}
                     <thead>
                         <tr className="tr-head">
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('userFirstName')}>
-                                    NOMBRE
-                                    <FaSort />
-                                </button>
-                            </th>
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('userLastName')}>
-                                    APELLIDO
-                                    <FaSort />
-                                </button>
-                            </th>
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('userEmail')}>
-                                    EMAIL
-                                    <FaSort />
-                                </button>
-                            </th>
-                            <th className="th-head">
-                                <button
-                                    className="button-head"
-                                    type="button"
-                                    onClick={() => requestSort('userPhone')}>
-                                    TELEFONO
-                                    <FaSort />
-                                </button>
-                            </th>
+                        <th className="th-head">NOMBRE</th>
+                        <th className="th-head">APELLIDO</th>
+                        <th className="th-head">EMAIL</th>
                             <th className="th-head">
                                 <button
                                     className="button-head"
@@ -174,24 +126,21 @@ const TableApply = () => {
                     {/* DATOS DE LA TABLA */}
 
                     <tbody className="text-sm">
-                        {isSuccess
+                        {isSuccess 
                             ? currentItems.map((u: Aplies) => {
                                 return (
                                     <>
                                         <tr
                                             key={u.id}
                                             className="tr-body bg-pwgreen-50">
-                                            <td className="td-body min-w-[120px]">
-                                                {u.userFirstName || 'n/a'}
-                                            </td>
-                                            <td className="td-body min-w-[120px]">
-                                                {u.userLastName || 'n/a'}
+                                            <td className="td-body">
+                                                {u.user.firstName || 'n/a'}
                                             </td>
                                             <td className="td-body">
-                                                {u.userEmail || 'n/a'}
+                                                {u.user.lastName || 'n/a'}
                                             </td>
                                             <td className="td-body">
-                                                {u.userPhone || 'n/a'}
+                                                {u.user.email || 'n/a'}
                                             </td>
                                             <td className="td-body">
                                                 {u.reason || 'n/a'}
@@ -229,8 +178,6 @@ const TableApply = () => {
                                                     </span>
                                                 )}
                                             </td>
-
-
                                             <td className="td-body">
                                                 {u.createdAt}
                                             </td>
@@ -290,17 +237,17 @@ const TableApply = () => {
                                                 <>
                                                     <tr key={u.updatedAt}>
                                                         <td className="td-body">
-                                                            {u.adoptionPost?.name || 'n/a'}
+                                                            {u.adoptionPost.name || 'n/a'}
                                                         </td>
                                                         <td className="td-body">
-                                                            {u.adoptionPost?.breed || 'n/a'}
+                                                            {u.adoptionPost.breed || 'n/a'}
                                                         </td>
                                                         <td className="td-body">
-                                                            {u.adoptionPost?.gender ||
+                                                            {u.adoptionPost.gender ||
                                                                 'n/a'}
                                                         </td>
                                                         <td className="td-body">
-                                                            {u.adoptionPost?.active ? (
+                                                            {u.adoptionPost.active ? (
                                                                 <span className="text-pwgreen-50 bg-pwgreen-700 px-3 py-1 rounded-full">
                                                                     Activo
                                                                 </span>
@@ -311,7 +258,7 @@ const TableApply = () => {
                                                             )}
                                                         </td>
                                                         <td className="td-body">
-                                                            {`${u.adoptionPost?.user?.firstName}, ${u.adoptionPost?.user?.lastName}` ||
+                                                            {`${u.adoptionPost.user?.firstName}, ${u.adoptionPost?.user?.lastName}` ||
                                                                 'n/a'}
                                                         </td>
                                                         <td className="td-body">
@@ -345,7 +292,7 @@ const TableApply = () => {
                     {!isLoading && currentItems ? (
                         <AlternativePagination
                             totalItems={
-                                (filteredData ? filteredData : applies)?.length
+                                (filteredData ? filteredData : items)?.length
                             }
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}

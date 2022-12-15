@@ -91,7 +91,7 @@ const Adoptions: NextPage = () => {
     return (
         <MainLayout title="Pawsitive - Adopciones">
             <div className="w-full flex justify-between items-center px-4">
-                <h1 className="text-3xl font-Rubik font-bold py-6 lg:py-8 lg:text-5xl">
+                <h1 className="text-3xl text-pwgreen-700 font-Rubik font-bold py-6 lg:py-8 lg:text-5xl">
                     Adopciones
                 </h1>
                 <Link href="/adoptions/post">
@@ -155,7 +155,7 @@ const Adoptions: NextPage = () => {
                         )}
                     </div>
                 </div>
-                <div className="w-auto fixed flex justify-center items-center left-0 top-[20%] lg:sticky lg:right-5 bg-pwgreen-50">
+                <div className="w-auto fixed flex justify-center items-center left-0 top-[20%] lg:sticky lg:right-5 bg-pwgreen-100">
                     <Filters
                         setData={setData}
                         data={data}

@@ -326,10 +326,10 @@ export interface Aplies {
   userPhone: string;
   userId:         string;
   user:           UserApply;
-  adoptionPost:   AdoptionPost;
+  adoptionPost:   AdoptionPost2;
 }
 
-export interface AdoptionPost {
+export interface AdoptionPost2 {
   name:   string;
   breed:  string;
   gender: string;
@@ -408,6 +408,7 @@ export interface AdoptionPost {
   photo:       string;
   gender:      string;
   description: string;
+  active: boolean;
   createdAt: string;
   apply:       Apply[];
 }

@@ -19,7 +19,7 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
             </Head>
             <div className="h-full" >
             <Navbar />
-            <main className='max-w-full bg-pwgreen-50 mx-auto h-full'>{children}</main>
+            <main className='max-w-full bg-pwgreen-100 mx-auto h-full'>{children}</main>
             <Footer />
             </div>
         </>
