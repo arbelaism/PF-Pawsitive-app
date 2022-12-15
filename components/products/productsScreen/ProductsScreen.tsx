@@ -1,4 +1,3 @@
-import { NextComponentType } from 'next'
 import { Product } from 'app/types'
 import Link from 'next/link'
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'

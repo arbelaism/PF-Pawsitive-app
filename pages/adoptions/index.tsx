@@ -155,7 +155,7 @@ const Adoptions: NextPage = () => {
                         )}
                     </div>
                 </div>
-                <div className="w-auto fixed flex justify-center items-center left-0 top-[20%] lg:sticky lg:right-5 bg-pwgreen-50">
+                <div className="w-auto fixed flex justify-center items-center left-0 top-[20%] lg:sticky lg:right-5 bg-pwgreen-100">
                     <Filters
                         setData={setData}
                         data={data}
