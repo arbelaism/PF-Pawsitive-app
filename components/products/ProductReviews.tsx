@@ -1,8 +1,6 @@
 import { Review } from 'app/types'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 
-import styles from 'styles/ProductDetail.module.css'
-
 type Props = {
     review: Review
     id: string

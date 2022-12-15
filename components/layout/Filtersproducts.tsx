@@ -1,9 +1,7 @@
-import styles from "styles/Filters.module.css";
 import React, { useEffect, useState } from "react";
 import { Product } from "app/types";
 import { getProducts } from "utils/dbFetching";
 import { useQuery } from "react-query";
-import { AiFillFilter } from "react-icons/ai";
 import { FaFilter } from "react-icons/fa";
 
 export type Props = {

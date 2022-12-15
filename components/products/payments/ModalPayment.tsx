@@ -3,7 +3,6 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import styles from 'styles/ModalPayment.module.css'
 import { Props } from 'pages/adoptions';
 import { AiOutlineClose } from 'react-icons/ai'
 import {loadStripe} from '@stripe/stripe-js';
