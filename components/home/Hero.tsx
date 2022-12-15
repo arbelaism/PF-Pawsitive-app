@@ -17,7 +17,7 @@ const Hero = () => {
           </div>
           <h1 className='font-Rubik text-5xl lg:text-7xl 2xl:text-8xl uppercase font-bold -tracking-[0.05em] mb-10'>Un primer<br /> <span className='text-pwgreen-500 font-normal'>acercamiento de la mascota</span> <br /> al bienestar</h1>
           <Link href={'/adoptions'}>
-            <button className='h-[62px] flex justify-center items-center py-3 px-8 rounded-full text-[20px] transition-all bg-pwgreen-300 text-pwgreen-50 hover:bg-pwgreen-500 mx-auto lg:mx-0'>Ver mas</button>
+            <button className='h-[62px] font-Rubik flex justify-center items-center py-3 px-8 rounded-md text-[20px] font-medium transition ease-linear delay-100 bg-transparent text-pwgreen-800 hover:bg-pwgreen-800 hover:text-pwgreen-50 mx-auto lg:mx-0'>Ver mas</button>
           </Link>
         </div>
       </div>
