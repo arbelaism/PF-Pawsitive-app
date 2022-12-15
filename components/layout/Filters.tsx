@@ -31,6 +31,7 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
         isLoading,
         isSuccess
     } = useQuery(['adoptions'], getMinAdoptions)
+    
     function handleOptions(e: React.ChangeEvent<HTMLSelectElement>) {
         e.preventDefault()
         let { name, value } = e.target
@@ -112,18 +113,18 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                 id="filters"
                 className="hidden lg:relative lg:block w-auto lg:w-64 h-full py-8 px-4 shadow-2xl border border-pwgreen-500 rounded-md bg-white font-Rubik">
                 <div className="flex flex-col justify-center items-center gap-5 w-full h-max">
-                    <div className="flex flex-col gap-1 text-pwgreen-900 text-sm rounded-lg w-full">
-                        <h2 className="font-Rubik font-semibold text-sm">
+                    <div className="flex flex-col gap-1 text-pwgreen-700 text-sm rounded-lg w-full">
+                        <h2 className="font-Rubik font-semibold text-sm text-pwgreen-700">
                             Filtrar por Categoría
                         </h2>
                         <select
                             name="breed"
                             onChange={e => handleOptions(e)}
-                            className="input text-pwgreen-800 w-full">
+                            className="input text-pwgreen-700 w-full">
                             {options.breed === '' && (
                                 <option value="">Categoría...</option>
                             )}
-                            <option className="" value="gato">
+                            <option className="text-pwgreen-700" value="gato">
                                 Gatos
                             </option>
                             <option value="perro">Perros</option>
@@ -132,14 +133,14 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                         </select>
                     </div>
 
-                    <div className="flex flex-col gap-1 text-pwgreen-900 text-sm rounded-lg w-full">
-                        <h2 className="font-Rubik font-semibold text-sm">
+                    <div className="flex flex-col gap-1 text-pwgreen-700 text-sm rounded-lg w-full">
+                        <h2 className="font-Rubik font-semibold text-sm text-pwgreen-700">
                             Filtrar por Tamaño
                         </h2>
                         <select
                             name="size"
                             onChange={e => handleOptions(e)}
-                            className="input text-pwgreen-800 w-full">
+                            className="input text-pwgreen-700 w-full ">
                             {options.size === '' && (
                                 <option value="">Tamaño...</option>
                             )}
@@ -149,14 +150,14 @@ const Filters = ({ setData, data, setCurrentPage }: Props) => {
                         </select>
                     </div>
 
-                    <div className="flex flex-col gap-1 text-pwgreen-900 text-sm rounded-lg w-full">
-                        <h2 className="font-Rubik font-semibold text-sm">
+                    <div className="flex flex-col gap-1 text-pwgreen-600 text-sm rounded-lg w-full">
+                        <h2 className="font-Rubik font-semibold text-sm text-pwgreen-700">
                             Filtrar por Edad
                         </h2>
                         <select
                             name="age"
                             onChange={e => handleOptions(e)}
-                            className="input text-pwgreen-800 w-full">
+                            className="input text-pwgreen-600 w-full">
                             {options.age === '' && (
                                 <option value="">Edad...</option>
                             )}
