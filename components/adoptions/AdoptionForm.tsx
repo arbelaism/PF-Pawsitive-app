@@ -47,6 +47,11 @@ const AdoptionForm: NextComponentType = () => {
 
     const { user, error: errorU, isLoading: isLoadingU } = useUser()
 
+    let id: string = ''
+    if (user && user.sub) {
+        id = user.sub
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         const target = e.target as HTMLInputElement
@@ -64,7 +69,7 @@ const AdoptionForm: NextComponentType = () => {
             age: `${data.age} ${data.monthOrYear}`,
             photo: urlPhoto ? urlPhoto[0] : null,
             active: true,
-            userId: '1'
+            userId: id
         }
         mutate(data)
         reset({
