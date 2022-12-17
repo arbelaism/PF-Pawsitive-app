@@ -610,6 +610,7 @@ const TableMyAdoptionPets = () => {
                                     }
                                     itemsPerPage={itemsPerPage}
                                     setCurrentPage={setCurrentPage}
+                                    size={"large"}
                                 />
                             ) : null}
                         </div>

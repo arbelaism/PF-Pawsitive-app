@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
-import { IAdoption } from 'app/types'
+import { IAdoption, PaginationSize } from 'app/types'
 import { MainLayout, AdoptionCard, Filters } from 'components'
 import { useQuery } from 'react-query'
 import { getAdoptions, getUserById } from 'utils/dbFetching'
@@ -17,12 +17,6 @@ import Loading from 'public/loading.gif'
 
 export type Props = {
     [key: string]: any
-}
-
-enum Size {
-    small = 'small',
-    medium = 'medium',
-    large = 'large'
 }
 
 const Adoptions: NextPage = () => {
@@ -58,7 +52,9 @@ const Adoptions: NextPage = () => {
     //Pagination with Data o Adoptions
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, setItemsPerPage] = useState<number>(4)
-    const [paginationSize, setPaginationSize] = useState<Size>(Size.large)
+    const [paginationSize, setPaginationSize] = useState<PaginationSize>(
+        PaginationSize.large
+    )
     const [data, setData] = useState<IAdoption[]>()
 
     const lastItemIndex = currentPage * itemsPerPage
@@ -104,19 +100,19 @@ const Adoptions: NextPage = () => {
             setData(adoptions)
             if (isMobile) {
                 setItemsPerPage(4)
-                setPaginationSize(Size.small)
+                setPaginationSize(PaginationSize.small)
             } else if (isTablet) {
                 setItemsPerPage(6)
-                setPaginationSize(Size.medium)
+                setPaginationSize(PaginationSize.medium)
             } else if (isLaptop) {
                 setItemsPerPage(6)
-                setPaginationSize(Size.large)
+                setPaginationSize(PaginationSize.large)
             } else if (isMediumScreen) {
                 setItemsPerPage(8)
-                setPaginationSize(Size.large)
+                setPaginationSize(PaginationSize.large)
             } else if (isBigScreen) {
                 setItemsPerPage(10)
-                setPaginationSize(Size.large)
+                setPaginationSize(PaginationSize.large)
             }
         }
     }, [
