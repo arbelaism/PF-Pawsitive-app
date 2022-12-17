@@ -20,7 +20,7 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
     }
 
     return (
-        <div className="bg-white py-2 w-full h-max rounded-md group shadow-md flex items-center justify-between text-pwgreen-800 lg:w-60 lg:h-80 lg:flex-col overflow-hidden lg:py-8 hover:shadow-2xl hover:h-48 lg:hover:h-[23rem] transition-all">
+        <div className="bg-white py-4 w-full h-44 rounded-md group shadow-md flex items-center justify-between text-pwgreen-800 lg:w-60 lg:h-80 lg:flex-col overflow-hidden lg:py-8 hover:shadow-2xl hover:h-48 lg:hover:h-[23rem] transition-all">
             <div className="w-1/2 ">
                 <Image
                     src={product.photo}
@@ -31,9 +31,9 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
             </div>
 
             <div className="w-full flex flex-col justify-between h-full">
-                <div className="p-2 h-3/4 flex flex-col justify-evenly gap-1">
+                <div className="p-2 h-3/4 flex flex-col justify-evenly gap-2">
                     <div className="lg:h-2/3">
-                        <h3 className="font-Rubik font-medium text-pwgreen-900 mx-2 truncate group-hover:whitespace-pre-wrap">
+                        <h3 className="font-Rubik font-medium text-pwgreen-900 pt-2 mx-2 lg:truncate group-hover:whitespace-pre-wrap">
                             {product.name}
                         </h3>
                     </div>
