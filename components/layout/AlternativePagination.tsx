@@ -5,12 +5,14 @@ type Props = {
     totalItems: number
     itemsPerPage: number
     setCurrentPage: (currentPage: number) => void
+    size: 'small' | 'medium' | 'large' | undefined
 }
 
 const AlternativePagination = ({
     totalItems,
     itemsPerPage,
-    setCurrentPage
+    setCurrentPage,
+    size
 }: Props) => {
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value)
@@ -19,7 +21,7 @@ const AlternativePagination = ({
         <Pagination
             count={Math.ceil(totalItems / itemsPerPage)}
             shape="rounded"
-            size="large"
+            size={size}
             showFirstButton
             showLastButton
             onChange={handleChange}
