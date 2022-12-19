@@ -33,6 +33,14 @@ model User {
     transaction    Transaction[]
     review         Review[]
     apply          Apply?
+    bookmark       Bookmark?
+}
+
+model Bookmark {
+    id        String    @id @default(uuid())
+    product   Product[]
+    user      User      @relation(fields: [userId], references: [id])
+    userId    String    @unique
 }
 
 enum Role {
@@ -128,6 +136,7 @@ model Product {
     updatedAt    DateTime   @updatedAt
     review       Review[]
     quantity     Quantity[]
+    bookmark     Bookmark[]
 }
 
 enum Category {
