@@ -98,7 +98,7 @@ const CreateAdoptionForm = (mutationCreateAdoption: any) => {
       <div>
         <div className="flex gap-3">
           <button
-            className="dashboardButton text-base bg-pwgreen-700 text-pwgreen-50 hover:bg-pwgreen-800 transition-colors"
+            className="dashboardButton text-base bg-pwgreen-700 relative z-10 text-pwgreen-50 hover:bg-pwgreen-800 transition-colors"
             onClick={toggleCondition}
           >
             <FaUserPlus />
