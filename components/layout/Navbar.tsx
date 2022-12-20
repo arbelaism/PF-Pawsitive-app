@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Product } from '../../app/types'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { FaShoppingCart } from 'react-icons/fa'
+import { FaHeart, FaShoppingCart } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
 import UserButton from './UserButton'
 import { checkEmail } from 'utils/checkEmail'
@@ -50,20 +50,18 @@ const Navbar: NextComponentType = () => {
         var timerID = setInterval(() => updateProducts(), 50)
         return () => clearInterval(timerID)
     })
-    const alertShoppingCart = () => {
+    const alertSessionRequired = () => {
         if (!user) {
             redirectionAlert({
                 icon: 'info',
                 title: '<strong>Inicio de sesion requerido</strong>',
-                html:
-                    'Para acceder al carrito de compras y poder disfrutar de todas nuestras funcionalidades' +
-                    ' te invitamos a iniciar sesion o crear una cuenta.',
+                html: 'Para acceder a tus favoritos necesitas iniciar sesión',
                 confirmButtonText: 'Iniciar sesion',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 link: '/api/auth/login'
             })
         } else {
-            router.push('/shoppingCart')
+            router.push('/bookmarks')
         }
     }
     const onClick = () => {
@@ -118,15 +116,22 @@ const Navbar: NextComponentType = () => {
                     </Link>
                 </div>
             </div>
-            <div className="hidden lg:flex justify-between items-center w-full lg:w-max" id="menu-cart">
-                <button onClick={alertShoppingCart}>
+            <div
+                className="hidden lg:flex justify-between items-center w-full lg:w-max"
+                id="menu-cart">
+                <button onClick={alertSessionRequired}>
+                    <a className='flex text-xl items-center hover:text-pwgreen-800 mr-3 transition-all'>
+                        <FaHeart />
+                    </a>
+                </button>
+                <Link href={'/shoppingCart'}>
                     <a
                         className="flex items-center hover:text-pwgreen-800
                     hover:font-bold transition-all gap-2 mr-4">
                         <FaShoppingCart className="text-xl" />
                         <div>{cartProducts}</div>
                     </a>
-                </button>
+                </Link>
                 {!user ? (
                     <div>
                         <Link href="/api/auth/login">

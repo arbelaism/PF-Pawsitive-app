@@ -312,3 +312,48 @@ export const getTransactionsByUserId = async (id: string) => {
   if (!user) throw new Error("Data not found");
   return user;
 };
+
+export const getBookmarks = async (id: string) => {
+    const response = await axios.get(`/api/bookmarks/${id}`)
+
+    const bookmarks = await response.data
+
+    if (!bookmarks) throw new Error('Bookmarks not found')
+
+    return bookmarks
+}
+
+export const createBookmark = async (userId: string, productId: string) => {
+    if (!userId || !productId)
+        throw new Error('Must provide a userId and a productId')
+
+    const response = await axios.post(`/api/bookmarks/${userId}/${productId}`)
+
+    if (!response) throw new Error('Bookmarks not found')
+
+    return response
+}
+
+export const deleteBookmark = async (userId: string, productId: string) => {
+    if (!userId || !productId)
+        throw new Error('Must provide a userId and a productId')
+
+    const response = await axios.delete(`/api/bookmarks/${userId}/${productId}`)
+
+    if (!response) throw new Error('Bookmarks not found')
+
+    return response
+}
+
+export const deleteSelectedBookmarks = async (userId: string, productId: string[]) => {
+    if (!userId || !productId)
+        throw new Error('Must provide a userId and a productId')
+
+    const response = await axios.delete(`/api/bookmarks/${userId}`, {
+        data: productId
+    })
+
+    if (!response) throw new Error('Bookmarks not found')
+
+    return response
+}
