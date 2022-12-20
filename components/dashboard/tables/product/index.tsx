@@ -620,6 +620,7 @@ const TableProduct = () => {
                             }
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
+                            size={"large"}
                         />
                     ) : null}
                 </div>

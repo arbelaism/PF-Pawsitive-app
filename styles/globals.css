@@ -25,6 +25,10 @@
         @apply text-sm font-medium;
     }
 
+    .checkbox {
+        @apply appearance-none h-4 w-4 border border-slate-400 bg-white rounded-full checked:bg-pwgreen-500 hover:border-slate-600 checked:border-pwgreen-500 focus:outline-none focus:text-pwgreen-50 transition duration-200 cursor-pointer;
+    }
+
     .dashboardButton {
         @apply my-2
         px-3 

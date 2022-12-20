@@ -35,7 +35,7 @@ const Header = ({ title }: Props) => {
                     <HamburguerIcon />
                 </div>
                 <Link href={'/'}>
-                    <a className='text-xl border rounded-full border-pwgreen-700 p-2 text-pwgreen-700 hover:bg-pwgreen-700 hover:text-pwgreen-100 transition-colors'>
+                    <a className="text-xl border rounded-full border-pwgreen-700 p-2 text-pwgreen-700 hover:bg-pwgreen-700 hover:text-pwgreen-100 transition-colors">
                         <FaArrowLeft />
                     </a>
                 </Link>
@@ -43,11 +43,6 @@ const Header = ({ title }: Props) => {
                     {title}
                 </h1>
             </div>
-            <UserButton
-                userName={name ?? ''}
-                userEmail={email ?? ''}
-                userPicture={user?.picture ?? ''}
-            />
         </div>
     )
 }

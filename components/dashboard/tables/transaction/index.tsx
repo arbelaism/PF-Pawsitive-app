@@ -377,6 +377,7 @@ const TableTransaction = () => {
                             }
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
+                            size={"large"}
                         />
                     ) : null}
                 </div>

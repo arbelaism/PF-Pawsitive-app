@@ -580,6 +580,7 @@ const TableAdoption = () => {
                             }
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
+                            size={"large"}
                         />
                     ) : null}
                 </div>

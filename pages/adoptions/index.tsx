@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
-import { IAdoption } from 'app/types'
+import { IAdoption, PaginationSize } from 'app/types'
 import { MainLayout, AdoptionCard, Filters } from 'components'
 import { useQuery } from 'react-query'
 import { getAdoptions, getUserById } from 'utils/dbFetching'
@@ -43,15 +43,18 @@ const Adoptions: NextPage = () => {
         getUserById(id)
     )
 
-    const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
-    const isTablet = useMediaQuery({ query: '(max-width: 768px)' })
-    const isLaptop = useMediaQuery({ query: '(max-width: 1024px)' })
-    const isMediumScreen = useMediaQuery({ query: '(max-width: 1280px)' })
-    const isBigScreen = useMediaQuery({ query: '(min-width: 1536px)' })
+    const isMobile = useMediaQuery({ minWidth: 0, maxWidth: 768 })
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 })
+    const isLaptop = useMediaQuery({ minWidth: 1024, maxWidth: 1280 })
+    const isMediumScreen = useMediaQuery({ minWidth: 1280, maxWidth: 1536 })
+    const isBigScreen = useMediaQuery({ minWidth: 1536 })
 
     //Pagination with Data o Adoptions
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, setItemsPerPage] = useState<number>(4)
+    const [paginationSize, setPaginationSize] = useState<PaginationSize>(
+        PaginationSize.large
+    )
     const [data, setData] = useState<IAdoption[]>()
 
     const lastItemIndex = currentPage * itemsPerPage
@@ -97,14 +100,19 @@ const Adoptions: NextPage = () => {
             setData(adoptions)
             if (isMobile) {
                 setItemsPerPage(4)
+                setPaginationSize(PaginationSize.small)
             } else if (isTablet) {
-                setItemsPerPage(4)
+                setItemsPerPage(6)
+                setPaginationSize(PaginationSize.medium)
             } else if (isLaptop) {
                 setItemsPerPage(6)
+                setPaginationSize(PaginationSize.large)
             } else if (isMediumScreen) {
-                setItemsPerPage(9)
+                setItemsPerPage(8)
+                setPaginationSize(PaginationSize.large)
             } else if (isBigScreen) {
                 setItemsPerPage(10)
+                setPaginationSize(PaginationSize.large)
             }
         }
     }, [
@@ -120,32 +128,33 @@ const Adoptions: NextPage = () => {
     return (
         <MainLayout title="Pawsitive - Adopciones">
             <div className="w-full flex justify-between items-center px-4">
-                <h1 className="text-3xl text-pwgreen-800 font-Rubik font-bold py-6 lg:py-8 lg:text-5xl">
+                <h1 className="text-2xl text-pwgreen-800 font-Rubik font-bold py-6 lg:py-8 lg:text-5xl">
                     Adopciones
                 </h1>
                 <Link href="/adoptions/post">
                     <button
                         onClick={alertAdoptionForm}
-                        className="dashboardButton text-base bg-pwgreen-600 text-pwgreen-50 hover:bg-pwgreen-800">
+                        className="dashboardButton text-base py-2 px-2 bg-pwgreen-600 lg:p-4 text-pwgreen-50 hover:bg-pwgreen-800">
                         <a className="flex items-center gap-1.5">
-                            <FaDog className="text-2xl" />
+                            <FaDog className="text-xl md:text-2xl" />
                             Poner en adopción
-                            <FaArrowRight className="text-xl" />
+                            <FaArrowRight className="text-lg md:text-xl" />
                         </a>
                     </button>
                 </Link>
             </div>
 
             <div className="flex">
-                <div className="flex grow flex-col justify-center items-center bg-transparent">
+                <div className="flex grow flex-col gap-2 pb-6 justify-center items-center bg-transparent lg:gap-3 xl:gap-5">
                     {!isLoading && currentItems ? (
                         <AlternativePagination
                             totalItems={(data ? data : adoptions)?.length}
                             itemsPerPage={itemsPerPage}
                             setCurrentPage={setCurrentPage}
+                            size={paginationSize}
                         />
                     ) : null}
-                    <div className="grid grid-cols-2 gap-x-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 xl:grid-cols-4 xl:gap-4 2xl:grid-cols-5">
                         {isLoading ? (
                             <div className="flex justify-center items-center my-16">
                                 <Image
