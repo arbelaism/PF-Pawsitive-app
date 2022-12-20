@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import { AiFillAppstore } from 'react-icons/ai'
-import { FaUser, FaPaw } from 'react-icons/fa'
+import { FaUser, FaPaw, FaSignOutAlt, FaShoppingBag } from 'react-icons/fa'
 import { useRouter } from 'next/router'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { getUserById } from 'utils/dbFetching'
@@ -112,6 +112,29 @@ const LeftNavbar: any = () => {
                                 <a className="dashboardLinks">Transacciones</a>
                             </Link>
                         </li>
+                        <h3 className="dashboardSideTitle">Configuración</h3>
+                        <li
+                            className={
+                                router.pathname === '/dashboard/myProfile'
+                                    ? 'dashboardButton active'
+                                    : 'dashboardButton'
+                            }>
+                            <FaUser />
+                            <Link href={'/profile/adoption'}>
+                                <a className="dashboardLinks">Perfil</a>
+                            </Link>
+                        </li>
+                        <li
+                            className={
+                                router.pathname === '/api/auth/logout'
+                                    ? 'dashboardButton active'
+                                    : 'dashboardButton'
+                            }>
+                            <FaUser />
+                            <Link href={'/profile/adoption'}>
+                                <a className="dashboardLinks">Cerrar sesión</a>
+                            </Link>
+                        </li>
                     </ul>
                 ) : (
                     <ul>
@@ -145,11 +168,34 @@ const LeftNavbar: any = () => {
                                     ? 'dashboardButton active'
                                     : 'dashboardButton'
                             }>
-                            <FaPaw />
+                            <FaShoppingBag />
                             <Link href={'/profile/transaction'}>
                                 <a className="dashboardLinks">
                                     Historial de compras
                                 </a>
+                            </Link>
+                        </li>
+                        <h3 className="dashboardSideTitle">Tu cuenta</h3>
+                        <li
+                            className={
+                                router.pathname === '/dashboard/myProfile'
+                                    ? 'dashboardButton active'
+                                    : 'dashboardButton'
+                            }>
+                            <FaUser />
+                            <Link href={'/profile/adoption'}>
+                                <a className="dashboardLinks">Perfil</a>
+                            </Link>
+                        </li>
+                        <li
+                            className={
+                                router.pathname === '/dashboard/'
+                                    ? 'dashboardButton active'
+                                    : 'dashboardButton'
+                            }>
+                            <FaSignOutAlt />
+                            <Link href={'/api/auth/logout'}>
+                                <a className="dashboardLinks">Cerrar sesión</a>
                             </Link>
                         </li>
                     </ul>

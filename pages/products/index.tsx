@@ -1,11 +1,11 @@
 import { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import React from 'react'
-import { PaginationSize, Product } from 'app/types'
+import {  PaginationSize, Product } from 'app/types'
 import { MainLayout, Filtersproducts } from 'components'
 import ProductCard from 'components/products/ProductCard'
 import { useQuery } from 'react-query'
-import { getProducts } from 'utils/dbFetching'
+import {  getProducts } from 'utils/dbFetching'
 import { redirectionAlert } from 'utils/alerts'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage'
@@ -28,6 +28,7 @@ const Products: NextPage = () => {
         isLoading,
         isSuccess
     } = useQuery(['products'], getProducts)
+
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [itemsPerPage, setItemsPerPage] = useState<number>(6)
     const [paginationSize, setPaginationSize] = useState<PaginationSize>(
@@ -44,6 +45,11 @@ const Products: NextPage = () => {
     //get user data from auth0
     const { user, error: errorU, isLoading: isLoadingU } = useUser()
     const router = useRouter()
+
+    let userId: string = ''
+    if (!isLoadingU && user && user.sub) {
+        userId = user.sub
+    }
 
     //Recover cartproducts when user comeback from the cart to products again
     const [cartFromLocalStorage, setCartFromLocalStorage] = useLocalStorage<
