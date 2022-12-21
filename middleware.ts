@@ -6,55 +6,57 @@ import 'regenerator-runtime'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
-    // const response = NextResponse.next()
-    // const user = await getSession(request, response)
-    // const BASE_URL = `https://${process.env.VERCEL_URL}`
+    const response = NextResponse.next()
+    const user = await getSession(request, response)
+    const BASE_URL = `https://${process.env.VERCEL_URL}`
 
-    // let userId: string = ''
-    // let userFirstName: string = ''
-    // let userLastName: string = ''
-    // let userEmail: string = ''
-    // let userEmailVerified: boolean = false
-    // let userPhoto: string = ''
+    let userId: string = ''
+    let userFirstName: string = ''
+    let userLastName: string = ''
+    let userEmail: string = ''
+    let userEmailVerified: boolean = false
+    let userPhoto: string = ''
 
-    // if (user) {
-    //     const auth0User = await getAuth0UserById(user.user.sub)
+    if (user) {
+        const auth0User = await getAuth0UserById(user.user.sub)
 
-    //     if (!auth0User) return
+        if (!auth0User) return
 
-    //     userId = user.user.sub
-    //     userFirstName = user.user.given_name
-    //     userLastName = user.user.family_name
-    //     userEmail = auth0User.email
-    //     userEmailVerified = auth0User.email_verified
-    //     userPhoto = user.user.picture
-    // }
+        userId = user.user.sub
+        userFirstName = user.user.given_name
+        userLastName = user.user.family_name
+        userEmail = auth0User.email
+        userEmailVerified = auth0User.email_verified
+        userPhoto = user.user.picture
+    }
 
-    // if (user && userId && userEmail) {
-    //     event.waitUntil(
-    //         fetch(`${BASE_URL}/api/user/`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 Accept: 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({
-    //                 id: userId,
-    //                 firstName: userFirstName || '',
-    //                 lastName: userLastName || '',
-    //                 email: userEmail,
-    //                 email_verified: userEmailVerified,
-    //                 photo: userPhoto
-    //             })
-    //         })
-    //     )
+    if (user && userId && userEmail) {
+        event.waitUntil(
+            fetch(`${BASE_URL}/api/user/`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: userId,
+                    firstName: userFirstName || '',
+                    lastName: userLastName || '',
+                    email: userEmail,
+                    email_verified: userEmailVerified,
+                    photo: userPhoto
+                })
+            })
+        )
 
-    //     event.waitUntil(
-    //         fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
-    //             method: 'POST'
-    //         })
-    //     )
-    // }
+        event.waitUntil(
+            fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
+                method: 'POST'
+            })
+        )
+    }
+
+    NextResponse.redirect('/', request)
 }
 
 export const config = {

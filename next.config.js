@@ -2,6 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: false,
+    basePath: '/',
     images: {
         domains: [
             'images.unsplash.com',
