@@ -7,7 +7,7 @@ import 'regenerator-runtime'
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
     const response = NextResponse.next()
     const user = await getSession(request, response)
-    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+    // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
     let userId: string = ''
     let userFirstName: string = ''
@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     let userPhoto: string = ''
 
     if (user) {
-        const res = await fetch(`${BASE_URL}/api/auth/users/${user.user.sub}`)
+        const res = await fetch(`https://pf-pawsitive-app-git-develop-arbelais.vercel.app/api/auth/users/${user.user.sub}`)
         const auth0User = await res.json()
 
         if (!auth0User) return
