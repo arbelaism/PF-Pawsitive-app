@@ -1,7 +1,6 @@
 import { NextFetchEvent, NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getSession } from '@auth0/nextjs-auth0/edge'
-import { getAuth0UserById } from 'utils/dbFetching'
 import 'regenerator-runtime'
 
 // This function can be marked `async` if using `await` inside
@@ -18,7 +17,8 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     let userPhoto: string = ''
 
     if (user) {
-        const auth0User = await getAuth0UserById(user.user.sub)
+        const res = await fetch(`${BASE_URL}/api/auth/users/${user.user.sub}`)
+        const auth0User = await res.json()
 
         if (!auth0User) return
 
@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
     if (user && userId && userEmail) {
         event.waitUntil(
-            fetch(`http://0.0.0.0:3000/api/user/`, {
+            fetch(`${BASE_URL}/api/user/`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -50,13 +50,11 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         )
 
         event.waitUntil(
-            fetch(`http://0.0.0.0:3000/api/bookmarks/${userId}`, {
+            fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
                 method: 'POST'
             })
         )
     }
-
-    NextResponse.next()
 }
 
 export const config = {
