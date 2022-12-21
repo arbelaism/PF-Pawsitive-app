@@ -28,31 +28,32 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userEmailVerified = auth0User.email_verified
         userPhoto = user.user.picture
     }
-    if (!user || !userEmail) return
 
-    event.waitUntil(
-        fetch(`${BASE_URL}/api/user/`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: userId,
-                firstName: userFirstName || '',
-                lastName: userLastName || '',
-                email: userEmail,
-                email_verified: userEmailVerified,
-                photo: userPhoto
+    if (user && userId && userEmail) {
+        event.waitUntil(
+            fetch(`${BASE_URL}/api/user/`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: userId,
+                    firstName: userFirstName || '',
+                    lastName: userLastName || '',
+                    email: userEmail,
+                    email_verified: userEmailVerified,
+                    photo: userPhoto
+                })
             })
-        })
-    )
+        )
 
-    event.waitUntil(
-        fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
-            method: 'POST'
-        })
-    )
+        event.waitUntil(
+            fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
+                method: 'POST'
+            })
+        )
+    }
 
     NextResponse.next()
 }
