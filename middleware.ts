@@ -7,10 +7,7 @@ import { getAuth0UserById } from 'utils/dbFetching'
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
     const response = NextResponse.next()
     const user = await getSession(request, response)
-    const BASE_URL =
-        process.env.NODE_ENV !== 'production'
-            ? 'http://localhost:3000'
-            : process.env.AUTH0_BASE_URL
+    const BASE_URL = process.env.AUTH0_BASE_URL
 
     let userId: string = ''
     let userFirstName: string = ''
