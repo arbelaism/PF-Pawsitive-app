@@ -56,7 +56,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         )
     }
 
-    NextResponse.redirect('/', request)
+    NextResponse.redirect(new URL('/', request.url))
 }
 
 export const config = {
