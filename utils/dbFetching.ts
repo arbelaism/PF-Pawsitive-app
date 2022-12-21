@@ -144,7 +144,7 @@ export const getAuth0Users = async () => {
 }
 
 export const getAuth0UserById = async (id: string) => {
-    const response = await fetch(`${BASE_URL}/api/auth/users/${id}`)
+    const response = await fetch(`http://0.0.0.0:3000/api/auth/users/${id}`)
     const user = await response.json()
     if (!user) throw new Error('Data not found')
     return user
