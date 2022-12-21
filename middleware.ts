@@ -1,13 +1,14 @@
 import { NextFetchEvent, NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getSession } from '@auth0/nextjs-auth0/edge'
+import { getAuth0UserById } from 'utils/dbFetching'
 import 'regenerator-runtime'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
     const response = NextResponse.next()
     const user = await getSession(request, response)
-    // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+    const BASE_URL = `https://${process.env.VERCEL_URL}`
 
     let userId: string = ''
     let userFirstName: string = ''
@@ -17,8 +18,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     let userPhoto: string = ''
 
     if (user) {
-        const res = await fetch(`https://pf-pawsitive-app-git-develop-arbelais.vercel.app/api/auth/users/${user.user.sub}`)
-        const auth0User = await res.json()
+        const auth0User = await getAuth0UserById(user.user.sub)
 
         if (!auth0User) return
 
@@ -30,31 +30,33 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userPhoto = user.user.picture
     }
 
-    // if (user && userId && userEmail) {
-    //     event.waitUntil(
-    //         fetch(`${BASE_URL}/api/user/`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 Accept: 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({
-    //                 id: userId,
-    //                 firstName: userFirstName || '',
-    //                 lastName: userLastName || '',
-    //                 email: userEmail,
-    //                 email_verified: userEmailVerified,
-    //                 photo: userPhoto
-    //             })
-    //         })
-    //     )
+    if (user && userId && userEmail) {
+        event.waitUntil(
+            fetch(`${BASE_URL}/api/user/`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: userId,
+                    firstName: userFirstName || '',
+                    lastName: userLastName || '',
+                    email: userEmail,
+                    email_verified: userEmailVerified,
+                    photo: userPhoto
+                })
+            })
+        )
 
-    //     event.waitUntil(
-    //         fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
-    //             method: 'POST'
-    //         })
-    //     )
-    // }
+        event.waitUntil(
+            fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
+                method: 'POST'
+            })
+        )
+    }
+
+    NextResponse.next()
 }
 
 export const config = {
