@@ -7,10 +7,11 @@ import 'regenerator-runtime'
 const auth0 = initAuth0({
     secret: process.env.AUTH0_SECRET,
     issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
-    baseURL: 'https://pf-pawsitive-app-git-develop-arbelais.vercel.app/',
+    baseURL: process.env.AUTH0_BASE_URL,
     clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET
 })
+
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
     const response = NextResponse.next()
@@ -45,6 +46,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
                 },
+                referrerPolicy: 'strict-origin-when-cross-origin',
                 body: JSON.stringify({
                     id: userId,
                     firstName: userFirstName || '',
@@ -58,7 +60,8 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
         event.waitUntil(
             fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
-                method: 'POST'
+                method: 'POST',
+                referrerPolicy: 'strict-origin-when-cross-origin'
             })
         )
     }
