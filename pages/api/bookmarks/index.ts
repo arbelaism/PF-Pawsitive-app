@@ -6,10 +6,15 @@ export default async function bookmark(
     res: NextApiResponse
 ) {
     const { method } = req
+    const { id } = req.body
+
+    let userId: string = ''
+
+    if (id && Array.isArray(id) && id.length === 1) {
+        userId = id[0] as string
+    }
 
     switch (method) {
-        // GET ALL THE USER
-
         case 'GET':
             try {
                 const bookmarks = await prisma.bookmark.findMany({
@@ -43,11 +48,6 @@ export default async function bookmark(
                     message: 'an error ocurred fetching the bookmarks'
                 })
             }
-            break
-
-        // POST(CREATE) THE USER
-
-        case 'POST':
             break
         default:
             return res.status(400).json({ message: 'invalid method' })

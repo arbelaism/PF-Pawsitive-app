@@ -77,7 +77,6 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
 
                 result ? setIsBookmark(true) : setIsBookmark(false)
 
-                console.log(result)
                 return
             }
         }

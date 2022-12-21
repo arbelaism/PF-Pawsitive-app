@@ -46,6 +46,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                 role,
                 active
             } = req.body
+
             try {
                 const newUser = await prisma.user.upsert({
                     where: { id: id || '' },

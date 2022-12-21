@@ -1,6 +1,10 @@
 import axios from "axios";
 import { AdoptFormInput, Product, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput, Form, EmailT } from "app/types";
 import { useQuery } from 'react-query';
+const BASE_URL =
+    process.env.NODE_ENV !== 'production'
+        ? 'http://localhost:3000'
+        : process.env.AUTH0_BASE_URL
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
@@ -143,10 +147,10 @@ export const getAuth0Users = async () => {
 }
 
 export const getAuth0UserById = async (id: string) => {
-  const response = await axios.get(`/api/auth/users/${id}`)
-  const user = await response.data
-  if (!user) throw new Error('Data not found')
-  return user
+    const response = await fetch(`${BASE_URL}/api/auth/users/${id}`)
+    const user = await response.json()
+    if (!user) throw new Error('Data not found')
+    return user
 }
 
 export const putUsers = async (id: string, data: Object) => {
@@ -163,8 +167,6 @@ export const putUsers = async (id: string, data: Object) => {
 
 
 export const putAdoption = async (id: string, data: Object) => {
-  console.log('bd', id, data)
-
   const response = await axios.put(`/api/adoptionpost/${id}`, data);
 
   if (!response) {
@@ -174,7 +176,6 @@ export const putAdoption = async (id: string, data: Object) => {
 };
 
 export const createUser = async (data: Users) => {
-  console.log(data)
   const newUser = await axios
     .post('/api/user', data)
     .catch(error => console.log(error))
@@ -327,7 +328,7 @@ export const createBookmark = async (userId: string, productId: string) => {
     if (!userId || !productId)
         throw new Error('Must provide a userId and a productId')
 
-    const response = await axios.post(`/api/bookmarks/${userId}/${productId}`)
+    const response = await axios.put(`/api/bookmarks/${userId}/${productId}`)
 
     if (!response) throw new Error('Bookmarks not found')
 

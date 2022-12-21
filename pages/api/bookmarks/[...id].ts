@@ -6,13 +6,15 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
     const { id } = req.query
 
     let userId: string = ''
-    if (id) {
-        userId = id[0]
+    let productId: string = ''
+
+    if (id && Array.isArray(id) && id.length === 1) {
+        userId = id[0] as string
     }
 
-    let productId: string = ''
-    if (id && id[1]) {
-        productId = id[1]
+    if (id && Array.isArray(id) && id.length === 2) {
+        userId = id[0] as string
+        productId = id[1] as string
     }
 
     switch (method) {
@@ -34,7 +36,6 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         }
                     }
                 })
-
                 userBookmarks
                     ? res.status(200).json(userBookmarks)
                     : res.status(404).json({
@@ -48,6 +49,33 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             }
             break
         case 'POST':
+            if (!userId) throw new Error('Must provide a userId')
+
+            try {
+                const newBookmark = await prisma.bookmark.upsert({
+                    where: {
+                        userId: userId
+                    },
+                    update: {},
+                    create: {
+                        user: {
+                            connect: { id: userId }
+                        },
+                        product: {}
+                    }
+                })
+
+                newBookmark
+                    ? res.status(201).json(newBookmark)
+                    : res
+                          .status(404)
+                          .json({ message: 'error creating new user bookmark' })
+            } catch (error) {
+                console.log(error)
+                res.status(400).json({ message: 'Error' })
+            }
+            break
+        case 'PUT':
             // const data = req.body
             if (!productId) throw new Error('Must provide a productId')
 

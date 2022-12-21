@@ -134,7 +134,6 @@ const TableUser = () => {
     function toggleUpload(e: any) {
         // e.preventDefault()
         const key = e
-        console.log(uploadUser)
         if (key !== uploadUser) {
             setUserUpdate({ ...dataEstructure })
             setUploadUser(key)

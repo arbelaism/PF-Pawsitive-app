@@ -71,7 +71,6 @@ const CreateAdoptionForm = (mutationCreateAdoption: any) => {
     setCondition(!condition);
   }
   const onSubmit: SubmitHandler<AdoptFormInput> = async (data) => {
-    console.log(form);
     data.userId = checkEmail(data.email);
 
     if (data.userId === "") {
@@ -89,7 +88,6 @@ const CreateAdoptionForm = (mutationCreateAdoption: any) => {
     }
     data = { ...data, photo: urlPhoto ? urlPhoto[0] : null };
     data.age = String(data.age.match("[0-9]+"));
-    console.log(data);
     setCondition(!condition);
     mutationCreateAdoption.mutate(data);
   };
