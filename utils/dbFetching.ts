@@ -11,7 +11,7 @@ import {
     EmailT
 } from 'app/types'
 import { useQuery } from 'react-query'
-const BASE_URL = `https://${process.env.VERCEL_URL}`
+const BASE_URL = process.env.AUTH0_BASE_URL
 
 export const getAdoptions = async () => {
     const response = await axios.get('/api/adoptionpost')

@@ -1,14 +1,21 @@
 import { NextFetchEvent, NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getSession } from '@auth0/nextjs-auth0/edge'
+import { initAuth0 } from '@auth0/nextjs-auth0/edge'
 import { getAuth0UserById } from 'utils/dbFetching'
 import 'regenerator-runtime'
 
+const auth0 = initAuth0({
+    secret: process.env.AUTH0_SECRET,
+    issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
+    baseURL: process.env.AUTH0_BASE_URL,
+    clientID: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET
+})
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
     const response = NextResponse.next()
-    const user = await getSession(request, response)
-    const BASE_URL = `https://${process.env.VERCEL_URL}`
+    const user = await auth0.getSession(request, response)
+    const BASE_URL = process.env.AUTH0_BASE_URL
 
     let userId: string = ''
     let userFirstName: string = ''
