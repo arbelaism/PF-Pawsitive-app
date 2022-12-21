@@ -7,7 +7,7 @@ import 'regenerator-runtime'
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
     const response = NextResponse.next()
     const user = await getSession(request, response)
-    const BASE_URL = process.env.AUTH0_BASE_URL
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
     let userId: string = ''
     let userFirstName: string = ''

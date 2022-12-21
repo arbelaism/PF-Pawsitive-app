@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AdoptFormInput, Product, ContactForm, CheckIn, IUserForm, Users, ReviewFormInput, Form, EmailT } from "app/types";
 import { useQuery } from 'react-query';
-const BASE_URL = process.env.AUTH0_BASE_URL
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 export const getAdoptions = async () => {
   const response = await axios.get("/api/adoptionpost");
