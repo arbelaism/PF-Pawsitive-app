@@ -5,30 +5,30 @@ import 'regenerator-runtime'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
-    // const response = NextResponse.next()
-    // const user = await getSession(request, response)
-    // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+    const response = NextResponse.next()
+    const user = await getSession(request, response)
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-    // let userId: string = ''
-    // let userFirstName: string = ''
-    // let userLastName: string = ''
-    // let userEmail: string = ''
-    // let userEmailVerified: boolean = false
-    // let userPhoto: string = ''
+    let userId: string = ''
+    let userFirstName: string = ''
+    let userLastName: string = ''
+    let userEmail: string = ''
+    let userEmailVerified: boolean = false
+    let userPhoto: string = ''
 
-    // if (user) {
-    //     const res = await fetch(`${BASE_URL}/api/auth/users/${user.user.sub}`)
-    //     const auth0User = await res.json()
+    if (user) {
+        const res = await fetch(`${BASE_URL}/api/auth/users/${user.user.sub}`)
+        const auth0User = await res.json()
 
-    //     if (!auth0User) return
+        if (!auth0User) return
 
-    //     userId = user.user.sub
-    //     userFirstName = user.user.given_name
-    //     userLastName = user.user.family_name
-    //     userEmail = auth0User.email
-    //     userEmailVerified = auth0User.email_verified
-    //     userPhoto = user.user.picture
-    // }
+        userId = user.user.sub
+        userFirstName = user.user.given_name
+        userLastName = user.user.family_name
+        userEmail = auth0User.email
+        userEmailVerified = auth0User.email_verified
+        userPhoto = user.user.picture
+    }
 
     // if (user && userId && userEmail) {
     //     event.waitUntil(
