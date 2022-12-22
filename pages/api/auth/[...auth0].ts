@@ -1,10 +1,11 @@
-import {
-    handleAuth,
-    handleCallback,
-    handleLogin,
-    handleLogout
-} from '@auth0/nextjs-auth0'
+// import {
+//     handleAuth,
+//     handleCallback,
+//     handleLogin,
+//     handleLogout
+// } from '@auth0/nextjs-auth0'
 import { NextApiRequest, NextApiResponse } from 'next'
+import auth0 from 'utils/auth0'
 
 const audience = process.env.AUTH0_AUDIENCE
 const scope = process.env.AUTH0_SCOPE
@@ -20,11 +21,11 @@ function getUrls(req: NextApiRequest) {
     }
 }
 
-export default handleAuth({
+export default auth0.handleAuth({
     async callback(req: NextApiRequest, res: NextApiResponse) {
         try {
             const { redirectUri } = getUrls(req)
-            await handleCallback(req, res, { redirectUri: redirectUri })
+            await auth0.handleCallback(req, res, { redirectUri: redirectUri })
         } catch (error: any) {
             res.status(error.status || 500).end(error.message)
         }
@@ -34,7 +35,7 @@ export default handleAuth({
         try {
             const { redirectUri, returnTo } = getUrls(req)
 
-            await handleLogin(req, res, {
+            await auth0.handleLogin(req, res, {
                 authorizationParams: {
                     audience: audience,
                     scope: scope,
@@ -49,7 +50,7 @@ export default handleAuth({
 
     async logout(req: NextApiRequest, res: NextApiResponse) {
         const { returnTo } = getUrls(req)
-        await handleLogout(req, res, {
+        await auth0.handleLogout(req, res, {
             returnTo: returnTo
         })
     }

@@ -13,13 +13,13 @@ import { useEffect } from 'react'
 const Home: NextPage = () => {
     // createDB()
 
-    const { user, error } = useUser()
-    const { mutate } = useMutation((data: any) => createUser(data), {
-        onSettled: () => {
-            queryClient.invalidateQueries('auth0User')
-        }
-    })
-    const queryClient = useQueryClient()
+    // const { user, error } = useUser()
+    // const { mutate } = useMutation((data: any) => createUser(data), {
+    //     onSettled: () => {
+    //         queryClient.invalidateQueries('auth0User')
+    //     }
+    // })
+    // const queryClient = useQueryClient()
 
     // const { data: auth0Users } = useQuery(['auth0Users'], getAuth0Users)
     // if (auth0Users) {
@@ -38,14 +38,14 @@ const Home: NextPage = () => {
     //     })
     // }
 
-    let id: string = ''
-    if (user && user.sub) {
-        id = user.sub
-    }
+    // let id: string = ''
+    // if (user && user.sub) {
+    //     id = user.sub
+    // }
 
-    const { data: auth0User, isLoading } = useQuery(['auth0User', id], () =>
-        getAuth0UserById(id)
-    )
+    // const { data: auth0User, isLoading } = useQuery(['auth0User', id], () =>
+    //     getAuth0UserById(id)
+    // )
 
     // let email: string = ''
     // let nickname: string = ''
@@ -57,22 +57,20 @@ const Home: NextPage = () => {
     //     }
     // }
 
-    useEffect(() => {
-        if (!isLoading && user && auth0User) {
-            const data = {
-                id: auth0User.user_id,
-                firstName: auth0User.given_name || '',
-                lastName: auth0User.family_name || '',
-                email: auth0User.email,
-                email_verified: auth0User.email_verified,
-                photo: auth0User.picture
-            }
+    // useEffect(() => {
+    //     if (!isLoading && user && auth0User) {
+    //         const data = {
+    //             id: auth0User.user_id,
+    //             firstName: auth0User.given_name || '',
+    //             lastName: auth0User.family_name || '',
+    //             email: auth0User.email,
+    //             email_verified: auth0User.email_verified,
+    //             photo: auth0User.picture
+    //         }
 
-            console.log(data)
-
-            mutate(data)
-        }
-    }, [auth0User, id])
+    //         mutate(data)
+    //     }
+    // }, [auth0User, id])
 
     return (
         <MainLayout title="Pawsitive - Home">

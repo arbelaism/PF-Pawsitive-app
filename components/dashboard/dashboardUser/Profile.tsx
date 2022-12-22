@@ -21,7 +21,6 @@ const MyProfile: NextComponentType = () => {
     } = useQuery(['userProfile', user?.sub], () => getUserById(id))
     let photo: string
     if (!isLoading) {
-        console.log(userProfile)
         photo = userProfile?.photo
     }
 

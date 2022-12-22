@@ -65,8 +65,8 @@ const ProductsScreen = () => {
                         pagination={{ clickable: true }}
                         spaceBetween={20}
                         slidesPerView={4}
-                        onSlideChange={() => console.log('slide change')}
-                        onSwiper={swiper => console.log(swiper)}>
+                        onSlideChange={() => {}}
+                        onSwiper={swiper => {}}>
                         {productsList.map((product: any) => {
                             return (
                                 <SwiperSlide key={product.id}>
