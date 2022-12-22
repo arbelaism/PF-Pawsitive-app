@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 
 const Navbar: NextComponentType = () => {
     const [cartProducts, setCartProducts] = useState(0)
+    const [toggleMenu, setToggleMenu] = useState(false)
     const { user, error, isLoading } = useUser()
     const router = useRouter()
 
@@ -64,43 +65,50 @@ const Navbar: NextComponentType = () => {
             router.push('/bookmarks')
         }
     }
-    const onClick = () => {
-        const menu = document.querySelector('#menu')
-        const menuCart = document.querySelector('#menu-cart')
-        menu?.classList.toggle('hidden')
-        menuCart?.classList.toggle('hidden')
+    const openNav = () => {
+        const menu = document.getElementById('menu')
+
+        if (!menu) return
+        if (menu.style.top === '-15rem') {
+            menu.style.top = '4rem'
+            setToggleMenu(true)
+            return
+        }
+
+        menu.style.top = '-15rem'
+        setToggleMenu(false)
     }
     return (
-        <nav className="flex items-center justify-between flex-wrap gap-5 bg-pwgreen-500 shadow-md text-pwgreen-50 py-5 px-6 lg:py-3">
-            <div className="flex items-center gap-1 flex-shrink-0 text-2xl">
-                <Link href={'/'}>
-                    <a className="flex items-center gap-1.5">
-                        <Image
-                            src={IsoGreen}
-                            alt="not found"
-                            width={35}
-                            height={35}
-                        />
-                        <div className="font-Rubik hidden transition-all hover:drop-shadow-md md:block hover:text-pwgreen-800">
-                            Paw
-                            <span className="font-bold">sitive</span>
-                        </div>
-                    </a>
-                </Link>
-            </div>
-            <div className="block lg:hidden">
-                <button
-                    onClick={onClick}
-                    className="flex items-center px-3 py-2 rounded border border-pwgreen-300 text-pwgreen-100 text-xl hover:text-pwgreen-800 hover:border-pwgreen-800 transition-all">
-                    <HiMenu />
-                </button>
-            </div>
-            <div
-                id="menu"
-                className="w-full hidden justify-between font-medium uppercase font-Rubik lg:flex lg:items-center lg:w-auto">
-                <div>
+        <nav className="sticky top-0 w-full z-30 flex gap-3 bg-pwgreen-500 shadow-md text-pwgreen-50 py-5 px-6 md:justify-between lg:py-5">
+            <div className="relative flex justify-start flex-col gap-3 w-3/4">
+                <div className="block lg:hidden">
+                    <button
+                        onClick={openNav}
+                        className="flex items-center px-3 py-2 rounded border border-pwgreen-300 text-pwgreen-100 text-xl hover:text-pwgreen-800 hover:border-pwgreen-800 transition-all">
+                        <HiMenu />
+                    </button>
+                </div>
+                <div className="hidden lg:flex lg:items-center gap-1 h-full flex-shrink-0 text-2xl">
                     <Link href={'/'}>
-                        <a className="navbarLink">Home</a>
+                        <a className="flex items-center gap-1.5">
+                            <Image
+                                src={IsoGreen}
+                                alt="not found"
+                                width={35}
+                                height={35}
+                            />
+                            <div className="hidden font-Rubik transition-all md:block hover:drop-shadow-md hover:text-pwgreen-800">
+                                Paw
+                                <span className="font-bold">sitive</span>
+                            </div>
+                        </a>
+                    </Link>
+                </div>
+                <div
+                    id="menu"
+                    className="absolute bg-pwgreen-500 w-screen pb-8 -top-60 -left-6 text-center lg:bg-transparent h-max lg:flex lg:justify-center lg:pb-4 lg:left-2/4 lg:-translate-x-1/4 lg:w-max xl:w-3/4 lg:top-2.5 lg:justify-center font-medium uppercase font-Rubik transition-all">
+                    <Link href={'/'}>
+                        <a className="navbarLink">Inicio</a>
                     </Link>
                     <Link href={'/adoptions'}>
                         <a className="navbarLink">Adopciones</a>
@@ -116,20 +124,27 @@ const Navbar: NextComponentType = () => {
                     </Link>
                 </div>
             </div>
-            <div
-                className="hidden lg:flex justify-between items-center w-full lg:w-max"
-                id="menu-cart">
+            <div className="flex justify-end w-1/4 h-max lg:w-max">
                 <button onClick={alertSessionRequired}>
-                    <a className='flex text-xl items-center hover:text-pwgreen-800 mr-3 transition-all'>
-                        <FaHeart />
-                    </a>
+                    <Link href={'/bookmarks'}>
+                        <a
+                            className="hidden md:flex items-center hover:text-pwgreen-800
+                    hover:font-bold transition-all gap-2 mr-4">
+                            <FaHeart className="text-xl" />
+                        </a>
+                    </Link>
                 </button>
                 <Link href={'/shoppingCart'}>
                     <a
                         className="flex items-center hover:text-pwgreen-800
                     hover:font-bold transition-all gap-2 mr-4">
                         <FaShoppingCart className="text-xl" />
-                        <div>{cartProducts}</div>
+                        {cartProducts ? (
+                            <span className="flex absolute -mt-5 ml-4">
+                                <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-pwpurple-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pwpurple-500"></span>
+                            </span>
+                        ) : null}
                     </a>
                 </Link>
                 {!user ? (
