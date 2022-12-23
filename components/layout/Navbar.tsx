@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Product } from '../../app/types'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { FaHeart, FaShoppingCart } from 'react-icons/fa'
+import { FaHeart, FaShoppingCart, FaSignInAlt } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
 import UserButton from './UserButton'
 import { checkEmail } from 'utils/checkEmail'
@@ -14,7 +14,8 @@ import { useRouter } from 'next/router'
 
 const Navbar: NextComponentType = () => {
     const [cartProducts, setCartProducts] = useState(0)
-    const [toggleMenu, setToggleMenu] = useState(false)
+    const [show, setShow] = useState(true)
+    const [lastScrollY, setLastScrollY] = useState(0)
     const { user, error, isLoading } = useUser()
     const router = useRouter()
 
@@ -33,6 +34,21 @@ const Navbar: NextComponentType = () => {
             nickname = user.name
         }
     }
+
+    const controlNavbar = () => {
+        if (typeof window !== 'undefined') {
+            if (window.scrollY > lastScrollY) {
+                setShow(false)
+                document.querySelector('nav')!.style.top = '-6rem'
+            } else {
+                setShow(true)
+                document.querySelector('nav')!.style.top = '0'
+            }
+
+            setLastScrollY(window.scrollY)
+        }
+    }
+
     function updateProducts() {
         const totalProducts = JSON.parse(
             window.localStorage.getItem('cartProducts')!
@@ -51,12 +67,22 @@ const Navbar: NextComponentType = () => {
         var timerID = setInterval(() => updateProducts(), 50)
         return () => clearInterval(timerID)
     })
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.addEventListener('scroll', controlNavbar)
+
+            return () => {
+                window.removeEventListener('scroll', controlNavbar)
+            }
+        }
+    }, [lastScrollY])
+
     const alertSessionRequired = () => {
         if (!user) {
             redirectionAlert({
                 icon: 'info',
                 title: '<strong>Inicio de sesion requerido</strong>',
-                html: 'Para acceder a tus favoritos necesitas iniciar sesión',
+                html: 'Para acceder a esta sección necesitas iniciar sesión',
                 confirmButtonText: 'Iniciar sesion',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 link: '/api/auth/login'
@@ -69,22 +95,23 @@ const Navbar: NextComponentType = () => {
         const menu = document.getElementById('menu')
 
         if (!menu) return
-        if (menu.style.top === '-15rem') {
-            menu.style.top = '4rem'
-            setToggleMenu(true)
+        if (menu.style.top === '' || menu.style.top === '-16rem') {
+            menu.style.top = '3.5rem'
             return
         }
 
-        menu.style.top = '-15rem'
-        setToggleMenu(false)
+        menu.style.top = '-16rem'
     }
     return (
-        <nav className="sticky top-0 w-full z-30 flex gap-3 bg-pwgreen-500 shadow-md text-pwgreen-50 py-5 px-6 md:justify-between lg:py-5">
+        <nav
+            className={`sticky top-0 w-full z-30 flex gap-3 bg-pwgreen-500 shadow-md text-pwgreen-50 py-5 px-6 md:justify-between lg:py-5 items-center transition-all ${
+                show && 'top-0'
+            }`}>
             <div className="relative flex justify-start flex-col gap-3 w-3/4">
                 <div className="block lg:hidden">
                     <button
                         onClick={openNav}
-                        className="flex items-center px-3 py-2 rounded border border-pwgreen-300 text-pwgreen-100 text-xl hover:text-pwgreen-800 hover:border-pwgreen-800 transition-all">
+                        className="flex items-center px-3 py-2 rounded text-pwgreen-100 text-2xl hover:text-pwgreen-800 transition-all">
                         <HiMenu />
                     </button>
                 </div>
@@ -106,25 +133,60 @@ const Navbar: NextComponentType = () => {
                 </div>
                 <div
                     id="menu"
-                    className="absolute bg-pwgreen-500 w-screen pb-8 -top-60 -left-6 text-center lg:bg-transparent h-max lg:flex lg:justify-center lg:pb-4 lg:left-2/4 lg:-translate-x-1/4 lg:w-max xl:w-3/4 lg:top-2.5 lg:justify-center font-medium uppercase font-Rubik transition-all">
+                    className="absolute bg-pwgreen-500 w-screen pb-8 -top-64 -left-6 text-center lg:bg-transparent h-max lg:flex lg:pb-4 lg:left-2/4 lg:-translate-x-1/4 lg:w-max xl:w-3/4 lg:top-1.5 lg:justify-center font-medium uppercase font-Rubik transition-all">
                     <Link href={'/'}>
-                        <a className="navbarLink">Inicio</a>
+                        <a
+                            className={
+                                router.pathname === '/'
+                                    ? 'navbarLink navbarLinkActive'
+                                    : 'navbarLink'
+                            }>
+                            Inicio
+                        </a>
                     </Link>
                     <Link href={'/adoptions'}>
-                        <a className="navbarLink">Adopciones</a>
+                        <a
+                            className={
+                                router.pathname === '/adoptions'
+                                    ? 'navbarLink navbarLinkActive'
+                                    : 'navbarLink'
+                            }>
+                            Adopciones
+                        </a>
                     </Link>
                     <Link href={'/products'}>
-                        <a className="navbarLink">Productos</a>
+                        <a
+                            className={
+                                router.pathname === '/products'
+                                    ? 'navbarLink navbarLinkActive'
+                                    : 'navbarLink'
+                            }>
+                            Productos
+                        </a>
                     </Link>
                     <Link href={'/contact'}>
-                        <a className="navbarLink">Contacto</a>
+                        <a
+                            className={
+                                router.pathname === '/contact'
+                                    ? 'navbarLink navbarLinkActive'
+                                    : 'navbarLink'
+                            }>
+                            Contacto
+                        </a>
                     </Link>
                     <Link href={'/about'}>
-                        <a className="navbarLink">Sobre nosotros</a>
+                        <a
+                            className={
+                                router.pathname === '/about'
+                                    ? 'navbarLink navbarLinkActive'
+                                    : 'navbarLink'
+                            }>
+                            Sobre nosotros
+                        </a>
                     </Link>
                 </div>
             </div>
-            <div className="flex justify-end w-1/4 h-max lg:w-max">
+            <div className="flex justify-end items-center w-1/4 h-max lg:w-max">
                 <button onClick={alertSessionRequired}>
                     <Link href={'/bookmarks'}>
                         <a
@@ -134,23 +196,27 @@ const Navbar: NextComponentType = () => {
                         </a>
                     </Link>
                 </button>
-                <Link href={'/shoppingCart'}>
-                    <a
-                        className="flex items-center hover:text-pwgreen-800
+                <button onClick={alertSessionRequired}>
+                    <Link href={'/shoppingCart'}>
+                        <a
+                            className="flex items-center hover:text-pwgreen-800
                     hover:font-bold transition-all gap-2 mr-4">
-                        <FaShoppingCart className="text-xl" />
-                        {cartProducts ? (
-                            <span className="flex absolute -mt-5 ml-4">
-                                <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-pwpurple-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pwpurple-500"></span>
-                            </span>
-                        ) : null}
-                    </a>
-                </Link>
+                            <FaShoppingCart className="text-xl" />
+                            {cartProducts ? (
+                                <span className="flex absolute -mt-5 ml-4">
+                                    <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-pwpurple-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pwpurple-500"></span>
+                                </span>
+                            ) : null}
+                        </a>
+                    </Link>
+                </button>
                 {!user ? (
                     <div>
                         <Link href="/api/auth/login">
-                            <a className="navbarLink">Iniciar sesión</a>
+                            <a className="navbarLink m-0 w-max">
+                                Iniciar sesión
+                            </a>
                         </Link>
                     </div>
                 ) : (

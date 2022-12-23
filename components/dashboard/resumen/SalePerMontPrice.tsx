@@ -26,6 +26,7 @@ const SalePerMontPrice: NextPage = () => {
 
     montTransaction.map((t: Transaction) => {
       t.quantity.map((q: Quantity) => {
+        if (!q.product) return
         if (q.product.category === "TOY") { info[0] += (q.quantity * q.product.displayPrice) }
         else if (q.product.category === "FOOD") { info[1] += (q.quantity * q.product.displayPrice) }
         else if (q.product.category === "SNACK") { info[2] += (q.quantity * q.product.displayPrice) }
