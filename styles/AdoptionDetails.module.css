@@ -1,8 +1,8 @@
 .container {
     transform: translateY(0%);
     margin: auto;
-    width: 380px;
-    height: 490px;
+    width: 80%;
+    height: max;
     border-radius: 10px;
     box-shadow: 24px;
 }

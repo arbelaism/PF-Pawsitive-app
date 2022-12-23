@@ -42,6 +42,7 @@ const BalancePerMont: NextPage = () => {
         })
         const result = montTransaction.map((t: Transaction) => {
           t.quantity.map(({ quantity, product }: Quantity) => {
+            if (!product) return
             info.push((product.price * quantity))
 
           })

@@ -32,7 +32,7 @@ const LeftNavbar: any = () => {
     }, [dbUser])
 
     return (
-        <div className="h-full bg-white p-5 min-w-[15rem] lg:p-8">
+        <div className="h-full bg-white p-5 min-w-[15rem] rounded-r-lg lg:rounded-none lg:p-8">
             <div className="relative hidden lg:flex lg:items-center md:gap-2 lg:justify-start">
                 <Image src={IsoGreen} alt="not found" width={40} height={40} />
                 <h1 className="font-Rubik text-pwgreen-900 hidden lg:block lg:text-2xl">

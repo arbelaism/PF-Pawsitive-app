@@ -65,8 +65,16 @@
         font-Rubik
         uppercase
         font-medium
-        hover:text-pwgreen-800
+        border-b-2
+        h-full
+        border-transparent
+        lg:hover:text-pwgreen-800
+        lg:hover:border-b-pwgreen-800
         lg:inline-block lg:mt-0;
+    }
+
+    .navbarLinkActive {
+        @apply lg:border-b-pwgreen-800 text-pwgreen-800;
     }
 
     .active {

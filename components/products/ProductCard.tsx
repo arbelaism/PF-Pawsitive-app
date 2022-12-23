@@ -97,11 +97,11 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
             <div className="absolute right-5 top-4 text-2xl">
                 {isBookmark ? (
                     <button name={product.id} onClick={handleBookmark}>
-                        <FaHeart className="text-red-500 group-hover:block" />
+                        <FaHeart className="text-red-500 group-hover:block opacity-100 hover:opacity-80 hover:text-red-300 transition-all" />
                     </button>
                 ) : (
                     <button name={product.id} onClick={handleBookmark}>
-                        <FaRegHeart className="text-red-300 group-hover:block" />
+                        <FaRegHeart className="text-red-300 opacity-70 hover:opacity-100 hover:text-red-500 transition-all" />
                     </button>
                 )}
             </div>

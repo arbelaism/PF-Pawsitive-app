@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useState } from 'react'
-import Link from 'next/link'
 import { redirectionAlert } from 'utils/alerts'
 import useLocalStorage from 'use-local-storage'
 import { useUser } from '@auth0/nextjs-auth0/client'
@@ -13,8 +12,10 @@ import Image from 'next/image'
 import { getPetById, getUserById } from 'utils/dbFetching'
 import { ApplyAdAp } from 'app/types'
 import { useQuery } from 'react-query'
-import { AiOutlineClose, AiOutlineArrowRight } from 'react-icons/ai'
+import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useRouter } from 'next/router'
+import { IoClose } from 'react-icons/io5'
+import Loading from 'public/loading.gif'
 
 type Prop = {
     id: string
@@ -30,8 +31,13 @@ const AdoptionDetails = ({ id }: Prop) => {
     const [open, setOpen] = useState(false)
     const handleClose = () => setOpen(false)
 
-    const { data: dbUser, isLoading: uIsLoading } = useQuery(['user', id], () =>
-        getUserById(id)
+    let userId: string = ''
+    if (!isLoadingU && user && user.sub) {
+        userId = user.sub
+    }
+    const { data: dbUser, isLoading: uIsLoading } = useQuery(
+        ['user', userId],
+        () => getUserById(userId)
     )
 
     const alertAdoptionForm = async () => {
@@ -84,7 +90,6 @@ const AdoptionDetails = ({ id }: Prop) => {
         }
         setIds(data)
         setOpen(true)
-        console.log(ids)
     }
 
     return (
@@ -101,7 +106,8 @@ const AdoptionDetails = ({ id }: Prop) => {
                 style={{
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    backdropFilter: 'blur(12px)'
                 }}
                 open={open}
                 onClose={handleClose}
@@ -114,60 +120,77 @@ const AdoptionDetails = ({ id }: Prop) => {
                     <Box className={styles.container}>
                         <div className="w-full h-full">
                             {isLoading ? (
-                                <h1>Loading...</h1>
+                                <div className="flex justify-center items-center">
+                                    <Image
+                                        src={Loading}
+                                        alt="not found"
+                                        width={100}
+                                        height={100}
+                                    />
+                                </div>
                             ) : (
-                                <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md">
-                                    <div className="flex flex-row justify-end px-5 pt-2 text-lg">
-                                        <button onClick={handleClose}>
-                                            <AiOutlineClose />
-                                        </button>
-                                    </div>
-
-                                    <div className="px-5 mt-2 w-full flex flex-row justify-center items-center">
+                                <div className="relative flex flex-col items-center justify-around py-4 lg:py-16 lg:flex-row bg-white border border-gray-200 rounded-lg shadow-md">
+                                    <button
+                                        onClick={handleClose}
+                                        className="absolute top-4 right-4 text-3xl text-pwpurple-800 hover:bg-pwpurple-700 hover:text-pwpurple-50 transition-all hover:rotate-90 hover:rounded-full">
+                                        <IoClose />
+                                    </button>
+                                    <div className="w-1/4 flex flex-row justify-center items-center">
                                         <div>
                                             <Image
                                                 src={pet.photo}
                                                 alt={`Adopt me: ${pet.name}`}
-                                                width={150}
-                                                height={150}
+                                                objectFit={'cover'}
+                                                width={256}
+                                                height={256}
                                                 className="rounded-full"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="p-5">
-                                        <h5 className="capitalize mb-2 text-2xl font-Rubik font-bold tracking-tight text-gray-900">
-                                            {pet.name}
-                                        </h5>
-                                        <p className="mb-3 font-Rubik text-gray-700">
-                                            Mi nombre es{' '}
-                                            <span className="capitalize font-bold">
+                                    <div className="h-full w-3/4 flex flex-col justify-between lg:w-2/4">
+                                        <div className="w-full">
+                                            <h5 className="capitalize mb-2 text-2xl font-Rubik font-bold tracking-tight text-pwgreen-900 lg:text-3xl">
                                                 {pet.name}
-                                            </span>
-                                            . Soy un cariñoso y amoroso{' '}
-                                            {pet.breed}, tengo {pet.age} y me
-                                            encuentro buscando mi hogar soñado,
-                                            una familia que me dé todo el amor
-                                            del mundo y cuide de mi... Si deseas
-                                            adoptarme, por favor presiona el
-                                            botón &quot;¡Adóptame!&quot; y el{' '}
-                                            <span className="font-bold">
-                                                Pawsitive Team{' '}
-                                            </span>
-                                            se contactará contigo.
-                                        </p>
-                                        <div className="flex flex-row justify-center items-center">
-                                            {/* <Link href="/adoptions/apply"> */}
-                                            <div className="cursor-pointer w-1/2 font-Rubik text-lg rounded-lg px-1 py-1 border-2 border-pwpurple-600 bg-pwpurple-600 text-white hover:bg-white hover:text-pwgreen-600 hover:border-pwgreen-600 duration-300 flex flex-row justify-center items-center">
+                                            </h5>
+                                            <p className="font-Rubik text-gray-700 text-justify">
+                                                Mi nombre es{' '}
+                                                <span className="capitalize font-bold">
+                                                    {pet.name}
+                                                </span>
+                                                {pet.description ? (
+                                                    <p>{pet.description}</p>
+                                                ) : (
+                                                    <p>
+                                                        Lorem ipsum dolor sit
+                                                        amet, qui minim labore
+                                                        adipisicing minim sint
+                                                        cillum sint consectetur
+                                                        cupidatat.Lorem ipsum
+                                                        dolor sit amet, qui
+                                                        minim labore adipisicing
+                                                        minim sint cillum sint
+                                                        consectetur cupidatat.
+                                                    </p>
+                                                )}
+                                            </p>
+                                        </div>
+                                        <div className="flex flex-col items-center my-2">
+                                            <div className="dashboardButton lg:self-end uppercase text-lg bg-pwpurple-600 text-pwpurple-50 hover:bg-pwpurple-800">
                                                 <button
                                                     onClick={alertAdoptionForm}>
                                                     ¡Adóptame!
                                                 </button>
                                                 <div>
-                                                    <AiOutlineArrowRight className="text-lg pl-1" />
+                                                    <AiOutlineArrowRight className="text-2xl" />
                                                 </div>
                                             </div>
-                                            {/* </Link> */}
+                                            <span className="text-xs text-slate-500 text-center">
+                                                Si deseas adoptarme, por favor
+                                                presiona el botón
+                                                &quot;¡Adóptame!&quot; y nuestro
+                                                equipo se contactará contigo.
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
