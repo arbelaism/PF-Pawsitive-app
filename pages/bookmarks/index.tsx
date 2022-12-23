@@ -143,29 +143,32 @@ const Bookmarks = () => {
                     </div>
                 ) : (
                     <div className="w-full bg-white border rounded-lg shadow-md">
-                        <div className="flex justify-between items-center px-4 py-2 md:px-6 md:py-4">
-                            <div className="flex gap-1 md:gap-4 items-center">
-                                <input
-                                    type="checkbox"
-                                    id="selectAll"
-                                    className="checkbox"
-                                    onChange={selectAll}
-                                />
-                                <button
-                                    className="text-xs md:text-sm text-pwgreen-800 hover:bg-pwgreen-100 py-2 px-2 rounded-md disabled:bg-transparent disabled:text-slate-500 transition-all"
-                                    id="deleteAllBookmarks"
-                                    onClick={handleSelectedBookmarks}
-                                    disabled={
-                                        checkboxState.length ? false : true
-                                    }>
-                                    Eliminá tus favoritos seleccionados
-                                </button>
+                        {myBookmarks && myBookmarks.length > 0 ? (
+                            <div className="flex justify-between items-center px-4 py-2 md:px-6 md:py-4">
+                                <div className="flex gap-1 md:gap-4 items-center">
+                                    <input
+                                        type="checkbox"
+                                        id="selectAll"
+                                        className="checkbox"
+                                        onChange={selectAll}
+                                    />
+                                    <button
+                                        className="text-xs md:text-sm text-pwgreen-800 hover:bg-pwgreen-100 py-2 px-2 rounded-md disabled:bg-transparent disabled:text-slate-500 transition-all"
+                                        id="deleteAllBookmarks"
+                                        onClick={handleSelectedBookmarks}
+                                        disabled={
+                                            checkboxState.length ? false : true
+                                        }>
+                                        Eliminá tus favoritos seleccionados
+                                    </button>
+                                </div>
+                                <span className="text-xs md:text-sm text-slate-500">
+                                    Actualmente tenés:{' '}
+                                    {myBookmarks && myBookmarks.length}{' '}
+                                    favoritos
+                                </span>
                             </div>
-                            <span className="text-xs md:text-sm text-slate-500">
-                                Actualmente tenés:{' '}
-                                {myBookmarks && myBookmarks.length} favoritos
-                            </span>
-                        </div>
+                        ) : null}
                         <div className="flex flex-col items-center gap-2">
                             {myBookmarks &&
                                 myBookmarks.map((p: Product) => (

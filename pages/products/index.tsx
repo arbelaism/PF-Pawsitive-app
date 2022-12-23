@@ -166,7 +166,7 @@ const Products: NextPage = () => {
                             size={paginationSize}
                         />
                     ) : null}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mb-8">
                         {isLoading ? (
                             <div className="flex justify-center items-center my-16">
                                 <Image

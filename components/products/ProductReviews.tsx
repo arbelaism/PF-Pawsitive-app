@@ -17,7 +17,7 @@ const ProductReviews = ({ id, review }: Props) => {
         <div
             key={id}
             className="flex justify-between items-center rounded-md w-full px-4 py-6 bg-pwgreen-50 shadow-md">
-            <h2 className="text-pwgreen-900 font-Rubik text-lg font-medium w-1/4">
+            <h2 className="text-pwgreen-900 font-Rubik text-base font-medium w-1/4">
                 {review.user?.firstName + ' ' + review.user?.lastName}
             </h2>
             <div className="flex flex-col gap-2 items-start w-3/4">
@@ -31,9 +31,9 @@ const ProductReviews = ({ id, review }: Props) => {
                         }
                     })}
                 </div>
-                <p>{review.review}</p>
+                <p className='text-sm lg:text-base'>{review.review}</p>
                 <div className="justify-self-center w-full">
-                    <p className="text-right font-bold text-pwpurple-700">
+                    <p className="text-right text-sm lg:text-base font-bold text-pwpurple-700">
                         {String(review.createdAt).slice(0, 10)}
                     </p>
                 </div>

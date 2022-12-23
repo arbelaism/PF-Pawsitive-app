@@ -84,6 +84,7 @@ const Checkout = ({ price, setOpen }: Props) => {
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // FIX: fix stripe error. createToken
     const { error, paymentMethod } = await stripe!.createPaymentMethod({
       type: "card",
       card: elements!.getElement(CardElement)!,

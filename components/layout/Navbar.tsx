@@ -77,7 +77,7 @@ const Navbar: NextComponentType = () => {
         }
     }, [lastScrollY])
 
-    const alertSessionRequired = () => {
+    const alertSessionRequired = (path: string) => {
         if (!user) {
             redirectionAlert({
                 icon: 'info',
@@ -87,8 +87,8 @@ const Navbar: NextComponentType = () => {
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 link: '/api/auth/login'
             })
-        } else {
-            router.push('/bookmarks')
+        } else if (user !== undefined) {
+            router.push(path)
         }
     }
     const openNav = () => {
@@ -133,7 +133,7 @@ const Navbar: NextComponentType = () => {
                 </div>
                 <div
                     id="menu"
-                    className="absolute bg-pwgreen-500 w-screen pb-8 -top-64 -left-6 text-center lg:bg-transparent h-max lg:flex lg:pb-4 lg:left-2/4 lg:-translate-x-1/4 lg:w-max xl:w-3/4 lg:top-1.5 lg:justify-center font-medium uppercase font-Rubik transition-all">
+                    className="absolute bg-pwgreen-500 w-screen pb-8 -top-64 -left-6 text-center lg:bg-transparent h-max lg:flex lg:pb-4 lg:left-2/4 lg:-translate-x-1/4 lg:w-max xl:w-3/5 lg:top-1.5 lg:justify-center font-medium uppercase font-Rubik transition-all">
                     <Link href={'/'}>
                         <a
                             className={
@@ -186,46 +186,44 @@ const Navbar: NextComponentType = () => {
                     </Link>
                 </div>
             </div>
-            <div className="flex justify-end items-center w-1/4 h-max lg:w-max">
-                <button onClick={alertSessionRequired}>
-                    <Link href={'/bookmarks'}>
-                        <a
-                            className="hidden md:flex items-center hover:text-pwgreen-800
-                    hover:font-bold transition-all gap-2 mr-4">
-                            <FaHeart className="text-xl" />
-                        </a>
-                    </Link>
+            <div className="flex justify-end items-center w-1/4 h-max gap-x-3.5 lg:w-max">
+                <button onClick={e => alertSessionRequired('/bookmarks')}>
+                    <a
+                        className="hidden md:flex items-center hover:text-pwgreen-800
+                    hover:font-bold transition-all gap-2">
+                        <FaHeart className="text-xl" />
+                    </a>
                 </button>
-                <button onClick={alertSessionRequired}>
-                    <Link href={'/shoppingCart'}>
-                        <a
-                            className="flex items-center hover:text-pwgreen-800
-                    hover:font-bold transition-all gap-2 mr-4">
-                            <FaShoppingCart className="text-xl" />
-                            {cartProducts ? (
-                                <span className="flex absolute -mt-5 ml-4">
-                                    <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-pwpurple-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pwpurple-500"></span>
-                                </span>
-                            ) : null}
-                        </a>
-                    </Link>
+                <button onClick={e => alertSessionRequired('/shoppingCart')}>
+                    <a
+                        className="flex items-center hover:text-pwgreen-800
+                    hover:font-bold transition-all gap-2">
+                        <FaShoppingCart className="text-xl" />
+                        {cartProducts ? (
+                            <span className="flex absolute -mt-5 ml-4">
+                                <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-pwpurple-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pwpurple-500"></span>
+                            </span>
+                        ) : null}
+                    </a>
                 </button>
-                {!user ? (
-                    <div>
-                        <Link href="/api/auth/login">
-                            <a className="navbarLink m-0 w-max">
-                                Iniciar sesión
-                            </a>
-                        </Link>
-                    </div>
-                ) : (
-                    <UserButton
-                        userName={name ?? ''}
-                        userEmail={email ?? ''}
-                        userPicture={user?.picture ?? ''}
-                    />
-                )}
+                <div className="ml-2">
+                    {!user ? (
+                        <div>
+                            <Link href="/api/auth/login">
+                                <a className="navbarLink m-0 w-max">
+                                    Iniciar sesión
+                                </a>
+                            </Link>
+                        </div>
+                    ) : (
+                        <UserButton
+                            userName={name ?? ''}
+                            userEmail={email ?? ''}
+                            userPicture={user?.picture ?? ''}
+                        />
+                    )}
+                </div>
             </div>
         </nav>
     )

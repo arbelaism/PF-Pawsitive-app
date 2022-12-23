@@ -60,7 +60,7 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                     height={24}
                     className="rounded-full"
                 />
-                <span className="hidden md:block">{userName}</span>
+                <span className="hidden xl:block">{userName}</span>
             </button>
             <div
                 id="dropdown"

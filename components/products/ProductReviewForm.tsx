@@ -52,7 +52,7 @@ const ProductReviewForm = ({ id, userBoughtProduct }: Props) => {
                 className="flex flex-col gap-3 justify-between items-end bg-pwgreen-100 px-4 py-6 w-full h-max"
                 onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col w-full gap-2 justify-center">
-                    <label className="label text-xl">
+                    <label className="label text-base mx-2 lg:text-xl">
                         Deja tu reseña sobre este producto
                     </label>
                     <textarea
@@ -98,16 +98,16 @@ const ProductReviewForm = ({ id, userBoughtProduct }: Props) => {
                             </p>
                         ))}
                 </div>
-                <div className='flex w-full justify-between'>
+                <div className="flex w-full justify-between">
                     {!userBoughtProduct ? (
-                        <span className="text-slate-500 text-sm">
+                        <span className="text-slate-500 text-xs lg:text-sm">
                             Necesitas comprar el producto para dejar tu reseña.
                         </span>
                     ) : null}
                     <button
                         type="submit"
                         disabled={userBoughtProduct ? false : true}
-                        className="dashboardButton text-base uppercase text-pwgreen-50 bg-pwgreen-600 hover:bg-pwgreen-800 transition-colors">
+                        className="dashboardButton text-sm uppercase py-2 px-4 text-pwgreen-50 bg-pwgreen-600 hover:bg-pwgreen-800 transition-colors lg:text-base lg:py-4 lg:px-6">
                         Comentar
                     </button>
                 </div>

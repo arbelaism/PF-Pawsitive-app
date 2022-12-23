@@ -26,7 +26,6 @@ const ProductsScreen = () => {
     if (products) productsList = [...products.slice(1, 16)]
 
     return (
-
         <div className="p-10 w-full bg-pwgreen-100 h-screen flex flex-col justify-center shadow-xl">
             <div className="flex flex-col justify-center gap-3">
                 <h1 className="title">Productos</h1>
@@ -70,6 +69,7 @@ const ProductsScreen = () => {
                         {productsList.map((product: any) => {
                             return (
                                 <SwiperSlide key={product.id}>
+                                    {/* TODO: mobile card.*/}
                                     <ProductsScreenCard
                                         key={product.id}
                                         id={product.id}

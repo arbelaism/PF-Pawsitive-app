@@ -85,7 +85,7 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
     }, [bookmarks, id])
 
     return (
-        <div className="bg-white py-4 w-full h-44 rounded-md group shadow-md relative flex items-center justify-between text-pwgreen-800 lg:w-60 lg:h-80 lg:flex-col overflow-hidden lg:py-8 hover:shadow-2xl hover:h-48 lg:hover:h-[25rem] transition-all">
+        <div className="bg-white py-4 w-full h-56 rounded-md group shadow-md relative flex items-center justify-between text-pwgreen-800 lg:w-60 lg:h-72 lg:flex-col overflow-hidden lg:py-6 hover:shadow-2xl hover:h-48 lg:hover:h-max transition-all hover:scale-105">
             <div className="w-1/2 ">
                 <Image
                     src={product.photo}
@@ -109,9 +109,11 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
             <div className="w-full flex flex-col justify-around h-full">
                 <div className="p-2 h-3/4 flex flex-col justify-evenly gap-2">
                     <div className="lg:h-2/3">
-                        <h3 className="font-Rubik font-medium text-pwgreen-900 pt-2 mx-2 lg:truncate group-hover:whitespace-pre-wrap">
-                            {product.name}
-                        </h3>
+                        <Link href={`/products/${id}`}>
+                            <h3 className="font-Rubik font-medium text-pwgreen-900 py-2 mx-2 lg:truncate group-hover:cursor-pointer group-hover:underline group-hover:whitespace-pre-wrap">
+                                {product.name}
+                            </h3>
+                        </Link>
                     </div>
                     <div className="self-start text-lg mx-1 my-1 hidden group-hover:flex text-pwpurple-800">
                         {stars.map((star, idx) => {
@@ -147,13 +149,6 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                             </button>
                         </div>
                     </div>
-                </div>
-                <div className="absolute bottom-4 right-5">
-                    <Link href={`/products/${id}`}>
-                        <a className="text-pwgreen-600 text-md font-semibold hover:text-pwgreen-800 transition-colors">
-                            Ver detalles
-                        </a>
-                    </Link>
                 </div>
             </div>
         </div>
