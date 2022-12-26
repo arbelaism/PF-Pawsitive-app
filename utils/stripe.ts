@@ -2,13 +2,11 @@ import { Stripe, loadStripe } from '@stripe/stripe-js'
 
 let stripePromise: Promise<Stripe | null>
 
-const STRIPE_PUBLIC_KEY = process.env.STRIPE_PUBLIC_KEY
-
 const getStripe = () => {
-    if (!STRIPE_PUBLIC_KEY) return
-
     if (!stripePromise) {
-        stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
+        stripePromise = loadStripe(
+            'pk_test_51MCoCQKy1tWUr0G9bIjjBwCg9hCK7rC3pD3n0bR5rsjwROzCWBcoyHahEa62IEsd3gRfOdysQM9j4NzbygKCB8it00XjZLuyTi'
+        )
     }
 
     return stripePromise
