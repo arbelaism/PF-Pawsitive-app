@@ -2,12 +2,12 @@ import React from 'react'
 import { MainLayout } from 'components'
 import Image from 'next/image'
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai'
-import Maxi from 'public/profiles/maxi.jpeg'
-import Eric from 'public/profiles/eric.jpg'
-import David from 'public/profiles/david.jpg'
-import Cristian from 'public/profiles/cristian.jpg'
-import Nestor from 'public/profiles/nestor.jpeg'
-import Fernando from 'public/profiles/fernando.jpg'
+import Maxi from 'public/img/profiles/maxi.jpeg'
+import Eric from 'public/img/profiles/eric.jpg'
+import David from 'public/img/profiles/david.jpg'
+import Cristian from 'public/img/profiles/cristian.jpg'
+import Nestor from 'public/img/profiles/nestor.jpeg'
+import Fernando from 'public/img/profiles/fernando.jpg'
 
 const team = [
     {

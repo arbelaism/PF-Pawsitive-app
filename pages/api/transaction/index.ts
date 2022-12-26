@@ -1,12 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../lib/prisma";
+import { NextApiRequest, NextApiResponse } from 'next'
+import { prisma } from '../../../lib/prisma'
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
-    const { method } = req;
+    const { method } = req
     switch (method) {
         // GET ALL THE TRANSACTIONS
 
-        case "GET":
+        case 'GET':
             try {
                 const transactions = await prisma.transaction.findMany({
                     include: {
@@ -18,7 +18,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                                 email: true,
                                 birthday: true,
                                 active: true,
-                                role: true,
+                                role: true
                             }
                         },
                         quantity: {
@@ -31,28 +31,30 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                                         name: true,
                                         price: true,
                                         displayPrice: true,
-                                        category: true,
+                                        category: true
                                     }
                                 }
                             }
                         }
                     }
                 })
-                transactions ?
-                    res.status(200).json(transactions)
-                    :
-                    res.status(400).json({ message: "transactions dont found." })
-
+                transactions
+                    ? res.status(200).json(transactions)
+                    : res
+                          .status(400)
+                          .json({ message: 'transactions dont found.' })
             } catch (error) {
                 console.log(error)
-                res.status(404).json({ message: "an error occurred in the database." })
+                res.status(404).json({
+                    message: 'an error occurred in the database.'
+                })
             }
-            break;
+            break
 
         // POST(CREATE) THE TRANSACTION
 
-        case "POST":
-            const { amount, userId, status, quantity } = req.body;            
+        case 'POST':
+            const { amount, userId, status, quantity } = req.body
             /*
             Formato del array
             array=[
@@ -71,6 +73,8 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             ]
             */
 
+            console.log(req.body)
+
             try {
                 const newTransaction = await prisma.transaction.create({
                     data: {
@@ -82,16 +86,16 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                         }
                     }
                 })
-                newTransaction ?
-                    res.status(200).json(newTransaction)
-                    :
-                    res.status(400).json({ message: "could not create transaction" })
-
+                newTransaction
+                    ? res.status(200).json(newTransaction)
+                    : res
+                          .status(400)
+                          .json({ message: 'could not create transaction' })
             } catch (error) {
                 res.status(400).json(error)
             }
-            break;
+            break
         default:
             return res.status(400).json({ message: 'invalid method' })
     }
-};
+}

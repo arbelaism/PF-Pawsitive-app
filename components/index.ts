@@ -12,6 +12,8 @@ export { default as SignUp } from './auth/SignUp'
 
 export { default as ProductsScreen } from './products/productsScreen/ProductsScreen'
 export { default as ProductsPromotion } from './products/ProductsPromotion'
+export { default as ShoppingCart } from './products/ShoppingCart'
+export { default as ModalPayment } from './products/payments/ModalPayment'
 
 export { default as AdoptionCard } from './adoptions/AdoptionCard'
 export { default as LinkAdoption } from './adoptions/LinkAdoption'
