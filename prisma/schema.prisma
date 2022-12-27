@@ -13,7 +13,7 @@ model User {
     id             String         @id @default(uuid())
     firstName      String
     lastName       String
-    email          String         @unique
+    email          String
     email_verified Boolean?
     gender         String?
     birthday       String?
@@ -37,10 +37,10 @@ model User {
 }
 
 model Bookmark {
-    id        String    @id @default(uuid())
-    product   Product[]
-    user      User      @relation(fields: [userId], references: [id])
-    userId    String    @unique
+    id      String    @id @default(uuid())
+    product Product[]
+    user    User      @relation(fields: [userId], references: [id])
+    userId  String    @unique
 }
 
 enum Role {

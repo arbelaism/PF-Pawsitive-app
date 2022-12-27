@@ -24,7 +24,7 @@ export type Props = {
 const ProductDetail: NextPage = () => {
     //get the idProduct from url
     const router = useRouter()
-    const { id }  = router.query
+    const { id } = router.query
     //Search product in db by id
     let {
         data: product,
@@ -108,7 +108,7 @@ const ProductDetail: NextPage = () => {
             }, 2300)
         }
     }
-    useEffect(()=>{        
+    useEffect(() => {
         refetch()
     }, [id])
     useEffect(() => {
@@ -160,29 +160,8 @@ const ProductDetail: NextPage = () => {
                         />
                         <div className="flex relative justify-between gap-5">
                             <div className="flex flex-col w-full">
-                                <div>
-                                    <ProductReviewForm id={product.id} userBoughtProduct={userBoughtProduct} />
-                                    {userAlreadyReview ? (
-                                        <div className="flex justify-content-center w-auto mx-5 rounded-lg px-1 py-1 border-2 border-pwpurple-700">
-                                            <p className="text-center col-start-2 col-span-4">
-                                                Sabemos que adquiriste nuestro
-                                                producto y agradecemos que
-                                                dejaras tu reseña, si deseas
-                                                agregar alguna otra sugerencia o
-                                                comentario, te invitamos
-                                                contactarte con nosotros
-                                                haciendo{' '}
-                                                <b className="text-pwpurple-700">
-                                                    <Link href="/contact">
-                                                        click aqui
-                                                    </Link>
-                                                </b>
-                                            </p>
-                                        </div>
-                                    ) : null}
-                                </div>
                                 <div className="w-full bg-pwgreen-100">
-                                    <h2 className="title text-2xl px-6">
+                                    <h2 className="title text-xl lg:text-2xl px-6">
                                         Reviews
                                     </h2>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 py-6 px-4 gap-4">
@@ -204,8 +183,32 @@ const ProductDetail: NextPage = () => {
                                         )}
                                     </div>
                                 </div>
+                                <div>
+                                    <ProductReviewForm
+                                        id={product.id}
+                                        userBoughtProduct={userBoughtProduct}
+                                    />
+                                    {userAlreadyReview ? (
+                                        <div className="flex justify-content-center w-auto mx-5 rounded-lg px-1 py-1 border-2 border-pwpurple-700">
+                                            <p className="text-center col-start-2 col-span-4">
+                                                Sabemos que adquiriste nuestro
+                                                producto y agradecemos que
+                                                dejaras tu reseña, si deseas
+                                                agregar alguna otra sugerencia o
+                                                comentario, te invitamos
+                                                contactarte con nosotros
+                                                haciendo{' '}
+                                                <b className="text-pwpurple-700">
+                                                    <Link href="/contact">
+                                                        click aqui
+                                                    </Link>
+                                                </b>
+                                            </p>
+                                        </div>
+                                    ) : null}
+                                </div>
                             </div>
-                            <div className="w-2/6 bg-pwgreen-100">
+                            <div className="hidden md:w-3/6 xl:w-2/6 md:block bg-pwgreen-100">
                                 <h2 className="title font-semibold text-xl">
                                     Productos relacionados
                                 </h2>

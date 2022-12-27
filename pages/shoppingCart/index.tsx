@@ -1,129 +1,74 @@
-import { NextPage} from 'next';
-import { Product } from 'app/types';
-import { useState, useEffect} from 'react';
-import { MainLayout} from 'components';
-import ModalPayment from 'components/products/payments/ModalPayment';
-import ProductOnCart from 'components/products/ProductOnCart'
-import useLocalStorage from 'use-local-storage';
-import Image from 'next/image';
-import EmptyCart from "public/xempty-cart.png"
+import { NextPage } from 'next'
+import Image from 'next/image'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client'
+import { MainLayout, ShoppingCart, ModalPayment } from 'components'
+import { Product } from 'app/types'
+import { useCallback, useEffect, useState } from 'react'
+import useLocalStorage from 'use-local-storage'
+import Loading from 'public/loading.gif'
 
-
-const Cart : NextPage = withPageAuthRequired(() => {
-    // let products : Product[] = [];
+const Cart: NextPage = withPageAuthRequired(() => {
+    const [loading, setLoading] = useState(false)
     const [cartProducts, setCartProducts] = useState<Product[]>([])
-    const [products, setProducts] = useLocalStorage<Product[]>("cartProducts", [])
-    // if (typeof window !== 'undefined') {
-        //     var [cartProducts, setCartProducts] = useState<Product[]>(() => {
-            //         const saved = localStorage.getItem("cartProducts")
-            //         const products = JSON.parse(saved!);
-            //         return products
-            //     })
-            
-    //}
-    // const setLocalStorageAtComponentMount = () => {
-    //     setCartProducts(() => {
-    //         // const saved = localStorage.getItem("cartProducts")
-    //         // const products = JSON.parse(saved!);
-
-    //         return products
-    //     })
-    // }
-    const handleAddToCart = (clickedItem: Product) => {
-        
-        if(!clickedItem.amount) clickedItem.amount=0
-        setCartProducts(prev => {
-          // is the item already added in the cart
-          const isItemInCart = prev.find(item => item.id === clickedItem.id); 
-          
-          if (isItemInCart) {
-            return prev?.map(item => 
-              item.id === clickedItem.id 
-              ? { ...item, amount: item.amount! + 1, stock: item.stock-1 } 
-              : item 
-            );
-          };
-          
-          // first time the item is added 
-          return [...prev, {...clickedItem, amount: 1, stock: clickedItem.stock-1}];
-      
-        })        
-    };
-    const handleRemoveFromCart = (id: string) => {
-        setCartProducts(prev => 
-        prev.reduce((acc, item) => {
-        if (item.id === id) {
-            if (item.amount === 1) return acc;
-            return [...acc, {...item, amount: item.amount! - 1, stock: item.stock + 1}]
-        } else {
-            return [...acc, item]; 
-        }
-        },  [] as Product[])
+    const [products, setProducts] = useLocalStorage<Product[]>(
+        'cartProducts',
+        []
     )
-    };
+
     const getTotalPrice = () => {
         return cartProducts.reduce(
-          (acc, product) => acc + product.amount! * product.price,
-          0
-        );
-    };
+            (acc, product) => acc + product.amount! * product.displayPrice,
+            0
+        )
+    }
 
     useEffect(() => {
+        setLoading(true)
         setCartProducts(products)
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
     }, [])
-    
+
     useEffect(() => {
         // storing input cartProducts
-        if(cartProducts.length){            
+        setLoading(true)
+        if (cartProducts.length) {
             setProducts(cartProducts)
-        }
-        else{
+        } else {
             setProducts([])
         }
-        
-    }, [cartProducts]);
 
-    const priceToPay = getTotalPrice();  
-    
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
+    }, [cartProducts])
+
+    const priceToPay = getTotalPrice()
+
     return (
         <MainLayout title="Pawsitive - Carrito">
-            <div className='flex items-center flex-col h-full py-4 mt-8 rounded-xl'>
-                <div>
-                    <h1 className="title text-pwgreen-800 text-3xl">Carrito de compras</h1>
-                </div>
-                {cartProducts.length === 0 ? (
+            <>
+                {loading ? (
+                    <div className="flex justify-center items-center h-[75vh]">
                         <Image
-                            src={EmptyCart}
+                            src={Loading}
                             alt="not found"
+                            width={100}
+                            height={100}
                         />
-                    ) :
-                <>
-                <div className='w-full p-4 text-center lg:flex'>
-                     
-                        <div className='w-full lg:grid lg:grid-cols-3 lg:gap-3 lg:justify-around'>
-                            {cartProducts.map((product: Product) => (
-                                <ProductOnCart
-                                    key={product.id}
-                                    product={product}
-                                    addToCart={handleAddToCart}
-                                    removeFromCart={handleRemoveFromCart}
-                                />
-                            ))}
-                        </div>
-                                                           
-                </div>
-                <div className=' w-full text-center text-xl font-bold border bg-pwgreen-200 border-t-black p-8'>
-                        <div className='flex flex-row justify-between font-Rubik lg:justify-around w-full'>
-                            <h3 className='text-md lg:text-lg text-pwgreen-800'>Total</h3>
-                            <h3 className='text-md lg:text-lg text-pwgreen-800'>${getTotalPrice()}</h3> 
-                        </div>
-                        <ModalPayment price={priceToPay} />
-                </div>
-                </>} 
-            </div>
+                    </div>
+                ) : (
+                    <>
+                        <ShoppingCart />
+                        {products.length > 0 && cartProducts.length > 0 && (
+                            <ModalPayment price={priceToPay} />
+                        )}
+                    </>
+                )}
+            </>
         </MainLayout>
     )
-});
+})
 
-export default Cart;
+export default Cart

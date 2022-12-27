@@ -101,7 +101,7 @@ export interface CheckIn {
     name: string
     email: string
     products: Product[]
-    total: string
+    total: string | number
     action: string
 }
 
@@ -124,7 +124,7 @@ export interface CheckIn {
     idT: any
     email: string
     products: Product[]
-    total: string
+    total: string | number
     action: string
 }
 export interface Transaction {

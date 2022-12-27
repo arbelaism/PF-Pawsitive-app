@@ -17,10 +17,12 @@ const MainLayout = ({ children, title }: MainLayoutProps) => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="h-full" >
-            <Navbar />
-            <main className='max-w-full bg-pwgreen-100 mx-auto h-full'>{children}</main>
-            <Footer />
+            <div className="h-full">
+                <Navbar />
+                <main className="max-w-full bg-pwgreen-100 mx-auto h-full">
+                    {children}
+                </main>
+                <Footer />
             </div>
         </>
     )
