@@ -115,12 +115,12 @@ const LeftNavbar: any = () => {
                         <h3 className="dashboardSideTitle">Configuración</h3>
                         <li
                             className={
-                                router.pathname === '/dashboard/myProfile'
+                                router.pathname === '/profile'
                                     ? 'dashboardButton active'
                                     : 'dashboardButton'
                             }>
                             <FaUser />
-                            <Link href={'/profile/adoption'}>
+                            <Link href={'/profile'}>
                                 <a className="dashboardLinks">Perfil</a>
                             </Link>
                         </li>
@@ -178,12 +178,12 @@ const LeftNavbar: any = () => {
                         <h3 className="dashboardSideTitle">Tu cuenta</h3>
                         <li
                             className={
-                                router.pathname === '/dashboard/myProfile'
+                                router.pathname === '/profile'
                                     ? 'dashboardButton active'
                                     : 'dashboardButton'
                             }>
                             <FaUser />
-                            <Link href={'/profile/adoption'}>
+                            <Link href={'/profile'}>
                                 <a className="dashboardLinks">Perfil</a>
                             </Link>
                         </li>

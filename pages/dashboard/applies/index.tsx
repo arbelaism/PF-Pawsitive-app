@@ -1,10 +1,40 @@
 import { DashboardLayout } from 'components/dashboard'
-import{TableApply} from 'components/dashboard'
-const Applies = () => {
+import { TableApply } from 'components/dashboard'
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client'
+import { useQuery } from 'react-query'
+import { getUserById } from 'utils/dbFetching'
+import { redirectionAlert } from 'utils/alerts'
+import { useEffect } from 'react'
+
+const Applies = withPageAuthRequired(() => {
+    const { user } = useUser()
+
+    let id: string = ''
+    if (user && user.sub) {
+        id = user.sub
+    }
+    const { data: dbUser, isLoading } = useQuery(['user', id], () =>
+        getUserById(id)
+    )
+
+    useEffect(() => {
+        if (!isLoading && dbUser.role !== 'ADMIN') {
+            redirectionAlert({
+                icon: 'warning',
+                title: 'Acceso prohibido',
+                text: 'Esta ruta es solo para administradores de la página.',
+                showCloseButton: false,
+                showCancelButton: false,
+                link: '/profile'
+            })
+        }
+    }, [isLoading])
+
     return (
         <DashboardLayout title="Aplicantes">
-           <TableApply />
+            <TableApply />
         </DashboardLayout>
     )
-}
+})
+
 export default Applies

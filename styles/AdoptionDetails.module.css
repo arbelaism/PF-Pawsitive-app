@@ -5,4 +5,5 @@
     height: max;
     border-radius: 10px;
     box-shadow: 24px;
+    overflow: hidden;
 }

@@ -15,3 +15,4 @@ export { default as TableMyTransaction } from '../dashboard/dashboardUser/myTran
 export { default as TableMyAdoptionPets } from '../dashboard/dashboardUser/myAdoptionPet'
 export { default as MyApplyAdoption } from './dashboardUser/myApplyAdoption'
 export { default as UserUpdate } from './dashboardUser/profile/updateUser'
+export { default as Profile } from './dashboardUser/Profile'

@@ -5,12 +5,12 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { useQuery } from 'react-query'
 import { getProducts } from 'utils/dbFetching'
 import Image from 'next/image'
-import Loading from 'public/loading.gif'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import ProductsScreenCard from 'components/products/productsScreen/ProductsScreenCard'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
 
@@ -34,13 +34,8 @@ const ProductsScreen = () => {
                 </p>
             </div>
             {isLoading ? (
-                <div className="flex justify-center items-center my-16">
-                    <Image
-                        src={Loading}
-                        alt="not found"
-                        width={100}
-                        height={100}
-                    />
+                <div className="flex justify-center items-center gap-3 my-16">
+                    <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                 </div>
             ) : (
                 <div>

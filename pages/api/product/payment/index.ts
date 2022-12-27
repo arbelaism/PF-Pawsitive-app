@@ -26,7 +26,10 @@ export default async function handler(
                 const updated_intent = await stripe.paymentIntents.update(
                     payment_intent_id,
                     {
-                        amount: totalPrice
+                        amount: totalPrice * 100
+                    },
+                    {
+                        apiKey: process.env.STRIPE_SECRET_KEY
                     }
                 )
                 res.status(200).json(updated_intent)
@@ -45,12 +48,12 @@ export default async function handler(
         const params: Stripe.PaymentIntentCreateParams = {
             amount: totalPrice * 100,
             currency: 'usd',
-            automatic_payment_methods: {
-                enabled: true
-            }
+            payment_method_types: ['card']
         }
         const payment_intent: Stripe.PaymentIntent =
-            await stripe.paymentIntents.create(params)
+            await stripe.paymentIntents.create(params, {
+                apiKey: process.env.STRIPE_SECRET_KEY
+            })
 
         res.status(200).json(payment_intent)
     } catch (err) {

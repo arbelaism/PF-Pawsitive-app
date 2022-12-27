@@ -295,3 +295,9 @@
         width: 1024px;
     }
 }
+
+/*  Sweet Alert 2  */
+body.swal2-shown > [aria-hidden='true'] {
+    transition: 0.1s filter;
+    filter: blur(15px);
+}

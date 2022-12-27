@@ -1,11 +1,10 @@
 import { NextPage } from 'next'
-import Image from 'next/image'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import { MainLayout, ShoppingCart, ModalPayment } from 'components'
 import { Product } from 'app/types'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useLocalStorage from 'use-local-storage'
-import Loading from 'public/loading.gif'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 const Cart: NextPage = withPageAuthRequired(() => {
     const [loading, setLoading] = useState(false)
@@ -50,13 +49,8 @@ const Cart: NextPage = withPageAuthRequired(() => {
         <MainLayout title="Pawsitive - Carrito">
             <>
                 {loading ? (
-                    <div className="flex justify-center items-center h-[75vh]">
-                        <Image
-                            src={Loading}
-                            alt="not found"
-                            width={100}
-                            height={100}
-                        />
+                    <div className="flex justify-center items-center gap-3 my-16">
+                        <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                     </div>
                 ) : (
                     <>

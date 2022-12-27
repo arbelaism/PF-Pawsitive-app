@@ -56,7 +56,7 @@ const Checkout = ({
 
         if (!stripe || !elements) return
         const response = await axios.post('/api/product/payment', {
-            totalPrice: getTotalPrice() * 100,
+            totalPrice: getTotalPrice(),
             payment_intent_id: paymentIntent?.id
         })
 

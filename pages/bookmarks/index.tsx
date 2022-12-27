@@ -8,10 +8,10 @@ import {
     getBookmarks
 } from 'utils/dbFetching'
 import Image from 'next/image'
-import Loading from 'public/loading.gif'
 import { Product } from 'app/types'
 import Link from 'next/link'
 import { FaHeartBroken } from 'react-icons/fa'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 const Bookmarks = () => {
     const { user, error, isLoading } = useUser()
@@ -127,13 +127,8 @@ const Bookmarks = () => {
                     </h1>
                 ) : null}
                 {isBookmarksLoading ? (
-                    <div className="flex justify-center items-center my-16">
-                        <Image
-                            src={Loading}
-                            alt="not found"
-                            width={100}
-                            height={100}
-                        />
+                    <div className="flex justify-center items-center gap-3 my-16">
+                        <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                     </div>
                 ) : null}
                 {myBookmarks && myBookmarks.length < 1 ? (

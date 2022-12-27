@@ -160,7 +160,7 @@ const MyProfile: NextComponentType = () => {
                             </div>
                         </div>
 
-                        <Link href={'/dashboard/myProfile/updateuser'}>
+                        <Link href={'/profile/update-user'}>
                             <button className="text-center bg-pwgreen-700 py-3 my-2 rounded-md shadow-xl text-pwgreen-50 font-bold uppercase font-Rubik hover:bg-pwgreen-800 transition-colors">
                                 ACTUALIZAR DATOS
                             </button>

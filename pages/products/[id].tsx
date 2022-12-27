@@ -13,9 +13,9 @@ import { redirectionAlert } from 'utils/alerts'
 import { Review } from '@prisma/client'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import ProductReviewForm from 'components/products/ProductReviewForm'
-import Loading from 'public/loading.gif'
 import Image from 'next/image'
 import { ProductsPromotion } from 'components'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 export type Props = {
     [key: string]: any
@@ -142,13 +142,8 @@ const ProductDetail: NextPage = () => {
         <MainLayout title="Pawsitive - Productos">
             <div className="flex flex-wrap justify-center items-center">
                 {isLoading ? (
-                    <div className="flex justify-center items-center my-16">
-                        <Image
-                            src={Loading}
-                            alt="not found"
-                            width={100}
-                            height={100}
-                        />
+                    <div className="flex justify-center items-center gap-3 my-16">
+                        <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                     </div>
                 ) : error ? (
                     <p>Not found</p>

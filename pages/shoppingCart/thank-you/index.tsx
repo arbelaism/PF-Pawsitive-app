@@ -131,25 +131,27 @@ const ThankYou = () => {
     return (
         <MainLayout title="¡Gracias! - Pawsitive">
             <div className="w-full mx-auto h-[75vh] flex flex-col justify-center items-center gap-3">
-                <FaRegSmileWink className="title text-8xl" />
-                <h1 className="title text-5xl">¡Gracias por tu compra!</h1>
+                <FaRegSmileWink className="title text-6xl lg:text-8xl" />
+                <h1 className="title text-2xl lg:text-5xl">
+                    ¡Gracias por tu compra!
+                </h1>
                 {!message ? (
-                    <div className="flex justify-center items-center gap-2 my-4">
-                        <AiOutlineLoading3Quarters className='text-2xl animate-spin text-pwpurple-700' />
+                    <div className="flex text-center justify-center items-center gap-2 my-4">
+                        <AiOutlineLoading3Quarters className="text-2xl animate-spin text-pwpurple-700" />
                         Enviando email...
                     </div>
                 ) : (
-                    <div>
-                        <p className="text-base">
+                    <div className='text-center'>
+                        <p className="text-sm lg:text-base">
                             Te enviamos un email con los datos de tu compra.
                         </p>
-                        <p>
+                        <p className="text-sm lg:text-base">
                             Tu numero de factura es:{' '}
                             <span className="font-semibold">
                                 #{transactionId}
                             </span>
                         </p>
-                        <p>
+                        <p className="text-sm lg:text-base">
                             También podes ver tu compra en el Dashboard haciendo{' '}
                             <Link href={'/profile/transaction'}>
                                 <a className="underline text-pwpurple-600 hover:text-pwpurple-800 transition-all">
