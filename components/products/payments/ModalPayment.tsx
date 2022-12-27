@@ -9,7 +9,7 @@ import { getUserById } from 'utils/dbFetching'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useEffect, useState } from 'react'
 import { Elements } from '@stripe/react-stripe-js'
-import { StripeElementsOptions } from '@stripe/stripe-js'
+import { PaymentIntent, StripeElementsOptions } from '@stripe/stripe-js'
 import styles from 'styles/AdoptionDetails.module.css'
 import axios from 'axios'
 import getStripe from 'utils/stripe'
@@ -18,6 +18,9 @@ import { IoClose } from 'react-icons/io5'
 const stripePromise = getStripe()
 
 const ModalPayment = ({ price }: Props) => {
+    const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | null>(
+        null
+    )
     const [clientSecret, setClientSecret] = useState<string>('')
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
@@ -79,8 +82,9 @@ const ModalPayment = ({ price }: Props) => {
 
             if (!data.totalPrice) return
             axios.post('/api/product/payment', data).then(res => {
-                const { client_secret } = res.data
-                setClientSecret(client_secret)
+                const paymentIntent = res.data
+                setPaymentIntent(paymentIntent)
+                setClientSecret(paymentIntent.client_secret)
             })
         }
     }, [price])
@@ -122,9 +126,9 @@ const ModalPayment = ({ price }: Props) => {
                                         stripe={stripePromise}
                                         options={options}>
                                         <Checkout
-                                            price={price}
                                             setOpen={setOpen}
                                             clientSecret={clientSecret}
+                                            paymentIntent={paymentIntent}
                                         />
                                     </Elements>
                                 )}

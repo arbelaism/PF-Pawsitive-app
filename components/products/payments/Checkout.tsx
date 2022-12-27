@@ -2,17 +2,29 @@ import { useState } from 'react'
 import { ChangeEvent } from 'react'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
-import { Props } from 'pages/adoptions'
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
 import { alerts } from 'utils/alerts'
 import useLocalStorage from 'use-local-storage'
 import { Product } from 'app/types'
 import { useRouter } from 'next/router'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import axios from 'axios'
+import { PaymentIntent } from '@stripe/stripe-js'
+import { useUser } from '@auth0/nextjs-auth0/client'
 
-const Checkout = ({ setOpen, clientSecret }: Props) => {
+const Checkout = ({
+    setOpen,
+    clientSecret,
+    paymentIntent = null
+}: {
+    setOpen: (arg0: boolean) => void
+    clientSecret: string
+    paymentIntent?: PaymentIntent | null
+}) => {
     const stripe = useStripe()
     const elements = useElements()
     const router = useRouter()
+    const { user, isLoading } = useUser()
     const [loading, setLoading] = useState(false)
     const [cardError, setCardError] = useState<string | undefined>(undefined)
     const [message, setMessage] = useState('')
@@ -20,6 +32,11 @@ const Checkout = ({ setOpen, clientSecret }: Props) => {
         'cartProducts',
         []
     )
+    console.log(paymentIntent)
+    let userName: string = ''
+    if (!isLoading && user && user.name) {
+        userName = user.name
+    }
 
     const getTotalPrice = () => {
         return products.reduce(
@@ -39,17 +56,40 @@ const Checkout = ({ setOpen, clientSecret }: Props) => {
         e.preventDefault()
 
         if (!stripe || !elements) return
-        const { paymentIntent, error } = await stripe.confirmPayment({
-            elements,
-            confirmParams: {
-                return_url: 'http://localhost:3000/shoppingCart/thank-you'
-            },
-            redirect: 'if_required'
+        // const data = {
+        //     totalPrice: getTotalPrice(),
+        //     payment_intent_id: paymentIntent.id
+        // }
+        const response = await axios.post('/api/product/payment', {
+            totalPrice: getTotalPrice(),
+            payment_intent_id: paymentIntent?.id
         })
+
+        if (response.status === 500) {
+            setCardError('error')
+            return
+        }
+
+        const { paymentIntent: confirmationIntent, error } =
+            await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: 'http://localhost:3000/shoppingCart/thank-you',
+                    payment_method_data: {
+                        billing_details: {
+                            name: userName || ''
+                        }
+                    }
+                },
+                redirect: 'if_required'
+            })
 
         setLoading(true)
         if (error) {
-            if (error.code === 'card_declined') {
+            if (
+                error.type === 'card_error' ||
+                error.type === 'validation_error'
+            ) {
                 setCardError(error.message)
             }
             setOpen(false)
@@ -64,8 +104,8 @@ const Checkout = ({ setOpen, clientSecret }: Props) => {
 
         if (!clientSecret) return
 
-        if (!paymentIntent) return
-        switch (paymentIntent.status) {
+        if (!confirmationIntent) return
+        switch (confirmationIntent.status) {
             case 'succeeded':
                 alerts({
                     icon: 'success',
@@ -161,8 +201,14 @@ const Checkout = ({ setOpen, clientSecret }: Props) => {
                 </div>
                 <div className="w-[90%] md:w-4/5 lg:w-2/5 flex flex-col lg:justify-center">
                     <PaymentElement id="payment-element" />
-                    <button className="dashboardButton text-sm lg:text-base self-end bg-pwgreen-700 text-pwgreen-50 uppercase">
-                        {loading ? <>Procesando...</> : <>Pagar</>}
+                    <button
+                        disabled={loading || !stripe || !elements}
+                        className="dashboardButton text-sm lg:text-base self-end bg-pwgreen-700 text-pwgreen-50 uppercase">
+                        {loading ? (
+                            <AiOutlineLoading3Quarters className="text-xl animate-spin text-pwpurple-700" />
+                        ) : (
+                            <>Pagar</>
+                        )}
                     </button>
                 </div>
             </div>
