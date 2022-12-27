@@ -65,7 +65,7 @@ const ModalPayment = ({ price }: Props) => {
                         ' te invitamos a verificar tu email por motivos de seguridad.',
                     confirmButtonText: 'Ir a mi perfil',
                     confirmButtonAriaLabel: 'Thumbs up, great!',
-                    link: '/dashboard/myProfile'
+                    link: '/profile'
                 })
                 return
             }

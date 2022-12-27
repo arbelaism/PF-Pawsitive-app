@@ -1,20 +1,20 @@
 import { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import React from 'react'
-import {  PaginationSize, Product } from 'app/types'
+import { PaginationSize, Product } from 'app/types'
 import { MainLayout, Filtersproducts } from 'components'
 import ProductCard from 'components/products/ProductCard'
 import { useQuery } from 'react-query'
-import {  getProducts } from 'utils/dbFetching'
+import { getProducts } from 'utils/dbFetching'
 import { redirectionAlert } from 'utils/alerts'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage'
-import NotFound from 'public/mong03b.gif'
 import Image from 'next/image'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/router'
 import { useMediaQuery } from 'react-responsive'
-import Loading from 'public/loading.gif'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import { ImSad } from 'react-icons/im'
 
 export type Props = {
     [key: string]: any
@@ -166,27 +166,20 @@ const Products: NextPage = () => {
                             size={paginationSize}
                         />
                     ) : null}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mb-8">
+                    <div
+                        className={`${
+                            currentItems.length === 0 ? 'flex' : 'grid'
+                        } grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 xl:grid-cols-4 xl:gap-4 2xl:grid-cols-5 mb-8`}>
                         {isLoading ? (
-                            <div className="flex justify-center items-center my-16">
-                                <Image
-                                    src={Loading}
-                                    alt="not found"
-                                    width={100}
-                                    height={100}
-                                />
+                            <div className="flex justify-center items-center gap-3 my-16">
+                                <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                             </div>
                         ) : currentItems.length === 0 ? (
-                            <div className="flex flex-col justify-center items-center">
+                            <div className="flex flex-col justify-center items-center my-16">
+                                <ImSad className="text-5xl text-pwpurple-700" />
                                 <h1 className="font-bold text-3xl">
                                     No encontramos items
                                 </h1>
-                                <Image
-                                    src={NotFound}
-                                    alt="not found"
-                                    width={500}
-                                    height={400}
-                                />
                             </div>
                         ) : (
                             currentItems.map((product: any) => {

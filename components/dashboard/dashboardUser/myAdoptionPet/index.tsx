@@ -616,9 +616,9 @@ const TableMyAdoptionPets = () => {
                     </div>
                 </>
                 :
-                <>
-                    NO HAY ADOPCIONES
-                </>}
+                <div className='flex justify-center items-center h-[50vh]'>
+                    <h1 className='title text-2xl uppercase lg:text-4xl'>No tenes adopciones por el momento</h1>
+                </div>}
 
         </div>
     )

@@ -6,14 +6,13 @@ import { useQuery } from 'react-query'
 import { getAdoptions, getUserById } from 'utils/dbFetching'
 import { redirectionAlert } from 'utils/alerts'
 import AlternativePagination from 'components/layout/AlternativePagination'
-import NotFound from 'public/mong03b.gif'
-import Image from 'next/image'
+import { ImSad } from 'react-icons/im'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { FaArrowRight, FaDog } from 'react-icons/fa'
 import { useMediaQuery } from 'react-responsive'
-import Loading from 'public/loading.gif'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 export type Props = {
     [key: string]: any
@@ -86,7 +85,7 @@ const Adoptions: NextPage = () => {
                         ' te invitamos a verificar tu email por motivos de seguridad.',
                     confirmButtonText: 'Ir a mi perfil',
                     confirmButtonAriaLabel: 'Thumbs up, great!',
-                    link: '/dashboard/myProfile'
+                    link: '/profile'
                 })
                 return
             }
@@ -154,27 +153,20 @@ const Adoptions: NextPage = () => {
                             size={paginationSize}
                         />
                     ) : null}
-                    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 xl:grid-cols-4 xl:gap-4 2xl:grid-cols-5">
+                    <div
+                        className={`${
+                            currentItems.length === 0 ? 'flex' : 'grid'
+                        } grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 xl:grid-cols-4 xl:gap-4 2xl:grid-cols-5`}>
                         {isLoading ? (
-                            <div className="flex justify-center items-center my-16">
-                                <Image
-                                    src={Loading}
-                                    alt="not found"
-                                    width={100}
-                                    height={100}
-                                />
+                            <div className="flex justify-center items-center gap-3 my-16">
+                                <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                             </div>
                         ) : currentItems.length === 0 ? (
-                            <div className="flex flex-col justify-center items-center">
+                            <div className="flex flex-col justify-center items-center my-16">
+                                <ImSad className="text-5xl text-pwpurple-700" />
                                 <h1 className="font-bold text-3xl">
                                     No encontramos items
                                 </h1>
-                                <Image
-                                    src={NotFound}
-                                    alt="not found"
-                                    width={500}
-                                    height={400}
-                                />
                             </div>
                         ) : (
                             currentItems.map((adoption: IAdoption) => {

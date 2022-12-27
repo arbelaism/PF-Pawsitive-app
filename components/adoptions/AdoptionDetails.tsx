@@ -12,10 +12,9 @@ import Image from 'next/image'
 import { getPetById, getUserById } from 'utils/dbFetching'
 import { ApplyAdAp } from 'app/types'
 import { useQuery } from 'react-query'
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import { AiOutlineArrowRight, AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 import { IoClose } from 'react-icons/io5'
-import Loading from 'public/loading.gif'
 
 type Prop = {
     id: string
@@ -65,7 +64,7 @@ const AdoptionDetails = ({ id }: Prop) => {
                         ' te invitamos a verificar tu email por motivos de seguridad.',
                     confirmButtonText: 'Ir a mi perfil',
                     confirmButtonAriaLabel: 'Thumbs up, great!',
-                    link: '/dashboard/myProfile'
+                    link: '/profile'
                 })
                 return
             }
@@ -120,13 +119,8 @@ const AdoptionDetails = ({ id }: Prop) => {
                     <Box className={styles.container}>
                         <div className="w-full h-full">
                             {isLoading ? (
-                                <div className="flex justify-center items-center">
-                                    <Image
-                                        src={Loading}
-                                        alt="not found"
-                                        width={100}
-                                        height={100}
-                                    />
+                                <div className="flex justify-center items-center gap-3 my-16">
+                                    <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                                 </div>
                             ) : (
                                 <div className="relative flex flex-col items-center justify-around py-4 lg:py-16 lg:flex-row bg-white border border-gray-200 rounded-lg shadow-md">

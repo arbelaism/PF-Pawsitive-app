@@ -2,9 +2,9 @@ import React, { useMemo, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { getProducts } from 'utils/dbFetching'
 import Image from 'next/image'
-import Loading from 'public/loading.gif'
 import { Product } from '@prisma/client'
 import Link from 'next/link'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 type Props = {
     category: string
@@ -29,13 +29,8 @@ const ProductsPromotion = ({ category }: Props) => {
     return (
         <div className="w-max absolute right-0 2xl:right-5 inset-y-0 px-3 py-6 my-9 bg-pwgreen-100 overflow-y-scroll">
             {isLoading ? (
-                <div className="flex justify-center items-center my-16">
-                    <Image
-                        src={Loading}
-                        alt="not found"
-                        width={100}
-                        height={100}
-                    />
+                <div className="flex justify-center items-center gap-3 my-16">
+                    <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                 </div>
             ) : (
                 <>
@@ -54,7 +49,7 @@ const ProductsPromotion = ({ category }: Props) => {
                                                 ${product.displayPrice}
                                             </p>
                                         </div>
-                                        <div className='flex flex-col items-center justify-between'>
+                                        <div className="flex flex-col items-center justify-between">
                                             <Image
                                                 src={product.photo}
                                                 alt={'not found'}
@@ -64,7 +59,9 @@ const ProductsPromotion = ({ category }: Props) => {
                                             />
                                             <Link
                                                 href={`/products/${product.id}`}>
-                                                <a className='text-xs font-medium w-full hover:text-pwgreen-800 transition-all'>Ver mas</a>
+                                                <a className="text-xs font-medium w-full hover:text-pwgreen-800 transition-all">
+                                                    Ver mas
+                                                </a>
                                             </Link>
                                         </div>
                                     </div>

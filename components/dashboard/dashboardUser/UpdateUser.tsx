@@ -55,7 +55,7 @@ const UserUpdate: NextComponentType = () => {
             text: 'Tu perfil fue actualizado correctamente.',
             toast: true
         })
-        router.push('/dashboard/myProfile/')
+        router.push('/profile')
     }
 
     return (
