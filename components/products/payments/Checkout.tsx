@@ -32,7 +32,6 @@ const Checkout = ({
         'cartProducts',
         []
     )
-    console.log(paymentIntent)
     let userName: string = ''
     if (!isLoading && user && user.name) {
         userName = user.name
@@ -56,12 +55,8 @@ const Checkout = ({
         e.preventDefault()
 
         if (!stripe || !elements) return
-        // const data = {
-        //     totalPrice: getTotalPrice(),
-        //     payment_intent_id: paymentIntent.id
-        // }
         const response = await axios.post('/api/product/payment', {
-            totalPrice: getTotalPrice(),
+            totalPrice: getTotalPrice() * 100,
             payment_intent_id: paymentIntent?.id
         })
 
