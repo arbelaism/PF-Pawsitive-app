@@ -36,11 +36,13 @@ const TableMyTransaction = () => {
 
 
     //Collapsing table
-    const [rowExpande, setRowExpande] = React.useState<boolean>(false)
+    const [rowExpande, setRowExpande] = React.useState<string | null>(null)
 
     function toggleExpander(e: any) {
-        e.preventDefault()
-        setRowExpande(!rowExpande)
+        // e.preventDefault()
+        const key = e
+        if (key !== rowExpande) setRowExpande(key)
+        else setRowExpande(null)
     }
 
     // Searach Values
@@ -181,7 +183,7 @@ const TableMyTransaction = () => {
                                                             key={u.updatedAt}
                                                             className="button-table"
                                                             onClick={e =>
-                                                                toggleExpander(e)
+                                                                toggleExpander(u.id)
                                                             }>
                                                             {rowExpande ? (
                                                                 <FaArrowDown />
@@ -194,7 +196,7 @@ const TableMyTransaction = () => {
 
                                                 {/* NOMBRES DE LA TABLA EXPANDIBLE */}
 
-                                                {rowExpande ? (
+                                                {rowExpande === u.id ? (
                                                     <>
                                                         <tr
                                                             key={u.updatedAt}
@@ -216,26 +218,26 @@ const TableMyTransaction = () => {
                                                             </th>
                                                         </tr>
                                                         {/* DATOS DE LA TABLA EXPANDIBLE */}
-                                                        {u.quantity ? (u.quantity).map((q: Quantity) => {
+                                                        {u.quantity ? u.quantity.map((q: Quantity) => {
                                                             return (
                                                                 <>
                                                                     <tr
                                                                         key={q.id}
                                                                         className="td-body">
                                                                         <td className="td-body">
-                                                                            {q.product.category || 'n/a'}
+                                                                            {q.product?.category || 'n/a'}
                                                                         </td>
                                                                         <td className="td-body">
-                                                                            {q.product.name || 'n/a'}
+                                                                            {q.product?.name || 'n/a'}
                                                                         </td>
                                                                         <td className="td-body">
-                                                                            {q.product.brand || 'n/a'}
+                                                                            {q.product?.brand || 'n/a'}
                                                                         </td>
                                                                         <td className="td-body">
                                                                             {q.quantity || 'n/a'}
                                                                         </td>
                                                                         <td className="td-body">
-                                                                            {q.product.displayPrice * q.quantity || 'n/a'}
+                                                                            {q.product?.displayPrice * q.quantity || 'n/a'}
                                                                         </td>
                                                                     </tr>
 
