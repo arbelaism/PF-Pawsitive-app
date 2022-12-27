@@ -121,7 +121,7 @@ const ModalPayment = ({ price }: Props) => {
                                 <IoClose />
                             </button>
                             <div className="w-full h-full">
-                                {clientSecret && (
+                                {paymentIntent && (
                                     <Elements
                                         stripe={stripePromise}
                                         options={options}>
