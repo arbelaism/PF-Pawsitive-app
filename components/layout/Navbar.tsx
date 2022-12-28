@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Product } from '../../app/types'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { FaHeart, FaShoppingCart, FaSignInAlt } from 'react-icons/fa'
+import { FaHeart, FaShoppingCart } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
 import UserButton from './UserButton'
-import { checkEmail } from 'utils/checkEmail'
+import { getEmail } from 'utils/checkEmail'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import { redirectionAlert } from 'utils/alerts'
@@ -15,25 +15,20 @@ import { useRouter } from 'next/router'
 const Navbar: NextComponentType = () => {
     const [cartProducts, setCartProducts] = useState(0)
     const [show, setShow] = useState(true)
+    const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
     const [lastScrollY, setLastScrollY] = useState(0)
     const { user, error, isLoading } = useUser()
     const router = useRouter()
 
-    let email: string = ''
-    let name: string = ''
-    let nickname: string = ''
-
-    if (user && user.sub && user.nickname && user.name) {
-        email = checkEmail(user.sub, user.nickname)
-        name = user.name
-        nickname = user.nickname
-
-        if (email && email === 'auth0') {
-            email = user.name
-            name = user.nickname
-            nickname = user.name
+    useEffect(() => {
+        if (user && user.sub && user.nickname && user.name) {
+            getEmail(user.sub).then(res => {
+                setEmail(res)
+            })
+            setName(user.name)
         }
-    }
+    }, [user])
 
     const controlNavbar = () => {
         if (typeof window !== 'undefined') {
@@ -102,6 +97,7 @@ const Navbar: NextComponentType = () => {
 
         menu.style.top = '-16rem'
     }
+
     return (
         <nav
             className={`sticky top-0 w-full z-30 flex gap-3 bg-pwgreen-500 shadow-md text-pwgreen-50 py-5 px-6 md:justify-between lg:py-5 items-center transition-all ${

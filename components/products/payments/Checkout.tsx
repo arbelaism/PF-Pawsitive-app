@@ -55,6 +55,9 @@ const Checkout = ({
         e.preventDefault()
 
         if (!stripe || !elements) return
+
+        setLoading(true)
+
         const response = await axios.post('/api/product/payment', {
             totalPrice: getTotalPrice(),
             payment_intent_id: paymentIntent?.id
@@ -79,7 +82,6 @@ const Checkout = ({
                 redirect: 'if_required'
             })
 
-        setLoading(true)
         if (error) {
             if (
                 error.type === 'card_error' ||
@@ -200,7 +202,7 @@ const Checkout = ({
                         disabled={loading || !stripe || !elements}
                         className="dashboardButton text-sm lg:text-base self-end bg-pwgreen-700 text-pwgreen-50 uppercase">
                         {loading ? (
-                            <AiOutlineLoading3Quarters className="text-xl animate-spin text-pwpurple-700" />
+                            <AiOutlineLoading3Quarters className="text-xl animate-spin text-pwgreen-50" />
                         ) : (
                             <>Pagar</>
                         )}

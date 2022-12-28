@@ -18,7 +18,7 @@ const ProductsScreenCard = ({ id, product }: Props) => {
     }
 
     return (
-        <div className="bg-white py-5 w-full h-80 rounded-md shadow-md flex items-center justify-between text-pwgreen-800 my-14 lg:flex-col overflow-hidden lg:py-8 z-50 hover:shadow-2xl transition-all">
+        <div className="bg-white py-5 w-full h-60 lg:h-80 rounded-md shadow-md flex items-center justify-between text-pwgreen-800 my-14 lg:flex-col overflow-hidden lg:py-8 z-50 hover:shadow-2xl transition-all">
             <div className="w-1/2 m-2">
                 <Image
                     src={product.photo}
@@ -45,11 +45,11 @@ const ProductsScreenCard = ({ id, product }: Props) => {
                             }
                         })}
                     </div>
-                    <h3 className="font-Rubik text-slate-500 text-xs px-2">
+                    <h3 className="font-Rubik text-slate-500 text-xs lg:px-2">
                         {product.name}
                     </h3>
                 </div>
-                <div className="p-3 h-1/4 self-end">
+                <div className="p-3 h-1/4 lg:self-end">
                     <Link href={`/products/${id}`}>
                         <a className="text-pwgreen-600 text-md font-semibold hover:text-pwgreen-800 transition-colors">
                             Ver detalles

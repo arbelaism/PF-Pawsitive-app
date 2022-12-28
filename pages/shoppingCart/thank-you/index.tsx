@@ -5,7 +5,7 @@ import { MainLayout } from 'components'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
 import useLocalStorage from 'use-local-storage'
-import { checkEmail } from 'utils/checkEmail'
+import { getEmail } from 'utils/checkEmail'
 import { sendPaymentMail } from 'utils/dbFetching'
 import { FaRegSmileWink } from 'react-icons/fa'
 import Link from 'next/link'
@@ -16,6 +16,7 @@ const ThankYou = () => {
     const [transactionId, setTransactionId] = useState<string | undefined>(
         undefined
     )
+    const [email, setEmail] = useState('')
     const [message, setMessage] = useState<string | undefined>(undefined)
     const { user, error: err, isLoading: load } = useUser()
     const [products, setProducts] = useLocalStorage<Product[]>(
@@ -55,7 +56,7 @@ const ThankYou = () => {
             const productsT = products.map(product => {
                 return { quantity: product.amount, productId: product.id }
             })
-
+            7
             const dataT = {
                 amount: amount,
                 userId: userId,
@@ -85,15 +86,13 @@ const ThankYou = () => {
         }
     }
 
-    const sendMail = async (products: Product[]) => {
+    const sendMail = async (products: Product[], email: string) => {
         if (products.length <= 0) return
 
         if (user?.name && user.nickname && user.sub) {
             try {
-                let email: string = checkEmail(user.sub, user.nickname)
-                if (email && email === 'auth0') {
-                    email = user.name
-                }
+                console.log(email)
+
                 let paymentData: CheckIn = {
                     name: user!.name,
                     idT: transactionId,
@@ -110,6 +109,11 @@ const ThankYou = () => {
     }
 
     useEffect(() => {
+        if (user && user.sub) {
+            getEmail(user.sub).then(res => {
+                setEmail(res)
+            })
+        }
         setFetchingData(true)
         if (products.length > 0 && fetchingData) {
             if (!transactionId) {
@@ -117,8 +121,8 @@ const ThankYou = () => {
                 deleteTransactionProducts(products)
             }
 
-            if (transactionId && !message) {
-                sendMail(products)
+            if (transactionId && !message && email) {
+                sendMail(products, email)
                 setProducts([])
             }
         }
@@ -126,7 +130,7 @@ const ThankYou = () => {
         return () => {
             setFetchingData(false)
         }
-    }, [fetchingData, message, transactionId])
+    }, [fetchingData, message, transactionId, email])
 
     return (
         <MainLayout title="¡Gracias! - Pawsitive">
@@ -141,7 +145,7 @@ const ThankYou = () => {
                         Enviando email...
                     </div>
                 ) : (
-                    <div className='text-center'>
+                    <div className="text-center">
                         <p className="text-sm lg:text-base">
                             Te enviamos un email con los datos de tu compra.
                         </p>
