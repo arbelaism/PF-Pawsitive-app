@@ -41,8 +41,8 @@ const ProductsScreen = () => {
                 <div>
                     <Swiper
                         breakpoints={{
-                            400: {
-                                width: 400,
+                            200: {
+                                width: 200,
                                 slidesPerView: 1
                             },
                             768: {
@@ -64,7 +64,6 @@ const ProductsScreen = () => {
                         {productsList.map((product: any) => {
                             return (
                                 <SwiperSlide key={product.id}>
-                                    {/* TODO: mobile card.*/}
                                     <ProductsScreenCard
                                         key={product.id}
                                         id={product.id}

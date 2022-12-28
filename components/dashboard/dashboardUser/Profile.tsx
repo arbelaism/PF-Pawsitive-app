@@ -25,15 +25,15 @@ const MyProfile: NextComponentType = () => {
     }
 
     return (
-        <div className="p-8 flex flex-col justify-evenly items-center bg-pwgreen-100 rounded-lg md:flex-row">
+        <div className="p-8 flex flex-col justify-evenly items-center bg-white my-6 rounded-lg shadow-2xl md:flex-row">
             <div className="w-full flex flex-col gap-3 justify-center items-center mx-4 md:w-1/3">
                 {isLoading ? (
                     <>
                         <Image
                             src={IsoGreen}
                             alt="not found"
-                            width={150}
-                            height={150}
+                            width={128}
+                            height={128}
                         />
                         <h1>
                             Espera un momento, estamos cargando tus datos...
@@ -47,12 +47,13 @@ const MyProfile: NextComponentType = () => {
                                 alt="not found"
                                 width={200}
                                 height={200}
+                                objectFit="cover"
                                 className="rounded-full static"
                             />
                         </div>
                     </>
                 )}
-                <div className="font-Rubik font-bold text-4xl lg:text-6xl">
+                <div className="font-Rubik font-bold text-2xl md:text-3xl lg:text-5xl">
                     {isLoading ? (
                         'Mi perfil...'
                     ) : (
@@ -66,18 +67,9 @@ const MyProfile: NextComponentType = () => {
                         </>
                     )}
                 </div>
-
-                <p className="text-md text-center mb-2 md:text-xl md:text-center">
-                    En este apartado podrás ver todos tus datos, si deseas
-                    actualizarlos o modificarlos, presiona el botón{' '}
-                    <span className="font-bold">
-                        &quot;ACTUALIZAR DATOS&quot;
-                    </span>
-                    .
-                </p>
             </div>
 
-            <div className="w-2/4 grid grid-cols-1 gap-2 items-center justify-center lg:gap-3">
+            <div className="w-full lg:w-2/4 grid grid-cols-1 gap-2 items-center justify-center lg:gap-3">
                 {isLoading ? (
                     <div className="flex flex-col gap-1 items-start justify-center">
                         <h1>Cargando usuario...</h1>
