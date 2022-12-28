@@ -13,11 +13,13 @@ import { useQuery } from 'react-query'
 import { getUserById } from 'utils/dbFetching'
 import { redirectionAlert } from 'utils/alerts'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 // import BarGraphic from "components/dashboard/graphics/BarGraphic"
 
 const DashboardAdm = withPageAuthRequired(() => {
     const { user } = useUser()
+    const router = useRouter()
 
     let id: string = ''
     if (user && user.sub) {
@@ -37,6 +39,9 @@ const DashboardAdm = withPageAuthRequired(() => {
                 showCancelButton: false,
                 link: '/profile'
             })
+            setTimeout(() => {
+                router.push('/profile')
+            }, 1000)
         }
     }, [isLoading])
 

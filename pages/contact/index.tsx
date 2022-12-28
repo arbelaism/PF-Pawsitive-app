@@ -18,13 +18,17 @@ const Contact: NextComponentType = () => {
     const queryClient = useQueryClient()
     const { mutate, isLoading } = useMutation(sendMail, {
         onSuccess: data => {
-            alerts({
-                icon: 'info',
-                title: '<strong>Email</strong>',
-                text: 'Email Sent',
-                toast: true
-            })
-            router.push('/')
+            if (data === 'contact') {
+                alerts({
+                    icon: 'info',
+                    title: '<strong>Gracias por contactarnos</strong>',
+                    text: 'Nos estaremos contactando contigo.',
+                    toast: true
+                })
+                setTimeout(() => {
+                   router.push('/') 
+                }, 1500);
+            }
         },
         onError: () => {
             alerts({
@@ -39,7 +43,6 @@ const Contact: NextComponentType = () => {
         }
     })
     const onSubmit: SubmitHandler<ContactForm> = async data => {
-        console.log(data)
         const mail = {
             ...data,
             action: 'contact'
@@ -148,7 +151,7 @@ const Contact: NextComponentType = () => {
                                     Mensaje{' '}
                                 </label>
                             </div>
-                            <div className='flex justify-end items-center'>
+                            <div className="flex justify-end items-center">
                                 {isLoading ? (
                                     <button
                                         type="button"

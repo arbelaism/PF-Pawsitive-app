@@ -95,11 +95,12 @@ export const createReview = async (data: ReviewFormInput) => {
 }
 
 export const sendMail = async (data: ContactForm) => {
+    const { action } = data
     const newPost = await axios
         .post('/api/sendMail', data)
         .catch(error => console.log(error))
 
-    return 'email send'
+    return action
 }
 
 export const sendMailT = async (data: EmailT) => {

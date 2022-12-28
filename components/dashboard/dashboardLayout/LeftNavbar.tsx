@@ -158,7 +158,9 @@ const LeftNavbar: any = () => {
                             }>
                             <FaPaw />
                             <Link href={'/profile/apply'}>
-                                <a className="dashboardLinks">Aplicantes</a>
+                                <a className="dashboardLinks">
+                                    Tus aplicaciones
+                                </a>
                             </Link>
                         </li>
                         <h3 className="dashboardSideTitle">Productos</h3>

@@ -15,18 +15,17 @@ const Hero = () => {
                             alt=""
                         />
                     </div>
-                    {/* TODO: FIX THIS TEXT. maybe mor info */}
                     <h1 className="font-Rubik text-5xl lg:text-7xl 2xl:text-8xl uppercase font-bold -tracking-[0.05em] mb-10">
-                        Un primer
+                        Adoptá
                         <br />{' '}
                         <span className="text-pwgreen-500 font-normal">
-                            acercamiento de la mascota
+                            a tu compañero soñado
                         </span>{' '}
-                        <br /> al bienestar
+                        <br /> con Pawsitive
                     </h1>
                     <Link href={'/adoptions'}>
                         <button className="dashboardButton bg-pwgreen-600 text-pwgreen-50 lg:px-6">
-                            Ver mas
+                            Ver más
                         </button>
                     </Link>
                 </div>

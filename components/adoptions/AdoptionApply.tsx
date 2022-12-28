@@ -27,7 +27,7 @@ const AdoptionApply: NextComponentType = () => {
                 toast: true
             })
 
-            router.push("/adoptions")
+            router.push('/adoptions')
         }
     })
     const [ids, _setIds] = useLocalStorage<ApplyAdAp>('ids', {
@@ -196,7 +196,7 @@ const AdoptionApply: NextComponentType = () => {
                 </div>
                 <button
                     type="submit"
-                    className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-900 font-bold uppercase font-Rubik">
+                    className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-50 font-bold uppercase font-Rubik hover:bg-pwgreen-800 transition-all">
                     SOLICITAR ADOPCIÓN
                 </button>
             </form>
