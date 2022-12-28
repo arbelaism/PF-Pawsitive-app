@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 import Pet1Img from 'public/img/pets/1.png'
@@ -95,9 +95,8 @@ const Pets = () => {
                 )}
             </div>
             <div className="text-end absolute right-4 bottom-4">
-                {/* TODO: maybe more padding. */}
                 <Link href="/adoptions">
-                    <button className="font-Rubik uppercase text-base font-bold px-3 text-white hover:text-pwgreen-900 duration-300 lg:text-xl">
+                    <button className="font-Rubik uppercase text-base font-bold py-2 px-3 text-white hover:text-pwgreen-900 duration-300 lg:text-xl">
                         Ver más
                     </button>
                 </Link>

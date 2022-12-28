@@ -49,12 +49,15 @@ const Cart: NextPage = withPageAuthRequired(() => {
         <MainLayout title="Pawsitive - Carrito">
             <>
                 {loading ? (
-                    <div className="flex justify-center items-center gap-3 my-16">
+                    <div className="flex justify-center items-center gap-3 h-screen">
                         <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                     </div>
                 ) : (
                     <>
-                        <ShoppingCart />
+                        <ShoppingCart
+                            setProd={setProducts}
+                            setCartProd={setCartProducts}
+                        />
                         {products.length > 0 && cartProducts.length > 0 && (
                             <ModalPayment price={priceToPay} />
                         )}

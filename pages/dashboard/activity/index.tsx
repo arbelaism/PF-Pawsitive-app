@@ -4,9 +4,11 @@ import { useQuery } from 'react-query'
 import { getUserById } from 'utils/dbFetching'
 import { redirectionAlert } from 'utils/alerts'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const Activity = withPageAuthRequired(() => {
     const { user } = useUser()
+    const router = useRouter()
 
     let id: string = ''
     if (user && user.sub) {
@@ -26,6 +28,9 @@ const Activity = withPageAuthRequired(() => {
                 showCancelButton: false,
                 link: '/profile'
             })
+            setTimeout(() => {
+                router.push('/profile')
+            }, 1000)
         }
     }, [isLoading])
 

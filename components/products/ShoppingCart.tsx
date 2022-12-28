@@ -5,7 +5,13 @@ import useLocalStorage from 'use-local-storage'
 import { FiShoppingBag } from 'react-icons/fi'
 import Link from 'next/link'
 
-const ShoppingCart = () => {
+const ShoppingCart = ({
+    setCartProd,
+    setProd
+}: {
+    setCartProd: (arg01: []) => void
+    setProd: (arg01: []) => void
+}) => {
     // let products : Product[] = [];
     const [cartProducts, setCartProducts] = useState<Product[]>([])
     const [products, setProducts] = useLocalStorage<Product[]>(
@@ -84,8 +90,8 @@ const ShoppingCart = () => {
                 </h1>
                 <button
                     onClick={() => {
-                        setCartProducts([])
-                        setProducts([])
+                        setCartProd([])
+                        setProd([])
                     }}
                     className="text-xs md:text-sm text-pwgreen-800 hover:bg-pwgreen-200 py-2 px-3 rounded-md disabled:bg-transparent disabled:text-slate-500 transition-all"
                     disabled={cartProducts.length === 0}>

@@ -136,7 +136,7 @@ const Checkout = ({
     }
 
     return (
-        <form onSubmit={handleSubmit} className="h-[90vh] overflow-y-scroll">
+        <form onSubmit={handleSubmit} className="h-[90vh]">
             <div className="w-full flex h-full flex-col lg:flex-row justify-evenly items-center py-10">
                 <div className="w-full h-full flex flex-col justify-center items-center gap-1 lg:w-2/5">
                     <div className="lg:w-1/6">

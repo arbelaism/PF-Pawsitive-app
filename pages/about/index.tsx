@@ -76,7 +76,7 @@ const About = () => {
                     <h1 className="title mb-4 text-2xl lg:text-4xl xl:text-5xl">
                         Sobre Nosotros
                     </h1>
-                    <div className="text-xl tracking-wide text-justify">
+                    <div className="text-base lg:text-lg text-justify">
                         <p>
                             Somos estudiantes de
                             <a
