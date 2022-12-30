@@ -50,7 +50,13 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
             try {
                 const newUser = await prisma.user.upsert({
                     where: { id: id || '' },
-                    update: {},
+                    update: {
+                        firstName,
+                        lastName,
+                        email,
+                        email_verified,
+                        photo
+                    },
                     create: {
                         id: id || randomUUID(),
                         firstName,
