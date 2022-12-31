@@ -49,7 +49,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
             try {
                 const newUser = await prisma.user.upsert({
-                    where: { id: id || '' },
+                    where: { id: id },
                     update: {
                         firstName,
                         lastName,

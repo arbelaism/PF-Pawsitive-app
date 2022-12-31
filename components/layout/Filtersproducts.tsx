@@ -48,14 +48,12 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
                       d.name.toLowerCase().includes(name.toLowerCase())
                   )
                 : products
-        console.log(filteredData)
         orderData(options, filteredData)
     }
     function orderData(options: Values, localData: Product[]) {
         const { category, size, price } = options
         let filteredData: Product[] = []
         if (category !== '') {
-            console.log('category')
             filteredData = localData?.filter(
                 (d: Product) => d.category === category
             )
@@ -89,7 +87,6 @@ const Filters = ({ setData, setCurrentPage }: Props) => {
         if (!value) return
         if (name === 'price' && value !== '') {
             const numValue = handleValue(value)
-            console.log(numValue)
             setOptions({ ...options, [name]: numValue })
         } else {
             setOptions({ ...options, [name]: value })

@@ -60,7 +60,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
                             id: user.user.sub,
                             firstName: userFirstName || '',
                             lastName: userLastName || '',
-                            email: auth0,
+                            email: userEmail,
                             email_verified: userEmailVerified,
                             photo: userPhoto
                         })
