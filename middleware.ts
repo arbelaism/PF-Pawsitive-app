@@ -39,6 +39,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     if (user) {
         const auth0User = await getAuth0UserById(user.user.sub)
 
+        let logins = 1
         if (!auth0User) return
 
         userId = user.user.sub
@@ -48,7 +49,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userEmailVerified = auth0User.email_verified
         userPhoto = user.user.picture
 
-        if (auth0User.logins_count === 1) {
+        if (auth0User.logins_count === 1 && logins === 1) {
             if (user && userId && userEmail) {
                 event.waitUntil(
                     fetch(`${BASE_URL}/api/user/`, {
@@ -77,6 +78,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
                 )
             }
 
+            logins++
             if (pathname.startsWith('/')) {
                 return NextResponse.rewrite(
                     new URL('/profile/welcome', request.url)
