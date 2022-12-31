@@ -72,9 +72,6 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
                 }
             ]
             */
-
-            console.log(req.body)
-
             try {
                 const newTransaction = await prisma.transaction.create({
                     data: {

@@ -91,8 +91,6 @@ const ThankYou = () => {
 
         if (user?.name && user.nickname && user.sub) {
             try {
-                console.log(email)
-
                 let paymentData: CheckIn = {
                     name: user!.name,
                     idT: transactionId,
