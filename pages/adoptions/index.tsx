@@ -73,6 +73,7 @@ const Adoptions: NextPage = () => {
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 link: '/api/auth/login'
             })
+            return
         }
         if (!isLoadingU && dbUser) {
             if (!dbUser.email_verified) {
@@ -89,9 +90,9 @@ const Adoptions: NextPage = () => {
                 })
                 return
             }
-        } else {
-            router.push('/adoptions/post')
         }
+
+        router.push('/adoptions/post')
     }
 
     useEffect(() => {
@@ -130,17 +131,15 @@ const Adoptions: NextPage = () => {
                 <h1 className="text-2xl text-pwgreen-800 font-Rubik font-bold py-6 lg:py-8 lg:text-5xl">
                     Adopciones
                 </h1>
-                <Link href="/adoptions/post">
-                    <button
-                        onClick={alertAdoptionForm}
-                        className="dashboardButton text-base py-2 px-2 bg-pwgreen-600 lg:p-4 text-pwgreen-50 hover:bg-pwgreen-800">
-                        <a className="flex items-center gap-1.5">
-                            <FaDog className="text-xl md:text-2xl" />
-                            Poner en adopción
-                            <FaArrowRight className="text-lg md:text-xl" />
-                        </a>
-                    </button>
-                </Link>
+                <button
+                    onClick={alertAdoptionForm}
+                    className="dashboardButton text-sm lg:text-base py-2 px-2 bg-pwgreen-600 lg:p-4 text-pwgreen-50 hover:bg-pwgreen-800">
+                    <a className="flex items-center gap-1.5">
+                        <FaDog className="text-base md:text-xl" />
+                        Poner en adopción
+                        <FaArrowRight className="text-base md:text-xl" />
+                    </a>
+                </button>
             </div>
 
             <div className="flex">

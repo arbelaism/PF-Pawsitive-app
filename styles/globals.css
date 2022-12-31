@@ -7,7 +7,7 @@
 
 @layer components {
     .title {
-        @apply font-Rubik text-3xl font-bold text-pwpurple-900 lg:text-5xl xl:text-6xl;
+        @apply font-Rubik text-3xl font-extrabold text-pwpurple-900 lg:text-5xl xl:text-6xl;
     }
     .input {
         @apply py-2 
@@ -114,6 +114,7 @@
 * {
     scrollbar-width: auto;
     scrollbar-color: #308253 #ecf8f1;
+    scroll-behavior: smooth;
 }
 
 /* Chrome, Edge, and Safari */
