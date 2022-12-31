@@ -36,34 +36,39 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userEmail = auth0User.email
         userEmailVerified = auth0User.email_verified
         userPhoto = user.user.picture
-    }
 
-    if (user && userId && userEmail) {
-        event.waitUntil(
-            fetch(`${BASE_URL}/api/user/`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                referrerPolicy: 'strict-origin-when-cross-origin',
-                body: JSON.stringify({
-                    id: userId,
-                    firstName: userFirstName || '',
-                    lastName: userLastName || '',
-                    email: userEmail,
-                    email_verified: userEmailVerified,
-                    photo: userPhoto
+        if (user && userId && userEmail) {
+            event.waitUntil(
+                fetch(`${BASE_URL}/api/user/`, {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    referrerPolicy: 'strict-origin-when-cross-origin',
+                    body: JSON.stringify({
+                        id: userId,
+                        firstName: userFirstName || '',
+                        lastName: userLastName || '',
+                        email: userEmail,
+                        email_verified: userEmailVerified,
+                        photo: userPhoto
+                    })
                 })
-            })
-        )
+            )
 
-        event.waitUntil(
-            fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
-                method: 'POST',
-                referrerPolicy: 'strict-origin-when-cross-origin'
-            })
-        )
+            event.waitUntil(
+                fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
+                    method: 'POST',
+                    referrerPolicy: 'strict-origin-when-cross-origin'
+                })
+            )
+        }
+
+        if (auth0User.logins_count < 2) {
+            NextResponse.redirect(new URL('/profile/welcome', request.url))
+            return
+        }
     }
 
     NextResponse.redirect(new URL('/', request.url))
