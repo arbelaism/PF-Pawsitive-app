@@ -12,9 +12,13 @@ const scope = process.env.AUTH0_SCOPE
 
 function getUrls(req: NextApiRequest) {
     const host = req.headers['host']
+    let url: string = ''
+    if (req.headers['referer']) {
+        url = req.headers['referer'].split('/').pop()!
+    }
     const protocol = process.env.VERCEL_URL ? 'https' : 'http'
     const redirectUri = `${protocol}://${host}/api/auth/callback`
-    const returnTo = `${protocol}://${host}`
+    const returnTo = `${protocol}://${host}/${url}`
     return {
         redirectUri,
         returnTo
@@ -49,9 +53,9 @@ export default auth0.handleAuth({
     },
 
     async logout(req: NextApiRequest, res: NextApiResponse) {
-        const { returnTo } = getUrls(req)
+        // const { returnTo } = getUrls(req)
         await auth0.handleLogout(req, res, {
-            returnTo: returnTo
+            returnTo: process.env.AUTH0_BASE_URL
         })
     }
 })

@@ -4,6 +4,8 @@ import { initAuth0 } from '@auth0/nextjs-auth0/edge'
 import { getAuth0UserById } from 'utils/dbFetching'
 import 'regenerator-runtime'
 
+const PUBLIC_FILE = /\.(.*)$/
+
 const auth0 = initAuth0({
     secret: process.env.AUTH0_SECRET,
     issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
@@ -14,9 +16,18 @@ const auth0 = initAuth0({
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
+    const { pathname } = request.nextUrl
     const response = NextResponse.next()
     const user = await auth0.getSession(request, response)
     const BASE_URL = process.env.AUTH0_BASE_URL
+
+    if (
+        pathname.startsWith('/_next') ||
+        pathname.startsWith('/api') ||
+        pathname.startsWith('/static') ||
+        PUBLIC_FILE.test(pathname)
+    )
+        return NextResponse.next()
 
     let userId: string = ''
     let userFirstName: string = ''
@@ -37,7 +48,41 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userEmailVerified = auth0User.email_verified
         userPhoto = user.user.picture
 
-        if (user && userId && userEmail) {
+        if (auth0User.logins_count === 1) {
+            if (user && userId && userEmail) {
+                event.waitUntil(
+                    fetch(`${BASE_URL}/api/user/`, {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        referrerPolicy: 'strict-origin-when-cross-origin',
+                        body: JSON.stringify({
+                            id: userId,
+                            firstName: userFirstName || '',
+                            lastName: userLastName || '',
+                            email: userEmail,
+                            email_verified: userEmailVerified,
+                            photo: userPhoto
+                        })
+                    })
+                )
+
+                event.waitUntil(
+                    fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
+                        method: 'POST',
+                        referrerPolicy: 'strict-origin-when-cross-origin'
+                    })
+                )
+            }
+
+            if (pathname.startsWith('/')) {
+                return NextResponse.rewrite(
+                    new URL('/profile/welcome', request.url)
+                )
+            }
+        } else if (user && userEmail) {
             event.waitUntil(
                 fetch(`${BASE_URL}/api/user/`, {
                     method: 'POST',
@@ -56,22 +101,9 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
                     })
                 })
             )
-
-            event.waitUntil(
-                fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
-                    method: 'POST',
-                    referrerPolicy: 'strict-origin-when-cross-origin'
-                })
-            )
-        }
-
-        if (auth0User.logins_count < 2) {
-            NextResponse.redirect(new URL('/profile/welcome', request.url))
-            return
         }
     }
-
-    NextResponse.redirect(new URL('/', request.url))
+    NextResponse.next()
 }
 
 export const config = {
