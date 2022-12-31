@@ -1,7 +1,7 @@
 import { NextFetchEvent, NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { initAuth0 } from '@auth0/nextjs-auth0/edge'
-import { getAuth0UserById } from 'utils/dbFetching'
+import { fetchUserById, getAuth0UserById } from 'utils/dbFetching'
 import 'regenerator-runtime'
 
 const auth0 = initAuth0({
@@ -32,6 +32,12 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     let userLogins: number = 0
 
     if (user) {
+        const dbUser = await fetchUserById(user.user.sub)
+
+        if (dbUser) {
+            return NextResponse.next()
+        }
+
         const auth0User = await getAuth0UserById(user.user.sub)
 
         if (!auth0User) return
