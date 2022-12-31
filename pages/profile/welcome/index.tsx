@@ -6,8 +6,9 @@ import LaptopProfile from 'public/img/welcome/laptop-profile.png'
 import Head from 'next/head'
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa'
 import Link from 'next/link'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 
-const Welcome = () => {
+const Welcome = withPageAuthRequired(() => {
     return (
         <>
             <Head>
@@ -152,6 +153,6 @@ const Welcome = () => {
             </div>
         </>
     )
-}
+})
 
 export default Welcome
