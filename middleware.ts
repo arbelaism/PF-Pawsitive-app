@@ -1,10 +1,8 @@
 import { NextFetchEvent, NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { initAuth0 } from '@auth0/nextjs-auth0/edge'
-import { getAuth0UserById } from 'utils/dbFetching'
+import { fetchUserById, getAuth0UserById } from 'utils/dbFetching'
 import 'regenerator-runtime'
-
-const PUBLIC_FILE = /\.(.*)$/
 
 const auth0 = initAuth0({
     secret: process.env.AUTH0_SECRET,
@@ -21,13 +19,9 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     const user = await auth0.getSession(request, response)
     const BASE_URL = process.env.AUTH0_BASE_URL
 
-    if (
-        pathname.startsWith('/_next') ||
-        pathname.startsWith('/api') ||
-        pathname.startsWith('/static') ||
-        PUBLIC_FILE.test(pathname)
-    )
+    if (pathname.startsWith('/_next')) {
         return NextResponse.next()
+    }
 
     let userId: string = ''
     let userFirstName: string = ''
@@ -35,8 +29,15 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     let userEmail: string = ''
     let userEmailVerified: boolean = false
     let userPhoto: string = ''
+    let userLogins: number = 0
 
     if (user) {
+        const dbUser = await fetchUserById(user.user.sub)
+
+        if (dbUser) {
+            return NextResponse.next()
+        }
+
         const auth0User = await getAuth0UserById(user.user.sub)
 
         if (!auth0User) return
@@ -47,8 +48,9 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userEmail = auth0User.email
         userEmailVerified = auth0User.email_verified
         userPhoto = user.user.picture
+        userLogins = auth0User.logins_count
 
-        if (auth0User.logins_count === 1) {
+        if (userLogins === 1) {
             if (user && userId && userEmail) {
                 event.waitUntil(
                     fetch(`${BASE_URL}/api/user/`, {
@@ -77,11 +79,10 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
                 )
             }
 
-            if (pathname.startsWith('/')) {
-                return NextResponse.rewrite(
-                    new URL('/profile/welcome', request.url)
-                )
-            }
+            userLogins++
+            return NextResponse.redirect(
+                new URL('/profile/welcome', request.url)
+            )
         } else if (user && userEmail) {
             event.waitUntil(
                 fetch(`${BASE_URL}/api/user/`, {

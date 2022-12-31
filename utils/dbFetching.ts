@@ -289,10 +289,14 @@ export const getUserById = async (id: string) => {
     if (!user) throw new Error('Data not found')
     return user
 }
-export const useGetUserById = (id: any) => {
-    return useQuery(['user', id], () => getUserById(id), {
-        enabled: typeof id === 'string'
-    })
+export const fetchUserById = async (id: string) => {
+    const response = await fetch(`${BASE_URL}/api/user/${id}`)
+
+    if (response.status === 404) return false
+
+    const user = await response.json()
+
+    return user
 }
 
 export const apply = async (data: Form) => {
