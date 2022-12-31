@@ -34,10 +34,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     if (user) {
         const dbUser = await fetchUserById(user.user.sub)
 
-        if (dbUser) {
-            return NextResponse.next()
-        }
-
         const auth0User = await getAuth0UserById(user.user.sub)
 
         if (!auth0User) return
@@ -49,6 +45,30 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userEmailVerified = auth0User.email_verified
         userPhoto = user.user.picture
         userLogins = auth0User.logins_count
+
+        if (dbUser) {
+            if (userId && userEmail) {
+                event.waitUntil(
+                    fetch(`${BASE_URL}/api/user/`, {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        referrerPolicy: 'strict-origin-when-cross-origin',
+                        body: JSON.stringify({
+                            id: user.user.sub,
+                            firstName: userFirstName || '',
+                            lastName: userLastName || '',
+                            email: auth0,
+                            email_verified: userEmailVerified,
+                            photo: userPhoto
+                        })
+                    })
+                )
+            }
+            return NextResponse.next()
+        }
 
         if (userLogins === 1) {
             if (user && userId && userEmail) {
@@ -82,25 +102,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
             userLogins++
             return NextResponse.redirect(
                 new URL('/profile/welcome', request.url)
-            )
-        } else if (user && userEmail) {
-            event.waitUntil(
-                fetch(`${BASE_URL}/api/user/`, {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    referrerPolicy: 'strict-origin-when-cross-origin',
-                    body: JSON.stringify({
-                        id: userId,
-                        firstName: userFirstName || '',
-                        lastName: userLastName || '',
-                        email: userEmail,
-                        email_verified: userEmailVerified,
-                        photo: userPhoto
-                    })
-                })
             )
         }
     }
