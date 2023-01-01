@@ -1,5 +1,5 @@
 import { NextComponentType } from 'next'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { mediaUploader } from 'utils/mediaUploader'
@@ -8,9 +8,10 @@ import axios from 'axios'
 import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import { alerts } from 'utils/alerts'
+import { countries } from 'utils/getCountries'
+import { Users } from 'app/types'
 
 const UserUpdate: NextComponentType = () => {
-    interface UserUpdate {}
     const router = useRouter()
     const { user, error: err, isLoading: loading } = useUser()
     const [media, setMedia] = useState<File[]>([])
@@ -26,9 +27,9 @@ const UserUpdate: NextComponentType = () => {
         reset,
         handleSubmit,
         formState: { errors }
-    } = useForm({})
+    } = useForm<Users>({})
 
-    const onSubmit: SubmitHandler<UserUpdate> = async data => {
+    const onSubmit: SubmitHandler<Users> = async data => {
         let urlPhoto: any = []
         if (media.length > 0) {
             urlPhoto = await mediaUploader(media)
@@ -156,7 +157,9 @@ const UserUpdate: NextComponentType = () => {
                         Género:
                     </label>
                     <select className="input" {...register('gender')}>
-                        <option value="">Género...</option>
+                        <option value="" disabled>
+                            Género...
+                        </option>
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Prefiero no decir">
@@ -202,23 +205,44 @@ const UserUpdate: NextComponentType = () => {
                         </span>
                     ) : null}
                 </div>
-                {/* DIRECCION */}
-                <div className="flex flex-col gap-1 items-start justify-center">
-                    <label htmlFor="address" className="label">
-                        Dirección:
-                    </label>
-                    <input
-                        placeholder="Dirección..."
-                        className="input"
-                        {...register('address', {
-                            maxLength: 100
-                        })}
-                    />
-                    {errors.address?.type === 'maxLength' ? (
-                        <span className="text-red-500 text-xs">
-                            Danos una descripción más corta de tu dirección.
-                        </span>
-                    ) : null}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {/* DIRECCION */}
+                    <div className="flex flex-col gap-1 items-start justify-center">
+                        <label htmlFor="address" className="label">
+                            Dirección:
+                        </label>
+                        <input
+                            placeholder="Dirección..."
+                            className="input"
+                            {...register('address', {
+                                maxLength: 100
+                            })}
+                        />
+                        {errors.address?.type === 'maxLength' ? (
+                            <span className="text-red-500 text-xs">
+                                Danos una descripción más corta de tu dirección.
+                            </span>
+                        ) : null}
+                    </div>
+                    {/* CODIGO POSTAL */}
+                    <div className="flex flex-col gap-1 items-start justify-center">
+                        <label htmlFor="postCode" className="label">
+                            Código postal:
+                        </label>
+                        <input
+                            placeholder="Código postal..."
+                            className="input"
+                            {...register('postCode', {
+                                maxLength: 10
+                            })}
+                        />
+                        {errors.postCode?.type === 'maxLength' ? (
+                            <span className="text-red-500 text-xs">
+                                El código postal no puede ser mayor a 10
+                                caracteres.
+                            </span>
+                        ) : null}
+                    </div>
                 </div>
 
                 {/* CIUDAD */}
@@ -260,24 +284,22 @@ const UserUpdate: NextComponentType = () => {
                         </span>
                     ) : null}
                 </div>
-
-                {/* CODIGO POSTAL */}
                 <div className="flex flex-col gap-1 items-start justify-center">
-                    <label htmlFor="postCode" className="label">
-                        Código postal:
+                    <label htmlFor="province" className="label">
+                        País:
                     </label>
-                    <input
-                        placeholder="Código postal..."
-                        className="input"
-                        {...register('postCode', {
-                            maxLength: 10
+                    <select className="input" {...register('country')}>
+                        <option value="none" disabled>
+                            Seleccionar país
+                        </option>
+                        {countries.map(country => {
+                            return (
+                                <option key={country.code} value={country.name}>
+                                    {country.name}
+                                </option>
+                            )
                         })}
-                    />
-                    {errors.postCode?.type === 'maxLength' ? (
-                        <span className="text-red-500 text-xs">
-                            El código postal no puede ser mayor a 10 caracteres.
-                        </span>
-                    ) : null}
+                    </select>
                 </div>
 
                 {/* FOTO */}
@@ -295,7 +317,7 @@ const UserUpdate: NextComponentType = () => {
 
                 <button
                     type="submit"
-                    className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-900 font-bold uppercase font-Rubik">
+                    className="text-center bg-pwgreen-500 py-3 my-2 rounded-md shadow-xl text-pwgreen-900 font-bold uppercase font-Rubik hover:bg-pwgreen-700 transition-colors">
                     ACTUALIZAR DATOS
                 </button>
             </form>

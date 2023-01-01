@@ -32,7 +32,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     let userLogins: number = 0
 
     if (user) {
-        const dbUser = await fetchUserById(user.user.sub)
 
         const auth0User = await getAuth0UserById(user.user.sub)
 
@@ -45,6 +44,8 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
         userEmailVerified = auth0User.email_verified
         userPhoto = user.user.picture
         userLogins = auth0User.logins_count
+
+        const dbUser = await fetchUserById(user.user.sub)
 
         if (dbUser) {
             if (userId && userEmail) {
