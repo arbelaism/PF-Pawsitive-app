@@ -10,7 +10,7 @@ import {
     Form,
     EmailT
 } from 'app/types'
-import { useQuery } from 'react-query'
+
 const BASE_URL = process.env.AUTH0_BASE_URL
 
 export const getAdoptions = async () => {

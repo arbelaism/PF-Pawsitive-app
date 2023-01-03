@@ -1,7 +1,7 @@
 import { NextComponentType } from 'next'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Product } from '../../app/types'
+import { Product } from 'app/types'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { FaHeart, FaShoppingCart } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
@@ -11,6 +11,8 @@ import Image from 'next/image'
 import IsoGreen from 'public/iso-green.svg'
 import { redirectionAlert } from 'utils/alerts'
 import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
+import { getUserById } from 'utils/dbFetching'
 
 const Navbar: NextComponentType = () => {
     const [cartProducts, setCartProducts] = useState(0)
@@ -21,14 +23,25 @@ const Navbar: NextComponentType = () => {
     const { user, error, isLoading } = useUser()
     const router = useRouter()
 
+    let userId: string = ''
+    if (user && user.sub) {
+        userId = user.sub
+    }
+
+    const { data: dbUser, isLoading: uIsLoading } = useQuery(
+        ['user', userId],
+        () => getUserById(userId)
+    )
+
     useEffect(() => {
-        if (user && user.sub && user.nickname && user.name) {
-            getEmail(user.sub).then(res => {
+        if (!uIsLoading && dbUser) {
+            console.log(dbUser)
+            setName(dbUser.firstName || user?.name)
+            getEmail(userId).then(res => {
                 setEmail(res)
             })
-            setName(user.name)
         }
-    }, [user])
+    }, [uIsLoading])
 
     const controlNavbar = () => {
         if (typeof window !== 'undefined') {
@@ -216,7 +229,7 @@ const Navbar: NextComponentType = () => {
                         <UserButton
                             userName={name ?? ''}
                             userEmail={email ?? ''}
-                            userPicture={user?.picture ?? ''}
+                            userPicture={dbUser?.photo ?? ''}
                         />
                     )}
                 </div>

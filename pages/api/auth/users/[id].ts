@@ -32,16 +32,24 @@ export default async function auth0User(
 
             break
         case 'PATCH':
-            const { name, lastName, username, email, password, photo } =
-                req.body
+            const {
+                name,
+                lastName,
+                username,
+                email,
+                password,
+                photo,
+                connection
+            } = req.body
+
             try {
                 const options = {
                     method: 'PATCH',
                     url: `${URL}/api/v2/users/${id}`,
                     data: {
-                        connection: AUTH0_DB,
+                        connection: connection,
                         client_id: AUTH0_CLIENT_ID,
-                        email: email,
+                        email: email || null,
                         name: `${name} ${lastName}`,
                         username: username,
                         password: password,
