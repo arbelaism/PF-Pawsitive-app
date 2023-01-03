@@ -35,7 +35,6 @@ const Navbar: NextComponentType = () => {
 
     useEffect(() => {
         if (!uIsLoading && dbUser) {
-            console.log(dbUser)
             setName(dbUser.firstName || user?.name)
             getEmail(userId).then(res => {
                 setEmail(res)
