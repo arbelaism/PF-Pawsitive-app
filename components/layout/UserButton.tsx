@@ -59,6 +59,7 @@ const UserButton = ({ userName, userEmail, userPicture }: Props) => {
                     width={24}
                     height={24}
                     className="rounded-full"
+                    objectFit='cover'
                 />
                 <span className="hidden xl:block">{userName}</span>
             </button>
