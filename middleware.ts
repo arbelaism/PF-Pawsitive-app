@@ -32,7 +32,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     let userLogins: number = 0
 
     if (user) {
-
         const auth0User = await getAuth0UserById(user.user.sub)
 
         if (!auth0User) return
@@ -65,6 +64,12 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
                             email_verified: userEmailVerified,
                             photo: userPhoto
                         })
+                    })
+                )
+                event.waitUntil(
+                    fetch(`${BASE_URL}/api/bookmarks/${userId}`, {
+                        method: 'POST',
+                        referrerPolicy: 'strict-origin-when-cross-origin'
                     })
                 )
             }
