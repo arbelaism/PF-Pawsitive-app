@@ -54,7 +54,7 @@ module.exports = {
         services: "url('/img/services/bg.png')",
         adoption: "url('/img/adoption/bg.png')",
         newsletterYellow: "url('/img/newsletter/bg-green-lighter.svg')",
-        newsletterOrange: "url('/img/newsletter/bg-green.svg')",
+        newsletterOrange: "url('/img/newsletter/bg-green.png')",
         footer: "url('/img/footer/bg.svg')",
       },
     },
