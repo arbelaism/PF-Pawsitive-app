@@ -373,6 +373,7 @@ export default async function createDB() {
                     size: "SMALL",
                     age: "1 años",
                     breed: "ave",
+                    description: "Me dicen Rayito por mi parecido al Rayo McQueen",
                     photo: "https://img.freepik.com/foto-gratis/loro-color-muy-bonito-posado-rama-arbol_493961-1289.jpg?w=2000",
                     active: true,
                     userId: "1"
@@ -384,6 +385,7 @@ export default async function createDB() {
                     size: "BIG",
                     age: "5 años",
                     breed: "tortuga",
+                    description: "Me gusta correr",
                     photo: "https://img.freepik.com/foto-gratis/tortuga-estimulada-africana-hierba_167946-113.jpg?w=2000",
                     active: true,
                     userId: "2"
@@ -395,6 +397,7 @@ export default async function createDB() {
                     size: "SMALL",
                     age: "3 años",
                     breed: "tortuga",
+                    description: "Veni vidi vici",
                     photo: "https://img.freepik.com/fotos-premium/tortuga-sucata-suelo_41969-10112.jpg?w=2000",
                     active: true,
                     userId: "3"
@@ -406,6 +409,7 @@ export default async function createDB() {
                     size: "MEDIUM",
                     age: "2 meses",
                     breed: "gato",
+                    description: "Soy muy juguetón y me gustan los humanos",
                     photo: "https://img.freepik.com/fotos-premium/lindo-gatito-gris-amarillo-ve-juega-negocios-copyspace_89381-2435.jpg?w=2000",
                     active: true,
                     userId: "4"
@@ -413,10 +417,11 @@ export default async function createDB() {
                 {
                     id: "5",
                     createdAt: "2022-11-08T03:08:45.700Z",
-                    name: "no tiene",
+                    name: "Alfonso",
                     size: "SMALL",
                     age: "3 meses",
                     breed: "perro",
+                    description: "Probablemente me adoptes, look at this",
                     photo: "https://img.freepik.com/free-photo/shallow-focus-shot-cute-golden-retriever-puppy-sitting-grass-ground_181624-24655.jpg?w=2000",
                     active: true,
                     userId: "5"
@@ -427,16 +432,18 @@ export default async function createDB() {
                     size: "MEDIUM",
                     age: "6 meses",
                     breed: "gato",
+                    description: "Me gusta dormir mucho",
                     photo: "https://img.freepik.com/fotos-premium/hermoso-gato-ojos-azules_58409-14525.jpg?w=2000",
                     active: true,
                     userId: "6"
                 },
                 {
                     id: "7",
-                    name: "no tiene",
+                    name: "Raul",
                     size: "BIG",
                     age: "2 meses",
                     breed: "perro",
+                    description: "Me gusta jugar con mi hueso",
                     photo: "https://img.freepik.com/foto-gratis/lindo-perro-pastor-posando-aislado-sobre-fondo-blanco_155003-46179.jpg?w=2000",
                     active: true,
                     userId: "7"
@@ -447,6 +454,7 @@ export default async function createDB() {
                     size: "MEDIUM",
                     age: "5 meses",
                     breed: "perro",
+                    description: "Me gusta jugar con mi hueso",
                     photo: "https://img.freepik.com/fotos-premium/primer-plano-perro-raza-mixta-jadeando_191971-7459.jpg?w=2000",
                     active: true,
                     userId: "8"
@@ -454,10 +462,11 @@ export default async function createDB() {
                 ,
                 {
                     id: "9",
-                    name: "sin nombre",
+                    name: "Cristiano",
                     size: "BIG",
                     age: "3 meses",
                     breed: "perro",
+                    description: "Me gusta jugar con mi pelota y ver jugar a Messi",
                     photo: "https://img.freepik.com/fotos-premium/foto-vertical-cachorro-labrador-marron-cachorro-pequeno-expresion-adulta-dulce-perrito_106652-1123.jpg?w=2000",
                     active: true,
                     userId: "9"
@@ -469,6 +478,7 @@ export default async function createDB() {
                     size: "SMALL",
                     age: "1 años",
                     breed: "gato",
+                    description: "Soy muy cariñoso y juguetón",
                     photo: "https://img.freepik.com/foto-gratis/cerrar-propietario-sosteniendo-lindo-gato_23-2149339568.jpg?w=2000",
                     active: true,
                     userId: "10"
@@ -480,6 +490,7 @@ export default async function createDB() {
                     size: "SMALL",
                     age: "7 meses",
                     breed: "gato",
+                    description: "Soy muy cariñoso con las personas",
                     photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8vdq8XcrUFKWHTzBfK2taLeiumVdfWqy5KQ&usqp=CAU",
                     active: true,
                     userId: "11"
@@ -491,6 +502,7 @@ export default async function createDB() {
                     size: "SMALL",
                     age: "6 meses",
                     breed: "gato",
+                    description: "Vengo de un barrio chungo de Barcelona",
                     photo: "https://img.freepik.com/foto-gratis/gatito_658691-474.jpg?w=2000",
                     active: true,
                     userId: "12"
@@ -502,6 +514,7 @@ export default async function createDB() {
                     size: "MEDIUM",
                     age: "1 años",
                     breed: "gato",
+                    description: "Soy muy cariñoso con las personas",
                     photo: "https://img.freepik.com/fotos-premium/hermoso-gato-ojos-azules_58409-14525.jpg?w=2000",
                     active: true,
                     userId: "13"
@@ -513,6 +526,7 @@ export default async function createDB() {
                     size: "SMALL",
                     age: "6 meses",
                     breed: "roedor",
+                    description: "cheese cheese cheese",
                     photo: "https://img.freepik.com/fotos-premium/hamster-dorado-alimentandose-delante-blanco_191971-22301.jpg?w=2000",
                     active: true,
                     userId: "14"
@@ -524,6 +538,7 @@ export default async function createDB() {
                     size: "SMALL",
                     age: "2 años",
                     breed: "perro",
+                    description: "Me habían dicho que iba a ser el único Alfonso",
                     photo: "https://img.freepik.com/foto-gratis/perro-pug-aislado-fondo-blanco_2829-11416.jpg?w=2000",
                     active: true,
                     userId: "15"
@@ -535,6 +550,7 @@ export default async function createDB() {
                     size: "MEDIUM",
                     age: "5 años",
                     breed: "perro",
+                    description: "Yass queen",
                     photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnnIJ1ZbQepvJM2JzSax86RA3o1LCEVSl0Xg&usqp=CAU",
                     active: true,
                     userId: "16"
