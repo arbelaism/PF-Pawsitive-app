@@ -144,7 +144,7 @@ const Adoptions: NextPage = () => {
 
             <div className="flex">
                 <div className="flex grow flex-col gap-2 pb-6 justify-center items-center bg-transparent lg:gap-3 xl:gap-5">
-                    {!isLoading && currentItems ? (
+                    {!isLoading && currentItems.length > 0 ? (
                         <AlternativePagination
                             totalItems={(data ? data : adoptions)?.length}
                             itemsPerPage={itemsPerPage}
@@ -155,19 +155,12 @@ const Adoptions: NextPage = () => {
                     <div
                         className={`${
                             currentItems.length === 0 ? 'flex' : 'grid'
-                        } grid-cols-1 gap-2 md:grid-cols-2 md:gap-3 lg:grid-cols-3 xl:grid-cols-4 xl:gap-4 2xl:grid-cols-5`}>
+                        } grid-cols-1 gap-2 justify-center items-center md:grid-cols-2 md:gap-3 lg:grid-cols-3 xl:grid-cols-4 xl:gap-4 2xl:grid-cols-5`}>
                         {isLoading ? (
                             <div className="flex justify-center items-center gap-3 my-16">
                                 <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
                             </div>
-                        ) : currentItems.length === 0 ? (
-                            <div className="flex flex-col justify-center items-center my-16">
-                                <ImSad className="text-5xl text-pwpurple-700" />
-                                <h1 className="font-bold text-3xl">
-                                    No encontramos items
-                                </h1>
-                            </div>
-                        ) : (
+                        ) : currentItems.length > 0 ? (
                             currentItems.map((adoption: IAdoption) => {
                                 return (
                                     <AdoptionCard
@@ -181,6 +174,13 @@ const Adoptions: NextPage = () => {
                                     />
                                 )
                             })
+                        ) : (
+                            <div className="flex flex-col justify-center items-center my-16">
+                                <ImSad className="text-5xl text-pwpurple-700" />
+                                <h1 className="font-bold text-3xl">
+                                    No encontramos items
+                                </h1>
+                            </div>
                         )}
                     </div>
                 </div>

@@ -120,7 +120,7 @@ const Bookmarks = () => {
 
     return (
         <MainLayout title="Tus favoritos - Pawsitive">
-            <div className="min-w-[50%] w-full md:w-max min-h-[75vh] m-auto px-2 py-4 flex flex-col md:justify-center">
+            <div className="min-w-[50%] w-full md:w-max m-auto px-2 py-4 flex flex-col md:justify-center">
                 {myBookmarks && myBookmarks.length > 0 ? (
                     <h1 className="title text-2xl md:text-4xl py-4 md:py-6 justify-self-start">
                         Favoritos
@@ -137,7 +137,7 @@ const Bookmarks = () => {
                         <span>Actualmente no tenes favoritos</span>
                     </div>
                 ) : (
-                    <div className="w-full bg-white border rounded-lg shadow-md">
+                    <div className="w-full h-full bg-white border rounded-lg shadow-md">
                         {myBookmarks && myBookmarks.length > 0 ? (
                             <div className="flex justify-between items-center px-4 py-2 md:px-6 md:py-4">
                                 <div className="flex gap-1 md:gap-4 items-center">

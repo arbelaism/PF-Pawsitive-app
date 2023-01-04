@@ -47,7 +47,7 @@ const Cart: NextPage = withPageAuthRequired(() => {
 
     return (
         <MainLayout title="Pawsitive - Carrito">
-            <>
+            <div className='w-full h-max flex flex-col items-center'>
                 {loading ? (
                     <div className="flex justify-center items-center gap-3 h-screen">
                         <AiOutlineLoading3Quarters className="text-4xl animate-spin text-pwpurple-700" />
@@ -63,7 +63,7 @@ const Cart: NextPage = withPageAuthRequired(() => {
                         )}
                     </>
                 )}
-            </>
+            </div>
         </MainLayout>
     )
 })
