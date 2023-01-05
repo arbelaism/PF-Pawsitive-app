@@ -1,11 +1,8 @@
-import { Review } from 'app/types'
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { ReviewFormInput } from 'app/types'
 import { alerts } from 'utils/alerts'
 import { useMutation, useQueryClient } from 'react-query'
 import { createReview } from 'utils/dbFetching'
-import { useRouter } from 'next/router'
 import { useUser } from '@auth0/nextjs-auth0/client'
 
 type Props = {
@@ -16,11 +13,10 @@ type Props = {
 const ProductReviewForm = ({ id, userBoughtProduct }: Props) => {
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors }
     } = useForm<ReviewFormInput>()
-
-    const router = useRouter()
 
     const queryClient = useQueryClient()
     const { mutate, error, isLoading } = useMutation(createReview, {
@@ -42,6 +38,8 @@ const ProductReviewForm = ({ id, userBoughtProduct }: Props) => {
             confirmButtonText: 'Continuar',
             confirmButtonAriaLabel: 'Thumbs up, great!'
         })
+
+        reset({})
 
         // router.push("/products")
     }

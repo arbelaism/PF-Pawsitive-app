@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Product } from 'app/types'
 import Link from 'next/link'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { calculateRating } from 'utils/calculateRating'
 
 type Props = {
     id: string
@@ -10,12 +11,11 @@ type Props = {
 }
 
 const ProductsScreenCard = ({ id, product }: Props) => {
-    const productR: Number = Math.floor(4.5)
-    let stars = []
-    for (let i = 0; i < 5; i++) {
-        if (i < productR) stars.push(true)
-        if (i >= productR) stars.push(false)
-    }
+    const [rating, setRating] = useState<number>(1)
+
+    useEffect(() => {
+        if (product.review) setRating(calculateRating(product.review))
+    }, [product.review, rating])
 
     return (
         <div className="bg-white py-5 w-full h-60 lg:h-80 rounded-md shadow-md flex items-center justify-between text-pwgreen-800 my-14 lg:flex-col overflow-hidden lg:py-8 z-50 hover:shadow-2xl transition-all">
@@ -36,14 +36,14 @@ const ProductsScreenCard = ({ id, product }: Props) => {
                         </span>
                     </div>
                     <div className="flex self-start ml-1 text-pwpurple-800">
-                        {stars.map((star, idx) => {
-                            if (star === true) {
-                                return <AiFillStar key={idx} />
-                            }
-                            if (star === false) {
-                                return <AiOutlineStar key={idx} />
-                            }
-                        })}
+                        {rating &&
+                            [...Array(5)].map((_star, idx) => {
+                                if (idx < rating) {
+                                    return <AiFillStar key={idx} />
+                                } else {
+                                    return <AiOutlineStar key={idx} />
+                                }
+                            })}
                     </div>
                     <h3 className="font-Rubik text-slate-500 text-xs lg:px-2">
                         {product.name}

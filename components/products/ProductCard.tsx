@@ -7,6 +7,7 @@ import { FaShoppingCart, FaBox, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { createBookmark, deleteBookmark, getBookmarks } from 'utils/dbFetching'
 import { useUser } from '@auth0/nextjs-auth0/client'
+import { calculateRating } from 'utils/calculateRating'
 
 type Props = {
     id: string
@@ -16,6 +17,7 @@ type Props = {
 
 const ProductCard = ({ id, product, handleAddToCart }: Props) => {
     const [isBookmark, setIsBookmark] = useState(false)
+    const [rating, setRating] = useState<number>(1)
 
     const { user, error: errorU, isLoading: isLoadingU } = useUser()
 
@@ -51,12 +53,9 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
         }
     )
 
-    const productR: Number = Math.floor(4.5)
-    let stars = []
-    for (let i = 0; i < 5; i++) {
-        if (i < productR) stars.push(true)
-        if (i >= productR) stars.push(false)
-    }
+    useEffect(() => {
+        if (product.review) setRating(calculateRating(product.review))
+    }, [product.review, rating])
 
     const handleBookmark = (e: React.MouseEvent<HTMLButtonElement>) => {
         const productId = e.currentTarget.name
@@ -116,14 +115,14 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
                         </Link>
                     </div>
                     <div className="self-start text-lg mx-1 my-1 flex lg:hidden lg:group-hover:flex text-pwpurple-800">
-                        {stars.map((star, idx) => {
-                            if (star === true) {
-                                return <AiFillStar key={idx} />
-                            }
-                            if (star === false) {
-                                return <AiOutlineStar key={idx} />
-                            }
-                        })}
+                        {rating &&
+                            [...Array(5)].map((_star, idx) => {
+                                if (idx < rating) {
+                                    return <AiFillStar key={idx} />
+                                } else {
+                                    return <AiOutlineStar key={idx} />
+                                }
+                            })}
                     </div>
                     <div className="flex justify-between items-center h-1/3 mx-1">
                         <span className="text-2xl font-semibold text-pwpurple-500">

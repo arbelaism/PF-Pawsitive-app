@@ -22,6 +22,7 @@ export type Props = {
 }
 
 const ProductDetail: NextPage = () => {
+    const [userBoughtProduct, setUserBoughtProduct] = useState()
     //get the idProduct from url
     const router = useRouter()
     const { id } = router.query
@@ -51,16 +52,25 @@ const ProductDetail: NextPage = () => {
     } = useQuery(['transaction'], () =>
         getTransactionByUserId(String(user?.sub))
     )
-    //get quantity array from transaction
-    const quantities = transaction?.map(
-        (transaction: any) => transaction.quantity
-    )
-    //get quantities objects inside quantity array
-    const quantityObj = quantities?.find((quantity: any) => true)
-    //search if product.id exist in user transactions quantities
-    const userBoughtProduct = quantityObj?.find(
-        (quantity: any) => quantity.product?.id === product?.id
-    )
+
+    useEffect(() => {
+        if (!isLoadingT && transaction) {
+            const quantities = transaction?.map(
+                (transaction: any) => transaction.quantity
+            )
+            //get quantities objects inside quantity array
+            const quantityObj = quantities?.find((quantity: any) => {
+                if (quantity[0].product['id'] === id) return true
+            })
+            //search if product.id exist in user transactions quantities
+            setUserBoughtProduct(
+                quantityObj?.find(
+                    (quantity: any) => quantity.product?.id === product?.id
+                )
+            )
+        }
+    }, [isLoadingT, id])
+
     //search if user already made a review
     const userAlreadyReview = product?.review?.find(
         (review: Review) => review.userId === user?.sub
@@ -111,6 +121,7 @@ const ProductDetail: NextPage = () => {
     useEffect(() => {
         refetch()
     }, [id])
+
     useEffect(() => {
         // storing input cartProducts
         if (cartProduct.hasOwnProperty('id')) {
@@ -181,7 +192,9 @@ const ProductDetail: NextPage = () => {
                                 <div>
                                     <ProductReviewForm
                                         id={product.id}
-                                        userBoughtProduct={userBoughtProduct}
+                                        userBoughtProduct={
+                                            userBoughtProduct || ''
+                                        }
                                     />
                                     {userAlreadyReview ? (
                                         <div className="flex justify-content-center w-auto mx-5 rounded-lg px-1 py-1 border-2 border-pwpurple-700">
