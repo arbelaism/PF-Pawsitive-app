@@ -204,7 +204,7 @@ const Bookmarks = () => {
                                                 Eliminar
                                             </button>
                                             <div className="self-end mx-2 text-xs md:text-sm text-pwgreen-600 hover:text-pwgreen-800 transition-colors">
-                                                <Link href={`/product/${p.id}`}>
+                                                <Link href={`/products/${p.id}`}>
                                                     <a>Ir a los detalles</a>
                                                 </Link>
                                             </div>
