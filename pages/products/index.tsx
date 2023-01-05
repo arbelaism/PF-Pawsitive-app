@@ -9,7 +9,6 @@ import { getProducts } from 'utils/dbFetching'
 import { redirectionAlert } from 'utils/alerts'
 import AlternativePagination from 'components/layout/AlternativePagination'
 import useLocalStorage from 'use-local-storage'
-import Image from 'next/image'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/router'
 import { useMediaQuery } from 'react-responsive'
@@ -113,19 +112,19 @@ const Products: NextPage = () => {
         if (isSuccess) {
             setData(products)
             if (isMobile) {
-                setItemsPerPage(4)
+                setItemsPerPage(6)
                 setPaginationSize(PaginationSize.small)
             } else if (isTablet) {
-                setItemsPerPage(6)
+                setItemsPerPage(8)
                 setPaginationSize(PaginationSize.medium)
             } else if (isLaptop) {
-                setItemsPerPage(6)
+                setItemsPerPage(9)
                 setPaginationSize(PaginationSize.large)
             } else if (isMediumScreen) {
-                setItemsPerPage(8)
+                setItemsPerPage(12)
                 setPaginationSize(PaginationSize.large)
             } else if (isBigScreen) {
-                setItemsPerPage(10)
+                setItemsPerPage(15)
                 setPaginationSize(PaginationSize.large)
             }
         }

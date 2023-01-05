@@ -9,7 +9,6 @@ import AlternativePagination from 'components/layout/AlternativePagination'
 import { ImSad } from 'react-icons/im'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import { FaArrowRight, FaDog } from 'react-icons/fa'
 import { useMediaQuery } from 'react-responsive'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
@@ -31,6 +30,11 @@ const Adoptions: NextPage = () => {
     const router = useRouter()
 
     const [open, setOpen] = useState(false)
+    const [sizes, _setSizes] = useState<Record<string, string>>({
+        big: 'Grande',
+        medium: 'Mediano',
+        small: 'Pequeño'
+    })
     const handleClose = () => setOpen(false)
 
     let id: string = ''
@@ -99,19 +103,19 @@ const Adoptions: NextPage = () => {
         if (isSuccess) {
             setData(adoptions)
             if (isMobile) {
-                setItemsPerPage(4)
+                setItemsPerPage(6)
                 setPaginationSize(PaginationSize.small)
             } else if (isTablet) {
-                setItemsPerPage(6)
+                setItemsPerPage(8)
                 setPaginationSize(PaginationSize.medium)
             } else if (isLaptop) {
-                setItemsPerPage(6)
+                setItemsPerPage(9)
                 setPaginationSize(PaginationSize.large)
             } else if (isMediumScreen) {
-                setItemsPerPage(8)
+                setItemsPerPage(12)
                 setPaginationSize(PaginationSize.large)
             } else if (isBigScreen) {
-                setItemsPerPage(10)
+                setItemsPerPage(15)
                 setPaginationSize(PaginationSize.large)
             }
         }
@@ -167,7 +171,9 @@ const Adoptions: NextPage = () => {
                                         key={adoption.id}
                                         id={adoption.id}
                                         name={adoption.name}
-                                        size={adoption.size.toLowerCase()}
+                                        size={
+                                            sizes[adoption.size.toLowerCase()]
+                                        }
                                         age={adoption.age}
                                         breed={adoption.breed}
                                         photo={adoption.photo}
