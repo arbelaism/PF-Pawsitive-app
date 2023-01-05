@@ -84,7 +84,7 @@ const ProductCard = ({ id, product, handleAddToCart }: Props) => {
     }, [bookmarks, id])
 
     return (
-        <div className="bg-white py-4 w-full h-56 rounded-md group shadow-md relative flex items-center justify-between text-pwgreen-800 lg:w-60 lg:h-72 lg:flex-col overflow-hidden lg:py-6 hover:shadow-2xl hover:h-48 lg:hover:h-max transition-all lg:hover:scale-105">
+        <div className="bg-white py-4 w-full h-56 rounded-md group shadow-md relative flex items-center justify-between text-pwgreen-800 lg:w-60 lg:h-72 lg:flex-col overflow-hidden lg:py-6 hover:shadow-2xl lg:hover:h-max transition-all lg:hover:scale-105">
             <div className="w-1/2 ">
                 <Image
                     src={product.photo}
