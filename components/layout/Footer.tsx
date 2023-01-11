@@ -94,7 +94,7 @@ const Footer: NextComponentType = () => {
                 </div>
                 <div className="text-pwgreen-50 bg-pwgreen-600 w-full py-4 text-center">
                     <p>
-                        &#169; 2022.
+                        &#169; {new Date().getFullYear()}.
                         <span className="font-Rubik px-1">
                             Paw
                             <span className="font-bold">sitive.</span>
