@@ -58,8 +58,6 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
                         referrerPolicy: 'strict-origin-when-cross-origin',
                         body: JSON.stringify({
                             id: user.user.sub,
-                            firstName: userFirstName || '',
-                            lastName: userLastName || '',
                             email: userEmail,
                             email_verified: userEmailVerified,
                         })

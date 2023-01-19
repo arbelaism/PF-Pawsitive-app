@@ -131,7 +131,7 @@ const LeftNavbar: any = () => {
                                     : 'dashboardButton'
                             }>
                             <FaUser />
-                            <Link href={'/profile/adoption'}>
+                            <Link href={'/api/auth/logout'}>
                                 <a className="dashboardLinks">Cerrar sesión</a>
                             </Link>
                         </li>
